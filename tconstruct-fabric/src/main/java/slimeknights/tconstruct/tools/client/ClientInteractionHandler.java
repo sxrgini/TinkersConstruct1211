@@ -12,8 +12,6 @@ import slimeknights.mantle.platform.event.player.PlayerInteractEvent;
 import slimeknights.mantle.platform.event.player.PlayerInteractEvent.LeftClickEmpty;
 import slimeknights.mantle.platform.event.EventPriority;
 import slimeknights.mantle.platform.event.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -26,7 +24,6 @@ import slimeknights.tconstruct.tools.network.InteractWithAirPacket;
 /**
  * Client side interaction hooks
  */
-@EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE, value = Dist.CLIENT)
 public class ClientInteractionHandler {
   /** If true, next offhand interaction should be canceled, used since we cannot tell Forge to break the hand loop from the main hand */
   private static boolean cancelNextOffhand = false;

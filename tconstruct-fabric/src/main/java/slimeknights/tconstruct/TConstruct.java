@@ -121,6 +121,10 @@ public class TConstruct implements ModInitializer {
       bus.register(new DummmmmmyPlugin());
     }
 
+    TinkerEventSubscribers.registerCommon();
+    if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+      TinkerEventSubscribers.registerClient();
+    }
     registerAliases();
     bus.post(new FMLCommonSetupEvent());
   }

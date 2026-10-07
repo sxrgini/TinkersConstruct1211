@@ -14,7 +14,6 @@ import slimeknights.mantle.platform.event.living.LivingDropsEvent;
 import slimeknights.mantle.platform.event.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.world.logic.AncientToolItemListing;
@@ -22,7 +21,6 @@ import slimeknights.tconstruct.world.logic.AncientToolItemListing;
 import java.util.Collections;
 
 @SuppressWarnings("unused")
-@Mod.EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WorldEvents {
   /* Heads */
 

@@ -51,6 +51,18 @@ public class FluidType {
     return properties.rarity;
   }
 
+  public boolean canDrown() {
+    return properties.canDrown;
+  }
+
+  public boolean canExtinguish() {
+    return properties.canExtinguish;
+  }
+
+  public double getMotionScale() {
+    return properties.motionScale;
+  }
+
   public boolean canSwim() {
     return properties.canSwim;
   }
@@ -87,6 +99,9 @@ public class FluidType {
     private Rarity rarity = Rarity.COMMON;
     private boolean canSwim = true;
     private boolean canConvertToSource = false;
+    private boolean canDrown = true;
+    private boolean canExtinguish = false;
+    private double motionScale = 0.014;
     private final Map<SoundAction,SoundEvent> sounds = new HashMap<>();
 
     private Properties() {}
@@ -132,6 +147,31 @@ public class FluidType {
 
     public Properties canConvertToSource(boolean canConvertToSource) {
       this.canConvertToSource = canConvertToSource;
+      return this;
+    }
+
+    public Properties canDrown(boolean canDrown) {
+      this.canDrown = canDrown;
+      return this;
+    }
+
+    public Properties canExtinguish(boolean canExtinguish) {
+      this.canExtinguish = canExtinguish;
+      return this;
+    }
+
+    public Properties motionScale(double motionScale) {
+      this.motionScale = motionScale;
+      return this;
+    }
+
+    /** Path type is not used on Fabric, kept so Forge style definitions compile */
+    public Properties pathType(net.minecraft.world.level.pathfinder.PathType type) {
+      return this;
+    }
+
+    /** Path type is not used on Fabric, kept so Forge style definitions compile */
+    public Properties adjacentPathType(net.minecraft.world.level.pathfinder.PathType type) {
       return this;
     }
 

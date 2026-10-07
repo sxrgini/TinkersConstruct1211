@@ -43,8 +43,6 @@ import slimeknights.mantle.platform.event.player.PlayerEvent;
 import slimeknights.mantle.platform.event.Event.Result;
 import slimeknights.mantle.platform.event.EventPriority;
 import slimeknights.mantle.platform.event.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
@@ -93,7 +91,6 @@ import java.util.Objects;
 /**
  * Event subscriber for tool events
  */
-@EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE)
 public class ToolEvents {
   @SuppressWarnings("removal")
   @SubscribeEvent

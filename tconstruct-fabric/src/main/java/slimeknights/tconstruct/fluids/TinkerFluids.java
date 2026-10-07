@@ -7,8 +7,6 @@ import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
@@ -30,12 +28,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraftforge.common.ForgeMod;
+import net.minecraft.world.level.pathfinder.PathType;
 import slimeknights.mantle.platform.fluid.SoundActions;
-import net.minecraftforge.common.brewing.BrewingRecipe;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.data.event.GatherDataEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
@@ -45,7 +39,6 @@ import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.fluid.InvertedFluid;
 import slimeknights.mantle.fluid.UnplaceableFluid;
-import slimeknights.mantle.fluid.texture.FluidTextureCameraProvider;
 import slimeknights.mantle.registration.RegistrationHelper;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.FlowingFluidObject;
@@ -53,10 +46,6 @@ import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.fluids.data.FluidBlockstateModelProvider;
-import slimeknights.tconstruct.fluids.data.FluidBucketModelProvider;
-import slimeknights.tconstruct.fluids.data.FluidTextureProvider;
-import slimeknights.tconstruct.fluids.data.FluidTooltipProvider;
 import slimeknights.tconstruct.fluids.fluids.PotionFluidType;
 import slimeknights.tconstruct.fluids.fluids.SlimeFluid;
 import slimeknights.tconstruct.fluids.fluids.SlimeFluidType;
@@ -65,7 +54,7 @@ import slimeknights.tconstruct.fluids.item.ContainerFoodItem;
 import slimeknights.tconstruct.fluids.item.ContainerFoodItem.FluidContainerFoodItem;
 import slimeknights.tconstruct.fluids.item.MagmaBottleItem;
 import slimeknights.tconstruct.fluids.item.PotionBucketItem;
-import slimeknights.tconstruct.fluids.util.BottleBrewingRecipe;
+import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
 import slimeknights.tconstruct.fluids.util.EmptyBottleIntoEmpty;
 import slimeknights.tconstruct.fluids.util.EmptyBottleIntoWater;
 import slimeknights.tconstruct.fluids.util.FillBottle;
@@ -93,7 +82,6 @@ import static slimeknights.mantle.block.fluid.MobEffectLiquidBlock.createEffect;
 @SuppressWarnings("unused")
 public final class TinkerFluids extends TinkerModule {
   public TinkerFluids() {
-    ForgeMod.enableMilkFluid();
   }
 
   /** Creative tab for general items, or those that lack another tab */
@@ -256,20 +244,7 @@ public final class TinkerFluids extends TinkerModule {
       // from forge lava type
       .motionScale(0.0023333333333333335D)
       .canSwim(false).canDrown(false)
-      .pathType(BlockPathTypes.LAVA).adjacentPathType(null);
-  }
-
-  @SubscribeEvent
-  void gatherData(final GatherDataEvent event) {
-    DataGenerator generator = event.getGenerator();
-    PackOutput packOutput = generator.getPackOutput();
-    boolean client = event.includeClient();
-    generator.addProvider(client, new FluidTooltipProvider(packOutput));
-    FluidTextureProvider textureProvider = new FluidTextureProvider(packOutput);
-    generator.addProvider(client, textureProvider);
-    generator.addProvider(client, new FluidTextureCameraProvider(packOutput, event.getExistingFileHelper(), textureProvider));
-    generator.addProvider(client, new FluidBucketModelProvider(packOutput, TConstruct.MOD_ID));
-    generator.addProvider(client, new FluidBlockstateModelProvider(packOutput, TConstruct.MOD_ID));
+      .pathType(PathType.LAVA).adjacentPathType(null);
   }
 
   @SubscribeEvent
@@ -282,8 +257,6 @@ public final class TinkerFluids extends TinkerModule {
       CauldronInteraction.EMPTY.put(Items.SPLASH_POTION,    new EmptyBottleIntoEmpty(splashBottle,    CauldronInteraction.EMPTY.get(Items.SPLASH_POTION)));
       CauldronInteraction.EMPTY.put(Items.LINGERING_POTION, new EmptyBottleIntoEmpty(lingeringBottle, CauldronInteraction.EMPTY.get(Items.LINGERING_POTION)));
       // brew bottles into each other, bit weird but feels better than shapeless
-      BrewingRecipeRegistry.addRecipe(new BottleBrewingRecipe(Ingredient.of(Items.GLASS_BOTTLE), Items.POTION, Items.SPLASH_POTION, new ItemStack(splashBottle)));
-      BrewingRecipeRegistry.addRecipe(new BottleBrewingRecipe(Ingredient.of(MantleTags.Items.SPLASH_BOTTLE), Items.SPLASH_POTION, Items.LINGERING_POTION, new ItemStack(lingeringBottle)));
     });
 
     // dispense buckets
@@ -381,11 +354,15 @@ public final class TinkerFluids extends TinkerModule {
       DispenserBlock.registerBehavior(moltenSteeleaf, dispenseBucket);
       DispenserBlock.registerBehavior(fieryLiquid, dispenseBucket);
 
-      // brew congealed slime into bottles to get slime bottles, easy melting
-      for (SlimeType slime : SlimeType.values()) {
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(Items.GLASS_BOTTLE), Ingredient.of(TinkerWorld.congealedSlime.get(slime)), new ItemStack(TinkerFluids.slimeBottle.get(slime))));
-      }
-      BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(Items.GLASS_BOTTLE), Ingredient.of(Blocks.MAGMA_BLOCK), new ItemStack(TinkerFluids.magmaBottle)));
+      // brew bottles into each other, bit weird but feels better than shapeless; congealed slime and magma brew into bottles for easy melting
+      FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> {
+        builder.addContainerRecipe(Items.GLASS_BOTTLE, Items.GUNPOWDER, splashBottle.get());
+        builder.addContainerRecipe(splashBottle.get(), Items.DRAGON_BREATH, lingeringBottle.get());
+        for (SlimeType slime : SlimeType.values()) {
+          builder.addContainerRecipe(Items.GLASS_BOTTLE, TinkerWorld.congealedSlime.get(slime).asItem(), TinkerFluids.slimeBottle.get(slime));
+        }
+        builder.addContainerRecipe(Items.GLASS_BOTTLE, Items.MAGMA_BLOCK, TinkerFluids.magmaBottle.get());
+      });
     });
   }
 
@@ -418,7 +395,7 @@ public final class TinkerFluids extends TinkerModule {
     output.accept(searedStone);
     output.accept(scorchedStone);
     output.accept(moltenClay);
-    if (ModList.get().isLoaded("ceramics")) {
+    if (FabricLoader.getInstance().isModLoaded("ceramics")) {
       output.accept(moltenPorcelain);
     }
     output.accept(moltenGlass);

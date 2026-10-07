@@ -47,9 +47,19 @@ tasks.withType(JavaCompile).configureEach {
 
 // Datagen providers are ported last (Fabric datagen entrypoint), keep them out of the compile until then.
 // Remove entries from this list as each package is ported. See docs/FABRIC_PORT_PLAN.md.
+def keepData = [
+    'slimeknights/tconstruct/tools/data/material/MaterialIds.java',
+    'slimeknights/tconstruct/tools/data/ModifierIds.java',
+    'slimeknights/tconstruct/common/data/advancement/AdvancementIds.java',
+    'slimeknights/tconstruct/common/data/FakeRegistryEntry.java',
+    'slimeknights/tconstruct/smeltery/data/SmelteryCompat.java',
+]
 sourceSets.main.java {
-    exclude 'slimeknights/tconstruct/*/data/**'
-    exclude 'slimeknights/tconstruct/library/data/**'
+    exclude { el ->
+        if (el.directory) return false
+        def p = el.relativePath.pathString
+        (p ==~ /slimeknights\/tconstruct\/[^\/]+\/data\/.*/ || p.startsWith('slimeknights/tconstruct/library/data/')) && !keepData.contains(p)
+    }
 }
 
 java { withSourcesJar() }
