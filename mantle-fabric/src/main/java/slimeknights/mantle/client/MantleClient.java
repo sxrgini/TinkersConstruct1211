@@ -12,5 +12,6 @@ public class MantleClient implements ClientModInitializer {
     PacketDistributor.setClientSender(ClientPlayNetworking::send);
     MantleNetwork.registerClientHandlers();
     ClientEvents.init();
+    slimeknights.mantle.platform.event.FabricClientEventBridge.init();
   }
 }

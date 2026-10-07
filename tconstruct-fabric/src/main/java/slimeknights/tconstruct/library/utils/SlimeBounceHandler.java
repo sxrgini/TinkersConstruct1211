@@ -5,7 +5,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.common.util.FakePlayer;
+import net.fabricmc.fabric.api.entity.FakePlayer;
 import slimeknights.mantle.platform.event.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import slimeknights.tconstruct.common.Sounds;

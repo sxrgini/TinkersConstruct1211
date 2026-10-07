@@ -5,7 +5,7 @@ import net.minecraft.util.Mth;
 import slimeknights.mantle.platform.capability.Capability;
 import slimeknights.mantle.platform.capability.Capabilities;
 import slimeknights.mantle.platform.capability.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import slimeknights.mantle.platform.capability.IEnergyStorage;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.ModifierTraitModule;

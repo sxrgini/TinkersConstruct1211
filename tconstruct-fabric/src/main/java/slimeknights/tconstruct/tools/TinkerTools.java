@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools;
 
+import net.minecraft.core.particles.ParticleType;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -27,7 +28,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.platform.event.lifecycle.RegisterEvent;
-import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
@@ -233,7 +233,7 @@ public final class TinkerTools extends TinkerModule {
     if (ModList.get().isLoaded("twilightforest")) {
       minotaurAxe = ITEMS.register("minotaur_axe", () -> new ModifiableItem(UNSTACKABLE_PROPS, ToolDefinitions.MINOTAUR_AXE));
     } else {
-      minotaurAxe = new ItemObject<>(RegistryObject.create(getResource("minotaur_axe"), BuiltInRegistries.ITEM));
+      minotaurAxe = new ItemObject<>(DeferredHolder.create(Registries.ITEM, getResource("minotaur_axe")));
     }
   }
 
@@ -256,9 +256,9 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<Item, ArrowItem> crystalshotItem = ITEMS.register("crystalshot", () -> new CrystalshotItem(ITEM_PROPS));
 
   /* Particles */
-  public static final RegistryObject<SimpleParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack", () -> new SimpleParticleType(true));
-  public static final RegistryObject<SimpleParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack", () -> new SimpleParticleType(true));
-  public static final RegistryObject<SimpleParticleType> bonkAttackParticle = PARTICLE_TYPES.register("bonk", () -> new SimpleParticleType(true));
+  public static final DeferredHolder<ParticleType<?>, SimpleParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack", () -> new SimpleParticleType(true));
+  public static final DeferredHolder<ParticleType<?>, SimpleParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack", () -> new SimpleParticleType(true));
+  public static final DeferredHolder<ParticleType<?>, SimpleParticleType> bonkAttackParticle = PARTICLE_TYPES.register("bonk", () -> new SimpleParticleType(true));
 
   /* Entities */
   public static final DeferredHolder<EntityType<?>, EntityType<IndestructibleItemEntity>> indestructibleItem = ENTITIES.register("indestructible_item", () ->

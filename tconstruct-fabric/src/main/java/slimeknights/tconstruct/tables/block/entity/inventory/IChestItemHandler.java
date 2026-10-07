@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tables.block.entity.inventory;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
+import slimeknights.mantle.platform.util.INBTSerializable;
 import slimeknights.mantle.platform.item.IItemHandlerModifiable;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 

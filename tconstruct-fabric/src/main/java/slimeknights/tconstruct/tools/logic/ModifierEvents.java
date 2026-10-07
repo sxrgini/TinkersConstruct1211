@@ -37,7 +37,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.mantle.platform.PlatformAttributes;
-import net.minecraftforge.common.util.FakePlayer;
+import net.fabricmc.fabric.api.entity.FakePlayer;
 import slimeknights.mantle.platform.event.entity.EntityTeleportEvent;
 import slimeknights.mantle.platform.event.entity.ProjectileImpactEvent;
 import slimeknights.mantle.platform.event.entity.ProjectileImpactEvent.ImpactResult;

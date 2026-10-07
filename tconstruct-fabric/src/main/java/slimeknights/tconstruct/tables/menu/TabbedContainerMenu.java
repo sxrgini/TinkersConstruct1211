@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.menu;
 
+import net.fabricmc.loader.api.FabricLoader;
 import slimeknights.mantle.platform.capability.Caps;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -19,7 +20,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.fabricmc.api.EnvType;
 import slimeknights.mantle.platform.capability.Capabilities;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import slimeknights.mantle.platform.item.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.inventory.EmptyItemHandler;
@@ -184,7 +184,7 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
   public void updateScreen() {
     if (this.tile != null) {
       if (this.tile.getLevel() != null) {
-        if (this.tile.getLevel().isClientSide && FMLEnvironment.dist == Dist.CLIENT) {
+        if (this.tile.getLevel().isClientSide && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
           ClientOnly.clientScreenUpdate();
         }
       }
@@ -197,7 +197,7 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
   public void error(final MutableComponent message) {
     if (this.tile != null) {
       if (this.tile.getLevel() != null) {
-        if (this.tile.getLevel().isClientSide && FMLEnvironment.dist == Dist.CLIENT) {
+        if (this.tile.getLevel().isClientSide && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
           ClientOnly.clientError(message);
         }
       }
@@ -210,7 +210,7 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
   public void warning(final MutableComponent message) {
     if (this.tile != null) {
       if (this.tile.getLevel() != null) {
-        if (this.tile.getLevel().isClientSide && FMLEnvironment.dist == Dist.CLIENT) {
+        if (this.tile.getLevel().isClientSide && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
           ClientOnly.clientWarning(message);
         }
       }

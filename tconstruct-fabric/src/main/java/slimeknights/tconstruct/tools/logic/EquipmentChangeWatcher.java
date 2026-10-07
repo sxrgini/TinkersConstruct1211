@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.logic;
 
+import net.fabricmc.loader.api.FabricLoader;
 import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -15,12 +16,11 @@ import slimeknights.mantle.platform.capability.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.TickEvent.Phase;
-import net.minecraftforge.event.TickEvent.PlayerTickEvent;
+import slimeknights.mantle.platform.event.TickEvent.Phase;
+import slimeknights.mantle.platform.event.TickEvent.PlayerTickEvent;
 import slimeknights.mantle.platform.event.living.LivingEquipmentChangeEvent;
 import slimeknights.mantle.platform.event.EventPriority;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.loading.FMLEnvironment;
+import slimeknights.mantle.platform.event.LogicalSide;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -53,7 +53,7 @@ public class EquipmentChangeWatcher {
     EventBus.BUS.addListener(EquipmentChangeWatcher::onEquipmentChange);
 
     // only need to use the cap and the player tick on the client
-    if (FMLEnvironment.dist == Dist.CLIENT) {
+    if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
       EventBus.BUS.addListener(EquipmentChangeWatcher::onPlayerTick);
       EventBus.BUS.addGenericListener(Entity.class, EquipmentChangeWatcher::attachCapability);
     }

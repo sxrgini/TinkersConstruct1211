@@ -20,6 +20,21 @@ public final class FabricEventBridge {
   public static void init() {
     EventBus bus = EventBus.BUS;
 
+    net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.START_SERVER_TICK.register(server -> {
+      if (bus.hasListeners(TickEvent.PlayerTickEvent.class)) {
+        for (net.minecraft.server.level.ServerPlayer player : server.getPlayerList().getPlayers()) {
+          bus.post(new TickEvent.PlayerTickEvent(TickEvent.Phase.START, LogicalSide.SERVER, player));
+        }
+      }
+    });
+    net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(server -> {
+      if (bus.hasListeners(TickEvent.PlayerTickEvent.class)) {
+        for (net.minecraft.server.level.ServerPlayer player : server.getPlayerList().getPlayers()) {
+          bus.post(new TickEvent.PlayerTickEvent(TickEvent.Phase.END, LogicalSide.SERVER, player));
+        }
+      }
+    });
+
     ServerLivingEntityEvents.ALLOW_DEATH.register((entity, source, amount) ->
       !bus.hasListeners(LivingDeathEvent.class) || !bus.post(new LivingDeathEvent(entity, source)));
 
