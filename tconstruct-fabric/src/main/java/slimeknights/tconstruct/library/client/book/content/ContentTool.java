@@ -19,7 +19,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.locale.Language;
-import net.minecraftforge.common.crafting.IShapedRecipe;
 import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.content.PageContent;
@@ -171,9 +170,9 @@ public class ContentTool extends PageContent {
         this.parts = recipe.getIngredients().stream().map(ingredient -> ItemStackList.of(ingredient.getItems())).collect(Collectors.toList());
 
         // if we have a shaped recipe, display slots in order
-        if (recipe instanceof IShapedRecipe<?> shaped) {
-          int width = Mth.clamp(shaped.getRecipeWidth() - 1, 0, 2);
-          this.imgSlots = IMG_SLOTS_SHAPED[Mth.clamp(shaped.getRecipeHeight() - 1, 0, 2)][width];
+        if (recipe instanceof net.minecraft.world.item.crafting.ShapedRecipe shaped) {
+          int width = Mth.clamp(shaped.getWidth() - 1, 0, 2);
+          this.imgSlots = IMG_SLOTS_SHAPED[Mth.clamp(shaped.getHeight() - 1, 0, 2)][width];
           this.slotPos = SLOTS_WIDTH[width];
         }
       } else {

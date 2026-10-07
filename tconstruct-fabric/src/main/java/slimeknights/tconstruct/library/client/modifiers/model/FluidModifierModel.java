@@ -11,7 +11,7 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.platform.client.IClientFluidTypeExtensions;
 import slimeknights.mantle.platform.client.model.QuadTransformers;
-import net.minecraftforge.client.model.SimpleModelState;
+import slimeknights.mantle.platform.client.model.SimpleModelState;
 import slimeknights.mantle.platform.client.model.UnbakedGeometryHelper;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import org.joml.Vector3f;

@@ -14,7 +14,7 @@ import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraftforge.client.model.BakedModelWrapper;
+import slimeknights.mantle.platform.client.model.BakedModelWrapper;
 import slimeknights.mantle.platform.client.model.IGeometryBakingContext;
 import slimeknights.mantle.platform.client.model.IGeometryLoader;
 import slimeknights.mantle.platform.client.model.IUnbakedGeometry;

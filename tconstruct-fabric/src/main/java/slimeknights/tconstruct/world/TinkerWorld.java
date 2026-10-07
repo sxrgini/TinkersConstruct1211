@@ -1,5 +1,10 @@
 package slimeknights.tconstruct.world;
 
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.tags.BiomeTags;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import slimeknights.mantle.platform.registry.DeferredBlock;
 import slimeknights.mantle.platform.registry.DeferredItem;
@@ -48,14 +53,11 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraftforge.common.PlantType;
-import net.minecraftforge.common.world.BiomeModifier;
 import slimeknights.mantle.platform.event.entity.EntityAttributeCreationEvent;
 import slimeknights.mantle.platform.event.entity.SpawnPlacementRegisterEvent;
 import slimeknights.mantle.platform.event.entity.SpawnPlacementRegisterEvent.Operation;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.registration.object.EntityObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
@@ -114,7 +116,6 @@ public final class TinkerWorld extends TinkerModule {
     MobEquipmentManager.init();
   }
 
-  public static final PlantType SLIME_PLANT_TYPE = PlantType.get("slime");
 
   /** Creative tab for anything that is naturally found in the world */
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabWorld = CREATIVE_TABS.register(
@@ -226,10 +227,10 @@ public final class TinkerWorld extends TinkerModule {
   public static final EnumObject<FoliageType, Block> slimeSapling = Util.make(() -> {
     Function<FoliageType,BlockBehaviour.Properties> props = type -> builder(type.getMapColor(), type.isNether() ? SoundType.FUNGUS : SoundType.GRASS).instabreak().noCollission().pushReaction(PushReaction.DESTROY);
     return new EnumObject.Builder<FoliageType,Block>(FoliageType.class)
-      .putAll(BLOCKS.registerEnum(FoliageType.OVERWORLD, "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type), type, props.apply(type).randomTicks()), TOOLTIP_BLOCK_ITEM))
+      .putAll(BLOCKS.registerEnum(FoliageType.OVERWORLD, "slime_sapling", (type) -> new SlimeSaplingBlock(SlimeTree.create(type), type, props.apply(type).randomTicks()), TOOLTIP_BLOCK_ITEM))
       .put(FoliageType.BLOOD, BLOCKS.register("blood_slime_sapling", () -> new SlimeFungusBlock(props.apply(FoliageType.BLOOD), TinkerStructures.bloodSlimeFungus), TOOLTIP_BLOCK_ITEM))
       .put(FoliageType.ICHOR, BLOCKS.register("ichor_slime_sapling", () -> new SlimeFungusBlock(props.apply(FoliageType.ICHOR), TinkerStructures.ichorSlimeFungus), BLOCK_ITEM))
-      .put(FoliageType.ENDER, BLOCKS.register("ender_slime_sapling", () -> new SlimePropaguleBlock(new SlimeTree(FoliageType.ENDER), FoliageType.ENDER, props.apply(FoliageType.ENDER).randomTicks()), TOOLTIP_BLOCK_ITEM))
+      .put(FoliageType.ENDER, BLOCKS.register("ender_slime_sapling", () -> new SlimePropaguleBlock(SlimeTree.create(FoliageType.ENDER), FoliageType.ENDER, props.apply(FoliageType.ENDER).randomTicks()), TOOLTIP_BLOCK_ITEM))
       .build();
   });
   public static final EnumObject<FoliageType,FlowerPotBlock> pottedSlimeSapling = BLOCKS.registerPottedEnum(FoliageType.values(), "slime_sapling", slimeSapling);
@@ -265,10 +266,6 @@ public final class TinkerWorld extends TinkerModule {
   public static final ResourceKey<ConfiguredFeature<?,?>> configuredEnderGeode = key(Registries.CONFIGURED_FEATURE, "ender_geode");
   public static final ResourceKey<PlacedFeature> placedEnderGeode = key(Registries.PLACED_FEATURE, "ender_geode");
 
-  public static final ResourceKey<BiomeModifier> spawnEarthGeode = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "earth_geode");
-  public static final ResourceKey<BiomeModifier> spawnSkyGeode = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "sky_geode");
-  public static final ResourceKey<BiomeModifier> spawnIchorGeode = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "ichor_geode");
-  public static final ResourceKey<BiomeModifier> spawnEnderGeode = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "ender_geode");
 
   // heads
   public static final EnumObject<TinkerHeadType,SkullBlock> heads = BLOCKS.registerEnumNoItem(TinkerHeadType.values(), "head", TinkerWorld::makeHead);
@@ -298,9 +295,6 @@ public final class TinkerWorld extends TinkerModule {
                       .sized(2.04F, 2.04F)
                       .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.terracubeEntity.get().create(world)), 0xAFB9D6, 0xA1A7B1);
 
-  public static final ResourceKey<BiomeModifier> spawnOverworldSlime = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "spawn_overworld_slime");
-  public static final ResourceKey<BiomeModifier> spawnTerracube = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "spawn_terracube");
-  public static final ResourceKey<BiomeModifier> spawnEndSlime = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "spawn_end_slime");
 
   /*
    * Particles
@@ -312,7 +306,6 @@ public final class TinkerWorld extends TinkerModule {
   /*
    * Features
    */
-  public static ResourceKey<BiomeModifier> spawnCobaltOre = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "cobalt_ore");
   // small veins, standard distribution
   public static ResourceKey<ConfiguredFeature<?,?>> configuredSmallCobaltOre = key(Registries.CONFIGURED_FEATURE, "cobalt_ore_small");
   public static ResourceKey<PlacedFeature> placedSmallCobaltOre = key(Registries.PLACED_FEATURE, "cobalt_ore_small");
@@ -359,6 +352,7 @@ public final class TinkerWorld extends TinkerModule {
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
     WorldEvents.registerTrades();
+    registerBiomeModifications();
     // compostables
     event.enqueueWork(() -> {
       slimeLeaves.forEach((type, block) -> ComposterBlock.add(type.isNether() ? 0.85f : 0.35f, block));
@@ -525,5 +519,21 @@ public final class TinkerWorld extends TinkerModule {
   /** Properties for a cluster of shards. */
   private static Properties clusterProps() {
     return BlockBehaviour.Properties.of().forceSolidOn().noOcclusion().randomTicks().strength(2.5f).requiresCorrectToolForDrops().pushReaction(PushReaction.DESTROY);
+  }
+
+  /** Adds features and spawns to biomes, replaces the Forge biome modifiers */
+  private static void registerBiomeModifications() {
+    // cobalt ore in the nether
+    BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_NETHER), GenerationStep.Decoration.UNDERGROUND_DECORATION, placedSmallCobaltOre);
+    BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_NETHER), GenerationStep.Decoration.UNDERGROUND_DECORATION, placedLargeCobaltOre);
+    // geodes
+    BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD), GenerationStep.Decoration.LOCAL_MODIFICATIONS, placedEarthGeode);
+    BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD).and(BiomeSelectors.tag(BiomeTags.IS_OCEAN).or(BiomeSelectors.tag(BiomeTags.IS_DEEP_OCEAN)).or(BiomeSelectors.tag(BiomeTags.IS_BEACH)).or(BiomeSelectors.tag(BiomeTags.IS_RIVER)).negate()), GenerationStep.Decoration.LOCAL_MODIFICATIONS, placedSkyGeode);
+    BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_NETHER), GenerationStep.Decoration.LOCAL_MODIFICATIONS, placedIchorGeode);
+    BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_END).and(BiomeSelectors.includeByKey(Biomes.THE_END).negate()), GenerationStep.Decoration.LOCAL_MODIFICATIONS, placedEnderGeode);
+    // spawns
+    BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD), MobCategory.MONSTER, skySlimeEntity.get(), 100, 2, 4);
+    BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD).and(BiomeSelectors.tag(TinkerTags.Biomes.NO_DEFAULT_MONSTERS).negate()), MobCategory.MONSTER, terracubeEntity.get(), 10, 2, 4);
+    BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_END), MobCategory.MONSTER, enderSlimeEntity.get(), 10, 2, 4);
   }
 }

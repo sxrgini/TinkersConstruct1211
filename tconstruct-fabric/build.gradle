@@ -51,11 +51,12 @@ def keepData = [
     'slimeknights/tconstruct/tools/data/material/MaterialIds.java',
     'slimeknights/tconstruct/tools/data/ModifierIds.java',
     'slimeknights/tconstruct/common/data/advancement/AdvancementIds.java',
-    'slimeknights/tconstruct/common/data/FakeRegistryEntry.java',
     'slimeknights/tconstruct/smeltery/data/SmelteryCompat.java',
+    'slimeknights/tconstruct/tools/data/sprite/TinkerPartSpriteProvider.java',
 ]
 sourceSets.main.java {
     exclude 'slimeknights/tconstruct/plugin/**'
+    exclude 'slimeknights/tconstruct/shared/command/subcommand/GenerateMeltingRecipesCommand.java'
     // recipe builders are datagen helpers, ported with datagen
     exclude '**/recipe/**/*Builder.java'
     exclude 'slimeknights/tconstruct/common/recipe/LoadableFinishedRecipe.java'

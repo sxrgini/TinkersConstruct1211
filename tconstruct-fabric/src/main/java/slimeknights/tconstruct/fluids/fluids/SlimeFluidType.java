@@ -1,8 +1,9 @@
 package slimeknights.tconstruct.fluids.fluids;
 
+import slimeknights.mantle.fluid.texture.TextureFluidType;
+import slimeknights.mantle.platform.fluid.FluidType.Properties;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.platform.client.IClientFluidTypeExtensions;
-import slimeknights.mantle.fluid.TextureFluidType;
 import slimeknights.mantle.fluid.texture.ClientInvertedFluidType;
 import slimeknights.tconstruct.common.TinkerTags;
 

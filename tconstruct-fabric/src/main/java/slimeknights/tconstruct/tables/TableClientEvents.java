@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tables;
 
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.fabricmc.api.EnvType;
 import slimeknights.mantle.platform.event.client.EntityRenderersEvent;
@@ -54,6 +53,6 @@ public class TableClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerItemColors(final RegisterColorHandlersEvent.Item event) {
-    event.register((stack, index) -> ((DyeableLeatherItem)stack.getItem()).getColor(stack), TinkerTables.tinkersChest.asItem());
+    event.register((stack, index) -> net.minecraft.world.item.component.DyedItemColor.getOrDefault(stack, slimeknights.tconstruct.tables.block.entity.chest.TinkersChestBlockEntity.DEFAULT_COLOR) | 0xFF000000, TinkerTables.tinkersChest.asItem());
   }
 }

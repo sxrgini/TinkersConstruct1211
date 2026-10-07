@@ -183,7 +183,7 @@ public final class TinkerCommons extends TinkerModule {
       BlockTagIngredient.TYPE.register(BlockTagIngredient.ID);
       InstrumentIngredient.TYPE.register(InstrumentIngredient.ID);
       ConditionRegistry.register(ConfigEnabledCondition.ID, ConfigEnabledCondition.CODEC);
-      CriteriaTriggers.register(CONTAINER_OPENED_TRIGGER);
+      CriteriaTriggers.register(TConstruct.getResource("block_container_opened").toString(), CONTAINER_OPENED_TRIGGER);
 
       // mantle
       DamageSourcePredicate.LOADER.register(getResource("direct"), TinkerPredicate.DIRECT_DAMAGE.getLoader());

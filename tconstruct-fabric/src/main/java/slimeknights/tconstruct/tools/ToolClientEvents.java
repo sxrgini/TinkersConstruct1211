@@ -24,7 +24,6 @@ import slimeknights.mantle.platform.event.client.RegisterClientReloadListenersEv
 import slimeknights.mantle.platform.event.client.RegisterColorHandlersEvent;
 import slimeknights.mantle.platform.event.client.RegisterKeyMappingsEvent;
 import slimeknights.mantle.platform.event.client.RegisterParticleProvidersEvent;
-import net.minecraftforge.client.settings.KeyConflictContext;
 import slimeknights.mantle.platform.event.EventBus;
 import slimeknights.mantle.platform.event.TickEvent.Phase;
 import slimeknights.mantle.platform.event.TickEvent.PlayerTickEvent;
@@ -94,9 +93,9 @@ import static slimeknights.tconstruct.library.client.model.tools.ToolModel.regis
 @SuppressWarnings("unused")
 public class ToolClientEvents extends ClientEventBase {
   /** Keybinding for interacting using a helmet */
-  private static final KeyMapping HELMET_INTERACT = new KeyMapping(TConstruct.makeTranslationKey("key", "helmet_interact"), KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.z"), "key.categories.tconstruct");
+  private static final KeyMapping HELMET_INTERACT = new KeyMapping(TConstruct.makeTranslationKey("key", "helmet_interact"), InputConstants.Type.KEYSYM, org.lwjgl.glfw.GLFW.GLFW_KEY_Z, "key.categories.tconstruct");
   /** Keybinding for interacting using leggings */
-  private static final KeyMapping LEGGINGS_INTERACT = new KeyMapping(TConstruct.makeTranslationKey("key", "leggings_interact"), KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.i"), "key.categories.tconstruct");
+  private static final KeyMapping LEGGINGS_INTERACT = new KeyMapping(TConstruct.makeTranslationKey("key", "leggings_interact"), InputConstants.Type.KEYSYM, org.lwjgl.glfw.GLFW.GLFW_KEY_I, "key.categories.tconstruct");
 
   /** Listener to clear modifier cache */
   private static final ISafeManagerReloadListener MODIFIER_RELOAD_LISTENER = manager -> {

@@ -20,7 +20,7 @@ import slimeknights.mantle.platform.ingredient.IngredientType;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
-import slimeknights.tconstruct.library.tools.definition.module.ToolModule.ModuleHook;
+import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 
 import java.util.ArrayList;

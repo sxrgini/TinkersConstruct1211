@@ -63,6 +63,14 @@ public class FluidType {
     return properties.motionScale;
   }
 
+  /** Checks if the entity drowns in this fluid */
+  public boolean canDrownIn(net.minecraft.world.entity.LivingEntity entity) {
+    return properties.canDrown;
+  }
+
+  /** Hook for client extensions, called by the client initializer */
+  public void initializeClient(java.util.function.Consumer<slimeknights.mantle.platform.client.IClientFluidTypeExtensions> consumer) {}
+
   public boolean canSwim() {
     return properties.canSwim;
   }

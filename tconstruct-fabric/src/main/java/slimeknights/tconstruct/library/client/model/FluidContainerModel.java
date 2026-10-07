@@ -41,16 +41,16 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.client.RenderTypeGroup;
+import slimeknights.mantle.platform.client.model.RenderTypeGroup;
 import slimeknights.mantle.platform.client.IClientFluidTypeExtensions;
-import net.minecraftforge.client.model.CompositeModel;
-import net.minecraftforge.client.model.DynamicFluidContainerModel;
+import slimeknights.mantle.platform.client.model.CompositeModel;
+import slimeknights.mantle.platform.client.model.DynamicFluidContainerModel;
 import slimeknights.mantle.platform.client.model.QuadTransformers;
-import net.minecraftforge.client.model.SimpleModelState;
+import slimeknights.mantle.platform.client.model.SimpleModelState;
 import slimeknights.mantle.platform.client.model.IGeometryBakingContext;
 import slimeknights.mantle.platform.client.model.IGeometryLoader;
 import slimeknights.mantle.platform.client.model.IUnbakedGeometry;
-import net.minecraftforge.client.model.geometry.StandaloneGeometryBakingContext;
+import slimeknights.mantle.platform.client.model.StandaloneGeometryBakingContext;
 import slimeknights.mantle.platform.client.model.UnbakedGeometryHelper;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
@@ -68,13 +68,13 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * Extension of {@link net.minecraftforge.client.model.DynamicFluidContainerModel} with two additional features: baked tints and fluid stack sensitive models.
+ * Extension of {@link slimeknights.mantle.platform.client.model.DynamicFluidContainerModel} with two additional features: baked tints and fluid stack sensitive models.
  * Does not handle covers as I have never seen a need for them, and it means less code duplication (plus the forge model does the whole cover is mask thing wrong compared to 1.18).
  */
 public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements IUnbakedGeometry<FluidContainerModel> {
   public static final IGeometryLoader<FluidContainerModel> LOADER = FluidContainerModel::deserialize;
 
-  /** Clone of same named field from {@link net.minecraftforge.client.model.DynamicFluidContainerModel} */
+  /** Clone of same named field from {@link slimeknights.mantle.platform.client.model.DynamicFluidContainerModel} */
   public static final Transformation FLUID_TRANSFORM = new Transformation(new Vector3f(), new Quaternionf(), new Vector3f(1, 1, 1.002f), new Quaternionf());
 
   /** Deserializes this model from JSON */

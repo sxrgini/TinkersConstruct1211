@@ -7,7 +7,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.server.command.ModIdArgument;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -28,11 +28,11 @@ public class GeneratePartTexturesCommand {
               // generate_part_textures all|missing [<mod_id>|<material>]
               .then(Commands.literal("all")
                             .executes(context -> run(context, Operation.ALL, "", ""))
-                            .then(Commands.argument("mod_id", ModIdArgument.modIdArgument()).executes(context -> runModId(context, Operation.ALL)))
+                            .then(Commands.argument("mod_id", StringArgumentType.word()).executes(context -> runModId(context, Operation.ALL)))
                             .then(Commands.argument("material", MaterialArgument.material()).executes(context -> runMaterial(context, Operation.ALL))))
               .then(Commands.literal("missing")
                             .executes(context -> run(context, Operation.MISSING, "", ""))
-                            .then(Commands.argument("mod_id", ModIdArgument.modIdArgument()).executes(context -> runModId(context, Operation.MISSING)))
+                            .then(Commands.argument("mod_id", StringArgumentType.word()).executes(context -> runModId(context, Operation.MISSING)))
                             .then(Commands.argument("material", MaterialArgument.material()).executes(context -> runMaterial(context, Operation.MISSING))));
   }
 

@@ -21,7 +21,7 @@ import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.platform.capability.ICapabilityProvider;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
-import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
+import slimeknights.mantle.platform.fluid.FluidBucketWrapper;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nonnull;

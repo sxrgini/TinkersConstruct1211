@@ -27,7 +27,6 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import slimeknights.mantle.platform.loot.IGlobalLootModifier;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.registries.ForgeRegistries.Keys;
 import slimeknights.mantle.item.tooltip.BlockTooltipItem;
 import slimeknights.mantle.item.tooltip.TooltipItem;
 import slimeknights.mantle.registration.deferred.BlockEntityTypeDeferredRegister;
@@ -65,7 +64,6 @@ public abstract class TinkerModule {
   protected static final FluidDeferredRegisterExtension FLUIDS = new FluidDeferredRegisterExtension(TConstruct.MOD_ID);
   protected static final EnumDeferredRegister<MobEffect> MOB_EFFECTS = new EnumDeferredRegister<>(Registries.MOB_EFFECT, TConstruct.MOD_ID);
   protected static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, TConstruct.MOD_ID);
-  protected static final DeferredRegister<EntityDataSerializer<?>> DATA_SERIALIZERS = DeferredRegister.create(Keys.ENTITY_DATA_SERIALIZERS, TConstruct.MOD_ID);
   protected static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TConstruct.MOD_ID);
   // gameplay instances
   protected static final BlockEntityTypeDeferredRegister BLOCK_ENTITIES = new BlockEntityTypeDeferredRegister(TConstruct.MOD_ID);
@@ -94,7 +92,6 @@ public abstract class TinkerModule {
     FLUIDS.register();
     MOB_EFFECTS.register();
     PARTICLE_TYPES.register();
-    DATA_SERIALIZERS.register();
     CREATIVE_TABS.register();
     // gameplay instance
     BLOCK_ENTITIES.register();

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.materials;
 
+import slimeknights.mantle.platform.event.EventBus;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -53,9 +54,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     // we do this as we need to guarantee we run before models are baked, which happens in the first stage of listeners in the bakery constructor
     // the other option would be to wait until the atlas stitch event, though that would make it more difficult to know which sprites we need
     EventBus.MOD_BUS.addListener(EventPriority.NORMAL, false, ModelEvent.RegisterAdditional.class, event -> {
-      if(ModLoader.isLoadingStateValid()) {
-        INSTANCE.onReloadSafe(Minecraft.getInstance().getResourceManager());
-      }
+      INSTANCE.onReloadSafe(Minecraft.getInstance().getResourceManager());
     });
   }
 

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import net.minecraft.world.entity.boss.EnderDragonPart;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
@@ -26,7 +27,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.platform.PlatformHooks;
-import net.minecraft.world.entity.PartEntity;
 import slimeknights.mantle.platform.event.player.CriticalHitEvent;
 import slimeknights.mantle.util.CombatHelper;
 import slimeknights.mantle.util.OffhandCooldownTracker;
@@ -128,8 +128,8 @@ public class ToolAttackUtil {
    */
   @Nullable
   public static LivingEntity getLivingEntity(Entity entity) {
-    if (entity instanceof PartEntity<?> part) {
-      entity = part.getParent();
+    if (entity instanceof EnderDragonPart part) {
+      entity = part.parentMob;
     }
     return entity instanceof LivingEntity living ? living : null;
   }

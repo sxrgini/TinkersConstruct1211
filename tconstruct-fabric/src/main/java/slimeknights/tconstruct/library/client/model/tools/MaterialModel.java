@@ -20,7 +20,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
-import net.minecraftforge.client.model.CompositeModel;
+import slimeknights.mantle.platform.client.model.CompositeModel;
 import slimeknights.mantle.platform.client.model.IGeometryBakingContext;
 import slimeknights.mantle.platform.client.model.IGeometryLoader;
 import slimeknights.mantle.platform.client.model.IUnbakedGeometry;

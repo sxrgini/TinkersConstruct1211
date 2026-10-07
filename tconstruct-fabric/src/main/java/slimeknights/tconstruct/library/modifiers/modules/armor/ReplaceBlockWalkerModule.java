@@ -11,7 +11,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraftforge.common.util.BlockSnapshot;
 import slimeknights.mantle.platform.PlatformHooks;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.common.BlockStateLoadable;
@@ -70,8 +69,7 @@ public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, Leve
           // target handles matching any desired states like fluid level
           BlockState state = replacement.state;
           if (replacement.target.matches(world.getBlockState(mutable))
-              && state.canSurvive(world, mutable) && world.isUnobstructed(state, mutable, CollisionContext.empty())
-              && !PlatformHooks.onBlockPlace(living, BlockSnapshot.create(world.dimension(), world, mutable), Direction.UP)) {
+              && state.canSurvive(world, mutable) && world.isUnobstructed(state, mutable, CollisionContext.empty())) {
             world.setBlockAndUpdate(mutable, state);
             world.scheduleTick(mutable, state.getBlock(), Mth.nextInt(living.getRandom(), 60, 120));
 

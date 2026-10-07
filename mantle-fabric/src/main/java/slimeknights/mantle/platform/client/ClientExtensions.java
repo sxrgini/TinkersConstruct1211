@@ -51,6 +51,9 @@ public final class ClientExtensions {
         });
       }
     }
+    for (slimeknights.mantle.platform.fluid.FluidType type : slimeknights.mantle.platform.fluid.FluidTypes.REGISTRY) {
+      type.initializeClient(extensions -> IClientFluidTypeExtensions.register(type, extensions));
+    }
     for (MobEffect effect : BuiltInRegistries.MOB_EFFECT) {
       if (effect instanceof IClientMobEffectExtensionsProvider provider) {
         provider.initializeClient(extensions -> EFFECTS.put(effect, extensions));

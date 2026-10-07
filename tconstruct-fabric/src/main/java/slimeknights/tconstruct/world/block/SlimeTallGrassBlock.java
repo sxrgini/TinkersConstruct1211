@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import slimeknights.mantle.platform.item.IShearable;
-import net.minecraftforge.common.PlantType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nonnull;
@@ -38,12 +37,6 @@ public class SlimeTallGrassBlock extends BushBlock implements IShearable {
   }
 
   /* Forge/MC callbacks */
-  @Nonnull
-  @Override
-  public PlantType getPlantType(BlockGetter world, BlockPos pos) {
-    return TinkerWorld.SLIME_PLANT_TYPE;
-  }
-
   @Nonnull
   @Override
   public List<ItemStack> onSheared(@Nullable Player player, ItemStack item, Level world, BlockPos pos, int fortune) {

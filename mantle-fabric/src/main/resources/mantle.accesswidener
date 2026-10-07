@@ -142,3 +142,4 @@ accessible method net/minecraft/world/entity/SpawnPlacements$Data <init> (Lnet/m
 # Adding attributes to existing entities
 accessible field net/minecraft/world/entity/ai/attributes/AttributeSupplier instances Ljava/util/Map;
 accessible method net/minecraft/world/entity/ai/attributes/AttributeSupplier <init> (Ljava/util/Map;)V
+accessible field net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid;

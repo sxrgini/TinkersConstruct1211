@@ -28,14 +28,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.SkullBlock.Type;
-import net.minecraftforge.client.ForgeHooksClient;
+import slimeknights.mantle.platform.client.ClientHooks;
 
 import java.util.Map;
 
@@ -75,10 +74,10 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
         armorModel.head.visible = true;
         armorModel.hat.visible = true;
         //noinspection UnstableApiUsage  I am reimplementing vanilla stuff, I will call vanilla hooks
-        Model model = ForgeHooksClient.getArmorModel(entity, helmet, EquipmentSlot.HEAD, armorModel);
+        Model model = ClientHooks.getArmorModel(entity, helmet, EquipmentSlot.HEAD, armorModel);
         boolean enchanted = helmet.hasFoil();
-        if (armor instanceof DyeableLeatherItem dyeable) {
-          int color = dyeable.getColor(helmet);
+        if (helmet.has(net.minecraft.core.component.DataComponents.DYED_COLOR)) {
+          int color = net.minecraft.world.item.component.DyedItemColor.getOrDefault(helmet, -1);
           float red = (color >> 16 & 255) / 255.0F;
           float green = (color >> 8 & 255) / 255.0F;
           float blue = (color & 255) / 255.0F;
@@ -137,7 +136,7 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
       texture = texture.substring(idx + 1);
     }
     String path = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_1%s.png", domain, texture, type);
-    path = ForgeHooksClient.getArmorTexture(entity, stack, path, EquipmentSlot.HEAD, type);
+    path = ClientHooks.getArmorTexture(entity, stack, path, EquipmentSlot.HEAD, type);
     ResourceLocation location = HumanoidArmorLayer.ARMOR_LOCATION_CACHE.get(path);
     if (location == null) {
       location = ResourceLocation.parse(path);

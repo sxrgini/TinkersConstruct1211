@@ -12,7 +12,6 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.BinomialWithBonusCount;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.Formula;
-import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.FormulaDeserializer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.OreDrops;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.UniformBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;

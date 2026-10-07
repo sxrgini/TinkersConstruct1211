@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.modifiers;
 
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Holder;
 import net.fabricmc.loader.api.FabricLoader;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.Gson;
@@ -107,7 +109,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /** List of tag to modifier mappings to try */
   private Map<TagKey<Enchantment>, Modifier> enchantmentTagMap = Collections.emptyMap();
   /** Mapping from enchantment to modifiers, for conversions */
-  private Map<Enchantment,Modifier> enchantmentMap = Collections.emptyMap();
+  private Map<ResourceKey<Enchantment>,Modifier> enchantmentMap = Collections.emptyMap();
 
   /** If true, dynamic modifiers have been loaded from datapacks, so its safe to fetch dynamic modifiers */
   @Getter
@@ -245,15 +247,8 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
               if (optional) {
                 key = key.substring(0, key.length() - 1);
               }
-              Enchantment enchantment = BuiltInRegistries.ENCHANTMENT.get(ResourceLocation.parse(key));
-              if (enchantment == null) {
-                if (optional) {
-                  TConstruct.LOG.debug("Skipping modifier " + modifierId + " due to unknown optional enchantment " + key);
-                  continue;
-                }
-                throw new JsonSyntaxException("Invalid enchantment ID " + key + " for modifier " + modifierId);
-              }
-              enchantmentMap.put(enchantment, modifier);
+              // enchantments are data driven, so we cannot validate that they exist here
+              enchantmentMap.put(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse(key)), modifier);
             }
           } catch (RuntimeException e) {
             log.info("Invalid enchantment to modifier mapping", e);
@@ -312,7 +307,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   }
 
   /** Updates the modifiers from the server */
-  void updateModifiersFromServer(Map<ModifierId,Modifier> modifiers, Map<TagKey<Modifier>,List<Modifier>> tags, Map<Enchantment,Modifier> enchantmentMap, Map<TagKey<Enchantment>,Modifier> enchantmentTagMappings) {
+  void updateModifiersFromServer(Map<ModifierId,Modifier> modifiers, Map<TagKey<Modifier>,List<Modifier>> tags, Map<ResourceKey<Enchantment>,Modifier> enchantmentMap, Map<TagKey<Enchantment>,Modifier> enchantmentTagMappings) {
     this.dynamicModifiers = modifiers;
     this.dynamicModifiersLoaded = true;
     this.tags = tags;
@@ -356,16 +351,16 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
    * @param enchantment  Enchantment
    * @return Closest modifier to the enchantment, or null if no match
    */
-  @SuppressWarnings("deprecation")  // eventually it won't be if we move away from forge
   @Nullable
-  public Modifier get(Enchantment enchantment) {
+  public Modifier get(Holder<Enchantment> enchantment) {
     // if we saw it before, return the last value
-    if (enchantmentMap.containsKey(enchantment)) {
-      return enchantmentMap.get(enchantment);
+    Modifier mapped = enchantment.unwrapKey().map(enchantmentMap::get).orElse(null);
+    if (mapped != null) {
+      return mapped;
     }
     // did not find, check the tags
     for (Entry<TagKey<Enchantment>,Modifier> mapping : enchantmentTagMap.entrySet()) {
-      if (RegistryHelper.contains(BuiltInRegistries.ENCHANTMENT, mapping.getKey(), enchantment)) {
+      if (enchantment.is(mapping.getKey())) {
         return mapping.getValue();
       }
     }
@@ -378,13 +373,13 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   }
 
   /** Gets a stream of all enchantments that match the given modifiers */
-  @SuppressWarnings("deprecation")  // eventually it won't be if we move away from forge
-  public Stream<Enchantment> getEquivalentEnchantments(Predicate<ModifierId> modifiers) {
+  public Stream<Holder<Enchantment>> getEquivalentEnchantments(Predicate<ModifierId> modifiers, HolderLookup.Provider access) {
     Predicate<Entry<?,Modifier>> predicate = entry -> modifiers.test(entry.getValue().getId());
+    HolderLookup.RegistryLookup<Enchantment> lookup = access.lookupOrThrow(Registries.ENCHANTMENT);
     return Stream.concat(
-      enchantmentMap.entrySet().stream().filter(predicate).map(Entry::getKey),
-      enchantmentTagMap.entrySet().stream().filter(predicate).flatMap(entry -> RegistryHelper.getTagValueStream(BuiltInRegistries.ENCHANTMENT, entry.getKey()))
-    ).distinct().sorted(Comparator.comparing(enchantment -> Objects.requireNonNull(BuiltInRegistries.ENCHANTMENT.getKey(enchantment))));
+      enchantmentMap.entrySet().stream().filter(predicate).flatMap(entry -> lookup.get(entry.getKey()).stream().map(holder -> (Holder<Enchantment>) holder)),
+      enchantmentTagMap.entrySet().stream().filter(predicate).flatMap(entry -> lookup.get(entry.getKey()).stream().flatMap(set -> set.stream()))
+    ).distinct().sorted(Comparator.comparing(enchantment -> enchantment.unwrapKey().map(key -> key.location().toString()).orElse("")));
   }
 
   /** Gets a list of all modifier IDs */
