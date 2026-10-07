@@ -44,16 +44,16 @@ import java.util.stream.Stream;
  * That or merge it into tool building as previously planned.
  */
 public class TinkerStationPartSwapping extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolTinkering> {
-  public static final RecordLoadable<TinkerStationPartSwapping> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), TOOLS_FIELD, STACK_SIZE_FIELD, EXTRA_REQUIREMENTS_FIELD, TinkerStationPartSwapping::new);
+  public static final RecordLoadable<TinkerStationPartSwapping> LOADER = RecordLoadable.create(TOOLS_FIELD, STACK_SIZE_FIELD, EXTRA_REQUIREMENTS_FIELD, TinkerStationPartSwapping::new);
 
-  protected TinkerStationPartSwapping(ResourceLocation id, Ingredient tools, int maxStackSize, List<SizedIngredient> extraRequirements) {
-    super(id, tools, maxStackSize, extraRequirements);
+  protected TinkerStationPartSwapping(Ingredient tools, int maxStackSize, List<SizedIngredient> extraRequirements) {
+    super(tools, maxStackSize, extraRequirements);
   }
 
   /** @deprecated use {@link #TinkerStationPartSwapping(ResourceLocation, Ingredient, int, List)} */
   @Deprecated(forRemoval = true)
-  public TinkerStationPartSwapping(ResourceLocation id, Ingredient tools, int maxStackSize) {
-    this(id, tools, maxStackSize, List.of());
+  public TinkerStationPartSwapping(Ingredient tools, int maxStackSize) {
+    this(tools, maxStackSize, List.of());
   }
 
   @Override

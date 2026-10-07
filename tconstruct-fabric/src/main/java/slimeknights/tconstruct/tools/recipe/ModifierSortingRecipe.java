@@ -42,7 +42,6 @@ public class ModifierSortingRecipe extends AbstractWorktableRecipe {
   private static final Component NOT_ENOUGH_MODIFIERS = TConstruct.makeTranslation("recipe", "modifier_sorting.not_enough_modifiers").withStyle(ChatFormatting.RED);
 
   public static final RecordLoadable<ModifierSortingRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     SizedIngredient.LOADABLE.list(ArrayLoadable.COMPACT).validate((list, error) -> {
       if ((error == ErrorFactory.RUNTIME || error == ErrorFactory.JSON_SYNTAX_ERROR) && list.size() > 1) {
         TConstruct.LOG.warn("Using multiple ingredients for the modifier sorting recipe is deprecated. Use just a single input.");
@@ -51,8 +50,8 @@ public class ModifierSortingRecipe extends AbstractWorktableRecipe {
     }).requiredField("inputs", r -> r.inputs),
     ModifierSortingRecipe::new);
 
-  public ModifierSortingRecipe(ResourceLocation id, List<SizedIngredient> inputs) {
-    super(id, inputs);
+  public ModifierSortingRecipe(List<SizedIngredient> inputs) {
+    super(inputs);
   }
 
   @Override

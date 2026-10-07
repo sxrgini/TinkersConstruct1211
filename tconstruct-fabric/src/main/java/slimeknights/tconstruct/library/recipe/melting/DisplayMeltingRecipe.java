@@ -49,7 +49,7 @@ public class DisplayMeltingRecipe implements IDisplayableMeltingRecipe {
   @Accessors(fluent = true)
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder {
-    private final ResourceLocation id;
+
     private List<ItemStack> inputs;
     /** List of output options. Size should match {@link #inputs(List)} for focus linking. */
     private List<FluidStack> outputs;
@@ -141,7 +141,7 @@ public class DisplayMeltingRecipe implements IDisplayableMeltingRecipe {
       if (time == 0) {
         time = outputs.stream().mapToInt(fluid -> IMeltingRecipe.calcTimeForAmount(temperature, fluid.getAmount())).max().orElse(1);
       }
-      return new DisplayMeltingRecipe(id, inputs, outputs, outputsWithByproducts, temperature, time, oreType, timeDynamic);
+      return new DisplayMeltingRecipe(inputs, outputs, outputsWithByproducts, temperature, time, oreType, timeDynamic);
     }
   }
 }

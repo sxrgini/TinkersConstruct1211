@@ -24,7 +24,7 @@ import java.util.function.Function;
 public class DamageableMeltingRecipe extends MeltingRecipe {
   /** Loader instance */
   public static final RecordLoadable<DamageableMeltingRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP, INPUT, OUTPUT, TEMPERATURE, TIME, BYPRODUCTS,
+    LoadableRecipeSerializer.RECIPE_GROUP, INPUT, OUTPUT, TEMPERATURE, TIME, BYPRODUCTS,
     new MergingField<>(IntLoadable.FROM_ONE.defaultField("unit_size", 1, r -> r.unitSize), "result", MissingMode.IGNORE),
     new MergingListField<>(IntLoadable.FROM_ONE.defaultField("unit_size", 1, Function.identity()), "byproducts", r -> r.byproductSizes),
     DamageableMeltingRecipe::new);
@@ -33,8 +33,8 @@ public class DamageableMeltingRecipe extends MeltingRecipe {
   private final int unitSize;
   /** Sizes of byproducts */
   private final List<Integer> byproductSizes;
-  public DamageableMeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidOutput output, int temperature, int time, List<FluidOutput> byproducts, int unitSize, List<Integer> byproductSizes) {
-    super(id, group, input, output, temperature, time, byproducts);
+  public DamageableMeltingRecipe(String group, Ingredient input, FluidOutput output, int temperature, int time, List<FluidOutput> byproducts, int unitSize, List<Integer> byproductSizes) {
+    super(group, input, output, temperature, time, byproducts);
     this.unitSize = unitSize;
     this.byproductSizes = byproductSizes;
   }

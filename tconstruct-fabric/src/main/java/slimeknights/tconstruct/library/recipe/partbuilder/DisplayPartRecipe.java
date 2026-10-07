@@ -20,7 +20,7 @@ import java.util.List;
 @Getter
 public class DisplayPartRecipe implements IDisplayPartBuilderRecipe.DisplayOnly {
   /** ID of recipe; should generally match a real recipe JSON */
-  private final ResourceLocation id;
+
   /** Material variant for name display */
   private final List<MaterialVariant> materials;
   /** Display title override. */
@@ -41,8 +41,8 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe.DisplayOnly 
 
   /** @deprecated use {@link #id(ResourceLocation)} */
   @Deprecated(forRemoval = true)
-  public DisplayPartRecipe(ResourceLocation id, MaterialVariant material, Pattern pattern, List<ItemStack> patternItems, int cost, List<ItemStack> materialItems, List<ItemStack> resultItems) {
-    this(id, List.of(material), null, List.of(), List.of(pattern), patternItems, cost, materialItems, resultItems);
+  public DisplayPartRecipe(MaterialVariant material, Pattern pattern, List<ItemStack> patternItems, int cost, List<ItemStack> materialItems, List<ItemStack> resultItems) {
+    this(List.of(material), null, List.of(), List.of(pattern), patternItems, cost, materialItems, resultItems);
   }
 
   @Override
@@ -71,7 +71,7 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe.DisplayOnly 
   @RequiredArgsConstructor
   public static class Builder {
     /** ID of recipe; should generally match a real recipe JSON */
-    private final ResourceLocation id;
+
     /** Material variant for name display */
     private List<MaterialVariant> materials = List.of();
     /** Title to display in JEI */
@@ -127,7 +127,7 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe.DisplayOnly 
     /** Builds the display recipe */
     public IDisplayPartBuilderRecipe build() {
       if (results.isEmpty()) throw new IllegalStateException("Results cannot be empty");
-      return new DisplayPartRecipe(id, materials, title, tooltip, patterns, patternItems, cost, materialItems, results);
+      return new DisplayPartRecipe(materials, title, tooltip, patterns, patternItems, cost, materialItems, results);
     }
   }
 }

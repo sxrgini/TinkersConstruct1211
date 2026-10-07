@@ -25,7 +25,6 @@ import java.util.List;
 @Getter
 public class MeltingFuel implements ICustomOutputRecipe<IFluidContainer> {
   public static final RecordLoadable<MeltingFuel> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     FluidIngredient.LOADABLE.defaultField("fluid", FluidIngredient.EMPTY, r -> r.input),
     IntLoadable.FROM_ONE.defaultField("duration", 0, MeltingFuel::getDuration),
     IntLoadable.FROM_ONE.requiredField("temperature", MeltingFuel::getTemperature),
@@ -38,14 +37,12 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidContainer> {
       return fuel;
     });
 
-  private final ResourceLocation id;
   private final FluidIngredient input;
   private final int duration;
   private final int temperature;
   private final int rate;
 
-  public MeltingFuel(ResourceLocation id, FluidIngredient input, int duration, int temperature, int rate) {
-    this.id = id;
+  public MeltingFuel(FluidIngredient input, int duration, int temperature, int rate) {
     this.input = input;
     this.duration = duration;
     this.temperature = temperature;

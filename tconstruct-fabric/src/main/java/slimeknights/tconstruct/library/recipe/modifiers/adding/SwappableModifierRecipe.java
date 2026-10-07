@@ -48,7 +48,6 @@ public class SwappableModifierRecipe extends ModifierRecipe {
 
   private static final String ALREADY_PRESENT = TConstruct.makeTranslationKey("recipe", "swappable.already_present");
   public static final RecordLoadable<SwappableModifierRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     INPUTS_FIELD, TOOLS_FIELD, MAX_TOOL_SIZE_FIELD,
     new MergingField<>(ModifierId.PARSER.requiredField("name", r -> r.result.getId()), "result", MissingMode.DISALLOWED),
     new MergingField<>(StringLoadable.DEFAULT.requiredField("value", r -> r.value), "result", MissingMode.DISALLOWED),
@@ -64,8 +63,8 @@ public class SwappableModifierRecipe extends ModifierRecipe {
   @Getter
   private final Component variant;
 
-  public SwappableModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierId result, String value, VariantFormatter variantFormatter, @Nullable SlotCount slots, boolean allowCrystal) {
-    super(id, inputs, toolRequirement, maxToolSize, result, new IntRange(1, 1), slots, allowCrystal, false);
+  public SwappableModifierRecipe(List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierId result, String value, VariantFormatter variantFormatter, @Nullable SlotCount slots, boolean allowCrystal) {
+    super(inputs, toolRequirement, maxToolSize, result, new IntRange(1, 1), slots, allowCrystal, false);
     this.value = value;
     this.variantFormatter = variantFormatter;
     this.variant = variantFormatter.format(result, value);

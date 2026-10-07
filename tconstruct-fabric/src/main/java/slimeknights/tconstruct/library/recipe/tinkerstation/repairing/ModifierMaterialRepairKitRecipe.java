@@ -23,7 +23,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.MaterialRepairModule} */
 @Deprecated(forRemoval = true)
 public class ModifierMaterialRepairKitRecipe extends CraftingTableRepairKitRecipe implements IModifierMaterialRepairRecipe {
-  public static final RecordLoadable<ModifierMaterialRepairKitRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), MODIFIER_FIELD, REPAIR_MATERIAL_FIELD, STAT_TYPE_FIELD, ModifierMaterialRepairKitRecipe::new);
+  public static final RecordLoadable<ModifierMaterialRepairKitRecipe> LOADER = RecordLoadable.create(MODIFIER_FIELD, REPAIR_MATERIAL_FIELD, STAT_TYPE_FIELD, ModifierMaterialRepairKitRecipe::new);
 
   /** Tool that can be repaired with this recipe */
   @Getter
@@ -34,8 +34,8 @@ public class ModifierMaterialRepairKitRecipe extends CraftingTableRepairKitRecip
   /** Stat type used for repairing, null means it will be fetched as the first available stat type */
   @Getter
   private final MaterialStatsId statType;
-  public ModifierMaterialRepairKitRecipe(ResourceLocation id, ModifierId modifier, MaterialId repairMaterial, MaterialStatsId statType) {
-    super(id);
+  public ModifierMaterialRepairKitRecipe(ModifierId modifier, MaterialId repairMaterial, MaterialStatsId statType) {
+    super();
     this.modifier = modifier;
     this.repairMaterial = repairMaterial;
     this.statType = statType;

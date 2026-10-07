@@ -13,7 +13,7 @@ import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.mantle.recipe.container.ISingleStackContainer;
+import slimeknights.mantle.recipe.input.SingleItemInput;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -28,12 +28,11 @@ import java.util.List;
 /**
  * Recipe to get the material from an ingredient
  */
-public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer>, IMaterialValue, IDisplayMaterialRecipe {
+public class MaterialRecipe implements ICustomOutputRecipe<SingleItemInput>, IMaterialValue, IDisplayMaterialRecipe {
   /** Empty material instance for the cache */
   @SuppressWarnings("removal")
   public static final MaterialRecipe EMPTY = new MaterialRecipe(new ResourceLocation("missingno"), "", Ingredient.EMPTY, 0, 0, MaterialId.UNKNOWN, ItemOutput.EMPTY);
   public static final RecordLoadable<MaterialRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     LoadableRecipeSerializer.RECIPE_GROUP,
     IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", MaterialRecipe::getIngredient),
     IMaterialValue.VALUE_FIELD,
@@ -45,8 +44,6 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
   /** Vanilla requires 4 ingots for full repair, we drop it down to 3 to mesh better with nuggets and blocks and to fit small head costs better */
   public static final float INGOTS_PER_REPAIR = 3f;
 
-  @Getter
-  protected final ResourceLocation id;
   @Getter
   protected final String group;
   @Getter
@@ -67,8 +64,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
    * Creates a new material recipe
    */
   @SuppressWarnings("WeakerAccess")
-  public MaterialRecipe(ResourceLocation id, String group, Ingredient ingredient, int value, int needed, MaterialVariantId materialId, ItemOutput leftover) {
-    this.id = id;
+  public MaterialRecipe(String group, Ingredient ingredient, int value, int needed, MaterialVariantId materialId, ItemOutput leftover) {
     this.group = group;
     this.ingredient = ingredient;
     this.value = value;
@@ -112,8 +108,8 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
   /* Material methods */
 
   @Override
-  public boolean matches(ISingleStackContainer inv, Level worldIn) {
-    return !material.isUnknown() && this.ingredient.test(inv.getStack());
+  public boolean matches(SingleItemInput inv, Level worldIn) {
+    return !material.isUnknown() && this.ingredient.test(inv.getItem());
   }
 
   @Override

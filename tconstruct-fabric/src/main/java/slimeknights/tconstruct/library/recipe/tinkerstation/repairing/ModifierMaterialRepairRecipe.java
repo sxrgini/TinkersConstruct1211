@@ -26,7 +26,7 @@ import java.util.List;
 /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.MaterialRepairModule} */
 @Deprecated(forRemoval = true)
 public class ModifierMaterialRepairRecipe extends TinkerStationRepairRecipe implements IModifierMaterialRepairRecipe {
-  public static final RecordLoadable<ModifierMaterialRepairRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), MODIFIER_FIELD, REPAIR_MATERIAL_FIELD, STAT_TYPE_FIELD, ModifierMaterialRepairRecipe::new);
+  public static final RecordLoadable<ModifierMaterialRepairRecipe> LOADER = RecordLoadable.create(MODIFIER_FIELD, REPAIR_MATERIAL_FIELD, STAT_TYPE_FIELD, ModifierMaterialRepairRecipe::new);
 
   /** Tool that can be repaired with this recipe */
   @Getter
@@ -36,8 +36,8 @@ public class ModifierMaterialRepairRecipe extends TinkerStationRepairRecipe impl
   /** Stat type used for repairing, null means it will be fetched as the first available stat type */
   @Getter
   private final MaterialStatsId statType;
-  public ModifierMaterialRepairRecipe(ResourceLocation id, ModifierId modifier, MaterialId repairMaterialID, MaterialStatsId statType) {
-    super(id);
+  public ModifierMaterialRepairRecipe(ModifierId modifier, MaterialId repairMaterialID, MaterialStatsId statType) {
+    super();
     this.modifier = modifier;
     this.repairMaterial = LazyMaterial.of(repairMaterialID);
     this.statType = statType;

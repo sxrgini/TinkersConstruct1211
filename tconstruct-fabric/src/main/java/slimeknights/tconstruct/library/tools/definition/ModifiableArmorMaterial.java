@@ -16,8 +16,8 @@ public class ModifiableArmorMaterial extends DummyArmorMaterial {
   /** Array of slot index to tool definition for the slot */
   private final ToolDefinition[] armorDefinitions;
 
-  private ModifiableArmorMaterial(ResourceLocation id, SoundEvent equipSound, ToolDefinition... armorDefinitions) {
-    super(id, equipSound);
+  private ModifiableArmorMaterial(SoundEvent equipSound, ToolDefinition... armorDefinitions) {
+    super(equipSound);
     if (armorDefinitions.length != 4) {
       throw new IllegalArgumentException("Must have an armor definition for each slot");
     }
@@ -30,7 +30,7 @@ public class ModifiableArmorMaterial extends DummyArmorMaterial {
     for (ArmorItem.Type slot : slots) {
       definitions[slot.ordinal()] = ToolDefinition.create(id.withSuffix("_" + slot.getName()));
     }
-    return new ModifiableArmorMaterial(id, equipSound, definitions);
+    return new ModifiableArmorMaterial(equipSound, definitions);
   }
 
   /** Creates a modifiable armor material, creates tool definition for all four armor slots */

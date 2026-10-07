@@ -53,10 +53,8 @@ import java.util.List;
 public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, IModifierRepairRecipe, IMultiRecipe<IDisplayToolTinkering> {
   private static final String TOOLTIP_KEY = TConstruct.makeTranslationKey("recipe", "tool_repair.modifier");
   private static final String KEY_AMOUNT = TConstruct.makeTranslationKey("recipe", "modifier.amount");
-  public static final RecordLoadable<ModifierRepairTinkerStationRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), MODIFIER_FIELD, INGREDIENT_FIELD, REPAIR_AMOUNT_FIELD, ModifierRepairTinkerStationRecipe::new);
+  public static final RecordLoadable<ModifierRepairTinkerStationRecipe> LOADER = RecordLoadable.create(MODIFIER_FIELD, INGREDIENT_FIELD, REPAIR_AMOUNT_FIELD, ModifierRepairTinkerStationRecipe::new);
 
-  @Getter
-  private final ResourceLocation id;
   @Getter
   private final ModifierId modifier;
   @Getter
@@ -146,7 +144,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
 
   @Getter
   static class DisplayRecipe implements IDisplayCraftingTinkering {
-    private final ResourceLocation id;
+
     private final ModifierId modifier;
     private final int repairAmount;
     private final Component tooltip;
@@ -156,7 +154,6 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
     private final List<ItemStack> toolWithModifier;
 
     public DisplayRecipe(ResourceLocation id, IModifierRepairRecipe recipe, boolean isCrafting) {
-      this.id = id;
       this.modifier = recipe.getModifier();
       this.repairAmount = recipe.getRepairAmount();
       MutableComponent tooltip = Component.translatable(TOOLTIP_KEY, ModifierManager.getValue(modifier).getDisplayName());

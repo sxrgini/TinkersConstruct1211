@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
+import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -39,7 +40,7 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<IDispla
   protected static final LoadableField<FluidIngredient, PotionCastingRecipe> FLUID_FIELD = FluidIngredient.LOADABLE.requiredField("fluid", r -> r.fluid);
   protected static final LoadableField<Integer, PotionCastingRecipe> COOLING_TIME_FIELD = IntLoadable.FROM_ONE.defaultField("cooling_time", 5, r -> r.coolingTime);
   public static final RecordLoadable<PotionCastingRecipe> LOADER = RecordLoadable.create(
-    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
+    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
     IngredientLoadable.DISALLOW_EMPTY.requiredField("bottle", r -> r.bottle),
     FLUID_FIELD,
     Loadables.ITEM.requiredField("result", r -> r.result),
@@ -48,8 +49,7 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<IDispla
 
   @Getter
   protected final TypeAwareRecipeSerializer<?> serializer;
-  @Getter
-  protected final ResourceLocation id;
+
   @Getter
   protected final String group;
   /** Input on the casting table, always consumed */
@@ -63,7 +63,6 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<IDispla
 
   public PotionCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient bottle, FluidIngredient fluid, Item result, int coolingTime) {
     this.serializer = serializer;
-    this.id = id;
     this.group = group;
     this.bottle = bottle;
     this.fluid = fluid;
@@ -103,7 +102,7 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<IDispla
   }
 
   @Override
-  public ItemStack assemble(ICastingContainer inv, RegistryAccess access) {
+  public ItemStack assemble(ICastingContainer inv, HolderLookup.Provider access) {
     ItemStack result = new ItemStack(this.result);
     result.setTag(inv.getFluidTag());
     return result;
@@ -158,7 +157,7 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<IDispla
   /** @deprecated use {@link #assemble(Container, RegistryAccess)} */
   @Deprecated
   @Override
-  public ItemStack getResultItem(RegistryAccess access) {
+  public ItemStack getResultItem(HolderLookup.Provider access) {
     return new ItemStack(this.result);
   }
 

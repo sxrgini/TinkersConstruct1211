@@ -37,11 +37,9 @@ import java.util.stream.Collectors;
 
 /** Recipe to dye travelers gear */
 public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisplayModifierRecipe> {
-  @Getter
-  private final ResourceLocation id;
 
-  public ArmorDyeingRecipe(ResourceLocation id) {
-    this.id = id;
+
+  public ArmorDyeingRecipe() {
     ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.dyed);
   }
 

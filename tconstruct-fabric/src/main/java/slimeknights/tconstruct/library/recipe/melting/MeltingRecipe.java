@@ -35,10 +35,8 @@ public class MeltingRecipe implements IMeltingRecipe, IDisplayableMeltingRecipe 
   protected static final LoadableField<Integer, MeltingRecipe> TIME = IntLoadable.FROM_ONE.requiredField("time", MeltingRecipe::getTime);
   protected static final LoadableField<List<FluidOutput>, MeltingRecipe> BYPRODUCTS = FluidOutput.Loadable.REQUIRED.list(0).defaultField("byproducts", List.of(), r -> r.byproducts);
   /** Loader instance */
-  public static final RecordLoadable<MeltingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP, INPUT, OUTPUT, TEMPERATURE, TIME, BYPRODUCTS, MeltingRecipe::new);
+  public static final RecordLoadable<MeltingRecipe> LOADER = RecordLoadable.create(LoadableRecipeSerializer.RECIPE_GROUP, INPUT, OUTPUT, TEMPERATURE, TIME, BYPRODUCTS, MeltingRecipe::new);
 
-  @Getter
-  private final ResourceLocation id;
   @Getter
   protected final String group;
   @Getter
@@ -52,8 +50,8 @@ public class MeltingRecipe implements IMeltingRecipe, IDisplayableMeltingRecipe 
   protected final List<FluidOutput> byproducts;
   protected List<List<FluidStack>> outputWithByproducts;
 
-  public MeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidOutput output, int temperature, int time, List<FluidOutput> byproducts) {
-    this(id, group, input, output, temperature, time, byproducts, true);
+  public MeltingRecipe(String group, Ingredient input, FluidOutput output, int temperature, int time, List<FluidOutput> byproducts) {
+    this(group, input, output, temperature, time, byproducts, true);
   }
 
   /**
@@ -61,8 +59,7 @@ public class MeltingRecipe implements IMeltingRecipe, IDisplayableMeltingRecipe 
    * @deprecated use {@link DisplayMeltingRecipe}
    */
   @Deprecated
-  public MeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidOutput output, int temperature, int time, List<FluidOutput> byproducts, boolean addLookup) {
-    this.id = id;
+  public MeltingRecipe(String group, Ingredient input, FluidOutput output, int temperature, int time, List<FluidOutput> byproducts, boolean addLookup) {
     this.group = group;
     this.input = input;
     this.output = output;

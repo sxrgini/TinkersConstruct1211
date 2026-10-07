@@ -44,11 +44,7 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
   protected static final String KEY_INVALID_PATTERN = TConstruct.makeTranslationKey("recipe", "modifier.armor_trim.invalid_pattern");
 
 
-  @Getter
-  private final ResourceLocation id;
-
-  public ArmorTrimRecipe(ResourceLocation id) {
-    this.id = id;
+  public ArmorTrimRecipe() {
     ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.trim);
   }
 

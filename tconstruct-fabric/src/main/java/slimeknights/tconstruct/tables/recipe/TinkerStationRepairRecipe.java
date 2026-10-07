@@ -67,8 +67,6 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe, IMultiRe
   /** No action int consumer for recipe result */
   private static final IntConsumer NO_ACTION = i -> {};
 
-  @Getter
-  private final ResourceLocation id;
 
   /**
    * Gets the material for the given slot
@@ -341,7 +339,6 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe, IMultiRe
     private final List<ItemStack> toolWithoutModifier;
 
     private DisplayRecipe(ResourceLocation id, List<ItemStack> toolWithoutModifier) {
-      this.id = id;
       this.recipeId = id;
       this.toolWithoutModifier = toolWithoutModifier;
     }
@@ -442,7 +439,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe, IMultiRe
     private final Item tool;
     private final List<ItemStack> inputs;
     public FixedDisplayRecipe(ResourceLocation id, Item tool, List<ItemStack> inputs, List<ItemStack> toolWithoutModifier) {
-      super(id, toolWithoutModifier);
+      super(toolWithoutModifier);
       this.tool = tool;
       this.inputs = inputs;
     }
@@ -463,7 +460,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe, IMultiRe
     private final Set<Item> tools;
 
     public DynamicDisplayRecipe(ResourceLocation id, Set<Item> tools, List<ItemStack> toolWithoutModifier) {
-      super(id, toolWithoutModifier);
+      super(toolWithoutModifier);
       this.tools = tools;
     }
 

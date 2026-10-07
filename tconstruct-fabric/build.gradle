@@ -45,4 +45,11 @@ tasks.withType(JavaCompile).configureEach {
     options.compilerArgs += ['-Xmaxerrs', '100000']
 }
 
+// Datagen providers are ported last (Fabric datagen entrypoint), keep them out of the compile until then.
+// Remove entries from this list as each package is ported. See docs/FABRIC_PORT_PLAN.md.
+sourceSets.main.java {
+    exclude 'slimeknights/tconstruct/*/data/**'
+    exclude 'slimeknights/tconstruct/library/data/**'
+}
+
 java { withSourcesJar() }

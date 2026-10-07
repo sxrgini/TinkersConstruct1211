@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.material;
 
+import net.minecraft.core.HolderLookup;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.core.NonNullList;
@@ -32,8 +33,8 @@ import java.util.List;
 public class ShapedMaterialRecipe extends ShapedRecipe {
   private MaterialValueIngredient material;
   private final List<MaterialVariantId> extraMaterials;
-  public ShapedMaterialRecipe(ResourceLocation id, String group, CraftingBookCategory category, int width, int height, NonNullList<Ingredient> ingredients, ItemStack result, boolean showNotification, List<MaterialVariantId> extraMaterials) {
-    super(id, group, category, width, height, ingredients, result, showNotification);
+  public ShapedMaterialRecipe(String group, CraftingBookCategory category, int width, int height, NonNullList<Ingredient> ingredients, ItemStack result, boolean showNotification, List<MaterialVariantId> extraMaterials) {
+    super(group, category, width, height, ingredients, result, showNotification);
     this.extraMaterials = extraMaterials;
   }
 
@@ -43,8 +44,8 @@ public class ShapedMaterialRecipe extends ShapedRecipe {
 
   /** @deprecated use {@link #ShapedMaterialRecipe(ResourceLocation,String,CraftingBookCategory,int,int,NonNullList,ItemStack,boolean,List)} */
   @Deprecated(forRemoval = true)
-  public ShapedMaterialRecipe(ResourceLocation id, String group, CraftingBookCategory category, int width, int height, NonNullList<Ingredient> ingredients, ItemStack result, boolean showNotification) {
-    this(id, group, category, width, height, ingredients, result, showNotification, List.of());
+  public ShapedMaterialRecipe(String group, CraftingBookCategory category, int width, int height, NonNullList<Ingredient> ingredients, ItemStack result, boolean showNotification) {
+    this(group, category, width, height, ingredients, result, showNotification, List.of());
   }
 
   /** @deprecated use {@link #ShapedMaterialRecipe(ShapedRecipe,List)} */
@@ -125,7 +126,7 @@ public class ShapedMaterialRecipe extends ShapedRecipe {
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer inventory, RegistryAccess registryAccess) {
+  public ItemStack assemble(CraftingContainer inventory, HolderLookup.Provider registryAccess) {
     ItemStack stack = super.assemble(inventory, registryAccess);
     MaterialVariantId material = findMaterial(inventory);
     if (material != null) {

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.partbuilder.recycle;
 
+import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
@@ -46,21 +47,17 @@ public class PartBuilderRecycle implements IPartBuilderRecipe, IMultiRecipe<IDis
 
   /** Loader instance */
   public static final RecordLoadable<PartBuilderRecycle> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     IngredientLoadable.DISALLOW_EMPTY.requiredField("tool", r -> r.tool),
     IngredientLoadable.DISALLOW_EMPTY.requiredField("pattern", r -> r.pattern),
     Pattern.PARSER.mapWithValues(ItemOutput.Loadable.REQUIRED_STACK).requiredField("results", r -> r.results),
     PartBuilderRecycle::new);
 
-  @Getter
-  private final ResourceLocation id;
   private final Ingredient tool;
   private final Ingredient pattern;
   private final Map<Pattern,ItemOutput> results;
   private final int resultCount;
 
-  public PartBuilderRecycle(ResourceLocation id, Ingredient tool, Ingredient pattern, Map<Pattern,ItemOutput> results) {
-    this.id = id;
+  public PartBuilderRecycle(Ingredient tool, Ingredient pattern, Map<Pattern,ItemOutput> results) {
     this.tool = tool;
     this.pattern = pattern;
     this.results = results;
@@ -103,7 +100,7 @@ public class PartBuilderRecycle implements IPartBuilderRecipe, IMultiRecipe<IDis
   }
 
   @Override
-  public ItemStack assemble(IPartBuilderContainer inv, RegistryAccess access, Pattern pattern) {
+  public ItemStack assemble(IPartBuilderContainer inv, HolderLookup.Provider access, Pattern pattern) {
     int maxCount = getAmount(inv.getStack(), resultCount);
     ItemOutput result = results.get(pattern);
     // should never happen
@@ -148,7 +145,7 @@ public class PartBuilderRecycle implements IPartBuilderRecipe, IMultiRecipe<IDis
   /** @deprecated use {@link #assemble(IPartBuilderContainer, RegistryAccess, Pattern)} */
   @Deprecated
   @Override
-  public ItemStack getResultItem(RegistryAccess access) {
+  public ItemStack getResultItem(HolderLookup.Provider access) {
     return ItemStack.EMPTY;
   }
 

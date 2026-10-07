@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.casting.container;
 
+import net.minecraft.core.HolderLookup;
 import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.core.registries.BuiltInRegistries;
 import lombok.Getter;
@@ -39,15 +40,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<IDisplayableCastingRecipe> {
   public static final RecordLoadable<ContainerFillingRecipe> LOADER = RecordLoadable.create(
-    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
+    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
     IntLoadable.FROM_ONE.requiredField("fluid_amount", r -> r.fluidAmount),
     Loadables.ITEM.requiredField("container", r -> r.container),
     ContainerFillingRecipe::new);
 
   @Getter
   private final TypeAwareRecipeSerializer<?> serializer;
-  @Getter
-  private final ResourceLocation id;
+
   @Getter
   private final String group;
   private final int fluidAmount;
@@ -94,12 +94,12 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<IDis
   /** @deprecated use {@link ICastingRecipe#assemble(Container, RegistryAccess)} */
   @Override
   @Deprecated
-  public ItemStack getResultItem(RegistryAccess access) {
+  public ItemStack getResultItem(HolderLookup.Provider access) {
     return new ItemStack(this.container);
   }
 
   @Override
-  public ItemStack assemble(ICastingContainer inv, RegistryAccess access) {
+  public ItemStack assemble(ICastingContainer inv, HolderLookup.Provider access) {
     ItemStack stack = inv.getStack().copy();
     return Caps.get(stack, Capabilities.FLUID_HANDLER_ITEM).map(handler -> {
       handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount, inv.getFluidTag()), FluidAction.EXECUTE);

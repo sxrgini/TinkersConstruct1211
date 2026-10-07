@@ -36,7 +36,6 @@ import java.util.List;
 /** Recipe for damaging a tool in the tinker station. */
 public class TinkerStationDamagingRecipe implements ITinkerStationRecipe, IDisplayToolTinkering {
   public static final RecordLoadable<TinkerStationDamagingRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", r -> r.ingredient),
     IntLoadable.FROM_ONE.requiredField("damage_amount", r -> r.damageAmount),
     TinkerStationDamagingRecipe::new);
@@ -45,14 +44,11 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe, IDispl
   private static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "tool_damaging.tooltip");
   private static final String KEY_AMOUNT = TConstruct.makeTranslationKey("recipe", "modifier.amount");
 
-  @Getter
-  private final ResourceLocation id;
   private final Ingredient ingredient;
   private final int damageAmount;
   private final Component amountText;
 
-  public TinkerStationDamagingRecipe(ResourceLocation id, Ingredient ingredient, int damageAmount) {
-    this.id = id;
+  public TinkerStationDamagingRecipe(Ingredient ingredient, int damageAmount) {
     this.ingredient = ingredient;
     this.damageAmount = damageAmount;
     this.amountText = Component.translatable(KEY_AMOUNT, damageAmount);

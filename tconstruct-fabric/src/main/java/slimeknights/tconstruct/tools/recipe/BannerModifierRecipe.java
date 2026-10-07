@@ -53,23 +53,19 @@ import java.util.List;
 public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisplayModifierRecipe> {
   private static final RecipeResult<LazyToolStack> NO_PATTERNS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "banner.clear.no_patterns"));
   public static final RecordLoadable<BannerModifierRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     IngredientLoadable.ALLOW_EMPTY.defaultField("clear_input", Ingredient.EMPTY, false, r -> r.clearInput),
     BannerModifierRecipe::new);
 
-  @Getter
-  private final ResourceLocation id;
   private final Ingredient clearInput;
 
-  public BannerModifierRecipe(ResourceLocation id, Ingredient clearInput) {
-    this.id = id;
+  public BannerModifierRecipe(Ingredient clearInput) {
     this.clearInput = clearInput;
     ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.banner);
   }
 
   @Deprecated(forRemoval = true)
-  public BannerModifierRecipe(ResourceLocation id) {
-    this(id, Ingredient.EMPTY);
+  public BannerModifierRecipe() {
+    this(Ingredient.EMPTY);
   }
 
   @Override

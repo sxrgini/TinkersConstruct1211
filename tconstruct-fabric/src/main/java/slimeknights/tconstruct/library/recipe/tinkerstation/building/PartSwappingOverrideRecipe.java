@@ -31,7 +31,7 @@ import java.util.stream.Stream;
 /** Recipe for swapping a single material on a tool given a specific tool part. Notably allows swapping a part into a tool on an index other than the first. */
 public class PartSwappingOverrideRecipe extends MaterialIndexSwappingRecipe implements IMultiRecipe<IDisplayToolTinkering> {
   public static final RecordLoadable<PartSwappingOverrideRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(), TOOLS_FIELD, STACK_SIZE_FIELD,
+    TOOLS_FIELD, STACK_SIZE_FIELD,
     TinkerLoadables.TOOL_PART_ITEM.requiredField("part", r -> r.part),
     INDICES_FIELD, EXTRA_REQUIREMENTS_FIELD,
     PartSwappingOverrideRecipe::new);
@@ -39,8 +39,8 @@ public class PartSwappingOverrideRecipe extends MaterialIndexSwappingRecipe impl
   /** Part to match allowing the swap */
   private final IToolPart part;
 
-  protected PartSwappingOverrideRecipe(ResourceLocation id, Ingredient tools, int maxStackSize, IToolPart part, int[] indices, List<SizedIngredient> extraRequirements) {
-    super(id, tools, maxStackSize, indices, extraRequirements);
+  protected PartSwappingOverrideRecipe(Ingredient tools, int maxStackSize, IToolPart part, int[] indices, List<SizedIngredient> extraRequirements) {
+    super(tools, maxStackSize, indices, extraRequirements);
     this.part = part;
   }
 

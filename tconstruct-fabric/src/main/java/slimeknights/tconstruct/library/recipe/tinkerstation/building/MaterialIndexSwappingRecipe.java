@@ -32,8 +32,8 @@ public abstract class MaterialIndexSwappingRecipe extends MaterialSwappingRecipe
   /** Options of indexes to set the material */
   protected final int[] indices;
 
-  protected MaterialIndexSwappingRecipe(ResourceLocation id, Ingredient tools, int maxStackSize, int[] indices, List<SizedIngredient> extraRequirements) {
-    super(id, tools, maxStackSize, extraRequirements);
+  protected MaterialIndexSwappingRecipe(Ingredient tools, int maxStackSize, int[] indices, List<SizedIngredient> extraRequirements) {
+    super(tools, maxStackSize, extraRequirements);
     this.indices = indices;
   }
 

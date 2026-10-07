@@ -31,22 +31,18 @@ import java.util.List;
  */
 public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<IDisplayableMeltingRecipe> {
   public static final RecordLoadable<MaterialMeltingRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     MaterialVariantId.LOADABLE.requiredField("input", r -> r.input.getVariant()),
     IntLoadable.FROM_ONE.requiredField("temperature", r -> r.temperature),
     FluidOutput.Loadable.REQUIRED.requiredField("result", r -> r.result),
     FluidOutput.Loadable.REQUIRED.list(0).defaultField("byproducts", List.of(), false, r -> r.byproducts),
     MaterialMeltingRecipe::new);
 
-  @Getter
-  private final ResourceLocation id;
   private final MaterialVariant input;
   private final int temperature;
   private final FluidOutput result;
   private final List<FluidOutput> byproducts;
 
-  public MaterialMeltingRecipe(ResourceLocation id, MaterialVariantId input, int temperature, FluidOutput result, List<FluidOutput> byproducts) {
-    this.id = id;
+  public MaterialMeltingRecipe(MaterialVariantId input, int temperature, FluidOutput result, List<FluidOutput> byproducts) {
     this.input = MaterialVariant.of(input);
     this.temperature = temperature;
     this.result = result;
@@ -55,8 +51,8 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<IDisp
 
   /** @deprecated use {@link #MaterialMeltingRecipe(ResourceLocation,MaterialVariantId,int,FluidOutput,List)} */
   @Deprecated(forRemoval = true)
-  public MaterialMeltingRecipe(ResourceLocation id, MaterialVariantId input, int temperature, FluidOutput result) {
-    this(id, input, temperature, result, List.of());
+  public MaterialMeltingRecipe(MaterialVariantId input, int temperature, FluidOutput result) {
+    this(input, temperature, result, List.of());
   }
 
   @Override

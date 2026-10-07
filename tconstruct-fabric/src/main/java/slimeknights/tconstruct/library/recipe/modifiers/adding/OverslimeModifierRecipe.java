@@ -41,14 +41,11 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   private static final RecipeResult<LazyToolStack> AT_CAPACITY = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "overslime.at_capacity"));
   private static final String KEY_AMOUNT = TConstruct.makeTranslationKey("recipe", "modifier.amount");
   public static final RecordLoadable<OverslimeModifierRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     IngredientLoadable.DISALLOW_EMPTY.defaultField("tools", Ingredient.of(TinkerTags.Items.DURABILITY), true, r -> r.tools),
     IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", r -> r.ingredient),
     IntLoadable.FROM_ONE.requiredField("restore_amount", r -> r.restoreAmount),
     OverslimeModifierRecipe::new);
 
-  @Getter
-  private final ResourceLocation id;
   private final Ingredient tools;
   private final Ingredient ingredient;
   private final int restoreAmount;
@@ -56,8 +53,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   private final Component variant;
 
   @Internal
-  protected OverslimeModifierRecipe(ResourceLocation id, Ingredient tools, Ingredient ingredient, int restoreAmount) {
-    this.id = id;
+  protected OverslimeModifierRecipe(Ingredient tools, Ingredient ingredient, int restoreAmount) {
     this.tools = tools;
     this.ingredient = ingredient;
     this.restoreAmount = restoreAmount;
@@ -67,8 +63,8 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
   /** @deprecated use {@link #OverslimeModifierRecipe(ResourceLocation, Ingredient, Ingredient, int)} */
   @Deprecated(forRemoval = true)
-  public OverslimeModifierRecipe(ResourceLocation id, Ingredient ingredient, int restoreAmount) {
-    this(id, Ingredient.of(TinkerTags.Items.DURABILITY), ingredient, restoreAmount);
+  public OverslimeModifierRecipe(Ingredient ingredient, int restoreAmount) {
+    this(Ingredient.of(TinkerTags.Items.DURABILITY), ingredient, restoreAmount);
   }
 
   @Override

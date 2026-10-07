@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -63,7 +64,7 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
   }
 
   /** Assembles the result with the given pattern */
-  default ItemStack assemble(IPartBuilderContainer inv, RegistryAccess access, Pattern pattern) {
+  default ItemStack assemble(IPartBuilderContainer inv, HolderLookup.Provider access, Pattern pattern) {
     return assemble(inv, access);
   }
 

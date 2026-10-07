@@ -28,7 +28,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
  */
 public class ModifierSalvage implements ICustomOutputRecipe<Container> {
   public static final RecordLoadable<ModifierSalvage> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     IngredientLoadable.DISALLOW_EMPTY.requiredField("tools", r -> r.toolIngredient),
     IntLoadable.FROM_ONE.defaultField("max_tool_size", ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE, r -> r.maxToolSize), // TODO 1.20: max tool size is unused, remove it
     ModifierId.PARSER.requiredField("modifier", r -> r.modifier),
@@ -37,8 +36,6 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
     // TODO: should this have check_trait_level?
     ModifierSalvage::new);
 
-  @Getter
-  protected final ResourceLocation id;
   /** Ingredient determining tools matched by this */
   protected final Ingredient toolIngredient;
   /** Max size of the tool for this modifier. If the tool size is smaller, the salvage bonus will be reduced */
@@ -52,8 +49,7 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
   /** Slots restored by this recipe, if null no slots are restored */
   protected final SlotCount slots;
 
-  public ModifierSalvage(ResourceLocation id, Ingredient toolIngredient, int maxToolSize, ModifierId modifier, IntRange level, SlotCount slots) {
-    this.id = id;
+  public ModifierSalvage(Ingredient toolIngredient, int maxToolSize, ModifierId modifier, IntRange level, SlotCount slots) {
     this.toolIngredient = toolIngredient;
     this.maxToolSize = maxToolSize;
     this.modifier = modifier;

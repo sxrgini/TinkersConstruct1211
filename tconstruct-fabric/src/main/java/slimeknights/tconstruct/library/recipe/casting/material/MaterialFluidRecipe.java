@@ -28,7 +28,6 @@ import java.util.List;
 /** Recipe defining casting and composite fluids for a given input */
 public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContainer>, IDisplayMaterialRecipe {
   public static final RecordLoadable<MaterialFluidRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     FluidIngredient.LOADABLE.requiredField("fluid", r -> r.fluid),
     IntLoadable.FROM_ZERO.requiredField("temperature", r -> r.temperature),
     MaterialVariantId.LOADABLE.nullableField("input", r -> r.input != null ? r.input.getVariant() : null),
@@ -38,8 +37,6 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
   /** Empty recipe instance, used as a fallback */
   public static final MaterialFluidRecipe EMPTY = new MaterialFluidRecipe(TConstruct.getResource("missingno"), FluidIngredient.EMPTY, 0, null, MaterialId.UNKNOWN);
 
-  @Getter
-  private final ResourceLocation id;
   private final FluidIngredient fluid;
   @Getter
   private final int temperature;
@@ -54,12 +51,11 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
 
   /** @deprecated use {@link #MaterialFluidRecipe(ResourceLocation, FluidIngredient, int, MaterialVariantId, MaterialVariantId, boolean)} */
   @Deprecated(forRemoval = true)
-  public MaterialFluidRecipe(ResourceLocation id, FluidIngredient fluid, int temperature, @Nullable MaterialVariantId inputId, MaterialVariantId outputId) {
-    this(id, fluid, temperature, inputId, outputId, false);
+  public MaterialFluidRecipe(FluidIngredient fluid, int temperature, @Nullable MaterialVariantId inputId, MaterialVariantId outputId) {
+    this(fluid, temperature, inputId, outputId, false);
   }
 
-  protected MaterialFluidRecipe(ResourceLocation id, FluidIngredient fluid, int temperature, @Nullable MaterialVariantId inputId, MaterialVariantId outputId, boolean hideInBook) {
-    this.id = id;
+  protected MaterialFluidRecipe(FluidIngredient fluid, int temperature, @Nullable MaterialVariantId inputId, MaterialVariantId outputId, boolean hideInBook) {
     this.fluid = fluid;
     this.temperature = temperature;
     this.input = inputId == null ? null : MaterialVariant.of(inputId);

@@ -51,7 +51,7 @@ public class SpecialSeveringRecipeBuilder extends AbstractRecipeBuilder<SpecialS
   /** Finished recipe instance */
   private class Finished extends AbstractFinishedRecipe {
     public Finished(ResourceLocation id, @Nullable ResourceLocation advancementId) {
-      super(id, advancementId);
+      super(advancementId);
     }
 
     @Override

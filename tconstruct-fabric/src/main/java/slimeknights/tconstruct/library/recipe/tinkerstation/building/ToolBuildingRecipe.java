@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
+import net.minecraft.core.HolderLookup;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -68,7 +69,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   protected static final LoadableField<ResourceLocation,ToolBuildingRecipe> LAYOUT_FIELD = Loadables.RESOURCE_LOCATION.nullableField("slot_layout",  r -> r.layoutSlot);
   /** Loader instance */
   public static final RecordLoadable<ToolBuildingRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP, RESULT_FIELD,
+    LoadableRecipeSerializer.RECIPE_GROUP, RESULT_FIELD,
     IntLoadable.FROM_ONE.defaultField("result_count", 1, true, r -> r.outputCount),
     LAYOUT_FIELD,
     IngredientLoadable.DISALLOW_EMPTY.list(0).defaultField("extra_requirements", List.of(), r -> r.ingredients),
@@ -76,8 +77,6 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     MaterialVariantId.LOADABLE.list(0).defaultField("extra_materials", List.of(), false, r -> r.materials),
     ToolBuildingRecipe::new);
 
-  @Getter
-  protected final ResourceLocation id;
   @Getter
   protected final String group;
   /** Tool result */
@@ -103,8 +102,8 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   protected List<ItemStack> displayOutput;
 
   @Deprecated(forRemoval = true)
-  public ToolBuildingRecipe(ResourceLocation id, String group, IModifiable output, int outputCount, @Nullable ResourceLocation layoutSlot, List<Ingredient> ingredients) {
-    this(id, group, output, outputCount, layoutSlot, ingredients, null, List.of());
+  public ToolBuildingRecipe(String group, IModifiable output, int outputCount, @Nullable ResourceLocation layoutSlot, List<Ingredient> ingredients) {
+    this(group, output, outputCount, layoutSlot, ingredients, null, List.of());
   }
 
   @Override
@@ -334,13 +333,13 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
 
   @Deprecated
   @Override
-  public ItemStack getResultItem(RegistryAccess access) {
+  public ItemStack getResultItem(HolderLookup.Provider access) {
     return new ItemStack(this.output);
   }
 
   @Deprecated
   @Override
-  public ItemStack assemble(ITinkerStationContainer inv, RegistryAccess access) {
+  public ItemStack assemble(ITinkerStationContainer inv, HolderLookup.Provider access) {
     return getValidatedResult(inv, access).getResult().getStack();
   }
 }

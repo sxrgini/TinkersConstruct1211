@@ -51,7 +51,6 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
   private static final RecipeResult<LazyToolStack> TOO_FEW = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "enchantment_converting.too_few"));
   /** Loader instance */
   public static final RecordLoadable<EnchantmentConvertingRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
     StringLoadable.DEFAULT.requiredField("name", r -> r.name),
     INPUTS_FIELD,
     BooleanLoadable.INSTANCE.requiredField("match_book", r -> r.matchBook),
@@ -74,8 +73,8 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
 
   private List<ModifierEntry> displayModifiers;
 
-  public EnchantmentConvertingRecipe(ResourceLocation id, String name, List<SizedIngredient> inputs, boolean matchBook, boolean returnInput, IJsonPredicate<ModifierId> modifierPredicate) {
-    super(id, inputs);
+  public EnchantmentConvertingRecipe(String name, List<SizedIngredient> inputs, boolean matchBook, boolean returnInput, IJsonPredicate<ModifierId> modifierPredicate) {
+    super(inputs);
     this.name = name;
     this.title = Component.translatable(ExtractModifierRecipe.BASE_KEY + "." + name);
     this.matchBook = matchBook;

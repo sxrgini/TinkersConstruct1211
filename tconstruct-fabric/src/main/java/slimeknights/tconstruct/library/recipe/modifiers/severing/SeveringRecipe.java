@@ -14,7 +14,7 @@ import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.mantle.recipe.container.IEmptyContainer;
+import slimeknights.mantle.recipe.input.NoItemInput;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
@@ -24,19 +24,17 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
  * Recipe to convert an entity into a head or other item for the severing modifier
  */
 @RequiredArgsConstructor
-public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
+public class SeveringRecipe implements ICustomOutputRecipe<NoItemInput> {
   protected static LoadableField<EntityIngredient,SeveringRecipe> ENTITY_FIELD = EntityIngredient.LOADABLE.requiredField("entity", r -> r.ingredient);
   protected static LoadableField<Float,SeveringRecipe> BASE_CHANCE_FIELD = FloatLoadable.PERCENT.defaultField("per_level_chance", 0.05f, true, r -> r.baseChance);
   protected static LoadableField<Float,SeveringRecipe> LOOTING_BONUS_FIELD = FloatLoadable.PERCENT.defaultField("looting_bonus", 0.01f, true, r -> r.lootingBonus);
   /** Loader instance */
   public static final RecordLoadable<SeveringRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(), ENTITY_FIELD,
+    ENTITY_FIELD,
     ItemOutput.Loadable.REQUIRED_STACK.requiredField("result", r -> r.output),
     BASE_CHANCE_FIELD, LOOTING_BONUS_FIELD,
     SeveringRecipe::new);
 
-  @Getter
-  private final ResourceLocation id;
   @Getter
   protected final EntityIngredient ingredient;
   protected final ItemOutput output;
@@ -45,8 +43,8 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
 
   /** @deprecated use {@link #SeveringRecipe(ResourceLocation, EntityIngredient, ItemOutput, float, float)} */
   @Deprecated(forRemoval = true)
-  public SeveringRecipe(ResourceLocation id, EntityIngredient ingredient, ItemOutput output) {
-    this(id, ingredient, output, 0.05f, 0.01f);
+  public SeveringRecipe(EntityIngredient ingredient, ItemOutput output) {
+    this(ingredient, output, 0.05f, 0.01f);
   }
 
   /**
@@ -93,7 +91,7 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
   /** @deprecated use {@link #matches(EntityType)}*/
   @Deprecated
   @Override
-  public boolean matches(IEmptyContainer inv, Level worldIn) {
+  public boolean matches(NoItemInput inv, Level worldIn) {
     return false;
   }
 }
