@@ -77,7 +77,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   }
 
   @Override
-  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, net.minecraft.core.HolderLookup.Provider access) {
     ToolStack tool = inv.getTinkerable();
     ModifierId overslime = TinkerModifiers.overslime.getId();
     // if the tool lacks true overslime, add overslime

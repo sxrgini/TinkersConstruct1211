@@ -93,7 +93,7 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implemen
   }
 
   @Override
-  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, net.minecraft.core.HolderLookup.Provider access) {
     // copy the tool NBT to ensure the original tool is intact
     List<MaterialStatsId> materials = ToolMaterialHook.stats(inv.getTinkerable().getDefinition());
 

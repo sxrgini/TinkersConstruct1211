@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.recipe.modifiers;
 
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -26,7 +25,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 /**
  * Shared logic for main types of salvage recipes
  */
-public class ModifierSalvage implements ICustomOutputRecipe<Container> {
+public class ModifierSalvage implements ICustomOutputRecipe<net.minecraft.world.item.crafting.RecipeInput> {
   public static final RecordLoadable<ModifierSalvage> LOADER = RecordLoadable.create(
     IngredientLoadable.DISALLOW_EMPTY.requiredField("tools", r -> r.toolIngredient),
     IntLoadable.FROM_ONE.defaultField("max_tool_size", ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE, r -> r.maxToolSize), // TODO 1.20: max tool size is unused, remove it
@@ -86,7 +85,7 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
   /** @deprecated Use {@link #matches(ItemStack, IToolStackView, int)} */
   @Deprecated
   @Override
-  public boolean matches(Container inv, Level level) {
+  public boolean matches(net.minecraft.world.item.crafting.RecipeInput inv, Level level) {
     return false;
   }
 

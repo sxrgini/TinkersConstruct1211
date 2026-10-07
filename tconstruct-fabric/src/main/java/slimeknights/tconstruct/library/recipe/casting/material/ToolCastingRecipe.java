@@ -68,7 +68,7 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
     this.extraMaterials = extraMaterials;
     CastingRecipeLookup.registerCastable(result);
     if (castPurpose == CastPurpose.CONSUMED_OFFSET && extraMaterials.isEmpty()) {
-      TConstruct.LOG.error("Error creating recipe {}: Cannot use cast purpose of consume offset for a tool casting recipe with no extra materials, subbing in consumed.", id);
+      TConstruct.LOG.error("Error creating recipe {}: Cannot use cast purpose of consume offset for a tool casting recipe with no extra materials, subbing in consumed.", getClass().getSimpleName());
       this.castPurpose = CastPurpose.CONSUMED;
     } else {
       this.castPurpose = castPurpose;

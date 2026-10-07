@@ -21,8 +21,8 @@ public interface VanillaFilteredRecipe<T extends FilteredRecipe> {
 
 
   /** Gets a  modifiable list of filtered recipes matching the given recipe type. */
-  static <T extends FilteredRecipe, C extends Container, R extends Recipe<C>> List<T> getRecipes(RegistryAccess access, RecipeManager manager, RecipeType<R> type, Class<T> recipeClass) {
-    return manager.byType(type).values().stream()
+  static <T extends FilteredRecipe, C extends net.minecraft.world.item.crafting.RecipeInput, R extends Recipe<C>> List<T> getRecipes(RegistryAccess access, RecipeManager manager, RecipeType<R> type, Class<T> recipeClass) {
+    return manager.byType(type).stream().map(net.minecraft.world.item.crafting.RecipeHolder::value)
       .flatMap(recipe -> recipe instanceof VanillaFilteredRecipe<?> filtered ? filtered.getFilteredRecipes(access).stream() : Stream.empty())
       .filter(recipeClass::isInstance).map(recipeClass::cast).collect(Collectors.toList());
   }

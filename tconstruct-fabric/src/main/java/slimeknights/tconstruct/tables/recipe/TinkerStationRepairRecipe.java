@@ -166,7 +166,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe, IMultiRe
   }
 
   @Override
-  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, net.minecraft.core.HolderLookup.Provider access) {
     ToolStack tool = inv.getTinkerable();
     if (tool.getDefinition() == ToolDefinition.EMPTY) {
       return RecipeResult.pass();

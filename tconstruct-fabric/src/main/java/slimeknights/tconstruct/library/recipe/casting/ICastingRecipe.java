@@ -63,6 +63,6 @@ public interface ICastingRecipe extends ICommonRecipe<ICastingContainer> {
    * @return  Time for the recipe
    */
   static int calcCoolingTime(FluidStack fluid) {
-    return calcCoolingTime(getTemperature(), fluid.getAmount());
+    return calcCoolingTime(slimeknights.mantle.platform.fluid.FluidTypes.of(fluid.getFluid()).getTemperature(), fluid.getAmount());
   }
 }

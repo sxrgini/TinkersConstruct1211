@@ -22,7 +22,6 @@ import java.util.List;
  */
 public interface IDisplayCraftingTinkering extends IDisplayToolTinkering, CraftingRecipe {
   /** Gets the ID for the crafting table tab. */
-  @Override
   ResourceLocation getId();
 
   /** Gets the ID for the tinker station tab. */

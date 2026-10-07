@@ -65,7 +65,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe, IDispl
   }
 
   @Override
-  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, net.minecraft.core.HolderLookup.Provider access) {
     ToolStack tool = inv.getTinkerable();
     if (tool.isBroken()) {
       return BROKEN;

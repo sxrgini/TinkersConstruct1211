@@ -167,7 +167,7 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<IDispla
   @SuppressWarnings("deprecation")
   public static List<String> getPotionIds() {
     return BuiltInRegistries.POTION.holders()
-      .filter(holder -> !holder.is(Potions.EMPTY_ID))
+      .filter(holder -> !holder.key().location().getPath().equals("empty"))
       .map(holder -> holder.key().location().toString())
       .toList();
   }

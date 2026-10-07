@@ -78,7 +78,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
   }
 
   @Override
-  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, net.minecraft.core.HolderLookup.Provider access) {
     ToolStack tool = inv.getTinkerable();
     int amountPerItem = tool.getModifierLevel(modifier) * repairAmount;
     if (amountPerItem <= 0) {
@@ -146,6 +146,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
 
   @Getter
   static class DisplayRecipe implements IDisplayCraftingTinkering {
+    private final ResourceLocation id;
 
     private final ModifierId modifier;
     private final int repairAmount;
@@ -156,6 +157,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
     private final List<ItemStack> toolWithModifier;
 
     public DisplayRecipe(ResourceLocation id, IModifierRepairRecipe recipe, boolean isCrafting) {
+      this.id = id;
       this.modifier = recipe.getModifier();
       this.repairAmount = recipe.getRepairAmount();
       MutableComponent tooltip = Component.translatable(TOOLTIP_KEY, ModifierManager.getValue(modifier).getDisplayName());

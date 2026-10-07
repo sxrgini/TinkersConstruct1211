@@ -49,7 +49,7 @@ public class TippedToolTransformRecipe extends ToolBuildingRecipe {
   }
 
   @Override
-  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, net.minecraft.core.HolderLookup.Provider access) {
     RecipeResult<LazyToolStack> result = super.getValidatedResult(inv, access);
     if (result.isSuccess()) {
       // tool must have modifier, else we are adding bad data

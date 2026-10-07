@@ -58,8 +58,6 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
   protected static final RecipeResult<LazyToolStack> TOO_MANY_PARTS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.too_many_parts"));
   protected static final RecipeResult<LazyToolStack> INVALID_MATERIAL = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.invalid_material"));
 
-  @Getter
-  protected final ResourceLocation id;
   /** Tools that may use this recipe */
   protected final Ingredient tools;
   /** Max stack size that can be swapped at once */
@@ -265,7 +263,7 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
 
     @Override
     public ResourceLocation getRecipeId() {
-      return id;
+      return slimeknights.mantle.recipe.RecipeIds.get(MaterialSwappingRecipe.this);
     }
 
     @Override

@@ -180,7 +180,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, net.minecraft.core.HolderLookup.Provider access) {
     int materialCount = ToolMaterialHook.stats(output.getToolDefinition()).size();
     // fill in materials
     List<MaterialVariant> materials = new ArrayList<>(materialCount);
@@ -204,7 +204,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     // if we have any parts set, run the count hook
     // no point running it if all materials are set through override/no materials, just set the recipe count in that case
     // note there is an edge case when you have a fixed material that adjusts count plus parts, not really a good solution for that case
-    int itemMax = item.getMaxStackSize();
+    int itemMax = item.getDefaultMaxStackSize();
     if (parts > 0 && itemMax > 1) {
       count = CraftCountModifierHook.maxStackSize(tool, outputCount);
       if (count <= 0) {
@@ -340,7 +340,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
 
   @Deprecated
   @Override
-  public ItemStack assemble(ITinkerStationContainer inv, HolderLookup.Provider access) {
+  public ItemStack assemble(ITinkerStationContainer inv, net.minecraft.core.HolderLookup.Provider access) {
     return getValidatedResult(inv, access).getResult().getStack();
   }
 }

@@ -75,6 +75,11 @@ public abstract class ItemOutput implements Supplier<ItemStack> {
    */
   protected abstract JsonElement serialize(boolean writeCount, TypedMap context);
 
+  /** Writes this output to JSON with no context */
+  public JsonElement serialize(boolean writeCount) {
+    return serialize(writeCount, TypedMap.EMPTY);
+  }
+
   /**
    * Creates a new output for the given stack
    * @param stack  Stack

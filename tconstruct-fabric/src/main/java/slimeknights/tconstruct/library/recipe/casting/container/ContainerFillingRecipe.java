@@ -114,7 +114,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<IDis
   public List<IDisplayableCastingRecipe> getRecipes(HolderLookup.Provider access) {
     if (displayRecipes == null) {
       // filter fluid registry to just fluids we care about
-      List<FluidStack> fluids = BuiltInRegistries.FLUID.getValues().stream()
+      List<FluidStack> fluids = BuiltInRegistries.FLUID.stream()
         .filter(fluid -> {
           // skip flowing fluids (redundant to source), fluids with no bucket (probably internal), and fluids hidden from recipe viewers (they be hidden)
           if (fluid.isSource(fluid.defaultFluidState()) && !fluid.is(TinkerTags.Fluids.HIDE_IN_CREATIVE_TANKS)) {

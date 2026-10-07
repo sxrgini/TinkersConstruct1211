@@ -46,7 +46,7 @@ public class TippingCastingRecipe extends ModifierPotionCastingRecipe {
     if (super.matches(inv, level)) {
       // must also have a specific potion, it's what we are going to copy
       // but it can't match what is already on the stack
-      String potionId = PotionHelper.getPotionId(inv.getFluid());
+      String potionId = PotionHelper.getPotionId(inv.getFluidStack());
       return !potionId.isEmpty() && !ModifierUtil.getPersistentString(inv.getStack(), modifier.location()).equals(potionId);
     }
     return false;
@@ -55,7 +55,7 @@ public class TippingCastingRecipe extends ModifierPotionCastingRecipe {
   @Override
   public ItemStack assemble(ICastingContainer inv, HolderLookup.Provider access) {
     ItemStack result = inv.getStack().copy();
-    String potionId = PotionHelper.getPotionId(inv.getFluid());
+    String potionId = PotionHelper.getPotionId(inv.getFluidStack());
     if (!potionId.isEmpty()) {
       ToolStack.from(result).getPersistentData().putString(modifier, potionId);
     }

@@ -71,6 +71,7 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe.DisplayOnly 
   @RequiredArgsConstructor
   public static class Builder {
     /** ID of recipe; should generally match a real recipe JSON */
+    private final ResourceLocation id;
 
     /** Material variant for name display */
     private List<MaterialVariant> materials = List.of();
