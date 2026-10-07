@@ -440,7 +440,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe, IMultiRe
     private final Item tool;
     private final List<ItemStack> inputs;
     public FixedDisplayRecipe(ResourceLocation id, Item tool, List<ItemStack> inputs, List<ItemStack> toolWithoutModifier) {
-      super(toolWithoutModifier);
+      super(id, toolWithoutModifier);
       this.tool = tool;
       this.inputs = inputs;
     }
@@ -461,7 +461,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe, IMultiRe
     private final Set<Item> tools;
 
     public DynamicDisplayRecipe(ResourceLocation id, Set<Item> tools, List<ItemStack> toolWithoutModifier) {
-      super(toolWithoutModifier);
+      super(id, toolWithoutModifier);
       this.tools = tools;
     }
 
