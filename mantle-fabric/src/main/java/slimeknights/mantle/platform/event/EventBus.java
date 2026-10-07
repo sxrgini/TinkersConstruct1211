@@ -25,6 +25,9 @@ public final class EventBus {
   private final Map<Class<?>,List<Listener>> listeners = new ConcurrentHashMap<>();
   private final Map<Class<?>,List<Listener>> cache = new ConcurrentHashMap<>();
 
+  /** Bus for mod lifecycle events (common setup, client setup, data gathering), equivalent of the Forge mod event bus */
+  public static final EventBus MOD_BUS = new EventBus();
+
   private EventBus() {}
 
   /** Adds a listener for the given event class */
