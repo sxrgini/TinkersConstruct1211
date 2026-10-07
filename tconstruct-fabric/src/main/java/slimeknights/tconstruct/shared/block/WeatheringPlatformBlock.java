@@ -25,7 +25,7 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class WeatheringPlatformBlock extends PlatformBlock implements WeatheringCopper {
+public class WeatheringPlatformBlock extends PlatformBlock implements WeatheringCopper, slimeknights.mantle.platform.item.ToolModifiableBlock {
   @Getter
   private final WeatherState age;
   public WeatheringPlatformBlock(WeatherState age, Properties props) {

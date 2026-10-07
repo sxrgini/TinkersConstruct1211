@@ -27,6 +27,44 @@ public final class ItemAbilities {
 
   private ItemAbilities() {}
 
+  /** Gets the block state after the given ability is used on the state, or null if the ability does nothing */
+  @javax.annotation.Nullable
+  public static net.minecraft.world.level.block.state.BlockState getToolModifiedState(net.minecraft.world.level.block.state.BlockState state, net.minecraft.world.item.context.UseOnContext context, ItemAbility ability, boolean simulate) {
+    net.minecraft.world.level.block.Block block = state.getBlock();
+    if (block instanceof ToolModifiableBlock modifiable) {
+      net.minecraft.world.level.block.state.BlockState result = modifiable.getToolModifiedState(state, context, ability, simulate);
+      if (result != null) {
+        return result;
+      }
+    }
+    if (ability == AXE_STRIP) {
+      net.minecraft.world.level.block.Block stripped = net.minecraft.world.item.AxeItem.STRIPPABLES.get(block);
+      return stripped == null ? null : stripped.withPropertiesOf(state);
+    } else if (ability == AXE_SCRAPE) {
+      return net.minecraft.world.level.block.WeatheringCopper.getPrevious(state).orElse(null);
+    } else if (ability == AXE_WAX_OFF) {
+      net.minecraft.world.level.block.Block unwaxed = net.minecraft.world.item.HoneycombItem.WAX_OFF_BY_BLOCK.get().get(block);
+      return unwaxed == null ? null : unwaxed.withPropertiesOf(state);
+    } else if (ability == SHOVEL_FLATTEN) {
+      net.minecraft.world.level.block.state.BlockState above = context.getLevel().getBlockState(context.getClickedPos().above());
+      if (context.getClickedFace() == net.minecraft.core.Direction.DOWN || !above.isAir()) {
+        return null;
+      }
+      return net.minecraft.world.item.ShovelItem.FLATTENABLES.get(block);
+    } else if (ability == HOE_TILL) {
+      net.minecraft.world.level.block.state.BlockState above = context.getLevel().getBlockState(context.getClickedPos().above());
+      if (context.getClickedFace() == net.minecraft.core.Direction.DOWN || !above.isAir()) {
+        return null;
+      }
+      if (block == net.minecraft.world.level.block.Blocks.GRASS_BLOCK || block == net.minecraft.world.level.block.Blocks.DIRT_PATH || block == net.minecraft.world.level.block.Blocks.DIRT) {
+        return net.minecraft.world.level.block.Blocks.FARMLAND.defaultBlockState();
+      } else if (block == net.minecraft.world.level.block.Blocks.COARSE_DIRT || block == net.minecraft.world.level.block.Blocks.ROOTED_DIRT) {
+        return net.minecraft.world.level.block.Blocks.DIRT.defaultBlockState();
+      }
+    }
+    return null;
+  }
+
   /** Checks if the stack can perform the ability */
   public static boolean canPerform(ItemStack stack, ItemAbility ability) {
     if (stack.getItem() instanceof ItemAbilityProvider provider) {

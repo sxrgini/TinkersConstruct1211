@@ -160,7 +160,7 @@ public record AttributeModule(String unique, Holder<Attribute> attribute, Operat
   /** Adds the tooltip for the given attribute */
   public static void addTooltip(Modifier modifier, Holder<Attribute> attribute, Operation operation, TooltipStyle tooltipStyle, float amount, @Nullable UUID uuid, @Nullable Player player, List<Component> tooltip) {
     switch (tooltipStyle) {
-      case ATTRIBUTE -> TooltipUtil.addAttribute(attribute, operation, amount, uuid, player, tooltip);
+      case ATTRIBUTE -> TooltipUtil.addAttribute(attribute, operation, amount, null, player, tooltip);
       case BOOST -> TooltipModifierHook.addFlatBoost(modifier, Component.translatable(attribute.value().getDescriptionId()), amount, tooltip);
       case PERCENT -> TooltipModifierHook.addPercentBoost(modifier, Component.translatable(attribute.value().getDescriptionId()), amount, tooltip);
     }
@@ -202,10 +202,6 @@ public record AttributeModule(String unique, Holder<Attribute> attribute, Operat
 
   /** Creates a new builder instance */
   public static Builder builder(Holder<Attribute> attribute, Operation operation) {
-    return new Builder(attribute, operation);
-  }
-
-  public static Builder builder(Supplier<Attribute> attribute, Operation operation) {
     return new Builder(attribute, operation);
   }
 

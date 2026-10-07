@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
-public class WaxedPlatformBlock extends PlatformBlock {
+public class WaxedPlatformBlock extends PlatformBlock implements slimeknights.mantle.platform.item.ToolModifiableBlock {
   private final WeatherState age;
   public WaxedPlatformBlock(WeatherState age, Properties prop) {
     super(prop);

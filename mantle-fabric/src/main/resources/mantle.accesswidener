@@ -146,3 +146,7 @@ accessible field net/minecraft/world/item/BucketItem content Lnet/minecraft/worl
 accessible field net/minecraft/world/level/block/MangrovePropaguleBlock SHAPE_PER_AGE [Lnet/minecraft/world/phys/shapes/VoxelShape;
 accessible method net/minecraft/client/renderer/block/model/ItemModelGenerator processFrames (ILjava/lang/String;Lnet/minecraft/client/renderer/texture/SpriteContents;)Ljava/util/List;
 accessible field net/minecraft/client/Minecraft itemColors Lnet/minecraft/client/color/item/ItemColors;
+
+# Item ability lookups
+accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
+accessible field net/minecraft/world/item/ShovelItem FLATTENABLES Ljava/util/Map;

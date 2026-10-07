@@ -46,7 +46,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
 
   protected static final LoadableField<String,ModifierRemovalRecipe> NAME_FIELD = StringLoadable.DEFAULT.defaultField("name", "modifiers", true, r -> r.name);
   protected static final LoadableField<SizedIngredient,ModifierRemovalRecipe> TOOLS_FIELD = Loadables.SIZED_ITEM_INGREDIENT.defaultField("tools", DEFAULT_TOOLS, true, r -> r.sizedTool);
-  protected static final LoadableField<List<ItemStack>,ModifierRemovalRecipe> LEFTOVERS_FIELD = ItemStackLoadable.REQUIRED_STACK_NBT.list(0).defaultField("leftovers", List.of(), r -> r.leftovers);
+  protected static final LoadableField<List<ItemStack>,ModifierRemovalRecipe> LEFTOVERS_FIELD = ItemStackLoadable.REQUIRED_STACK_DATA.list(0).defaultField("leftovers", List.of(), r -> r.leftovers);
   protected static final LoadableField<IJsonPredicate<ModifierId>,ModifierRemovalRecipe> MODIFIER_PREDICATE_FIELD = ModifierPredicate.LOADER.defaultField("modifier_predicate", false, r -> r.modifierPredicate);
 
   /** Recipe loadable */

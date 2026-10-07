@@ -56,7 +56,7 @@ public record ToolActionTransformModule(ItemAbility action, SoundEvent sound, bo
 
   @Override
   public boolean shouldHighlight(IToolStackView tool, ModifierEntry modifier, UseOnContext context, BlockPos offset, BlockState state) {
-    return condition.matches(tool, modifier) && state.getToolModifiedState(Util.offset(context, offset), action, true) != null;
+    return condition.matches(tool, modifier) && slimeknights.mantle.platform.item.ItemAbilities.getToolModifiedState(state, Util.offset(context, offset), action, true) != null;
   }
 
   @Override
@@ -76,7 +76,7 @@ public record ToolActionTransformModule(ItemAbility action, SoundEvent sound, bo
 
     // normal action transform
     Player player = context.getPlayer();
-    BlockState transformed = original.getToolModifiedState(context, action, false);
+    BlockState transformed = slimeknights.mantle.platform.item.ItemAbilities.getToolModifiedState(original, context, action, false);
     if (transformed != null) {
       if (playSound) {
         level.playSound(player, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
