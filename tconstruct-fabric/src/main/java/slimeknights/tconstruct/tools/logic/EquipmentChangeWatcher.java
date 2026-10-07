@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.logic;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -9,13 +10,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.fabricmc.api.EnvType;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
+import slimeknights.mantle.platform.capability.LazyOptional;
+import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import slimeknights.mantle.platform.event.living.LivingEquipmentChangeEvent;
@@ -45,7 +44,7 @@ public class EquipmentChangeWatcher {
   /** Capability ID */
   private static final ResourceLocation ID = TConstruct.getResource("equipment_watcher");
   /** Capability type */
-  public static final Capability<PlayerLastEquipment> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
+  public static final Capability<PlayerLastEquipment> CAPABILITY = new Capability<>("capability");
 
   /** Registers this capability */
   public static void register() {
@@ -83,7 +82,7 @@ public class EquipmentChangeWatcher {
   private static void onPlayerTick(PlayerTickEvent event) {
     // only run for client side players every 5 ticks
     if (event.phase == Phase.END && event.side == LogicalSide.CLIENT) {
-      event.player.getCapability(CAPABILITY).ifPresent(PlayerLastEquipment::update);
+      Caps.get(event.player, CAPABILITY).ifPresent(PlayerLastEquipment::update);
     }
   }
 
@@ -165,7 +164,7 @@ public class EquipmentChangeWatcher {
     }
 
     @Nonnull
-    @Override
+    
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
       return CAPABILITY.orEmpty(cap, capability);
     }

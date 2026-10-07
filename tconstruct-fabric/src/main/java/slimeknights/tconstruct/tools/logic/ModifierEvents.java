@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.logic;
 
+import slimeknights.mantle.platform.capability.Caps;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multiset;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
@@ -114,7 +115,7 @@ public class ModifierEvents {
   @SubscribeEvent
   static void onKnockback(LivingKnockBackEvent event) {
     LivingEntity entity = event.getEntity();
-    Optional<TinkerDataCapability.Holder> dataCap = entity.getCapability(TinkerDataCapability.CAPABILITY).resolve();
+    Optional<TinkerDataCapability.Holder> dataCap = Caps.get(entity, TinkerDataCapability.CAPABILITY).resolve();
     double knockback = entity.getAttributeValue(TinkerAttributes.KNOCKBACK_MULTIPLIER.get())
                      + dataCap.map(data -> data.get(TinkerDataKeys.KNOCKBACK)).orElse(0f);
     if (knockback != 1) {

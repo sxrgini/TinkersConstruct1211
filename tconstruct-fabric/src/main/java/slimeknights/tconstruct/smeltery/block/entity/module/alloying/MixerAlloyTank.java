@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.module.alloying;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -7,13 +8,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
+import slimeknights.mantle.platform.util.NonNullConsumer;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import slimeknights.mantle.platform.fluid.EmptyFluidHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -143,7 +144,7 @@ public class MixerAlloyTank implements IMutableAlloyTank {
             BlockEntity te = world.getBlockEntity(target);
             if (te != null) {
               // if we found a tank, increment the number of tanks
-              LazyOptional<IFluidHandler> capability = te.getCapability(ForgeCapabilities.FLUID_HANDLER, direction.getOpposite());
+              LazyOptional<IFluidHandler> capability = Caps.get(te, Capabilities.FLUID_HANDLER, direction.getOpposite());
               if (capability.isPresent()) {
                 // attach a listener so we know when the side invalidates
                 capability.addListener(listeners.computeIfAbsent(direction, dir -> new WeakConsumerWrapper<>(this, (self, handler) -> {

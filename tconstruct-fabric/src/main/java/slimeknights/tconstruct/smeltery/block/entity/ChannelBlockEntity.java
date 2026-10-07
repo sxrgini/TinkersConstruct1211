@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,14 +12,14 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
+import slimeknights.mantle.platform.util.NonNullConsumer;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import slimeknights.mantle.platform.fluid.EmptyFluidHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -99,10 +100,10 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 
 	/* Fluid handlers */
 
-	@Override
+	
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction side) {
 		// top side gets the insert direct
-    if (capability == ForgeCapabilities.FLUID_HANDLER) {
+    if (capability == Capabilities.FLUID_HANDLER) {
       if (side == null || side == Direction.UP) {
         return topHandler.cast();
       }
@@ -133,7 +134,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 		// must have a TE with a fluid handler
 		BlockEntity te = level.getBlockEntity(worldPosition.relative(side));
 		if (te != null) {
-			LazyOptional<IFluidHandler> handler = te.getCapability(ForgeCapabilities.FLUID_HANDLER, side.getOpposite());
+			LazyOptional<IFluidHandler> handler = Caps.get(te, Capabilities.FLUID_HANDLER, side.getOpposite());
 			if (handler.isPresent()) {
 				handler.addListener(neighborConsumers.computeIfAbsent(side, s -> new WeakConsumerWrapper<>(this, (self, lazy) -> self.invalidateSide(s, lazy))));
 				return handler;
@@ -191,7 +192,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 		}
 	}
 
-	@Override
+	
 	public void invalidateCaps() {
 		super.invalidateCaps();
 		topHandler.invalidate();

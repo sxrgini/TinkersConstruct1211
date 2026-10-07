@@ -23,13 +23,13 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
-import net.minecraftforge.items.ItemHandlerHelper;
+import slimeknights.mantle.platform.item.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
@@ -125,7 +125,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   @Override
   @Nonnull
   public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
-    if (capability == ForgeCapabilities.FLUID_HANDLER)
+    if (capability == Capabilities.FLUID_HANDLER)
       return holder.cast();
     return super.getCapability(capability, facing);
   }

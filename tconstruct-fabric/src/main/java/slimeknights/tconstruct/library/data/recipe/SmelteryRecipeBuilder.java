@@ -20,7 +20,7 @@ import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.common.crafting.IntersectionIngredient;
 import slimeknights.mantle.platform.condition.ICondition;
-import net.minecraftforge.common.crafting.conditions.ItemExistsCondition;
+import slimeknights.mantle.platform.condition.ItemExistsCondition;
 import slimeknights.mantle.platform.condition.TrueCondition;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.recipe.condition.TagCombinationCondition;

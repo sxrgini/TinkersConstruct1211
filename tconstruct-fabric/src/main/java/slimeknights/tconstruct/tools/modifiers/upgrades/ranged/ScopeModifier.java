@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.ranged;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -36,7 +37,7 @@ public class ScopeModifier extends Modifier {
   @Deprecated(forRemoval = true)
   public static void stopScoping(LivingEntity entity) {
     if (entity.level().isClientSide) {
-      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(SCOPE));
+      Caps.get(entity, TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(SCOPE));
     }
   }
 }

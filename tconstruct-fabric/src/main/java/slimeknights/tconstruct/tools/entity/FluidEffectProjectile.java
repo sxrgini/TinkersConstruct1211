@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.entity;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
@@ -26,7 +27,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import slimeknights.mantle.platform.capability.Capabilities;
 import net.minecraftforge.event.ForgeEventFactory;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
@@ -143,7 +144,7 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
     Level level = level();
     if (this.cannon != null && level.isLoaded(this.cannon)) {
       BlockEntity cannonBE = level.getBlockEntity(this.cannon);
-      if (cannonBE != null && cannonBE.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(EmptyItemHandler.INSTANCE) instanceof IItemHandlerModifiable modifiable) {
+      if (cannonBE != null && Caps.get(cannonBE, Capabilities.ITEM_HANDLER).orElse(EmptyItemHandler.INSTANCE) instanceof IItemHandlerModifiable modifiable) {
         return modifiable;
       }
     }

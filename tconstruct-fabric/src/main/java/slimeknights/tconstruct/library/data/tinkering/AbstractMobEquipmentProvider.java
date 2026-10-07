@@ -10,7 +10,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.platform.condition.ICondition;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import slimeknights.mantle.platform.condition.ModLoadedCondition;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.util.JsonHelper;

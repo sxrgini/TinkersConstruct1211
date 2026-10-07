@@ -14,7 +14,7 @@ import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.platform.tags.Tags;
 import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import slimeknights.mantle.platform.condition.ModLoadedCondition;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
 import slimeknights.mantle.recipe.helper.ItemOutput;

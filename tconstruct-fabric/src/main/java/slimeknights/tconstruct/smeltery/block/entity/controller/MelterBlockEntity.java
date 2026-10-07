@@ -15,9 +15,9 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.platform.client.model.ModelData;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.mantle.platform.item.IItemHandler;
 import org.jetbrains.annotations.NotNull;
@@ -109,18 +109,18 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankInven
   }
 
   @Nonnull
-  @Override
+  
   public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-    if (capability == ForgeCapabilities.FLUID_HANDLER) {
+    if (capability == Capabilities.FLUID_HANDLER) {
       return tankHolder.cast();
     }
-    if (capability == ForgeCapabilities.ITEM_HANDLER) {
+    if (capability == Capabilities.ITEM_HANDLER) {
       return inventoryHolder.cast();
     }
     return super.getCapability(capability, facing);
   }
 
-  @Override
+  
   public void invalidateCaps() {
     super.invalidateCaps();
     this.tankHolder.invalidate();

@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.tank;
 
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 

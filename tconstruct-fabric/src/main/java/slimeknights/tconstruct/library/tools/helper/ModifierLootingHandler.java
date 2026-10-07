@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -99,7 +100,7 @@ public class ModifierLootingHandler {
         // no modifiers means its not a projectile we fired, so just defer to dumb vanilla behavior of whatever looting
         // since we don't set the enchantment on our tools, our looting modifiers won't set anything here anyways
         if (!modifiers.isEmpty()) {
-          ModDataNBT persistentData = direct.getCapability(PersistentDataCapability.CAPABILITY).orElseGet(ModDataNBT::new);
+          ModDataNBT persistentData = Caps.get(direct, PersistentDataCapability.CAPABILITY).orElseGet(ModDataNBT::new);
           level = LootingModifierHook.getLooting(new DummyToolStack(Items.AIR, modifiers, persistentData), context, 0);
         }
       } else {

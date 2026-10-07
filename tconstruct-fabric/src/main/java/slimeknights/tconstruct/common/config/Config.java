@@ -3,12 +3,12 @@ package slimeknights.tconstruct.common.config;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
-import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import slimeknights.mantle.platform.config.ConfigSpec;
+import slimeknights.mantle.platform.config.ConfigSpec.BooleanValue;
+import slimeknights.mantle.platform.config.ConfigSpec.ConfigValue;
+import slimeknights.mantle.platform.config.ConfigSpec.DoubleValue;
+import slimeknights.mantle.platform.config.ConfigSpec.EnumValue;
+import slimeknights.mantle.platform.config.ConfigSpec.IntValue;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
@@ -62,7 +62,7 @@ public class Config {
     public final EnumValue<LogInvalidToolStack> logInvalidToolStack;
     public enum LogInvalidToolStack { STACKTRACE, WARNING, IGNORED }
 
-    Common(ForgeConfigSpec.Builder builder) {
+    Common(ConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
 
       this.shouldSpawnWithTinkersBook = builder
@@ -225,14 +225,14 @@ public class Config {
    * Client specific configuration - only loaded clientside from tconstruct-client.toml
    */
   public static class Client {
-    //public final ForgeConfigSpec.BooleanValue temperatureInCelsius;
-    public final ForgeConfigSpec.BooleanValue tankFluidModel;
-    public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
-    public final ForgeConfigSpec.BooleanValue logMissingModifierTextures;
-    public final ForgeConfigSpec.BooleanValue renderShieldSlotItem;
-    public final ForgeConfigSpec.BooleanValue renderSleevesItem;
-    public final ForgeConfigSpec.BooleanValue modifiersIDsInAdvancedTooltips;
-    public final ForgeConfigSpec.IntValue maxSmelteryItemQuads;
+    //public final ConfigSpec.BooleanValue temperatureInCelsius;
+    public final ConfigSpec.BooleanValue tankFluidModel;
+    public final ConfigSpec.BooleanValue logMissingMaterialTextures;
+    public final ConfigSpec.BooleanValue logMissingModifierTextures;
+    public final ConfigSpec.BooleanValue renderShieldSlotItem;
+    public final ConfigSpec.BooleanValue renderSleevesItem;
+    public final ConfigSpec.BooleanValue modifiersIDsInAdvancedTooltips;
+    public final ConfigSpec.IntValue maxSmelteryItemQuads;
 
     // JEI
     public final BooleanValue showModifiersInJEI;
@@ -246,19 +246,19 @@ public class Config {
     public final BooleanValue showToolInModifiers;
 
     // framed modifier
-    public final ForgeConfigSpec.BooleanValue renderItemFrame;
-    public final ForgeConfigSpec.IntValue itemFrameXOffset;
-    public final ForgeConfigSpec.IntValue itemFrameYOffset;
-    public final ForgeConfigSpec.EnumValue<Orientation2D> itemFrameLocation;
-    public final ForgeConfigSpec.IntValue itemsPerRow;
+    public final ConfigSpec.BooleanValue renderItemFrame;
+    public final ConfigSpec.IntValue itemFrameXOffset;
+    public final ConfigSpec.IntValue itemFrameYOffset;
+    public final ConfigSpec.EnumValue<Orientation2D> itemFrameLocation;
+    public final ConfigSpec.IntValue itemsPerRow;
 
     // map modifier
-    public final ForgeConfigSpec.IntValue mapXOffset;
-    public final ForgeConfigSpec.IntValue mapYOffset;
-    public final ForgeConfigSpec.DoubleValue mapScale;
-    public final ForgeConfigSpec.EnumValue<Orientation2D> mapLocation;
+    public final ConfigSpec.IntValue mapXOffset;
+    public final ConfigSpec.IntValue mapYOffset;
+    public final ConfigSpec.DoubleValue mapScale;
+    public final ConfigSpec.EnumValue<Orientation2D> mapLocation;
 
-    Client(ForgeConfigSpec.Builder builder) {
+    Client(ConfigSpec.Builder builder) {
       // TODO 1.21: do we really need everything in a big "client" group? can simplify
       builder.comment("Client only settings").push("client");
 
@@ -399,20 +399,20 @@ public class Config {
     }
   }
 
-  public static final ForgeConfigSpec clientSpec;
+  public static final ConfigSpec clientSpec;
   public static final Client CLIENT;
 
   static {
-    final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
+    final Pair<Client, ConfigSpec> specPair = new ConfigSpec.Builder().configure(Client::new);
     clientSpec = specPair.getRight();
     CLIENT = specPair.getLeft();
   }
 
-  public static final ForgeConfigSpec commonSpec;
+  public static final ConfigSpec commonSpec;
   public static final Common COMMON;
 
   static {
-    final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
+    final Pair<Common, ConfigSpec> specPair = new ConfigSpec.Builder().configure(Common::new);
     commonSpec = specPair.getRight();
     COMMON = specPair.getLeft();
   }
@@ -435,7 +435,7 @@ public class Config {
     private final ConfigValue<Integer> nuggetsPerMetal;
     private final ConfigValue<Integer> shardsPerGem;
 
-    public OreRate(ForgeConfigSpec.Builder builder, int defaultNuggets, int defaultQuarters) {
+    public OreRate(ConfigSpec.Builder builder, int defaultNuggets, int defaultQuarters) {
       nuggetsPerMetal = builder
         .comment("Number of nuggets produced per metal ore unit melted. 9 nuggets would give 1 ingot")
         .defineInRange("nuggetsPerMetal", defaultNuggets, 1, 45);

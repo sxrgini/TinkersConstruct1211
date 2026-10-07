@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.network;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
@@ -39,7 +40,7 @@ public record SyncProjectileModifiersPacket(int entityId, ModifierNBT modifiers,
     if (level != null) {
       Entity entity = level.getEntity(entityId);
       if (entity != null) {
-        EntityModifierCapability.getCapability(entity).setModifiers(modifiers);
+        Caps.get(EntityModifierCapability, entity).setModifiers(modifiers);
         PersistentDataCapability.getOrWarn(entity).copyFrom(persistentData);
       }
     }

@@ -3,10 +3,10 @@ package slimeknights.tconstruct.fluids.util;
 import lombok.Getter;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.ICapabilityProvider;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandlerItem;
 
@@ -93,8 +93,8 @@ public class ConstantFluidContainerWrapper implements IFluidHandlerItem, ICapabi
   }
 
   @Nonnull
-  @Override
+  
   public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-    return ForgeCapabilities.FLUID_HANDLER_ITEM.orEmpty(capability, holder);
+    return Capabilities.FLUID_HANDLER_ITEM.orEmpty(capability, holder);
   }
 }

@@ -13,9 +13,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.mantle.block.entity.NameableBlockEntity;
 import slimeknights.tconstruct.TConstruct;
@@ -83,15 +83,15 @@ public class AlloyerBlockEntity extends NameableBlockEntity implements ITankBloc
    */
 
   @Nonnull
-  @Override
+  
   public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-    if (capability == ForgeCapabilities.FLUID_HANDLER) {
+    if (capability == Capabilities.FLUID_HANDLER) {
       return tankHolder.cast();
     }
     return super.getCapability(capability, facing);
   }
 
-  @Override
+  
   public void invalidateCaps() {
     super.invalidateCaps();
     this.tankHolder.invalidate();

@@ -1,15 +1,16 @@
 package slimeknights.tconstruct.smeltery.block.entity;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import slimeknights.mantle.platform.fluid.EmptyFluidHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 /** This class exists simply to allow us to have a block entity renderer for obsidian gauges. Though it is useful as a cache for the capability to render. */
@@ -33,7 +34,7 @@ public class GaugeBlockEntity extends BlockEntity {
       Direction side = getBlockState().getValue(BlockStateProperties.FACING);
       BlockEntity te = level.getBlockEntity(getBlockPos().relative(side.getOpposite()));
       if (te != null) {
-        neighbor = te.getCapability(ForgeCapabilities.FLUID_HANDLER, side);
+        neighbor = Caps.get(te, Capabilities.FLUID_HANDLER, side);
       } else {
         neighbor = LazyOptional.empty();
       }

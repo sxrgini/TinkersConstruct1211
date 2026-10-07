@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.library.tools.context;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
@@ -97,7 +98,7 @@ public class EquipmentContext {
   /** Gets the tinker data capability */
   public LazyOptional<TinkerDataCapability.Holder> getTinkerData() {
     if (tinkerData == null) {
-      tinkerData = entity.getCapability(TinkerDataCapability.CAPABILITY);
+      tinkerData = Caps.get(entity, TinkerDataCapability.CAPABILITY);
     }
     return tinkerData;
   }

@@ -18,7 +18,7 @@ import net.minecraft.world.level.material.Fluids;
 import slimeknights.mantle.platform.tags.Tags;
 import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
-import net.minecraftforge.common.crafting.conditions.OrCondition;
+import slimeknights.mantle.platform.condition.OrCondition;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.recipe.condition.TagCombinationCondition;

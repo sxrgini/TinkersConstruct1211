@@ -35,7 +35,7 @@ import slimeknights.mantle.platform.client.model.IGeometryLoader;
 import slimeknights.mantle.platform.client.model.IUnbakedGeometry;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import slimeknights.mantle.platform.fluid.FluidTank;
 import slimeknights.mantle.client.model.util.ColoredBlockModel;
 import slimeknights.mantle.client.model.util.ExtraTextureContext;
 import slimeknights.mantle.client.model.util.SimpleBlockModel;

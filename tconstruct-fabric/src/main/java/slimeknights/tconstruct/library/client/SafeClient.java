@@ -5,7 +5,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.fabricmc.api.EnvType;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import slimeknights.mantle.platform.fluid.FluidTank;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
 /**

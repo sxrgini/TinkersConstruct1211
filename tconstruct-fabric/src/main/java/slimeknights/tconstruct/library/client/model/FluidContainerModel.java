@@ -55,7 +55,7 @@ import slimeknights.mantle.platform.client.model.UnbakedGeometryHelper;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
-import net.minecraftforge.fluids.FluidUtil;
+import slimeknights.mantle.platform.fluid.FluidUtil;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import slimeknights.mantle.client.model.util.ColoredBlockModel;

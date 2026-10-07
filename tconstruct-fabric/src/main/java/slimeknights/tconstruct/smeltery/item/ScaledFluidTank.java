@@ -2,7 +2,7 @@ package slimeknights.tconstruct.smeltery.item;
 
 import net.minecraft.nbt.CompoundTag;
 import slimeknights.mantle.platform.fluid.FluidStack;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import slimeknights.mantle.platform.fluid.FluidTank;
 
 import javax.annotation.Nonnull;
 

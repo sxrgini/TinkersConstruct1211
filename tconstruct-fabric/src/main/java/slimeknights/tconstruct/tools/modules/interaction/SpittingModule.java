@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modules.interaction;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -112,7 +113,7 @@ public record SpittingModule(LevelingInt shots) implements ModifierModule, Gener
             spit.shoot(targetVector.x(), targetVector.y(), targetVector.z(), velocity, inaccuracy);
 
             // store all modifiers on the spit
-            EntityModifierCapability.getCapability(spit).setModifiers(tool.getModifiers());
+            Caps.get(EntityModifierCapability, spit).setModifiers(tool.getModifiers());
 
             // fetch the persistent data for the arrow as modifiers may want to store data
             ModDataNBT arrowData = PersistentDataCapability.getOrWarn(spit);

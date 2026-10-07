@@ -13,12 +13,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.platform.client.model.ModelData;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
-import net.minecraftforge.fluids.IFluidTank;
+import slimeknights.mantle.platform.fluid.IFluidTank;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
@@ -96,13 +96,13 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
   @Override
   @Nonnull
   public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-    if (capability == ForgeCapabilities.FLUID_HANDLER) {
+    if (capability == Capabilities.FLUID_HANDLER) {
       return holder.cast();
     }
     return super.getCapability(capability, facing);
   }
 
-  @Override
+  
   public void invalidateCaps() {
     super.invalidateCaps();
     holder.invalidate();

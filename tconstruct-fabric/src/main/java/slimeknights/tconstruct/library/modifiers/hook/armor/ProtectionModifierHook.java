@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.library.modifiers.hook.armor;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
@@ -51,7 +52,7 @@ public interface ProtectionModifierHook {
 
   /** Gets the maximum protection amount on the given entity */
   static double getProtectionCap(LivingEntity living) {
-    return getProtectionCap(living, living.getCapability(TinkerDataCapability.CAPABILITY));
+    return getProtectionCap(living, Caps.get(living, TinkerDataCapability.CAPABILITY));
   }
 
   /** Merger that combines all values */

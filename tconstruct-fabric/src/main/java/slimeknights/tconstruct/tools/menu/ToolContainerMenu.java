@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.menu;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -14,11 +15,11 @@ import net.minecraft.world.inventory.ResultSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import slimeknights.mantle.platform.capability.Capabilities;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.item.IItemHandler;
 import slimeknights.mantle.platform.item.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemStackHandler;
+import slimeknights.mantle.platform.item.ItemStackHandler;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferDirection;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferResult;
@@ -118,7 +119,7 @@ public class ToolContainerMenu extends AbstractContainerMenu {
     // if the stack looks like it could be our tool, fetch the handler from it
     IItemHandler handler;
     if (stack.hasTag() && stack.is(TinkerTags.Items.MODIFIABLE)) {
-      handler = stack.getCapability(ForgeCapabilities.ITEM_HANDLER).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(EmptyItemHandler.INSTANCE);
+      handler = Caps.get(stack, Capabilities.ITEM_HANDLER).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(EmptyItemHandler.INSTANCE);
       // wrong number of slots means something went wrong, use a dummy
       if (handler.getSlots() != size) {
         handler = new ItemStackHandler(size);

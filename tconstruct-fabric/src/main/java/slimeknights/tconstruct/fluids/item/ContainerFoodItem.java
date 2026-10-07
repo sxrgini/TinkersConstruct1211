@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import slimeknights.mantle.platform.capability.ICapabilityProvider;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.tconstruct.fluids.util.ConstantFluidContainerWrapper;
 
@@ -90,7 +90,7 @@ public class ContainerFoodItem extends Item {
     }
 
     @Nullable
-    @Override
+    
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
       return new ConstantFluidContainerWrapper(fluid.get(), stack);
     }

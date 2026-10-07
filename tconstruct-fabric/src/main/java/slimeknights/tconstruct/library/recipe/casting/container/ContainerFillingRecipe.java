@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.casting.container;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.core.registries.BuiltInRegistries;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +13,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import slimeknights.mantle.platform.capability.Capabilities;
 import slimeknights.mantle.platform.fluid.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
+import slimeknights.mantle.platform.fluid.FluidUtil;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.loadable.Loadables;
@@ -60,7 +61,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<IDis
   @Override
   public int getFluidAmount(ICastingContainer inv) {
     Fluid fluid = inv.getFluid();
-    return inv.getStack().getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
+    return Caps.get(inv.getStack(), Capabilities.FLUID_HANDLER_ITEM)
               .map(handler -> handler.fill(new FluidStack(fluid, this.fluidAmount), FluidAction.SIMULATE))
               .orElse(0);
   }
@@ -85,7 +86,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<IDis
     ItemStack stack = inv.getStack();
     Fluid fluid = inv.getFluid();
     return stack.getItem() == this.container.asItem()
-           && stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
+           && Caps.get(stack, Capabilities.FLUID_HANDLER_ITEM)
                    .filter(handler -> handler.fill(new FluidStack(fluid, this.fluidAmount), FluidAction.SIMULATE) > 0)
                    .isPresent();
   }
@@ -100,7 +101,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<IDis
   @Override
   public ItemStack assemble(ICastingContainer inv, RegistryAccess access) {
     ItemStack stack = inv.getStack().copy();
-    return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).map(handler -> {
+    return Caps.get(stack, Capabilities.FLUID_HANDLER_ITEM).map(handler -> {
       handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount, inv.getFluidTag()), FluidAction.EXECUTE);
       return handler.getContainer();
     }).orElse(stack);

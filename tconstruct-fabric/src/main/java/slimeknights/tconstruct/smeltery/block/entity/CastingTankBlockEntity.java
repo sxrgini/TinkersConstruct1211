@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
@@ -20,13 +21,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import slimeknights.mantle.platform.client.model.ModelData;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
+import slimeknights.mantle.platform.item.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
@@ -158,7 +159,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
       return getItem(INPUT).isEmpty() && getItem(OUTPUT).isEmpty() && !pStack.isEmpty() && (
         // check the various options for some sort of fluid-containing stack
         FluidContainerTransferManager.INSTANCE.mayHaveTransfer(pStack)
-          || pStack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent()
+          || Caps.get(pStack, Capabilities.FLUID_HANDLER_ITEM).isPresent()
       );
     }
     return false;
@@ -237,13 +238,13 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   @Override
   @Nonnull
   public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-    if (capability == ForgeCapabilities.FLUID_HANDLER) {
+    if (capability == Capabilities.FLUID_HANDLER) {
       return fluidHolder.cast();
     }
     return super.getCapability(capability, facing);
   }
 
-  @Override
+  
   public void invalidateCaps() {
     super.invalidateCaps();
     fluidHolder.invalidate();

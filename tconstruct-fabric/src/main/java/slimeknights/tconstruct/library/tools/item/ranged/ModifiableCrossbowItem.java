@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.item.ranged;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -269,7 +270,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
 
         // add modifiers to the projectile, will let us use them on impact
         ModifierNBT modifiers = tool.getModifiers();
-        EntityModifierCapability.getCapability(projectile).addModifiers(modifiers);
+        Caps.get(EntityModifierCapability, projectile).addModifiers(modifiers);
 
         // fetch the persistent data for the arrow as modifiers may want to store data
         ModDataNBT projectileData = PersistentDataCapability.getOrWarn(projectile);

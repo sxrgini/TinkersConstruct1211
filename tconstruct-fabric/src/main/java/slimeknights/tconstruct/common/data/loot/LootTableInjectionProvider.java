@@ -11,7 +11,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import slimeknights.mantle.platform.condition.ICondition;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import slimeknights.mantle.platform.condition.ModLoadedCondition;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.data.predicate.IJsonPredicate;

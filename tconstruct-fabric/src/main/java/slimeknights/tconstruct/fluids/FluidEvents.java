@@ -2,7 +2,7 @@ package slimeknights.tconstruct.fluids;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
+import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import slimeknights.mantle.platform.fluid.FluidStack;

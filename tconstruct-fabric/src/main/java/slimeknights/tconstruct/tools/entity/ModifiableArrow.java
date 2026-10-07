@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.entity;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -88,7 +89,7 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
     setStack(stack);
     // initialize arrow stats
     IToolStackView tool = getTool();
-    EntityModifierCapability.getCapability(this).addModifiers(tool.getModifiers());
+    Caps.get(EntityModifierCapability, this).addModifiers(tool.getModifiers());
     setBaseDamage(ConditionalStatModifierHook.getModifiedStat(tool, shooter, ToolStats.PROJECTILE_DAMAGE));
     this.entityData.set(WATER_INERTIA, ConditionalStatModifierHook.getModifiedStat(tool, shooter, ToolStats.WATER_INERTIA));
     return tool;

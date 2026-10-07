@@ -18,7 +18,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import slimeknights.mantle.platform.capability.ICapabilityProvider;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
 import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
@@ -115,7 +115,7 @@ public class PotionBucketItem extends PotionItem {
     return 96; // 3x duration of potion bottles
   }
 
-  @Override
+  
   public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
     return new PotionBucketWrapper(stack);
   }

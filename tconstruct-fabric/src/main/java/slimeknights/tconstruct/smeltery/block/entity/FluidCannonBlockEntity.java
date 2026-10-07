@@ -19,9 +19,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
 import slimeknights.mantle.platform.item.IItemHandler;
@@ -169,13 +169,13 @@ public class FluidCannonBlockEntity extends TankBlockEntity implements ITankInve
   @Nonnull
   @Override
   public <C> LazyOptional<C> getCapability(Capability<C> capability, @Nullable Direction facing) {
-    if (capability == ForgeCapabilities.ITEM_HANDLER) {
+    if (capability == Capabilities.ITEM_HANDLER) {
       return itemCapability.cast();
     }
     return super.getCapability(capability, facing);
   }
 
-  @Override
+  
   public void invalidateCaps() {
     super.invalidateCaps();
     itemCapability.invalidate();

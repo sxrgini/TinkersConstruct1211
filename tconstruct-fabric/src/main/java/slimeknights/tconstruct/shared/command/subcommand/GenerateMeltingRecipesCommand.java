@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared.command.subcommand;
 
+import slimeknights.mantle.platform.capability.Caps;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -30,11 +31,11 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import slimeknights.mantle.platform.capability.Capabilities;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.platform.fluid.IFluidHandlerItem;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import slimeknights.mantle.platform.fluid.FluidTank;
 import org.apache.commons.lang3.mutable.MutableInt;
 import slimeknights.mantle.command.GeneratePackHelper;
 import slimeknights.mantle.command.MantleCommand;
@@ -437,7 +438,7 @@ public class GenerateMeltingRecipesCommand {
       }
       // fluid capability check
       try {
-        IFluidHandlerItem capability = LogicHelper.orElseNull(stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM));
+        IFluidHandlerItem capability = LogicHelper.orElseNull(Caps.get(stack, Capabilities.FLUID_HANDLER_ITEM));
         if (capability != null) {
           FluidStack contained = capability.getFluidInTank(0);
           if (!contained.isEmpty()) {

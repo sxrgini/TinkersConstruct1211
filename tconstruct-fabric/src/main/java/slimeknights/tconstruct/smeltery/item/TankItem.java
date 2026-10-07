@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.item;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -17,10 +18,10 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.ICapabilityProvider;
 import slimeknights.mantle.platform.fluid.FluidStack;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import slimeknights.mantle.platform.fluid.FluidTank;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
@@ -95,14 +96,14 @@ public class TankItem extends BlockTooltipItem {
   }
 
   @Nullable
-  @Override
+  
   public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
     return new TankItemFluidHandler(this, stack);
   }
 
   /** Checks if the given stack has fluid transfer */
   public static boolean mayHaveFluid(ItemStack stack) {
-    return FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack) || stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
+    return FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack) || Caps.get(stack, Capabilities.FLUID_HANDLER_ITEM).isPresent();
   }
 
   @Override

@@ -12,9 +12,9 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.item.IItemHandler;
 import slimeknights.mantle.block.entity.NameableBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.inventory.IChestItemHandler;
@@ -38,15 +38,15 @@ public abstract class AbstractChestBlockEntity extends NameableBlockEntity {
   }
 
   @Nonnull
-  @Override
+  
   public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-    if (cap == ForgeCapabilities.ITEM_HANDLER) {
+    if (cap == Capabilities.ITEM_HANDLER) {
       return capability.cast();
     }
     return super.getCapability(cap, side);
   }
 
-  @Override
+  
   public void invalidateCaps() {
     super.invalidateCaps();
     capability.invalidate();

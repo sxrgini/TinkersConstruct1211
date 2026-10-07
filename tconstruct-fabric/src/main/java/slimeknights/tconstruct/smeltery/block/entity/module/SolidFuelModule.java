@@ -1,18 +1,19 @@
 package slimeknights.tconstruct.smeltery.block.entity.module;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
+import slimeknights.mantle.platform.util.NonNullConsumer;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import slimeknights.mantle.platform.fluid.EmptyFluidHandler;
 import slimeknights.mantle.platform.item.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
+import slimeknights.mantle.platform.item.ItemHandlerHelper;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.inventory.EmptyItemHandler;
 import slimeknights.mantle.util.WeakConsumerWrapper;
@@ -115,11 +116,11 @@ public class SolidFuelModule extends FuelModule {
     if (te != null) {
       // first, identify a capability that has what we need
       // on the chance both are present, we prioritize fluid; we don't expect that to change
-      fluidHandler = te.getCapability(ForgeCapabilities.FLUID_HANDLER);
+      fluidHandler = Caps.get(te, Capabilities.FLUID_HANDLER);
       if (fluidHandler.isPresent()) {
         fluidHandler.addListener(fluidListener);
       }
-      itemHandler = te.getCapability(ForgeCapabilities.ITEM_HANDLER);
+      itemHandler = Caps.get(te, Capabilities.ITEM_HANDLER);
       if (itemHandler.isPresent()) {
         itemHandler.addListener(itemListener);
       }

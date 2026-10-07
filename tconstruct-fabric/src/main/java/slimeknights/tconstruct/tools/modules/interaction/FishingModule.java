@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modules.interaction;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -100,7 +101,7 @@ public enum FishingModule implements ModifierModule, GeneralInteractionModifierH
 
           // copy tool data to the bobber for modifier hooks
           ModifierNBT modifiers = tool.getModifiers();
-          EntityModifierCapability.getCapability(hook).setModifiers(modifiers);
+          Caps.get(EntityModifierCapability, hook).setModifiers(modifiers);
           // apply grapple or drill
           if (ModifierUtil.canPerformAction(tool, TinkerToolActions.GRAPPLE_HOOK)) {
             hook.setGrapple(ModifierUtil.canPerformAction(tool, TinkerToolActions.DRILL_ATTACK) ? GrappleType.DRILL : GrappleType.DASH);

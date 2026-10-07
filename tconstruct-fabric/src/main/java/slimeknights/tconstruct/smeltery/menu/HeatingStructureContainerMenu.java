@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.menu;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -9,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import slimeknights.mantle.platform.capability.Capabilities;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.mantle.fluid.FluidTransferHelper;
@@ -186,7 +187,7 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-      return FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack) || stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
+      return FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack) || Caps.get(stack, Capabilities.FLUID_HANDLER_ITEM).isPresent();
     }
   }
 

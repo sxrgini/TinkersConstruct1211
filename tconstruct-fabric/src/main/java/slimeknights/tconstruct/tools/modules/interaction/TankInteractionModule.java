@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modules.interaction;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
@@ -9,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import slimeknights.mantle.platform.capability.Capabilities;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
@@ -62,7 +63,7 @@ public record TankInteractionModule(@Nullable InteractionSource source) implemen
       return InteractionResult.PASS;
     }
     Direction face = context.getClickedFace();
-    IFluidHandler cap = LogicHelper.orElseNull(te.getCapability(ForgeCapabilities.FLUID_HANDLER, face));
+    IFluidHandler cap = LogicHelper.orElseNull(Caps.get(te, Capabilities.FLUID_HANDLER, face));
     if (cap == null) {
       return InteractionResult.PASS;
     }

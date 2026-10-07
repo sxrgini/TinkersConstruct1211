@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -30,7 +31,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import slimeknights.mantle.platform.capability.Capabilities;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.mantle.util.RegistryHelper;
@@ -166,7 +167,7 @@ public class ChannelBlock extends Block implements EntityBlock {
 	 */
 	private static boolean isFluidHandler(LevelAccessor world, Direction side, BlockPos pos) {
 		BlockEntity te = world.getBlockEntity(pos);
-		return te != null && te.getCapability(ForgeCapabilities.FLUID_HANDLER, side).isPresent();
+		return te != null && Caps.get(te, Capabilities.FLUID_HANDLER, side).isPresent();
 	}
 
 	/**

@@ -42,7 +42,7 @@ import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import slimeknights.mantle.platform.condition.ICondition;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import slimeknights.mantle.platform.fluid.FluidTank;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.predicate.IJsonPredicate;

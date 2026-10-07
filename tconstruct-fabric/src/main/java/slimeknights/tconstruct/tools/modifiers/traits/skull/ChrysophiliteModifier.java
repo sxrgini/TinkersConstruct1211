@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
@@ -37,7 +38,7 @@ public class ChrysophiliteModifier extends NoLevelsModifier {
   @Deprecated(forRemoval = true)
   public static int getTotalGold(@Nullable Entity entity) {
     return Optional.ofNullable(entity)
-                   .flatMap(e -> e.getCapability(TinkerDataCapability.CAPABILITY).resolve())
+                   .flatMap(e -> Caps.get(e, TinkerDataCapability.CAPABILITY).resolve())
                    .map(data -> data.get(ChrysophiliteModifier.TOTAL_GOLD))
                    .map(TotalGold::getTotalGold)
                    .orElse(0);

@@ -30,7 +30,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import slimeknights.mantle.platform.item.ItemAbility;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import slimeknights.mantle.platform.capability.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.item.ModifiableItemClientExtension;
@@ -137,7 +137,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   /* Loading */
 
   @Nullable
-  @Override
+  
   public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
     return new ToolCapabilityProvider(stack);
   }

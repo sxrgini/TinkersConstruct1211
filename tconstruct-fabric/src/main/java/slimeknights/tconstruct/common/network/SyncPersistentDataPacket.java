@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common.network;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
@@ -33,7 +34,7 @@ public class SyncPersistentDataPacket implements IThreadsafePacket {
     private static void handle(SyncPersistentDataPacket packet) {
       Player player = Minecraft.getInstance().player;
       if (player != null) {
-        player.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> data.copyFrom(packet.data));
+        Caps.get(player, PersistentDataCapability.CAPABILITY).ifPresent(data -> data.copyFrom(packet.data));
       }
     }
   }

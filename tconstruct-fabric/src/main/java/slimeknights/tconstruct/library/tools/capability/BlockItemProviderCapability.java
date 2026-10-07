@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.capability;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -7,13 +8,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
+import slimeknights.mantle.platform.capability.LazyOptional;
+import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
 import slimeknights.mantle.platform.event.EventPriority;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.jetbrains.annotations.ApiStatus;
@@ -32,7 +31,7 @@ public interface BlockItemProviderCapability {
   /** Capability ID */
   ResourceLocation ID = TConstruct.getResource("block_provider");
   /** Capability type */
-  Capability<BlockItemProviderCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
+  Capability<BlockItemProviderCapability> CAPABILITY = new Capability<>("capability");
 
   /** Registers this capability */
   @ApiStatus.Internal
@@ -60,7 +59,7 @@ public interface BlockItemProviderCapability {
    */
   @Nullable
   static BlockItemProviderCapability getBlockProvider(ItemStack stack) {
-    return LogicHelper.orElseNull(stack.getCapability(CAPABILITY));
+    return LogicHelper.orElseNull(Caps.get(stack, CAPABILITY));
   }
 
   /**
@@ -119,7 +118,7 @@ public interface BlockItemProviderCapability {
     }
 
     // Because this is an incredibly simple capability it acts as provider and as the actual capability implementation.
-    @Override
+    
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction dir) {
       return CAPABILITY.orEmpty(cap, lazy);
     }

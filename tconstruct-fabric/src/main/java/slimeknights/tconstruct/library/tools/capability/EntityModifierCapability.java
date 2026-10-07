@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.capability;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.Direction;
@@ -7,13 +8,11 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.ICapabilitySerializable;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
+import slimeknights.mantle.platform.capability.LazyOptional;
+import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
 import slimeknights.mantle.platform.event.EventPriority;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.tconstruct.TConstruct;
@@ -51,16 +50,16 @@ public class EntityModifierCapability {
   /** Capability ID */
   private static final ResourceLocation ID = TConstruct.getResource("modifiers");
   /** Capability type */
-  public static final Capability<EntityModifiers> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
+  public static final Capability<EntityModifiers> CAPABILITY = new Capability<>("capability");
 
   /** Gets the capability for the entity or an empty instance if missing */
   public static EntityModifiers getCapability(Entity entity) {
-    return entity.getCapability(CAPABILITY).orElse(EMPTY);
+    return Caps.get(entity, CAPABILITY).orElse(EMPTY);
   }
 
   /** Gets the data or an empty instance if missing */
   public static ModifierNBT getOrEmpty(Entity entity) {
-    return entity.getCapability(CAPABILITY).orElse(EMPTY).getModifiers();
+    return Caps.get(entity, CAPABILITY).orElse(EMPTY).getModifiers();
   }
 
   /** Checks if the given entity supports this capability */
@@ -103,7 +102,7 @@ public class EntityModifierCapability {
     }
 
     @Nonnull
-    @Override
+    
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
       return CAPABILITY.orEmpty(cap, capability);
     }

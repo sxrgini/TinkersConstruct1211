@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.menu;
 
+import slimeknights.mantle.platform.capability.Caps;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
@@ -17,7 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.fabricmc.api.EnvType;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import slimeknights.mantle.platform.capability.Capabilities;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import slimeknights.mantle.platform.item.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
@@ -146,7 +147,7 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
 
       // if we found something, add the side inventory
       if (inventoryTE != null) {
-        int invSlots = inventoryTE.getCapability(ForgeCapabilities.ITEM_HANDLER, accessDir).orElse(EmptyItemHandler.INSTANCE).getSlots();
+        int invSlots = Caps.get(inventoryTE, Capabilities.ITEM_HANDLER, accessDir).orElse(EmptyItemHandler.INSTANCE).getSlots();
         int columns = Mth.clamp((invSlots - 1) / 9 + 1, 3, 6);
         this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer.get(), containerId, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, columns), false);
       }
@@ -173,7 +174,7 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
    * @return True if compatible.
    */
   private static boolean hasItemHandler(BlockEntity tileEntity, @Nullable Direction direction) {
-    return tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, direction).filter(cap -> cap instanceof IItemHandlerModifiable).isPresent();
+    return Caps.get(tileEntity, Capabilities.ITEM_HANDLER, direction).filter(cap -> cap instanceof IItemHandlerModifiable).isPresent();
   }
 
 

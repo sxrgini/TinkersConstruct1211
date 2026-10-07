@@ -1,13 +1,14 @@
 package slimeknights.tconstruct.tables.menu.module;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.item.IItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import slimeknights.mantle.inventory.BaseContainerMenu;
@@ -34,7 +35,7 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
     if (tile == null) {
       this.itemHandler = LazyOptional.of(() -> EmptyHandler.INSTANCE);
     } else {
-      this.itemHandler = tile.getCapability(ForgeCapabilities.ITEM_HANDLER, inventoryDirection);
+      this.itemHandler = Caps.get(tile, Capabilities.ITEM_HANDLER, inventoryDirection);
     }
 
     // slot properties

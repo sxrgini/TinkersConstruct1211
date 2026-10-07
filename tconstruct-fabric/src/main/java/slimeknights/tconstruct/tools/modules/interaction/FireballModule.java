@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modules.interaction;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -176,7 +177,7 @@ public record FireballModule(List<FireballType> options, DamageTypePair damageTy
           builder.add(type.ammoModifiers);
           modifiers = builder.build();
         }
-        EntityModifierCapability.getCapability(projectile).setModifiers(modifiers);
+        Caps.get(EntityModifierCapability, projectile).setModifiers(modifiers);
 
         // fetch the persistent data for the fireball as modifiers may want to store data
         ModDataNBT projectileData = PersistentDataCapability.getOrWarn(projectile);

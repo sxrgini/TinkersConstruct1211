@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.logic;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -404,7 +405,7 @@ public class InteractionHandler {
     }
     // ensure we have not fired this tick
     Player player = event.getEntity();
-    if (player.getCapability(TinkerDataCapability.CAPABILITY).filter(data -> data.computeIfAbsent(LAST_TICK).update(player)).isEmpty()) {
+    if (Caps.get(player, TinkerDataCapability.CAPABILITY).filter(data -> data.computeIfAbsent(LAST_TICK).update(player)).isEmpty()) {
       return;
     }
     // must support interaction

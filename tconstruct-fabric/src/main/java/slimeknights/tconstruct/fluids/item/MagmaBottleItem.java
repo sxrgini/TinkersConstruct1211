@@ -14,7 +14,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import slimeknights.mantle.platform.capability.ICapabilityProvider;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.fluids.util.ConstantFluidContainerWrapper;
@@ -78,7 +78,7 @@ public class MagmaBottleItem extends Item {
   }
 
   @Nullable
-  @Override
+  
   public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
     return new ConstantFluidContainerWrapper(new FluidStack(TinkerFluids.magma.get(), FluidValues.BOTTLE), stack);
   }

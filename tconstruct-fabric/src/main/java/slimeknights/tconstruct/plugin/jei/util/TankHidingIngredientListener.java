@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.util;
 
+import slimeknights.mantle.platform.capability.Caps;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.ingredients.IIngredientHelper;
@@ -8,7 +9,7 @@ import mezz.jei.api.runtime.IIngredientManager;
 import mezz.jei.api.runtime.IIngredientManager.IIngredientListener;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import slimeknights.mantle.platform.capability.Capabilities;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
 import slimeknights.mantle.platform.fluid.IFluidHandlerItem;
@@ -28,7 +29,7 @@ public record TankHidingIngredientListener(IIngredientManager manager, List<Item
       if (!fluid.isEmpty()) {
         for (Item item : tanks) {
           ItemStack tank = new ItemStack(item);
-          IFluidHandlerItem handler = tank.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).orElse(EmptyFluidHandlerItem.INSTANCE);
+          IFluidHandlerItem handler = Caps.get(tank, Capabilities.FLUID_HANDLER_ITEM).orElse(EmptyFluidHandlerItem.INSTANCE);
           if (handler.getTanks() > 0 && handler.fill(fluid, FluidAction.EXECUTE) > 0) {
             list.add(handler.getContainer());
           }

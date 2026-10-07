@@ -40,6 +40,16 @@ public final class ConditionRegistry {
     register(ResourceLocation.fromNamespaceAndPath("mantle", "true"), TrueCondition.CODEC);
     register(ResourceLocation.fromNamespaceAndPath("mantle", "false"), FalseCondition.CODEC);
     register(ResourceLocation.fromNamespaceAndPath("mantle", "not"), NotCondition.CODEC);
+    register(ResourceLocation.fromNamespaceAndPath("mantle", "mod_loaded"), ModLoadedCondition.CODEC);
+    register(ResourceLocation.fromNamespaceAndPath("mantle", "item_exists"), ItemExistsCondition.CODEC);
+    register(ResourceLocation.fromNamespaceAndPath("mantle", "or"), OrCondition.CODEC);
+    register(ResourceLocation.fromNamespaceAndPath("mantle", "and"), AndCondition.CODEC);
+    for (String ns : new String[] {"neoforge", "forge"}) {
+      BY_ID.put(ResourceLocation.fromNamespaceAndPath(ns, "mod_loaded"), ModLoadedCondition.CODEC);
+      BY_ID.put(ResourceLocation.fromNamespaceAndPath(ns, "item_exists"), ItemExistsCondition.CODEC);
+      BY_ID.put(ResourceLocation.fromNamespaceAndPath(ns, "or"), OrCondition.CODEC);
+      BY_ID.put(ResourceLocation.fromNamespaceAndPath(ns, "and"), AndCondition.CODEC);
+    }
     // NeoForge ids are accepted so existing data keeps working
     BY_ID.put(ResourceLocation.fromNamespaceAndPath("neoforge", "true"), TrueCondition.CODEC);
     BY_ID.put(ResourceLocation.fromNamespaceAndPath("neoforge", "false"), FalseCondition.CODEC);

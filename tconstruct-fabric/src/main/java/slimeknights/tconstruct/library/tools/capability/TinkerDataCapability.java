@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.capability;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.Direction;
@@ -7,13 +8,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
+import slimeknights.mantle.platform.capability.LazyOptional;
+import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
 import slimeknights.mantle.platform.event.EventPriority;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.mantle.registration.object.IdAwareObject;
@@ -36,7 +35,7 @@ public class TinkerDataCapability {
   /** Capability ID */
   private static final ResourceLocation ID = TConstruct.getResource("modifier_data");
   /** Capability type */
-  public static final Capability<Holder> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
+  public static final Capability<Holder> CAPABILITY = new Capability<>("capability");
 
   /** Registers this capability */
   public static void register() {
@@ -62,7 +61,7 @@ public class TinkerDataCapability {
   @SuppressWarnings("DataFlowIssue")
   @Nullable
   public static TinkerDataCapability.Holder getData(LivingEntity entity) {
-    return entity.getCapability(CAPABILITY).orElse(null);
+    return Caps.get(entity, CAPABILITY).orElse(null);
   }
 
 
@@ -76,7 +75,7 @@ public class TinkerDataCapability {
     }
 
     @Nonnull
-    @Override
+    
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
       return CAPABILITY.orEmpty(cap, data);
     }

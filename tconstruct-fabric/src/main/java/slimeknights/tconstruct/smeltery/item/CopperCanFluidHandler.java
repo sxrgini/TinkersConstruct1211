@@ -7,10 +7,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.ICapabilityProvider;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandlerItem;
 import slimeknights.tconstruct.library.recipe.FluidValues;
@@ -27,9 +27,9 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   private final ItemStack container;
 
   @Nonnull
-  @Override
+  
   public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-    return ForgeCapabilities.FLUID_HANDLER_ITEM.orEmpty(cap, holder);
+    return Capabilities.FLUID_HANDLER_ITEM.orEmpty(cap, holder);
   }
 
 

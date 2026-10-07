@@ -12,7 +12,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 
 /** Block entity with additional utilities to make NBT syncing easier. */
-public class MantleBlockEntity extends BlockEntity {
+public class MantleBlockEntity extends BlockEntity implements slimeknights.mantle.platform.capability.ICapabilityProvider {
+  /** Capabilities provided by this block entity, empty by default. Subclasses override and chain to super. */
+  @Override
+  public <T> slimeknights.mantle.platform.capability.LazyOptional<T> getCapability(slimeknights.mantle.platform.capability.Capability<T> cap, @javax.annotation.Nullable net.minecraft.core.Direction side) {
+    return slimeknights.mantle.platform.capability.LazyOptional.empty();
+  }
+
+  /** Called when the block entity is removed so capability optionals can be invalidated, replaces Forge's {@code invalidateCaps} */
+  public void invalidateCaps() {}
+
+  /** Called when the block entity is revived, replaces Forge's {@code reviveCaps} */
+  public void reviveCaps() {}
+
 
   public MantleBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state);

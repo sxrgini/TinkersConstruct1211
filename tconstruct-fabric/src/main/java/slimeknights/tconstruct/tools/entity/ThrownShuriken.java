@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.entity;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -115,7 +116,7 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
     setStack(stack);
     // initialize arrow stats
     IToolStackView tool = getTool();
-    EntityModifierCapability.getCapability(this).addModifiers(tool.getModifiers());
+    Caps.get(EntityModifierCapability, this).addModifiers(tool.getModifiers());
     this.power = ConditionalStatModifierHook.getModifiedStat(tool, shooter, ToolStats.PROJECTILE_DAMAGE);
     this.entityData.set(WATER_INERTIA, ConditionalStatModifierHook.getModifiedStat(tool, shooter, ToolStats.WATER_INERTIA));
     return tool;

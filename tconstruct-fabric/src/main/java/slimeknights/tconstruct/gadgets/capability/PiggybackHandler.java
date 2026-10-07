@@ -6,9 +6,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket;
 import net.minecraft.core.Direction;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.ICapabilityProvider;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 
 import javax.annotation.Nullable;
@@ -30,7 +30,7 @@ public class PiggybackHandler implements ICapabilityProvider {
   /** Last found list of passengers, used in serialization and syncing */
   private List<Entity> lastPassengers;
 
-  @Override
+  
   public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
     if (cap == PiggybackCapability.PIGGYBACK) {
       return capability.cast();

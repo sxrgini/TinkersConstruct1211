@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers;
 
+import slimeknights.mantle.platform.capability.Caps;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -56,7 +57,7 @@ public class ModifierLootModifier extends LootModifier {
 
         // no need to build the dummy tool if we lack modifiers
         if (!modifiers.isEmpty()) {
-          ModDataNBT persistentData = projectile.getCapability(PersistentDataCapability.CAPABILITY).orElseGet(ModDataNBT::new);
+          ModDataNBT persistentData = Caps.get(projectile, PersistentDataCapability.CAPABILITY).orElseGet(ModDataNBT::new);
           IToolStackView dummyTool = new DummyToolStack(Items.AIR, modifiers, persistentData);
           for (ModifierEntry entry : modifiers) {
             entry.getHook(ModifierHooks.PROCESS_LOOT).processLoot(dummyTool, entry, generatedLoot, context);

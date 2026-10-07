@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import slimeknights.mantle.platform.tags.Tags;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import slimeknights.mantle.platform.condition.ModLoadedCondition;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;

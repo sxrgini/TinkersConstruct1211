@@ -2,9 +2,9 @@ package slimeknights.tconstruct.library.tools.capability;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
@@ -133,9 +133,9 @@ public record ToolEnergyCapability(Supplier<? extends IToolStackView> tool) impl
       this.energyCap = LazyOptional.of(() -> new ToolEnergyCapability(toolStack));
     }
 
-    @Override
+    
     public <T> LazyOptional<T> getCapability(IToolStackView tool, Capability<T> cap) {
-      if (cap == ForgeCapabilities.ENERGY && tool.getStats().getInt(MAX_STAT) > 0) {
+      if (cap == Capabilities.ENERGY && tool.getStats().getInt(MAX_STAT) > 0) {
         return energyCap.cast();
       }
       return LazyOptional.empty();

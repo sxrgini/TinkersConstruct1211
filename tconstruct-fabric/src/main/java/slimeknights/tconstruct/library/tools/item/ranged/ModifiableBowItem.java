@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.item.ranged;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -274,7 +275,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
 
         // just store all modifiers on the tool for simplicity
         ModifierNBT modifiers = tool.getModifiers();
-        EntityModifierCapability.getCapability(arrow).addModifiers(modifiers);
+        Caps.get(EntityModifierCapability, arrow).addModifiers(modifiers);
 
         // fetch the persistent data for the arrow as modifiers may want to store data
         ModDataNBT arrowData = PersistentDataCapability.getOrWarn(arrow);

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.capability;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -7,14 +8,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.ICapabilitySerializable;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
+import slimeknights.mantle.platform.util.Lazy;
+import slimeknights.mantle.platform.capability.LazyOptional;
+import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
 import slimeknights.mantle.platform.event.player.PlayerEvent;
 import slimeknights.mantle.platform.event.EventPriority;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -37,11 +36,11 @@ public class PersistentDataCapability {
   /** Capability ID */
   private static final ResourceLocation ID = TConstruct.getResource("persistent_data");
   /** Capability type */
-  public static final Capability<ModDataNBT> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
+  public static final Capability<ModDataNBT> CAPABILITY = new Capability<>("capability");
 
   /** Gets the data or warns if its missing */
   public static ModDataNBT getOrWarn(Entity entity) {
-    Optional<ModDataNBT> data = entity.getCapability(CAPABILITY).resolve();
+    Optional<ModDataNBT> data = Caps.get(entity, CAPABILITY).resolve();
     if (data.isEmpty()) {
       TConstruct.LOG.warn("Missing Tinkers NBT on entity {}, this should not happen", entity.getType());
       return new ModDataNBT();
@@ -77,17 +76,17 @@ public class PersistentDataCapability {
 
   /** Syncs the data to the given player */
   private static void sync(Player player) {
-    player.getCapability(CAPABILITY).ifPresent(data -> TinkerNetwork.getInstance().sendTo(new SyncPersistentDataPacket(data.getCopy()), player));
+    Caps.get(player, CAPABILITY).ifPresent(data -> TinkerNetwork.getInstance().sendTo(new SyncPersistentDataPacket(data.getCopy()), player));
   }
 
   /** copy caps when the player respawns/returns from the end */
   private static void playerClone(PlayerEvent.Clone event) {
     Player original = event.getOriginal();
     original.reviveCaps();
-    original.getCapability(CAPABILITY).ifPresent(oldData -> {
+    Caps.get(original, CAPABILITY).ifPresent(oldData -> {
       CompoundTag nbt = oldData.getCopy();
       if (!nbt.isEmpty()) {
-        event.getEntity().getCapability(CAPABILITY).ifPresent(newData -> newData.copyFrom(nbt));
+        Caps.get(event.getEntity(), CAPABILITY).ifPresent(newData -> newData.copyFrom(nbt));
       }
     });
     original.invalidateCaps();
@@ -118,7 +117,7 @@ public class PersistentDataCapability {
     }
 
     @Nonnull
-    @Override
+    
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
       return CAPABILITY.orEmpty(cap, capability);
     }

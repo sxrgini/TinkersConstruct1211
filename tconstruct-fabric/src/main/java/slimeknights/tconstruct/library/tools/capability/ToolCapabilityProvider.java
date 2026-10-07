@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.library.tools.capability;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.ICapabilityProvider;
+import slimeknights.mantle.platform.util.Lazy;
+import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
@@ -34,7 +35,7 @@ public class ToolCapabilityProvider implements ICapabilityProvider {
   }
 
   @Nonnull
-  @Override
+  
   public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
     // clear the tool cache, as it may have changed since the last time a cap was fetched
     ToolStack toolStack = tool.get();
@@ -42,7 +43,7 @@ public class ToolCapabilityProvider implements ICapabilityProvider {
     // return the first successful provider
     for (IToolCapabilityProvider provider : providers) {
       provider.clearCache();
-      LazyOptional<T> optional = provider.getCapability(toolStack, cap);
+      LazyOptional<T> optional = Caps.get(provider, toolStack, cap);
       if (optional.isPresent()) {
         return optional;
       }

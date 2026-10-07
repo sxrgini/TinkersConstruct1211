@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.fluid;
 
 import slimeknights.mantle.platform.fluid.FluidStack;
-import net.minecraftforge.fluids.IFluidTank;
+import slimeknights.mantle.platform.fluid.IFluidTank;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 
 import javax.annotation.Nonnull;

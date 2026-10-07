@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.component;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,12 +12,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.platform.client.model.ModelData;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
+import slimeknights.mantle.platform.capability.Capability;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
+import slimeknights.mantle.platform.util.NonNullConsumer;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import slimeknights.mantle.platform.fluid.EmptyFluidHandler;
 import slimeknights.mantle.platform.item.IItemHandler;
 import slimeknights.mantle.block.entity.IRetexturedBlockEntity;
 import slimeknights.mantle.inventory.EmptyItemHandler;
@@ -64,7 +65,7 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
     }
   }
 
-  @Override
+  
   public void invalidateCaps() {
     super.invalidateCaps();
     clearHandler();
@@ -98,7 +99,7 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
    * @return  Capability from parent, or empty if absent
    */
   protected LazyOptional<T> getCapability(BlockEntity parent) {
-    LazyOptional<T> handler = parent.getCapability(capability);
+    LazyOptional<T> handler = Caps.get(parent, capability);
     if (handler.isPresent()) {
       handler.addListener(listener);
 
@@ -189,7 +190,7 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
   /** Fluid implementation of smeltery IO */
   public static abstract class SmelteryFluidIO extends SmelteryInputOutputBlockEntity<IFluidHandler> {
     protected SmelteryFluidIO(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-      super(type, pos, state, ForgeCapabilities.FLUID_HANDLER, EmptyFluidHandler.INSTANCE);
+      super(type, pos, state, Capabilities.FLUID_HANDLER, EmptyFluidHandler.INSTANCE);
     }
 
     /** Wraps the given capability */
@@ -218,7 +219,7 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
     }
 
     protected ChuteBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-      super(type, pos, state, ForgeCapabilities.ITEM_HANDLER, EmptyItemHandler.INSTANCE);
+      super(type, pos, state, Capabilities.ITEM_HANDLER, EmptyItemHandler.INSTANCE);
     }
   }
 

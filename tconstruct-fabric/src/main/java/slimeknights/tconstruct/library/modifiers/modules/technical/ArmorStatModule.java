@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.modules.technical;
 
+import slimeknights.mantle.platform.capability.Caps;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -149,7 +150,7 @@ public record ArmorStatModule(TinkerDataKey<Float> key, LevelingValue amount, bo
    * @return  Level from the key
    */
   public static float getStat(Entity living, TinkerDataKey<Float> key) {
-    return living.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(key)).orElse(0f);
+    return Caps.get(living, TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(key)).orElse(0f);
   }
 
 

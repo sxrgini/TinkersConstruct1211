@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.logic;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -30,14 +31,14 @@ public class DoubleJumpHandler {
   static void onJump(LivingJumpEvent event) {
     LivingEntity living = event.getEntity();
     if (living.onGround() || (living.verticalCollision && !living.verticalCollisionBelow && living.getAttributeValue(ForgeMod.ENTITY_GRAVITY.get()) < 0)) {
-      living.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> data.remove(JUMPS));
+      Caps.get(living, PersistentDataCapability.CAPABILITY).ifPresent(data -> data.remove(JUMPS));
     }
   }
 
   /** Event handler to reset the number of times we have jumped in mid air */
   @SubscribeEvent
   static void onLand(LivingFallEvent event) {
-    event.getEntity().getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> data.remove(JUMPS));
+    Caps.get(event.getEntity(), PersistentDataCapability.CAPABILITY).ifPresent(data -> data.remove(JUMPS));
   }
 
   /**

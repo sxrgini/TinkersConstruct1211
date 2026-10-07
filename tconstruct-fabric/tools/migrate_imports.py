@@ -36,6 +36,17 @@ CLASS_MAP = {
   'net.minecraftforge.common.crafting.conditions.FalseCondition': P+'condition.FalseCondition',
   'net.minecraftforge.common.crafting.conditions.NotCondition': P+'condition.NotCondition',
   'net.minecraftforge.common.Tags': P+'tags.Tags',
+  'net.minecraftforge.fluids.capability.templates.FluidTank': P+'fluid.FluidTank',
+  'net.minecraftforge.fluids.capability.templates.EmptyFluidHandler': P+'fluid.EmptyFluidHandler',
+  'net.minecraftforge.fluids.IFluidTank': P+'fluid.IFluidTank',
+  'net.minecraftforge.fluids.FluidUtil': P+'fluid.FluidUtil',
+  'net.minecraftforge.items.ItemHandlerHelper': P+'item.ItemHandlerHelper',
+  'net.minecraftforge.items.ItemStackHandler': P+'item.ItemStackHandler',
+  'net.minecraftforge.common.crafting.conditions.ModLoadedCondition': P+'condition.ModLoadedCondition',
+  'net.minecraftforge.common.crafting.conditions.OrCondition': P+'condition.OrCondition',
+  'net.minecraftforge.common.crafting.conditions.AndCondition': P+'condition.AndCondition',
+  'net.minecraftforge.common.crafting.conditions.ItemExistsCondition': P+'condition.ItemExistsCondition',
+  'net.minecraftforge.common.ForgeConfigSpec': (P+'config.ConfigSpec', 'ConfigSpec'),
   'net.minecraftforge.api.distmarker.Dist': 'net.fabricmc.api.EnvType',
   'net.minecraftforge.fml.ModList': 'net.fabricmc.loader.api.FabricLoader',
 }
@@ -57,12 +68,19 @@ CLASS_MAP.update({
 })
 # nested imports: Forge outer.Inner -> new import (drop if None)
 NESTED = {
+  'net.minecraftforge.common.ForgeConfigSpec.Builder': P+'config.ConfigSpec.Builder',
+  'net.minecraftforge.common.ForgeConfigSpec.BooleanValue': P+'config.ConfigSpec.BooleanValue',
+  'net.minecraftforge.common.ForgeConfigSpec.IntValue': P+'config.ConfigSpec.IntValue',
+  'net.minecraftforge.common.ForgeConfigSpec.DoubleValue': P+'config.ConfigSpec.DoubleValue',
+  'net.minecraftforge.common.ForgeConfigSpec.LongValue': P+'config.ConfigSpec.LongValue',
+  'net.minecraftforge.common.ForgeConfigSpec.EnumValue': P+'config.ConfigSpec.EnumValue',
+  'net.minecraftforge.common.ForgeConfigSpec.ConfigValue': P+'config.ConfigSpec.ConfigValue',
   'net.minecraftforge.fluids.capability.IFluidHandler.FluidAction': P+'fluid.IFluidHandler.FluidAction',
   'net.minecraftforge.eventbus.api.Event.Result': P+'event.Event.Result',
   'net.minecraftforge.common.crafting.conditions.ICondition.IContext': P+'condition.ICondition.IContext',
 }
 # simple-name renames applied in code when the class was renamed
-RENAMES = {'ForgeFlowingFluid': 'BaseFlowingFluid', 'ToolActions': 'ItemAbilities', 'ToolAction': 'ItemAbility'}
+RENAMES = {'ForgeConfigSpec': 'ConfigSpec', 'ForgeFlowingFluid': 'BaseFlowingFluid', 'ToolActions': 'ItemAbilities', 'ToolAction': 'ItemAbility'}
 
 imp = re.compile(r'^import (static )?(net\.minecraftforge\.[\w.]+);\n', re.M)
 

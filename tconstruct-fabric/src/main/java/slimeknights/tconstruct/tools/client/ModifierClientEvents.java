@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.client;
 
+import slimeknights.mantle.platform.capability.Caps;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -123,7 +124,7 @@ public class ModifierClientEvents {
   /** Handles the zoom modifier zooming */
   @SubscribeEvent
   static void handleZoom(ComputeFovModifierEvent event) {
-    event.getPlayer().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+    Caps.get(event.getPlayer(), TinkerDataCapability.CAPABILITY).ifPresent(data -> {
       float newFov = event.getNewFovModifier();
 
       // scaled effects only apply if we have FOV scaling, nothing to do if 0

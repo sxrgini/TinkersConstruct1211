@@ -34,7 +34,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import slimeknights.mantle.platform.item.ItemAbility;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import slimeknights.mantle.platform.capability.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.item.ModifiableItemClientExtension;
@@ -150,7 +150,7 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
   /* Loading */
 
   @Nullable
-  @Override
+  
   public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
     return new ToolCapabilityProvider(stack);
   }

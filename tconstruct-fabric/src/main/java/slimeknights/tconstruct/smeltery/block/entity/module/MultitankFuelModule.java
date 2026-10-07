@@ -1,17 +1,18 @@
 package slimeknights.tconstruct.smeltery.block.entity.module;
 
+import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
+import slimeknights.mantle.platform.capability.Capabilities;
+import slimeknights.mantle.platform.capability.LazyOptional;
+import slimeknights.mantle.platform.util.NonNullConsumer;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import slimeknights.mantle.platform.fluid.EmptyFluidHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.library.utils.Util;
@@ -76,7 +77,7 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
   public void ensureTankPresent(BlockEntity be) {
     BlockPos pos = be.getBlockPos();
     if (tankHandlers != null && !tankHandlers.containsKey(pos)) {
-      LazyOptional<IFluidHandler> handler = be.getCapability(ForgeCapabilities.FLUID_HANDLER);
+      LazyOptional<IFluidHandler> handler = Caps.get(be, Capabilities.FLUID_HANDLER);
       if (handler.isPresent()) {
         handler.addListener(tankHandlerListener);
         tankHandlers.put(pos, handler);
@@ -92,7 +93,7 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
       for (BlockPos pos : tankSupplier.get()) {
         BlockEntity te = world.getBlockEntity(pos);
         if (te != null) {
-          LazyOptional<IFluidHandler> handler = te.getCapability(ForgeCapabilities.FLUID_HANDLER);
+          LazyOptional<IFluidHandler> handler = Caps.get(te, Capabilities.FLUID_HANDLER);
           if (handler.isPresent()) {
             handler.addListener(tankHandlerListener);
             tankHandlers.put(pos, handler);

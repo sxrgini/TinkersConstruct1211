@@ -4,11 +4,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
+import slimeknights.mantle.platform.capability.Capability;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
+import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
 import slimeknights.mantle.platform.event.EventPriority;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.tconstruct.TConstruct;
@@ -16,7 +14,7 @@ import slimeknights.tconstruct.TConstruct;
 /** Capability logic */
 public class PiggybackCapability {
   private static final ResourceLocation ID = TConstruct.getResource("piggyback");
-  public static final Capability<PiggybackHandler> PIGGYBACK = CapabilityManager.get(new CapabilityToken<>() {});
+  public static final Capability<PiggybackHandler> PIGGYBACK = new Capability<>("piggyback");
 
   private PiggybackCapability() {}
 
