@@ -24,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -77,7 +78,6 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
   /** NBT key to store the cooking time */
   private static final String TAG_TIME = "tic_remaining_time";
   /** Container instance for recipe lookups */
-  private static final SingleItemContainer CONTAINER = new SingleItemContainer();
   /** Cache of last recipe found */
   private static AbstractCookingRecipe lastRecipe = null;
   /** Cooking time for when a slot has no available recipe */
@@ -125,14 +125,14 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
   /** Finds the recipe for the given stack */
   @Nullable
   private static AbstractCookingRecipe findRecipe(RecipeType<? extends AbstractCookingRecipe> recipeType, ItemStack stack, Level level, ModifierId modifier) {
-    CONTAINER.setStack(stack);
+    SingleRecipeInput container = new SingleRecipeInput(stack);
     try {
       // first, try the cached recipe
-      if (lastRecipe != null && lastRecipe.matches(CONTAINER, level)) {
+      if (lastRecipe != null && lastRecipe.matches(container, level)) {
         return lastRecipe;
       }
       // if that failed, do a recipe lookup
-      AbstractCookingRecipe recipe = level.getRecipeManager().getRecipeFor(recipeType, CONTAINER, level).orElse(null);
+      AbstractCookingRecipe recipe = lookup(recipeType, container, level).orElse(null);
       if (recipe != null) {
         lastRecipe = recipe;
       }
@@ -141,9 +141,12 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
       // we don't have a good way to validate the recipe type on parse, so an invalid recipe type would error here
       TConstruct.LOG.error("Error fetching recipe for {} on modifier {}, this usually indicates a broken modifier or a broken recipe", stack, modifier, e);
       return null;
-    } finally {
-      CONTAINER.setStack(ItemStack.EMPTY);
     }
+  }
+
+  /** Finds a cooking recipe of the given type, unwrapping the holder */
+  private static <T extends AbstractCookingRecipe> java.util.Optional<AbstractCookingRecipe> lookup(RecipeType<T> type, SingleRecipeInput input, Level level) {
+    return level.getRecipeManager().getRecipeFor(type, input, level).map(net.minecraft.world.item.crafting.RecipeHolder::value);
   }
 
   /** Redirect to {@link #cookItems(IToolStackView, ModifierEntry, Level, LivingEntity, float)} that fetches level from an entity. */
@@ -211,9 +214,8 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
             // if we have a recipe, time to cook
             if (recipe != null) {
               // attempt to assemble the recipe, use a try/catch in case their assemble logic is bad
-              CONTAINER.setStack(stack);
               try {
-                ItemStack result = recipe.assemble(CONTAINER, level.registryAccess());
+                ItemStack result = recipe.assemble(new SingleRecipeInput(stack), level.registryAccess());
 
                 // check again if we have space for the result now that we know its size
                 if (!result.isEmpty()) {
@@ -224,7 +226,6 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
                   // if not enough space for the combo or its type is wrong, just mark as almost finished and give up
                   if (result.getCount() + currentResult.getCount() > maxStackSize || !currentResult.isEmpty() && !ItemStack.isSameItemSameComponents(currentResult, result)) {
                     entry.putInt(TAG_TIME, 1);
-                    CONTAINER.setStack(ItemStack.EMPTY);
                     continue;
                   }
                 }
@@ -266,9 +267,8 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
                   }
                 }
               } catch (Exception e) {
-                TConstruct.LOG.error("Error getting result of recipe {} on modifier {}, this usually indicates a broken recipe", recipe.getId(), modifier, e);
+                TConstruct.LOG.error("Error getting result of recipe on modifier {}, this usually indicates a broken recipe", modifier, e);
               }
-              CONTAINER.setStack(ItemStack.EMPTY);
             } else {
               // lost the recipe? stop trying to smelt it
               entry.putInt(TAG_TIME, NO_RECIPE);

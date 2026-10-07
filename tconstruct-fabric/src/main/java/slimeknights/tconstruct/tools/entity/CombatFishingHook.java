@@ -297,7 +297,7 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
     knockback = knockback.scale(GRAPPLE_STRENGTH * Math.pow(knockback.lengthSqr(), -0.25f));
     owner.push(knockback.x, knockback.y, knockback.z);
     if (isDrill() && owner instanceof Player player) {
-      player.startAutoSpinAttack(20);
+      player.startAutoSpinAttack(20, 0f, player.getMainHandItem());
     }
     if (owner instanceof ServerPlayer player) {
       player.connection.send(new ClientboundSetEntityMotionPacket(player.getId(), player.getDeltaMovement()));

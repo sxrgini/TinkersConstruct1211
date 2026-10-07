@@ -51,11 +51,11 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
   }
 
   public ModifiableArrow(Level level, double pX, double pY, double pZ) {
-    super(TinkerTools.materialArrow.get(), pX, pY, pZ, level);
+    super(TinkerTools.materialArrow.get(), pX, pY, pZ, level, ItemStack.EMPTY, null);
   }
 
   public ModifiableArrow(Level level, LivingEntity shooter) {
-    super(TinkerTools.materialArrow.get(), shooter, level);
+    super(TinkerTools.materialArrow.get(), shooter, level, ItemStack.EMPTY, null);
   }
 
 
@@ -63,6 +63,11 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
 
   @Override
   public ItemStack getPickupItem() {
+    return stack.copy();
+  }
+
+  @Override
+  protected ItemStack getDefaultPickupItem() {
     return stack.copy();
   }
 
@@ -140,14 +145,17 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
 
   // need to replace some setters with adders so vanilla bows work with our logic
 
-  @Override
-  public void setKnockback(int knockback) {
-    super.setKnockback(getKnockback() + knockback);
+  /** Extra knockback added by modifiers, vanilla knockback is enchantment based in 1.21 */
+  private int knockback = 0;
+
+  /** Adds knockback to the arrow */
+  public void addKnockback(int amount) {
+    this.knockback += amount;
   }
 
-  @Override
-  public void setPierceLevel(byte pierceLevel) {
-    super.setPierceLevel((byte) (getPierceLevel() + pierceLevel));
+  /** Gets the extra knockback on the arrow */
+  public int getKnockback() {
+    return knockback;
   }
 
 

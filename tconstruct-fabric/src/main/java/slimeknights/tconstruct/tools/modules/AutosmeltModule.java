@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import org.jetbrains.annotations.ApiStatus.Internal;
@@ -42,7 +43,6 @@ public class AutosmeltModule implements ModifierModule, ProcessLootModifierHook 
     FloatLoadable.PERCENT.requiredField("extra_drop_chance", m -> m.extraDropChance),
     AutosmeltModule::new);
   /** Inventory instance to use for recipe search */
-  private static final SingleItemContainer INVENTORY = new SingleItemContainer();
 
   private final List<RecipeType<? extends AbstractCookingRecipe>> recipeTypes;
   private final float extraDropChance;
@@ -84,17 +84,21 @@ public class AutosmeltModule implements ModifierModule, ProcessLootModifierHook 
    * @return  Furnace recipe
    */
   private Optional<? extends AbstractCookingRecipe> findRecipe(ItemStack stack, Level world) {
-    INVENTORY.setStack(stack);
+    SingleRecipeInput input = new SingleRecipeInput(stack);
     // try each recipe type to see if we have a recipe for any of them
     Optional<? extends AbstractCookingRecipe> recipe = Optional.empty();
     for (RecipeType<? extends AbstractCookingRecipe> recipeType : recipeTypes) {
-      recipe = world.getRecipeManager().getRecipeFor(recipeType, INVENTORY, world);
+      recipe = lookup(recipeType, input, world);
       if (recipe.isPresent()) {
         break;
       }
     }
-    INVENTORY.setStack(ItemStack.EMPTY);
     return recipe;
+  }
+
+  /** Finds a cooking recipe of the given type, unwrapping the holder */
+  private static <T extends AbstractCookingRecipe> java.util.Optional<AbstractCookingRecipe> lookup(RecipeType<T> type, SingleRecipeInput input, Level level) {
+    return level.getRecipeManager().getRecipeFor(type, input, level).map(net.minecraft.world.item.crafting.RecipeHolder::value);
   }
 
   /**
@@ -130,9 +134,7 @@ public class AutosmeltModule implements ModifierModule, ProcessLootModifierHook 
     AbstractCookingRecipe recipe = findCachedRecipe(stack, world);
     if (recipe != null) {
       // fetch recipe result, may be input sensitive
-      INVENTORY.setStack(stack);
-      ItemStack output = recipe.assemble(INVENTORY, world.registryAccess());
-      INVENTORY.setStack(ItemStack.EMPTY);
+      ItemStack output = recipe.assemble(new SingleRecipeInput(stack), world.registryAccess());
       // scale the stack size based on the input size
       if (stack.getCount() > 1) {
         // recipe output is a copy, safe to modify

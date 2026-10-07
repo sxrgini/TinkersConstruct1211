@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.item;
 
+import slimeknights.tconstruct.library.utils.EnchantmentCompat;
 import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -57,7 +58,7 @@ public class CrystalshotItem extends ArrowItem {
   }
 
   public boolean isInfinite(ItemStack stack, ItemStack bow, Player player) {
-    return bow.getEnchantmentLevel(Enchantments.INFINITY_ARROWS) > 0;
+    return EnchantmentCompat.level(bow, Enchantments.INFINITY) > 0;
   }
 
   /** Creates a crystal shot with the given variant */

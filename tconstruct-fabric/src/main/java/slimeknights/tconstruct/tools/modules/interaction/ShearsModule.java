@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modules.interaction;
 
+import slimeknights.tconstruct.library.utils.EnchantmentCompat;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -117,7 +118,7 @@ public record ShearsModule(float flatBonus, float perLevelBonus, float expandedB
     // use looting instead of fortune, as that is our hook with entity access
     // modifier can always use tags or the nullable parameter to distinguish if needed
     LootingContext context = new LootingContext(player, target, null, Util.getSlotType(hand));
-    int looting = LootingModifierHook.getLooting(tool, context, player.getItemInHand(hand).getEnchantmentLevel(Enchantments.MOB_LOOTING));
+    int looting = LootingModifierHook.getLooting(tool, context, EnchantmentCompat.level(player.getItemInHand(hand), Enchantments.LOOTING));
     looting = ArmorLootingModifierHook.getLooting(tool, context, looting);
     Level world = player.getCommandSenderWorld();
     if (shearEntity(stack, tool, world, player, target, looting)) {

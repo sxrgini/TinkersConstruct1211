@@ -11,6 +11,37 @@ for i,l in enumerate(log):
   if "method broadcastBreakEvent(InteractionHand)" in blk: fix[m.group(1)].add((int(m.group(2)),"bbe_hand"))
   elif "method broadcastBreakEvent(EquipmentSlot)" in blk: fix[m.group(1)].add((int(m.group(2)),"bbe_slot"))
   elif re.search(r"method use\(\w+,\w+,InteractionHand,BlockHitResult\)",blk): fix[m.group(1)].add((int(m.group(2)),"use"))
+rec=collections.defaultdict(set)
+for i,l in enumerate(log):
+  m=re.match(r"(/\S+\.java):(\d+): error: incompatible types: (RecipeHolder<[^>]*> cannot be converted|no instance\(s\) of type variable\(s\) I,T exist so that (Optional|List)<RecipeHolder)",l)
+  if m: rec[m.group(1)].add((int(m.group(2)),"List<" in l or m.group(3)=="List"))
+def balanced(s,i):
+  d=0;j=i
+  while j<len(s):
+    if s[j]=="(":d+=1
+    elif s[j]==")":
+      d-=1
+      if d==0:return j
+    j+=1
+  return -1
+nn=0
+for f,items in rec.items():
+  lines=open(f).read().split("\n")
+  for ln,islist in items:
+    l=lines[ln-1]
+    m=re.search(r"getRecipeFor\(|getRecipesFor\(|getAllRecipesFor\(",l)
+    if not m: continue
+    e=balanced(l,m.end()-1)
+    if e<0: continue
+    if ".map(RecipeHolder::value)" in l[e:e+40] or "RecipeHolder::value" in l[e:e+60]: continue
+    if m.group(0).startswith("getRecipeFor"):
+      ins=".map(net.minecraft.world.item.crafting.RecipeHolder::value)"
+    else:
+      ins=".stream().map(net.minecraft.world.item.crafting.RecipeHolder::value).toList()"
+    lines[ln-1]=l[:e+1]+ins+l[e+1:]
+    nn+=1
+  open(f,"w").write("\n".join(lines))
+print("recipe unwrap",nn)
 n=0
 for f,items in fix.items():
   lines=open(f).read().split("\n")
