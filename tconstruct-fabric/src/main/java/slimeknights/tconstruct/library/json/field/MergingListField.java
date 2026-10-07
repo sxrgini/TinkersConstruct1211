@@ -54,7 +54,7 @@ public record MergingListField<T,P>(LoadableField<T,T> field, String key, Functi
       }
       for (int i = 0; i < size; i++) {
         JsonObject element = GsonHelper.convertToJsonObject(array.get(i), key + '[' + i + ']');
-        field.serialize(objects.get(i), element);
+        field.serializeInto(objects.get(i), element);
       }
     }
   }

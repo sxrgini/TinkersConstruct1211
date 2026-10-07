@@ -120,3 +120,8 @@ accessible ShapedRecipePattern$Data class
 accessible ShapelessRecipe result
 accessible MangrovePropaguleBlock SHAPE_PER_AGE
 accessible CustomData <init>
+accessible Explosion damageSource
+accessible Explosion blockInteraction
+accessible Explosion smallExplosionParticles
+accessible Explosion largeExplosionParticles
+accessible Explosion explosionSound

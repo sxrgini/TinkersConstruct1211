@@ -55,7 +55,7 @@ public record MaterialPredicateField<P>(String key, Function<P, IJsonPredicate<M
 
       // force serialized form to be a json object, as compact is misleading
       JsonObject serialized = new JsonObject();
-      MaterialPredicate.LOADER.serialize(predicate, serialized);
+      MaterialPredicate.LOADER.serializeInto(predicate, serialized);
       json.add(key, serialized);
     }
   }

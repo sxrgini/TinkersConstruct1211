@@ -45,14 +45,14 @@ public interface EntityVariable extends IHaveLoader {
   /** Gets the temperature of the biome containing the entity. */
   EntityVariable BIOME_TEMPERATURE = simple(entity -> {
     BlockPos pos = entity.blockPosition();
-    return entity.level().getBiome(pos).value().getTemperature();
+    return entity.level().getBiome(pos).value().getBaseTemperature();
   });
   /** Returns 2 if entity is in water, or 1 if in rain */
   EntityVariable WATER = simple(entity -> {
     if (entity.isInWater() || entity.wasEyeInWater) {
       return 2;
     }
-    if (LivingEntityPredicate.RAINING.matches(entity)) {
+    if (entity.level().isRainingAt(entity.blockPosition())) {
       return 1;
     }
     return 0;

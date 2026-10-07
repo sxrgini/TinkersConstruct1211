@@ -30,7 +30,7 @@ public record BlockTemperatureVariable(float fallback) implements MiningSpeedVar
           pos = eventPos.get();
         }
       }
-      return player.level().getBiome(pos).value().getTemperature();
+      return player.level().getBiome(pos).value().getBaseTemperature();
     }
     return fallback;
   }
@@ -46,7 +46,7 @@ public record BlockTemperatureVariable(float fallback) implements MiningSpeedVar
           pos = contextPos;
         }
       }
-      return player.level().getBiome(pos).value().getTemperature();
+      return player.level().getBiome(pos).value().getBaseTemperature();
     }
     return fallback;
   }

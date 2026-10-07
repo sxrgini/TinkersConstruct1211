@@ -105,7 +105,6 @@ public class Modifier {
     this.id = name;
   }
 
-  @Override
   public ModifierId getId() {
     return Objects.requireNonNull(id, "Modifier has null registry name");
   }

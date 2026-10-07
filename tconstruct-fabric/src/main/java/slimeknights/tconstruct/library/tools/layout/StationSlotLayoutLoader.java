@@ -157,12 +157,12 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
   private static class IngredientSerializer implements JsonSerializer<Ingredient>, JsonDeserializer<Ingredient> {
     @Override
     public Ingredient deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      return Ingredient.fromJson(json);
+      return Ingredient.CODEC.parse(com.mojang.serialization.JsonOps.INSTANCE, json).getOrThrow(com.google.gson.JsonSyntaxException::new);
     }
 
     @Override
     public JsonElement serialize(Ingredient ingredient, Type typeOfSrc, JsonSerializationContext context) {
-      return ingredient.toJson();
+      return Ingredient.CODEC.encodeStart(com.mojang.serialization.JsonOps.INSTANCE, ingredient).getOrThrow(IllegalStateException::new);
     }
   }
 }

@@ -387,7 +387,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     // filter out redirects (redirects are any modifiers where the ID does not match the key
     return Stream.concat(staticModifiers.entrySet().stream(), dynamicModifiers.entrySet().stream())
                  .filter(entry -> entry.getKey().equals(entry.getValue().getId()))
-                 .map(Entry::getKey);
+                 .map(entry -> entry.getKey().location());
   }
 
   /** Gets a stream of all modifier values */
