@@ -11,4 +11,10 @@ public interface IPayloadContext {
   default void enqueueWork(Runnable task) {
     task.run();
   }
+
+  /** Forge style accessor for the sending player, null if this is not the server */
+  @javax.annotation.Nullable
+  default net.minecraft.server.level.ServerPlayer getSender() {
+    return player() instanceof net.minecraft.server.level.ServerPlayer server ? server : null;
+  }
 }

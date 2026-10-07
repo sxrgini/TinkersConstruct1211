@@ -7,8 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.PacketDistributor;
+import slimeknights.mantle.platform.network.NetworkDirection;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.UpdateMaterialsPacket;
@@ -142,26 +141,6 @@ public class TinkerNetwork extends NetworkWrapper {
     if (world instanceof ServerLevel server) {
       sendToClientsAround(msg, server, position);
     }
-  }
-
-  /**
-   * Sends a packet to all entities tracking the given entity
-   * @param msg     Packet
-   * @param entity  Entity to check
-   */
-  @Override
-  public void sendToTrackingAndSelf(Object msg, Entity entity) {
-    this.network.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), msg);
-  }
-
-  /**
-   * Sends a packet to all entities tracking the given entity
-   * @param msg     Packet
-   * @param entity  Entity to check
-   */
-  @Override
-  public void sendToTracking(Object msg, Entity entity) {
-    this.network.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), msg);
   }
 
   /**

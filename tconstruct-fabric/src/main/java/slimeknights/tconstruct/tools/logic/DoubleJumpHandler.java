@@ -7,7 +7,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.ForgeMod;
+import slimeknights.mantle.platform.PlatformAttributes;
 import slimeknights.mantle.platform.event.living.LivingEvent.LivingJumpEvent;
 import slimeknights.mantle.platform.event.living.LivingFallEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
@@ -27,7 +27,7 @@ public class DoubleJumpHandler {
   @SubscribeEvent
   static void onJump(LivingJumpEvent event) {
     LivingEntity living = event.getEntity();
-    if (living.onGround() || (living.verticalCollision && !living.verticalCollisionBelow && living.getAttributeValue(ForgeMod.ENTITY_GRAVITY.get()) < 0)) {
+    if (living.onGround() || (living.verticalCollision && !living.verticalCollisionBelow && living.getAttributeValue(PlatformAttributes.ENTITY_GRAVITY) < 0)) {
       Caps.get(living, PersistentDataCapability.CAPABILITY).ifPresent(data -> data.remove(JUMPS));
     }
   }

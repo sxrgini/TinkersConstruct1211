@@ -7,7 +7,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.platform.network.IPayloadContext;
 import net.minecraftforge.registries.GameData;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 
@@ -31,7 +31,7 @@ public class UpdateNeighborsPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
+  public void handleThreadsafe(IPayloadContext context) {
     HandleClient.handle(this);
   }
 

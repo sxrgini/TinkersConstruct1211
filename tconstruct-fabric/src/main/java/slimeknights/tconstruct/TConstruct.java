@@ -98,6 +98,9 @@ public class TConstruct implements ModInitializer {
     // init deferred registers
     TinkerModule.initRegisters();
     TinkerNetwork.setup();
+    if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+      slimeknights.mantle.network.NetworkWrapper.registerClientReceivers();
+    }
     TinkerTags.init();
     // init client logic
     if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {

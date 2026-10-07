@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.mantle.platform.fluid.FluidStack;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.network.BlockEntityPacket;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ISmelteryTankHandler;
 
@@ -49,7 +49,7 @@ public class SmelteryTankUpdatePacket implements BlockEntityPacket<ISmelteryTank
   }
 
   @Override
-  public void handleBlockEntity(Context context, ISmelteryTankHandler be) {
+  public void handleBlockEntity(IPayloadContext context, ISmelteryTankHandler be) {
     be.updateFluidsFromPacket(fluids);
   }
 }

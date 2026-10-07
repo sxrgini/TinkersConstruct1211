@@ -5,7 +5,7 @@ import lombok.ToString;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.mantle.platform.fluid.FluidStack;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.network.BlockEntityPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket.IFluidPacketReceiver;
 
@@ -41,7 +41,7 @@ public class FluidUpdatePacket implements BlockEntityPacket<IFluidPacketReceiver
   }
 
   @Override
-  public void handleBlockEntity(Context context, IFluidPacketReceiver be) {
+  public void handleBlockEntity(IPayloadContext context, IFluidPacketReceiver be) {
     be.updateFluidTo(fluid);
   }
 

@@ -5,7 +5,7 @@ import lombok.ToString;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.mantle.platform.fluid.FluidStack;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.network.BlockEntityPacket;
 import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
 
@@ -44,7 +44,7 @@ public class FaucetActivationPacket implements BlockEntityPacket<FaucetBlockEnti
   }
 
   @Override
-  public void handleBlockEntity(Context context, FaucetBlockEntity be) {
+  public void handleBlockEntity(IPayloadContext context, FaucetBlockEntity be) {
     be.onActivationPacket(fluid, isPouring);
   }
 }

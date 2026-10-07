@@ -3,7 +3,7 @@ package slimeknights.tconstruct.smeltery.network;
 import lombok.AllArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.network.BlockEntityPacket;
 import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 
@@ -53,7 +53,7 @@ public class StructureUpdatePacket implements BlockEntityPacket<HeatingStructure
   }
 
   @Override
-  public void handleBlockEntity(Context context, HeatingStructureBlockEntity be) {
+  public void handleBlockEntity(IPayloadContext context, HeatingStructureBlockEntity be) {
     be.setStructureSize(minPos, maxPos, tanks);
   }
 }

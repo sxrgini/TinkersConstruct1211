@@ -264,9 +264,8 @@ public final class MaterialRegistry {
       EventBus.BUS.post(new MaterialsLoadedEvent());
     } else {
       TinkerNetwork network = TinkerNetwork.getInstance();
-      PacketTarget target = PacketDistributor.PLAYER.with(() -> player);
       for (ISimplePacket packet : packets) {
-        network.send(target, packet);
+        network.sendTo(packet, player);
       }
     }
   }
