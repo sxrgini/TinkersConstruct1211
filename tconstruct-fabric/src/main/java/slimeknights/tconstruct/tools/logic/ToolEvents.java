@@ -465,7 +465,7 @@ public class ToolEvents {
     if (amount >= 2 && Config.COMMON.dropDragonScales.get() && entity.getType() == EntityType.ENDER_DRAGON
         && source.is(DamageTypeTags.IS_EXPLOSION) && source.getEntity() != null && source.getEntity().getType() == EntityType.PLAYER) {
       // drops up to 1 scale per heart lost, capping at 5 scales
-      ModifierUtil.dropItem(entity, new ItemStack(TinkerModifiers.dragonScale, 1 + entity.level().random.nextInt(Math.min(5, (int)(amount / 2)))));
+      ModifierUtil.dropItem(entity, new ItemStack(TinkerModifiers.dragonScale.asItem(), 1 + entity.level().random.nextInt(Math.min(5, (int)(amount / 2)))));
     }
   }
 

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.data;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -396,7 +397,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       .result(scale, ItemNameOutput.fromName(nagaScale, 7))
       .save(tfConsumer, location(folder + "twilightforest/naga_leggings"));
     // ironwood armor and tools
-    TagKey<Item> ironwoodIngot = ItemTags.create(Mantle.commonResource("ingots/ironwood"));
+    TagKey<Item> ironwoodIngot = TagKey.create(Registries.ITEM, Mantle.commonResource("ingots/ironwood"));
     PartBuilderRecycleBuilder.tool(ItemNameIngredient.from(tf.apply("ironwood_pickaxe"), tf.apply("ironwood_axe")))
       .result(ingot, ironwoodIngot, 3)
       .save(tfConsumer, location(folder + "twilightforest/ironwood_axe"));

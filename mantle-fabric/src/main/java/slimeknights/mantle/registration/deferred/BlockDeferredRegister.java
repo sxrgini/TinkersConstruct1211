@@ -312,8 +312,8 @@ public class BlockDeferredRegister extends EnumDeferredRegister<Block> {
    * @param item        Function to get an item from the block
    * @return  EnumObject mapping between different block types
    */
-  public <E extends Enum<E>> EnumObject<E,Block> registerEnum(E[] values, Function<? super E,String> nameGetter, Function<E,? extends Block> mapper, Function<? super Block, ? extends BlockItem> item) {
-    return EnumObject.generate(values, value -> register(nameGetter.apply(value), () -> mapper.apply(value), item));
+  public <E extends Enum<E>, B extends Block> EnumObject<E,B> registerEnum(E[] values, Function<? super E,String> nameGetter, Function<E,? extends B> mapper, Function<? super Block, ? extends BlockItem> item) {
+    return EnumObject.generate(values, value -> unchecked(register(nameGetter.apply(value), () -> mapper.apply(value), item)));
   }
 
   /**
@@ -324,7 +324,7 @@ public class BlockDeferredRegister extends EnumDeferredRegister<Block> {
    * @param item      Function to get an item from the block
    * @return  EnumObject mapping between different block types
    */
-  public <E extends Enum<E>> EnumObject<E,Block> registerEnum(E[] values, String name, Function<E,? extends Block> mapper, Function<? super Block, ? extends BlockItem> item) {
+  public <E extends Enum<E>, B extends Block> EnumObject<E,B> registerEnum(E[] values, String name, Function<E,? extends B> mapper, Function<? super Block, ? extends BlockItem> item) {
     return registerEnum(values, suffix(name), mapper, item);
   }
 
@@ -336,7 +336,7 @@ public class BlockDeferredRegister extends EnumDeferredRegister<Block> {
    * @param item      Function to get an item from the block
    * @return  EnumObject mapping between different block types
    */
-  public <E extends Enum<E>> EnumObject<E,Block> registerEnum(String name, E[] values, Function<E,? extends Block> mapper, Function<? super Block, ? extends BlockItem> item) {
+  public <E extends Enum<E>, B extends Block> EnumObject<E,B> registerEnum(String name, E[] values, Function<E,? extends B> mapper, Function<? super Block, ? extends BlockItem> item) {
     return registerEnum(values, prefix(name), mapper, item);
   }
 
@@ -348,8 +348,8 @@ public class BlockDeferredRegister extends EnumDeferredRegister<Block> {
    * @param <E>  Type of enum
    * @return  Enum object
    */
-  public <E extends Enum<E>> EnumObject<E,Block> registerEnumNoItem(E[] values, Function<? super E,String> nameGetter, Function<E, ? extends Block> mapper) {
-    return EnumObject.generate(values, value -> registerNoItem(nameGetter.apply(value), () -> mapper.apply(value)));
+  public <E extends Enum<E>, B extends Block> EnumObject<E,B> registerEnumNoItem(E[] values, Function<? super E,String> nameGetter, Function<E,? extends B> mapper) {
+    return EnumObject.generate(values, value -> unchecked(registerNoItem(nameGetter.apply(value), () -> mapper.apply(value))));
   }
 
   /**
@@ -360,7 +360,7 @@ public class BlockDeferredRegister extends EnumDeferredRegister<Block> {
    * @param <E>  Type of enum
    * @return  Enum object
    */
-  public <E extends Enum<E>> EnumObject<E, Block> registerEnumNoItem(E[] values, String name, Function<E, ? extends Block> mapper) {
+  public <E extends Enum<E>, B extends Block> EnumObject<E,B> registerEnumNoItem(E[] values, String name, Function<E,? extends B> mapper) {
     return registerEnumNoItem(values, suffix(name), mapper);
   }
 
@@ -372,10 +372,16 @@ public class BlockDeferredRegister extends EnumDeferredRegister<Block> {
    * @param <E>  Type of enum
    * @return  Enum object
    */
-  public <E extends Enum<E>> EnumObject<E, Block> registerEnumNoItem(String name, E[] values, Function<E, ? extends Block> mapper) {
+  public <E extends Enum<E>, B extends Block> EnumObject<E,B> registerEnumNoItem(String name, E[] values, Function<E,? extends B> mapper) {
     return registerEnumNoItem(values, prefix(name), mapper);
   }
 
+
+  /** Casts a holder of a block subtype to the requested type, safe as the mapper always produces the requested type */
+  @SuppressWarnings("unchecked")
+  private static <B extends Block> Holder<B> unchecked(Holder<? extends Block> holder) {
+    return (Holder<B>) holder;
+  }
 
   /* Flower pots */
 

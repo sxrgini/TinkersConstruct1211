@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.network.IPayloadContext;
-import slimeknights.mantle.network.BlockEntityPacket;
+import slimeknights.mantle.network.packet.IBlockEntityPacket;
 import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
 
 /**
@@ -15,21 +15,21 @@ import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
  */
 @RequiredArgsConstructor
 @ToString(callSuper = true)
-public class FaucetActivationPacket implements BlockEntityPacket<FaucetBlockEntity> {
+public class FaucetActivationPacket implements IBlockEntityPacket<FaucetBlockEntity> {
   protected final BlockPos pos;
   protected final FluidStack fluid;
   private final boolean isPouring;
 
   public FaucetActivationPacket(RegistryFriendlyByteBuf buffer) {
     this.pos = buffer.readBlockPos();
-    this.fluid = buffer.readFluidStack();
+    this.fluid = FluidStack.OPTIONAL_STREAM_CODEC.decode(buffer);
     this.isPouring = buffer.readBoolean();
   }
 
   @Override
   public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeBlockPos(pos);
-    buffer.writeFluidStack(fluid);
+    FluidStack.OPTIONAL_STREAM_CODEC.encode(buffer, fluid);
     buffer.writeBoolean(isPouring);
   }
 
@@ -39,7 +39,7 @@ public class FaucetActivationPacket implements BlockEntityPacket<FaucetBlockEnti
   }
 
   @Override
-  public Class<FaucetBlockEntity> type() {
+  public Class<FaucetBlockEntity> blockEntityType() {
     return FaucetBlockEntity.class;
   }
 

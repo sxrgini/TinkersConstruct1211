@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common.data.tags;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
@@ -653,7 +654,7 @@ public class BlockTagProvider extends BlockTagsProvider {
   private void addGlass(EnumObject<GlassColor,? extends Block> blockObj, String tagPrefix, IntrinsicTagAppender<Block> blockTag) {
     blockObj.forEach((color, block) -> {
       blockTag.add(block);
-      this.tag(BlockTags.create(commonResource(tagPrefix + color.getSerializedName()))).add(block);
+      this.tag(TagKey.create(Registries.BLOCK, commonResource(tagPrefix + color.getSerializedName()))).add(block);
     });
   }
 

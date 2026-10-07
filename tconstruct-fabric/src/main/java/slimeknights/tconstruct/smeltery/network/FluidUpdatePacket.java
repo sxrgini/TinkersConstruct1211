@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.network.IPayloadContext;
-import slimeknights.mantle.network.BlockEntityPacket;
+import slimeknights.mantle.network.packet.IBlockEntityPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket.IFluidPacketReceiver;
 
 /**
@@ -15,19 +15,19 @@ import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket.IFluidPacketRe
  */
 @RequiredArgsConstructor
 @ToString
-public class FluidUpdatePacket implements BlockEntityPacket<IFluidPacketReceiver> {
+public class FluidUpdatePacket implements IBlockEntityPacket<IFluidPacketReceiver> {
   protected final BlockPos pos;
   protected final FluidStack fluid;
 
   public FluidUpdatePacket(RegistryFriendlyByteBuf buffer) {
     this.pos = buffer.readBlockPos();
-    this.fluid = buffer.readFluidStack();
+    this.fluid = FluidStack.OPTIONAL_STREAM_CODEC.decode(buffer);
   }
 
   @Override
   public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeBlockPos(pos);
-    buffer.writeFluidStack(fluid);
+    FluidStack.OPTIONAL_STREAM_CODEC.encode(buffer, fluid);
   }
 
   @Override
@@ -36,7 +36,7 @@ public class FluidUpdatePacket implements BlockEntityPacket<IFluidPacketReceiver
   }
 
   @Override
-  public Class<IFluidPacketReceiver> type() {
+  public Class<IFluidPacketReceiver> blockEntityType() {
     return IFluidPacketReceiver.class;
   }
 

@@ -149,7 +149,7 @@ public class CopperCanItem extends Item {
       Fluid fluid = holder.get();
       return fluid.isSource(fluid.defaultFluidState()) && !holder.is(TinkerTags.Fluids.HIDE_IN_CREATIVE_TANKS);
     }).forEachOrdered(holder -> {
-      output.accept(CopperCanItem.setFluid(new ItemStack(TinkerSmeltery.copperCan), holder.key().location(), null));
+      output.accept(CopperCanItem.setFluid(new ItemStack(TinkerSmeltery.copperCan.asItem()), holder.key().location(), null));
     });
   }
 

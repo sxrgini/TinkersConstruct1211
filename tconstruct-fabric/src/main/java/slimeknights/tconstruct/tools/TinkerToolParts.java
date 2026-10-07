@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools;
 
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import slimeknights.mantle.platform.registry.DeferredBlock;
 import slimeknights.mantle.platform.registry.DeferredItem;
 import slimeknights.mantle.platform.registry.DeferredHolder;
@@ -44,7 +45,7 @@ import java.util.function.Supplier;
 public final class TinkerToolParts extends TinkerModule {
   /** Tab for all tool parts or tool components with many variants */
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabToolParts = CREATIVE_TABS.register(
-    "tool_parts", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "tool_parts"))
+    "tool_parts", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "tool_parts"))
                                        .icon(() -> {
                                          MaterialVariantId material;
                                          if (MaterialRegistry.isFullyLoaded()) {
@@ -55,7 +56,6 @@ public final class TinkerToolParts extends TinkerModule {
                                          return TinkerToolParts.pickHead.get().withMaterialForDisplay(material);
                                        })
                                        .displayItems(TinkerToolParts::addTabItems)
-                                       .withTabsBefore(TinkerTools.tabTools.getId())
                                        .withSearchBar()
                                        .build());
 

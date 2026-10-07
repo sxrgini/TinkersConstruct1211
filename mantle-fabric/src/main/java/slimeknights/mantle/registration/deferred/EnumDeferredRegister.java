@@ -42,8 +42,8 @@ public class EnumDeferredRegister<R> extends DeferredRegister<R> {
    * @param mapper      Function to get an object for the given enum value
    * @return  EnumObject mapping between different item types
    */
-  public <E extends Enum<E>> EnumObject<E,R> registerEnum(E[] values, Function<? super E,String> nameGetter, Function<E,? extends R> mapper) {
-    return EnumObject.generate(values, value -> register(nameGetter.apply(value), () -> mapper.apply(value)));
+  public <E extends Enum<E>, T extends R> EnumObject<E,T> registerEnum(E[] values, Function<? super E,String> nameGetter, Function<E,? extends T> mapper) {
+    return EnumObject.generate(values, value -> unchecked(register(nameGetter.apply(value), () -> mapper.apply(value))));
   }
 
   /**
@@ -53,7 +53,7 @@ public class EnumDeferredRegister<R> extends DeferredRegister<R> {
    * @param mapper   Function to get an object for the given enum value
    * @return  EnumObject mapping between different item types
    */
-  public <E extends Enum<E>> EnumObject<E,R> registerEnum(E[] values, String name, Function<E,? extends R> mapper) {
+  public <E extends Enum<E>, T extends R> EnumObject<E,T> registerEnum(E[] values, String name, Function<E,? extends T> mapper) {
     return registerEnum(values, suffix(name), mapper);
   }
 
@@ -64,7 +64,7 @@ public class EnumDeferredRegister<R> extends DeferredRegister<R> {
    * @param mapper   Function to get an object for the given enum value
    * @return  EnumObject mapping between different item types
    */
-  public <E extends Enum<E>> EnumObject<E,R> registerEnum(String name, E[] values, Function<E,? extends R> mapper) {
+  public <E extends Enum<E>, T extends R> EnumObject<E,T> registerEnum(String name, E[] values, Function<E,? extends T> mapper) {
     return registerEnum(values, prefix(name), mapper);
   }
 
@@ -84,5 +84,11 @@ public class EnumDeferredRegister<R> extends DeferredRegister<R> {
   /** Creates a name function for suffixing the enum name. */
   public static Function<Enum<?>,String> suffix(String suffix) {
     return e -> getName(e) + '_' + suffix;
+  }
+
+  /** Casts a holder of a subtype to the requested type, safe as the mapper always produces the requested type */
+  @SuppressWarnings("unchecked")
+  private static <T> net.minecraft.core.Holder<T> unchecked(net.minecraft.core.Holder<?> holder) {
+    return (net.minecraft.core.Holder<T>) holder;
   }
 }

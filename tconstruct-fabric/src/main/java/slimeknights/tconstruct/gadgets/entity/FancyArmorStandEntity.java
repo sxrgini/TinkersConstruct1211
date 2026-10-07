@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets.entity;
 
+import net.minecraft.core.component.DataComponents;
 import lombok.Getter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -141,7 +142,7 @@ public class FancyArmorStandEntity extends ArmorStand {
   protected void brokenByPlayer(DamageSource source) {
     ItemStack stack = new ItemStack(getStandItem());
     if (this.hasCustomName()) {
-      stack.setHoverName(this.getCustomName());
+      stack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
     }
     Block.popResource(this.level(), this.blockPosition(), stack);
 

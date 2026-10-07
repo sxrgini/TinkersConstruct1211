@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.world.block;
 
+import net.minecraft.core.registries.Registries;
 import lombok.Getter;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -39,7 +40,7 @@ public enum DirtType implements StringRepresentable {
   DirtType(Tiers harvestTier, MapColor mapColor) {
     this.harvestTier = harvestTier;
     this.mapColor = mapColor;
-    this.blockTag = BlockTags.create(TConstruct.getResource("slimy_soil/" + this.getSerializedName()));
+    this.blockTag = TagKey.create(Registries.BLOCK, TConstruct.getResource("slimy_soil/" + this.getSerializedName()));
   }
 
   private SlimeType slimeType;

@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.platform.network.IPayloadContext;
-import slimeknights.mantle.network.BlockEntityPacket;
+import slimeknights.mantle.network.packet.IBlockEntityPacket;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tables.block.entity.table.CraftingStationBlockEntity;
@@ -15,7 +15,7 @@ import slimeknights.tconstruct.tables.block.entity.table.CraftingStationBlockEnt
  * Packet to send the current crafting recipe to a player who opens the crafting station.
  * TODO 1.21: make record.
  */
-public class UpdateCraftingRecipePacket implements BlockEntityPacket<CraftingStationBlockEntity> {
+public class UpdateCraftingRecipePacket implements IBlockEntityPacket<CraftingStationBlockEntity> {
   private final BlockPos pos;
   private final ResourceLocation recipe;
   public UpdateCraftingRecipePacket(BlockPos pos, CraftingRecipe recipe) {
@@ -40,7 +40,7 @@ public class UpdateCraftingRecipePacket implements BlockEntityPacket<CraftingSta
   }
 
   @Override
-  public Class<CraftingStationBlockEntity> type() {
+  public Class<CraftingStationBlockEntity> blockEntityType() {
     return CraftingStationBlockEntity.class;
   }
 

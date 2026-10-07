@@ -66,7 +66,7 @@ public abstract class LayoutIcon {
     switch (type) {
       case EMPTY: return EMPTY;
       case ITEM: {
-        ItemStack stack = buffer.readItem();
+        ItemStack stack = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
         return new ItemStackIcon(stack);
       }
       case PATTERN: {
@@ -100,7 +100,7 @@ public abstract class LayoutIcon {
     @Override
     public void write(RegistryFriendlyByteBuf buffer) {
       buffer.writeEnum(Type.ITEM);
-      buffer.writeItem(stack);
+      ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, stack);
     }
 
     @Override

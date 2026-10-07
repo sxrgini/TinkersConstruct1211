@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.fluids;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import slimeknights.mantle.platform.registry.DeferredItem;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.minecraft.core.BlockPos;
@@ -87,10 +90,9 @@ public final class TinkerFluids extends TinkerModule {
 
   /** Creative tab for general items, or those that lack another tab */
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabFluids = CREATIVE_TABS.register(
-    "fluids", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "fluids"))
+    "fluids", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "fluids"))
                                    .icon(() -> TankItem.fillTank(TinkerSmeltery.searedTank, TankType.FUEL_GAUGE, TinkerFluids.moltenCobalt.get()))
                                    .displayItems(TinkerFluids::addFilledContainers)
-                                   .withTabsBefore(TinkerTables.tabTables.getId())
                                    .withSearchBar()
                                    .build());
 
@@ -486,7 +488,7 @@ public final class TinkerFluids extends TinkerModule {
    * Accepts the given item if the passed ingot is present
    */
   private static void acceptCompat(Output output, ItemLike item, String ingot) {
-    acceptIfTag(output, item, ItemTags.create(commonResource("ingots/" + ingot)));
+    acceptIfTag(output, item, TagKey.create(Registries.ITEM, commonResource("ingots/" + ingot)));
   }
 
   /** Accepts the given item if the passed ingot or material is present */

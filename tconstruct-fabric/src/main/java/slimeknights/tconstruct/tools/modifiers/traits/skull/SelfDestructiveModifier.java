@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
+import slimeknights.tconstruct.TConstruct;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -55,7 +56,7 @@ public class SelfDestructiveModifier extends SingleLevelModifier implements Keyb
     public SelfDestructiveEffect() {
       super(MobEffectCategory.HARMFUL, 0x59D24A, true);
       // make the player slow
-      addAttributeModifier(Attributes.MOVEMENT_SPEED, "68ee3026-1d50-4eb4-914e-a8b05fbfdb71", -0.9f, Operation.MULTIPLY_TOTAL);
+      addAttributeModifier(Attributes.MOVEMENT_SPEED, TConstruct.getResource("68ee3026-1d50-4eb4-914e-a8b05fbfdb71"), -0.9f, Operation.ADD_MULTIPLIED_TOTAL);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class SelfDestructiveModifier extends SingleLevelModifier implements Keyb
     }
 
     @Override
-    public void applyEffectTick(LivingEntity living, int amplifier) {
+    public boolean applyEffectTick(LivingEntity living, int amplifier) {
       // effect level is the explosion radius
       Level level = living.level();
       if (!level.isClientSide) {
@@ -72,6 +73,7 @@ public class SelfDestructiveModifier extends SingleLevelModifier implements Keyb
         level.explode(living, living.getX(), living.getY(), living.getZ(), amplifier + 1, ExplosionInteraction.MOB);
         living.hurt(TinkerDamageTypes.source(level.registryAccess(), TinkerDamageTypes.SELF_DESTRUCT), 99999);
       }
-    }
+    return true;
+  }
   }
 }

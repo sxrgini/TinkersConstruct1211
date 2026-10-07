@@ -24,7 +24,7 @@ public class CheeseBlockItem extends BlockItem {
     CheeseItem.removeRandomEffect(living);
     ItemStack result = super.finishUsingItem(stack, level, living);
     if (!(living instanceof Player player) || !player.getAbilities().instabuild) {
-      ItemStack cheese = new ItemStack(TinkerCommons.cheeseIngot, 3);
+      ItemStack cheese = new ItemStack(TinkerCommons.cheeseIngot.asItem(), 3);
       if (result.isEmpty()) {
         return cheese;
       } else if (living instanceof Player player) {

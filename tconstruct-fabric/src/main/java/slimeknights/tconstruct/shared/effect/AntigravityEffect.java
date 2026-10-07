@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared.effect;
 
+import slimeknights.tconstruct.TConstruct;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import lombok.ToString;
@@ -30,7 +31,7 @@ public class AntigravityEffect extends TinkerEffect {
 
   public AntigravityEffect() {
     super(MobEffectCategory.HARMFUL, 0xff970d, true);
-    this.addAttributeModifier(PlatformAttributes.ENTITY_GRAVITY, "5bd6b8c8-8de9-4357-a74e-afb2a8f00c20", -2, Operation.MULTIPLY_TOTAL);
+    this.addAttributeModifier(PlatformAttributes.ENTITY_GRAVITY, TConstruct.getResource("5bd6b8c8-8de9-4357-a74e-afb2a8f00c20"), -2, Operation.ADD_MULTIPLIED_TOTAL);
     EventBus.BUS.addListener(this::onLivingJump);
   }
 
@@ -54,7 +55,7 @@ public class AntigravityEffect extends TinkerEffect {
 
   /** Handles movement while under anti-gravity */
   @Override
-  public void applyEffectTick(LivingEntity living, int amplifier) {
+  public boolean applyEffectTick(LivingEntity living, int amplifier) {
     // ensure we are actually under the effects of antigrav, might have a double negative
     if (living.getAttributeValue(PlatformAttributes.ENTITY_GRAVITY) < 0) {
       Level level = living.level();
@@ -109,11 +110,12 @@ public class AntigravityEffect extends TinkerEffect {
       // update speed based on ladders and friction
       living.setDeltaMovement(velocity.x * friction, y, velocity.z * friction);
     }
+    return true;
   }
 
   @Override
-  public void removeAttributeModifiers(LivingEntity living, AttributeMap attributeMap, int amplifier) {
-    super.removeAttributeModifiers(living, attributeMap, amplifier);
+  public void onMobRemoved(LivingEntity living, int amplifier, net.minecraft.world.entity.Entity.RemovalReason reason) {
+    super.onMobRemoved(living, amplifier, reason);
     LAST_VELOCITY.remove(living.getId());
   }
 

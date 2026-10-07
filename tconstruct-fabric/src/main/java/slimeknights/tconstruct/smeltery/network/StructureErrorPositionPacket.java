@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import slimeknights.mantle.platform.network.IPayloadContext;
-import slimeknights.mantle.network.BlockEntityPacket;
+import slimeknights.mantle.network.packet.IBlockEntityPacket;
 import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 
 import javax.annotation.Nullable;
@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
  * Packet to tell a multiblock to render a specific position as the cause of the error
  */
 @RequiredArgsConstructor
-public class StructureErrorPositionPacket implements BlockEntityPacket<HeatingStructureBlockEntity> {
+public class StructureErrorPositionPacket implements IBlockEntityPacket<HeatingStructureBlockEntity> {
   private final BlockPos controllerPos;
   @Nullable
   private final BlockPos errorPos;
@@ -44,7 +44,7 @@ public class StructureErrorPositionPacket implements BlockEntityPacket<HeatingSt
   }
 
   @Override
-  public Class<HeatingStructureBlockEntity> type() {
+  public Class<HeatingStructureBlockEntity> blockEntityType() {
     return HeatingStructureBlockEntity.class;
   }
 

@@ -62,7 +62,7 @@ public class CrystalshotItem extends ArrowItem {
 
   /** Creates a crystal shot with the given variant */
   public static ItemStack withVariant(String variant, int size) {
-    ItemStack stack = new ItemStack(TinkerTools.crystalshotItem, size);
+    ItemStack stack = new ItemStack(TinkerTools.crystalshotItem.asItem(), size);
     StackNbt.getOrCreateTag(stack).putString(TAG_VARIANT, variant);
     return stack;
   }

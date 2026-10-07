@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables;
 
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import slimeknights.mantle.platform.registry.DeferredBlock;
 import slimeknights.mantle.platform.registry.DeferredItem;
 import slimeknights.mantle.platform.registry.DeferredHolder;
@@ -81,10 +82,9 @@ import java.util.function.Predicate;
 public final class TinkerTables extends TinkerModule {
   /** Creative tab for general items, or those that lack another tab */
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabTables = CREATIVE_TABS.register(
-    "tables", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "tables"))
+    "tables", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "tables"))
       .icon(() -> new ItemStack(TinkerTables.tinkersAnvil))
       .displayItems(TinkerTables::addTableVariants)
-      .withTabsBefore(TinkerWorld.tabWorld.getId())
       .withSearchBar()
       .build());
   /*

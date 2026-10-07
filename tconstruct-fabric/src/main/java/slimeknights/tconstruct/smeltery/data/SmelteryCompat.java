@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery.data;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
 import lombok.Getter;
 import net.minecraft.core.HolderSet.Named;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -129,7 +131,7 @@ public enum SmelteryCompat {
   /** Checks if the given tag exists */
   @SuppressWarnings("deprecation")
   private static boolean ingotPresent(String name) {
-    Optional<Named<Item>> tag = BuiltInRegistries.ITEM.getTag(ItemTags.create(commonResource("ingots/" + name)));
+    Optional<Named<Item>> tag = BuiltInRegistries.ITEM.getTag(TagKey.create(Registries.ITEM, commonResource("ingots/" + name)));
     return tag.isPresent() && tag.get().size() > 0;
   }
 }

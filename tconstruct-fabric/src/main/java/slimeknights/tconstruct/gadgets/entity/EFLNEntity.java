@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets.entity;
 
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -45,12 +46,12 @@ public class EFLNEntity extends ThrowableItemProjectile implements IEntityAdditi
 
   @Override
   public void writeSpawnData(RegistryFriendlyByteBuf buffer) {
-    buffer.writeItem(this.getItemRaw());
+    ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, this.getItemRaw());
   }
 
   @Override
   public void readSpawnData(RegistryFriendlyByteBuf additionalData) {
-    this.setItem(additionalData.readItem());
+    this.setItem(ItemStack.OPTIONAL_STREAM_CODEC.decode(additionalData));
   }
 
 }

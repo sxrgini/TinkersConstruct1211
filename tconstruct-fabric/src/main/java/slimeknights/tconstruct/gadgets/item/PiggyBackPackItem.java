@@ -165,12 +165,12 @@ public class PiggyBackPackItem extends TooltipItem implements IClientMobEffectEx
   }
 
   public static class CarryPotionEffect extends TinkerEffect {
-    static final String UUID = "ff4de63a-2b24-11e6-b67b-9e71128cae77";
+    static final net.minecraft.resources.ResourceLocation UUID = slimeknights.tconstruct.TConstruct.getResource("ff4de63a-2b24-11e6-b67b-9e71128cae77");
 
     public CarryPotionEffect() {
       super(MobEffectCategory.NEUTRAL, true);
 
-      this.addAttributeModifier(Attributes.MOVEMENT_SPEED, UUID, -0.05D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+      this.addAttributeModifier(Attributes.MOVEMENT_SPEED, UUID, -0.05D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     }
 
     @Override
@@ -179,7 +179,7 @@ public class PiggyBackPackItem extends TooltipItem implements IClientMobEffectEx
     }
 
     @Override
-    public void applyEffectTick(@Nonnull LivingEntity livingEntityIn, int p_76394_2_) {
+    public boolean applyEffectTick(@Nonnull LivingEntity livingEntityIn, int p_76394_2_) {
       ItemStack chestArmor = livingEntityIn.getItemBySlot(EquipmentSlot.CHEST);
       if (chestArmor.isEmpty() || chestArmor.getItem() != TinkerGadgets.piggyBackpack.get()) {
         TinkerGadgets.piggyBackpack.get().matchCarriedEntitiesToCount(livingEntityIn, 0);
@@ -189,7 +189,8 @@ public class PiggyBackPackItem extends TooltipItem implements IClientMobEffectEx
           Caps.get(livingEntityIn, PiggybackCapability.PIGGYBACK, null).ifPresent(PiggybackHandler::updatePassengers);
         }
       }
-    }
+    return true;
+  }
 
       public void initializeClient(Consumer<IClientMobEffectExtensions> consumer) {
       consumer.accept(new IClientMobEffectExtensions() {

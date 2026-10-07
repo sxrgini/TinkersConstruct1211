@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery;
 
+import net.minecraft.tags.TagKey;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import slimeknights.mantle.platform.registry.DeferredBlock;
 import slimeknights.mantle.platform.registry.DeferredItem;
 import slimeknights.mantle.platform.registry.DeferredHolder;
@@ -144,10 +146,9 @@ public final class TinkerSmeltery extends TinkerModule {
   private static final StatePredicate NEVER = Blocks::never;
   /** Creative tab for smeltery, all contents related to the multiblocks */
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabSmeltery = CREATIVE_TABS.register(
-    "smeltery", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "smeltery"))
+    "smeltery", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "smeltery"))
                                      .icon(() -> new ItemStack(TinkerSmeltery.smelteryController))
                                      .displayItems(TinkerSmeltery::addTabItems)
-                                     .withTabsBefore(TinkerToolParts.tabToolParts.getId())
                                      .build());
 
   /* Bricks */
@@ -620,7 +621,7 @@ public final class TinkerSmeltery extends TinkerModule {
 
   /** Adds a cast to the tab */
   private static void acceptIfTag(CreativeModeTab.Output output, Function<CastItemObject,ItemLike> getter, CastItemObject cast) {
-    acceptIfTag(output, getter.apply(cast), ItemTags.create(commonResource(cast.getName().getPath() + "s")));
+    acceptIfTag(output, getter.apply(cast), TagKey.create(Registries.ITEM, commonResource(cast.getName().getPath() + "s")));
   }
 
 

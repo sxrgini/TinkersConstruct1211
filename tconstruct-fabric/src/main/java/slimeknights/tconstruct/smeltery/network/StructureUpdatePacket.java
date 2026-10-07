@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import slimeknights.mantle.platform.network.IPayloadContext;
-import slimeknights.mantle.network.BlockEntityPacket;
+import slimeknights.mantle.network.packet.IBlockEntityPacket;
 import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
  * Packet sent when the smeltery or foundry structure changes
  */
 @AllArgsConstructor
-public class StructureUpdatePacket implements BlockEntityPacket<HeatingStructureBlockEntity> {
+public class StructureUpdatePacket implements IBlockEntityPacket<HeatingStructureBlockEntity> {
   private final BlockPos pos;
   private final BlockPos minPos;
   private final BlockPos maxPos;
@@ -48,7 +48,7 @@ public class StructureUpdatePacket implements BlockEntityPacket<HeatingStructure
   }
 
   @Override
-  public Class<HeatingStructureBlockEntity> type() {
+  public Class<HeatingStructureBlockEntity> blockEntityType() {
     return HeatingStructureBlockEntity.class;
   }
 

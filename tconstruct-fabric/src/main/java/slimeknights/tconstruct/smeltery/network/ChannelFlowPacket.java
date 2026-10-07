@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import slimeknights.mantle.platform.network.IPayloadContext;
-import slimeknights.mantle.network.BlockEntityPacket;
+import slimeknights.mantle.network.packet.IBlockEntityPacket;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
 /**
@@ -15,7 +15,7 @@ import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
  */
 @RequiredArgsConstructor
 @ToString
-public class ChannelFlowPacket implements BlockEntityPacket<ChannelBlockEntity> {
+public class ChannelFlowPacket implements IBlockEntityPacket<ChannelBlockEntity> {
 	private final BlockPos pos;
 	private final Direction side;
 	private final boolean flow;
@@ -39,7 +39,7 @@ public class ChannelFlowPacket implements BlockEntityPacket<ChannelBlockEntity> 
   }
 
   @Override
-  public Class<ChannelBlockEntity> type() {
+  public Class<ChannelBlockEntity> blockEntityType() {
     return ChannelBlockEntity.class;
   }
 

@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.tools.data.material;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.FluidTags;
 import slimeknights.mantle.platform.condition.OrCondition;
@@ -142,7 +144,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     material(MaterialIds.ironwood).tier(2).sort(ORDER_COMPAT + ORDER_GENERAL).craftable().compatMetal();
     // treated wood comes from treated wood or creosote oil
     material(MaterialIds.treatedWood).tier(2).sort(ORDER_COMPAT + ORDER_GENERAL).craftable()
-      .compat(tagExistsCondition("treated_wood"), new TagFilledCondition<>(FluidTags.create(commonResource("creosote"))));
+      .compat(tagExistsCondition("treated_wood"), new TagFilledCondition<>(TagKey.create(Registries.FLUID, commonResource("creosote"))));
     // tier 3 (mod integration)
     material(MaterialIds.electrum       ).tier(3).sort(ORDER_COMPAT + ORDER_GENERAL).compatAlloy("silver");
     material(MaterialIds.bronze         ).tier(3).sort(ORDER_COMPAT + ORDER_HARVEST).compatAlloy("tin");

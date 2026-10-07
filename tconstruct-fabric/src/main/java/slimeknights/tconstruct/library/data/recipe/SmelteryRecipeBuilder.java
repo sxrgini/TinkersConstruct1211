@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.data.recipe;
 
+import net.minecraft.core.registries.Registries;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.CheckReturnValue;
 import lombok.AccessLevel;
@@ -208,7 +209,7 @@ public class SmelteryRecipeBuilder {
   /** Creates a condition for a tag being empty */
   @CheckReturnValue
   public static ICondition tagCondition(ResourceLocation tag) {
-    return new TagFilledCondition<>(ItemTags.create(tag));
+    return new TagFilledCondition<>(TagKey.create(Registries.ITEM, tag));
   }
 
   /** Creates a condition for a tag being empty */
@@ -220,7 +221,7 @@ public class SmelteryRecipeBuilder {
   /** Creates a tag key for an item */
   @CheckReturnValue
   public static TagKey<Item> itemTag(String name) {
-    return ItemTags.create(commonResource(name));
+    return TagKey.create(Registries.ITEM, commonResource(name));
   }
 
   /** Creates a location under the given domain with the passed prefix  */
@@ -274,7 +275,7 @@ public class SmelteryRecipeBuilder {
   /** Adds a recipe for melting an item from a tag */
   private void tagMelting(float scale, String output, float factor, ResourceLocation tagName, boolean damagable, boolean forceOptional) {
     Consumer<FinishedRecipe> wrapped = optional || forceOptional ? withCondition(tagCondition(tagName)) : consumer;
-    MeltingRecipeBuilder builder = MeltingRecipeBuilder.melting(Ingredient.of(ItemTags.create(tagName)), result((int) (baseUnit * scale)), temperature, factor);
+    MeltingRecipeBuilder builder = MeltingRecipeBuilder.melting(Ingredient.of(TagKey.create(Registries.ITEM, tagName)), result((int) (baseUnit * scale)), temperature, factor);
     if (damagable) {
       builder.setDamagable(damageUnits());
     }

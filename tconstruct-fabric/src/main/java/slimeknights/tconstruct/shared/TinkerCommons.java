@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared;
 
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import slimeknights.mantle.platform.registry.DeferredBlock;
 import slimeknights.mantle.platform.registry.DeferredItem;
 import slimeknights.mantle.platform.condition.ConditionRegistry;
@@ -87,8 +88,8 @@ import static slimeknights.tconstruct.TConstruct.getResource;
 public final class TinkerCommons extends TinkerModule {
   /** Creative tab for general items, or those that lack another tab */
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabGeneral = CREATIVE_TABS.register(
-    "general", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "general"))
-                                    .icon(() -> new ItemStack(TinkerCommons.materialsAndYou))
+    "general", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "general"))
+                                    .icon(() -> new ItemStack(TinkerCommons.materialsAndYou.asItem()))
                                     .displayItems(TinkerCommons::addTabItems)
                                     .build());
 
@@ -133,8 +134,8 @@ public final class TinkerCommons extends TinkerModule {
   /*
    * Items
    */
-  public static final DeferredItem<EdibleItem> bacon = ITEMS.register("bacon", () -> new EdibleItem(TinkerFood.BACON));
-  public static final DeferredItem<EdibleItem> jeweledApple = ITEMS.register("jeweled_apple", () -> new EdibleItem(TinkerFood.JEWELED_APPLE));
+  public static final DeferredItem<EdibleItem> bacon = ITEMS.register("bacon", () -> new EdibleItem(new Properties().food(TinkerFood.BACON)));
+  public static final DeferredItem<EdibleItem> jeweledApple = ITEMS.register("jeweled_apple", () -> new EdibleItem(new Properties().food(TinkerFood.JEWELED_APPLE)));
   public static final DeferredItem<Item> cheeseIngot = ITEMS.register("cheese_ingot", () -> new CheeseItem(new Properties().food(TinkerFood.CHEESE)));
   public static final DeferredBlock<Block> cheeseBlock = BLOCKS.register("cheese_block", () -> new HalfTransparentBlock(builder(MapColor.COLOR_YELLOW, SoundType.HONEY_BLOCK).strength(1.5F, 3.0F).speedFactor(0.4F).jumpFactor(0.5F).noOcclusion()), block -> new CheeseBlockItem(block, new Properties().food(TinkerFood.CHEESE)));
 
@@ -153,7 +154,7 @@ public final class TinkerCommons extends TinkerModule {
 
   /* Slime Balls are edible, believe it or not */
   public static final EnumObject<SlimeType, Item> slimeball = new EnumObject.Builder<SlimeType, Item>(SlimeType.class)
-    .put(SlimeType.EARTH, () -> Items.SLIME_BALL)
+    .put(SlimeType.EARTH, Items.SLIME_BALL.builtInRegistryHolder())
     .putAll(ITEMS.registerEnum(SlimeType.TINKER, "slime_ball", type -> new Item(ITEM_PROPS)))
     .build();
 

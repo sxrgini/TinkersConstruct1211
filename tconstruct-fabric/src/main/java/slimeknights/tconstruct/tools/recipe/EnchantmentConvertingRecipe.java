@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.recipe;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import lombok.Getter;
 import net.minecraft.network.chat.Component;
@@ -213,7 +214,7 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
       if (matchBook && enchantments.isEmpty()) {
         unenchanted = new ItemStack(Items.BOOK);
         if (current.hasCustomHoverName()) {
-          unenchanted.setHoverName(current.getHoverName());
+          unenchanted.set(DataComponents.CUSTOM_NAME, current.getHoverName());
         }
       } else {
         unenchanted = current.copy();

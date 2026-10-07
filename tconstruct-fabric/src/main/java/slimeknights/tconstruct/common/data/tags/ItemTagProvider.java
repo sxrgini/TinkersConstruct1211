@@ -127,8 +127,8 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.WORN_ARMOR;
 @SuppressWarnings({"unchecked", "removal"})
 public class ItemTagProvider extends ItemTagsProvider {
   /** Twlight forest uncrafting table blacklist */
-  private static final TagKey<Item> BANNED_UNCRAFTABLE = ItemTags.create(ResourceLocation.fromNamespaceAndPath("twilightforest", "banned_uncraftables"));
-  private final Function<ResourceLocation,IntrinsicTagAppender<Item>> MAKE_TAG = tag -> tag(ItemTags.create(tag));
+  private static final TagKey<Item> BANNED_UNCRAFTABLE = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("twilightforest", "banned_uncraftables"));
+  private final Function<ResourceLocation,IntrinsicTagAppender<Item>> MAKE_TAG = tag -> tag(TagKey.create(Registries.ITEM, tag));
 
   public ItemTagProvider(PackOutput output, CompletableFuture<Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider, ExistingFileHelper existingFileHelper) {
     super(output, lookupProvider, blockTagProvider, TConstruct.MOD_ID, existingFileHelper);
@@ -447,7 +447,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(UNSWAPPABLE_TOOLS).addTag(UNSWAPPABLE);
     this.tag(UNSWAPPABLE_PARTS).addTag(UNSWAPPABLE);
     // headlight support
-    this.tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("headlight", "headlight_helmets"))).addTag(HELMETS);
+    this.tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("headlight", "headlight_helmets"))).addTag(HELMETS);
 
     // general
     this.tag(MULTIPART_TOOL).addOptionalTag(SINGLEPART_TOOL);

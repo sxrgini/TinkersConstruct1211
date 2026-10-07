@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.common;
 
 import slimeknights.mantle.platform.client.IClientMobEffectExtensionsProvider;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -27,8 +29,8 @@ public class TinkerEffect extends MobEffect implements IClientMobEffectExtension
 
   // override to change return type
   @Override
-  public TinkerEffect addAttributeModifier(Attribute pAttribute, String pUuid, double pAmount, Operation pOperation) {
-    super.addAttributeModifier(pAttribute, pUuid, pAmount, pOperation);
+  public TinkerEffect addAttributeModifier(Holder<Attribute> attribute, ResourceLocation id, double amount, Operation operation) {
+    super.addAttributeModifier(attribute, id, amount, operation);
     return this;
   }
 

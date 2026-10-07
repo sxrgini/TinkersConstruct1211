@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.world;
 
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.tags.BiomeTags;
@@ -119,10 +120,9 @@ public final class TinkerWorld extends TinkerModule {
 
   /** Creative tab for anything that is naturally found in the world */
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabWorld = CREATIVE_TABS.register(
-    "world", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "world"))
+    "world", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "world"))
       .icon(() -> new ItemStack(TinkerWorld.cobaltOre))
       .displayItems(TinkerWorld::addTabItems)
-      .withTabsBefore(TinkerSmeltery.tabSmeltery.getId())
       .build());
 
   /*
@@ -164,7 +164,7 @@ public final class TinkerWorld extends TinkerModule {
 
   // island blocks
   public static final EnumObject<DirtType, Block> slimeDirt = BLOCKS.registerEnum(DirtType.TINKER, "slime_dirt", (type) -> new SlimeDirtBlock(builder(type.getMapColor(), SoundType.SLIME_BLOCK).strength(1.9f)), TOOLTIP_BLOCK_ITEM);
-  public static final EnumObject<DirtType, Block> allDirt = new EnumObject.Builder<DirtType, Block>(DirtType.class).put(DirtType.VANILLA, () -> Blocks.DIRT).putAll(slimeDirt).build();
+  public static final EnumObject<DirtType, Block> allDirt = new EnumObject.Builder<DirtType, Block>(DirtType.class).put(DirtType.VANILLA, Blocks.DIRT.builtInRegistryHolder()).putAll(slimeDirt).build();
 
   /** Grass variants, the name represents the dirt type */
   public static final EnumObject<FoliageType, Block> vanillaSlimeGrass, earthSlimeGrass, skySlimeGrass, enderSlimeGrass, ichorSlimeGrass;
@@ -278,20 +278,17 @@ public final class TinkerWorld extends TinkerModule {
   // our own copy of the slime to make spawning a bit easier
   public static final EntityObject<SkySlimeEntity> skySlimeEntity = ENTITIES.registerWithEgg("sky_slime", () ->
     EntityType.Builder.of(SkySlimeEntity::new, MobCategory.MONSTER)
-                      .setShouldReceiveVelocityUpdates(true)
-                      .setTrackingRange(20)
+                      .clientTrackingRange(20)
                       .sized(2.04F, 2.04F)
                       .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.skySlimeEntity.get().create(world)), 0x47eff5, 0xacfff4);
   public static final EntityObject<EnderSlimeEntity> enderSlimeEntity = ENTITIES.registerWithEgg("ender_slime", () ->
     EntityType.Builder.of(EnderSlimeEntity::new, MobCategory.MONSTER)
-                      .setShouldReceiveVelocityUpdates(true)
-                      .setTrackingRange(32)
+                      .clientTrackingRange(32)
                       .sized(2.04F, 2.04F)
                       .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.enderSlimeEntity.get().create(world)), 0x6300B0, 0xD37CFF);
   public static final EntityObject<TerracubeEntity> terracubeEntity = ENTITIES.registerWithEgg("terracube", () ->
     EntityType.Builder.of(TerracubeEntity::new, MobCategory.MONSTER)
-                      .setShouldReceiveVelocityUpdates(true)
-                      .setTrackingRange(8)
+                      .clientTrackingRange(8)
                       .sized(2.04F, 2.04F)
                       .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.terracubeEntity.get().create(world)), 0xAFB9D6, 0xA1A7B1);
 
