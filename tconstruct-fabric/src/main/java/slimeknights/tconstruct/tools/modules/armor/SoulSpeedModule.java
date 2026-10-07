@@ -7,6 +7,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -47,7 +48,7 @@ public record SoulSpeedModule(LevelingInt level, ModifierCondition<IToolStackVie
   }
 
   @Override
-  public int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Enchantment enchantment, int level) {
+  public int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, ResourceKey<Enchantment> enchantment, int level) {
     if (enchantment == Enchantments.SOUL_SPEED && condition.matches(tool, modifier)) {
       level += this.level.compute(modifier);
     }
@@ -55,7 +56,7 @@ public record SoulSpeedModule(LevelingInt level, ModifierCondition<IToolStackVie
   }
 
   @Override
-  public void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<Enchantment, Integer> map) {
+  public void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<ResourceKey<Enchantment>,Integer> map) {
     if (condition.matches(tool, modifier)) {
       EnchantmentModifierHook.addEnchantment(map, Enchantments.SOUL_SPEED, this.level.compute(modifier));
     }

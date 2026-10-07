@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.library.modifiers.hook.behavior;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockHarvestModifierHook;
@@ -14,9 +16,9 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 /**
- * This interface exposes two methods, {@link #updateEnchantmentLevel(IToolStackView, ModifierEntry, Enchantment, int)} and {@link #updateEnchantments(IToolStackView, ModifierEntry, Map)}
+ * This interface exposes two methods, {@link #updateEnchantmentLevel(IToolStackView, ModifierEntry, ResourceKey, int)} and {@link #updateEnchantments(IToolStackView, ModifierEntry, Map)}
  * to allow tools to claim to have enchantments to vanilla APIs without modifying NBT. For performance reasons we don't simply have one hook call the other, but their behavior must be consistent.
- * That is, whatever change you make to the level in {@link #updateEnchantmentLevel(IToolStackView, ModifierEntry, Enchantment, int)} must also be reflected in the map in {@link #updateEnchantments(IToolStackView, ModifierEntry, Map)}.
+ * That is, whatever change you make to the level in {@link #updateEnchantmentLevel(IToolStackView, ModifierEntry, ResourceKey, int)} must also be reflected in the map in {@link #updateEnchantments(IToolStackView, ModifierEntry, Map)}.
  */
 public interface EnchantmentModifierHook {
   /** Predicate to remove unneeded values from the map */
@@ -30,7 +32,7 @@ public interface EnchantmentModifierHook {
    * @param level        Level before this enchantment makes any changes. May be negative, will be capped to 0+ after the hook runs.
    * @return Enchantment level, typically added to {@code level} instead of replacing it. May be negative, will be capped to 0+ after the hook runs.
    */
-  int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Enchantment enchantment, int level);
+  int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, ResourceKey<Enchantment> enchantment, int level);
 
   /**
    * Adds all enchantment modifications made by this tool to the map.
@@ -40,10 +42,10 @@ public interface EnchantmentModifierHook {
    * @param map       A mutable map to add enchantments from this modifier. May contain negatives.
    * @see #addEnchantment(Map, Enchantment, int)
    */
-  void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<Enchantment,Integer> map);
+  void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<ResourceKey<Enchantment>,Integer> map);
 
   /** Adds the given enchantment to the map */
-  static void addEnchantment(Map<Enchantment,Integer> map, Enchantment enchantment, int amount) {
+  static void addEnchantment(Map<ResourceKey<Enchantment>,Integer> map, ResourceKey<Enchantment> enchantment, int amount) {
     if (amount != 0) {
       map.put(enchantment, map.getOrDefault(enchantment, 0) + amount);
     }
@@ -55,8 +57,13 @@ public interface EnchantmentModifierHook {
    * @param enchantment  Enchantment to query
    * @return  Enchantment level
    */
-  static int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
-    int level = EnchantmentHelper.getTagEnchantmentLevel(enchantment, stack);
+  static int getEnchantmentLevel(ItemStack stack, ResourceKey<Enchantment> enchantment) {
+    int level = 0;
+    for (Object2IntMap.Entry<Holder<Enchantment>> entry : stack.getEnchantments().entrySet()) {
+      if (entry.getKey().is(enchantment)) {
+        level = entry.getIntValue();
+      }
+    }
     IToolStackView tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
       level = entry.getHook(ModifierHooks.ENCHANTMENTS).updateEnchantmentLevel(tool, entry, enchantment, level);
@@ -70,8 +77,11 @@ public interface EnchantmentModifierHook {
    * @param stack  Stack instance
    * @return  All contained enchantments
    */
-  static Map<Enchantment,Integer> getAllEnchantments(ItemStack stack) {
-    Map<Enchantment,Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
+  static Map<ResourceKey<Enchantment>,Integer> getAllEnchantments(ItemStack stack) {
+    Map<ResourceKey<Enchantment>,Integer> enchantments = new java.util.HashMap<>();
+    for (Object2IntMap.Entry<Holder<Enchantment>> entry : stack.getEnchantments().entrySet()) {
+      entry.getKey().unwrapKey().ifPresent(key -> enchantments.put(key, entry.getIntValue()));
+    }
     IToolStackView tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
       entry.getHook(ModifierHooks.ENCHANTMENTS).updateEnchantments(tool, entry, enchantments);
@@ -84,7 +94,7 @@ public interface EnchantmentModifierHook {
   /** Merger that combines all modules together */
   record AllMerger(Collection<EnchantmentModifierHook> modules) implements EnchantmentModifierHook {
     @Override
-    public int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Enchantment enchantment, int level) {
+    public int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, ResourceKey<Enchantment> enchantment, int level) {
       for (EnchantmentModifierHook module : modules) {
         level = module.updateEnchantmentLevel(tool, modifier, enchantment, level);
       }
@@ -92,7 +102,7 @@ public interface EnchantmentModifierHook {
     }
 
     @Override
-    public void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<Enchantment,Integer> map) {
+    public void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<ResourceKey<Enchantment>,Integer> map) {
       for (EnchantmentModifierHook module : modules) {
         module.updateEnchantments(tool, modifier, map);
       }
@@ -110,7 +120,7 @@ public interface EnchantmentModifierHook {
      * @param modifier  Modifier instance
      * @return  Enchantment for this hook to add
      */
-    Enchantment getEnchantment(IToolStackView tool, ModifierEntry modifier);
+    ResourceKey<Enchantment> getEnchantment(IToolStackView tool, ModifierEntry modifier);
 
     /**
      * Gets the level of the enchantment to add
@@ -123,7 +133,7 @@ public interface EnchantmentModifierHook {
     }
 
     @Override
-    default int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Enchantment enchantment, int level) {
+    default int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, ResourceKey<Enchantment> enchantment, int level) {
       if (enchantment == getEnchantment(tool, modifier)) {
         level += getEnchantmentLevel(tool, modifier);
       }
@@ -131,7 +141,7 @@ public interface EnchantmentModifierHook {
     }
 
     @Override
-    default void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<Enchantment,Integer> map) {
+    default void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<ResourceKey<Enchantment>,Integer> map) {
       addEnchantment(map, getEnchantment(tool, modifier), getEnchantmentLevel(tool, modifier));
     }
   }
@@ -139,7 +149,7 @@ public interface EnchantmentModifierHook {
   /** Combination of {@link SingleEnchantment} with {@link BlockHarvestModifierHook.MarkHarvesting} */
   interface SingleHarvestEnchantment extends SingleEnchantment, BlockHarvestModifierHook.MarkHarvesting {
     @Override
-    default int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Enchantment enchantment, int level) {
+    default int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, ResourceKey<Enchantment> enchantment, int level) {
       if (BlockHarvestModifierHook.MarkHarvesting.isHarvesting(tool)) {
         return SingleEnchantment.super.updateEnchantmentLevel(tool, modifier, enchantment, level);
       }
@@ -147,7 +157,7 @@ public interface EnchantmentModifierHook {
     }
 
     @Override
-    default void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<Enchantment,Integer> map) {
+    default void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<ResourceKey<Enchantment>,Integer> map) {
       if (BlockHarvestModifierHook.MarkHarvesting.isHarvesting(tool)) {
         SingleEnchantment.super.updateEnchantments(tool, modifier, map);
       }

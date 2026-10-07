@@ -11,6 +11,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -34,17 +35,17 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 import java.util.Map;
 
 /** Breaks a block using a fluid */
-public record BreakBlockFluidEffect(float hardness, Map<Enchantment,Integer> enchantments) implements FluidEffect<FluidEffectContext.Block> {
+public record BreakBlockFluidEffect(float hardness, Map<ResourceKey<Enchantment>,Integer> enchantments) implements FluidEffect<FluidEffectContext.Block> {
   public static final RecordLoadable<BreakBlockFluidEffect> LOADER = RecordLoadable.create(
     FloatLoadable.FROM_ZERO.defaultField("hardness", 0f, false, BreakBlockFluidEffect::hardness),
-    Loadables.ENCHANTMENT.mapWithValues(IntLoadable.FROM_ONE, 0).defaultField("enchantments", Map.of(), BreakBlockFluidEffect::enchantments),
+    Loadables.ENCHANTMENT_KEY.mapWithValues(IntLoadable.FROM_ONE, 0).defaultField("enchantments", Map.of(), BreakBlockFluidEffect::enchantments),
     BreakBlockFluidEffect::new);
 
   public BreakBlockFluidEffect(float hardness) {
     this(hardness, Map.of());
   }
 
-  public BreakBlockFluidEffect(float hardness, Enchantment enchantment, int level) {
+  public BreakBlockFluidEffect(float hardness, ResourceKey<Enchantment> enchantment, int level) {
     this(hardness, Map.of(enchantment, level));
   }
 
@@ -86,7 +87,7 @@ public record BreakBlockFluidEffect(float hardness, Map<Enchantment,Integer> enc
         ItemStack fakeTool = ItemStack.EMPTY;
         if (!enchantments.isEmpty()) {
           fakeTool = new ItemStack(Items.STICK);
-          EnchantmentHelper.setEnchantments(enchantments, fakeTool);
+          EnchantmentHelper.setEnchantments(fakeTool, slimeknights.tconstruct.library.utils.EnchantmentCompat.toEnchantments(enchantments));
         }
 
         // ensures tile entity is fetched so its around for afterBlockBreak
@@ -140,9 +141,8 @@ public record BreakBlockFluidEffect(float hardness, Map<Enchantment,Integer> enc
     } else {
       translationKey += ".enchanted";
       Component enchantments = enchantments().entrySet().stream().<Component>map(entry -> {
-        Enchantment enchantment = entry.getKey();
-        MutableComponent component = Component.translatable(enchantment.getDescriptionId());
-        if (enchantment.getMaxLevel() != 1) {
+        MutableComponent component = slimeknights.tconstruct.library.utils.EnchantmentCompat.name(entry.getKey());
+        if (entry.getValue() != 1) {
           component.append(CommonComponents.SPACE).append(Component.translatable("enchantment.level." + entry.getValue()));
         }
         return component;

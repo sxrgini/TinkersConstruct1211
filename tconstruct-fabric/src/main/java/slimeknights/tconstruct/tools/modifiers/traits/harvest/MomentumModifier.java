@@ -56,8 +56,8 @@ public class MomentumModifier extends Modifier implements ProjectileLaunchModifi
 
   /** Applies the effect to the target */
   private static void applyEffect(LivingEntity living, ToolType type, int duration, int maxLevel) {
-    net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect> effect = TinkerModifiers.momentumEffect.get(type).holder();
-    effect.apply(living, duration, Math.min(maxLevel, TinkerEffect.getAmplifier(living, effect) + 1), true);
+    TinkerEffect effect = TinkerModifiers.momentumEffect.get(type);
+    effect.apply(living, duration, Math.min(maxLevel, TinkerEffect.getAmplifier(living, effect.holder()) + 1), true);
   }
 
   @Override

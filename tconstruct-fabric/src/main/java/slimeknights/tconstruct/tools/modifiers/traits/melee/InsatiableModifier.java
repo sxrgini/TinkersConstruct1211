@@ -49,8 +49,8 @@ public class InsatiableModifier extends Modifier implements ProjectileHitModifie
 
   /** Applies the effect to the target */
   public static void applyEffect(LivingEntity living, ToolType type, int duration, int add, int maxLevel) {
-    net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect> effect = TinkerModifiers.insatiableEffect.get(type).holder();
-    effect.apply(living, duration, Math.min(maxLevel, TinkerEffect.getAmplifier(living, effect) + add), true);
+    TinkerEffect effect = TinkerModifiers.insatiableEffect.get(type);
+    effect.apply(living, duration, Math.min(maxLevel, TinkerEffect.getAmplifier(living, effect.holder()) + add), true);
   }
 
   @Override

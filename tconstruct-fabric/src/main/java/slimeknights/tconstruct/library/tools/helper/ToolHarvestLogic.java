@@ -286,7 +286,7 @@ public class ToolHarvestLogic {
     }
     // let armor change enchantments
     // TODO: should we have a hook for non-enchantment armor responses?
-    ListTag originalEnchantments = HarvestEnchantmentsModifierHook.updateHarvestEnchantments(tool, stack, context);
+    net.minecraft.world.item.enchantment.ItemEnchantments originalEnchantments = HarvestEnchantmentsModifierHook.updateHarvestEnchantments(tool, stack, context);
     // need to calculate the iterator before we break the block, as we need the reference hardness from the center
     UseOnContext useContext = new UseOnContext(world, player, InteractionHand.MAIN_HAND, stack, Util.createTraceResult(pos, sideHit, false));
     Iterable<BlockPos> extraBlocks = context.isEffective() ? tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, useContext, state, AOEMatchType.BREAKING) : Collections.emptyList();

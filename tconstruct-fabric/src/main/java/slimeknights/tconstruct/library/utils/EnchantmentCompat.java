@@ -32,4 +32,30 @@ public final class EnchantmentCompat {
     Holder<Enchantment> holder = holder(key);
     return holder == null ? 0 : EnchantmentHelper.getItemEnchantmentLevel(holder, stack);
   }
+
+  /** Converts the enchantments on a stack into a mutable key map */
+  public static java.util.Map<ResourceKey<Enchantment>,Integer> toMap(net.minecraft.world.item.enchantment.ItemEnchantments enchantments) {
+    java.util.Map<ResourceKey<Enchantment>,Integer> map = new java.util.HashMap<>();
+    for (it.unimi.dsi.fastutil.objects.Object2IntMap.Entry<Holder<Enchantment>> entry : enchantments.entrySet()) {
+      entry.getKey().unwrapKey().ifPresent(key -> map.put(key, entry.getIntValue()));
+    }
+    return map;
+  }
+
+  /** Converts a key map to item enchantments, skipping missing enchantments */
+  public static net.minecraft.world.item.enchantment.ItemEnchantments toEnchantments(java.util.Map<ResourceKey<Enchantment>,Integer> map) {
+    net.minecraft.world.item.enchantment.ItemEnchantments.Mutable mutable = new net.minecraft.world.item.enchantment.ItemEnchantments.Mutable(net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
+    for (java.util.Map.Entry<ResourceKey<Enchantment>,Integer> entry : map.entrySet()) {
+      Holder<Enchantment> holder = holder(entry.getKey());
+      if (holder != null && entry.getValue() > 0) {
+        mutable.set(holder, entry.getValue());
+      }
+    }
+    return mutable.toImmutable();
+  }
+
+  /** Translation key of an enchantment */
+  public static net.minecraft.network.chat.MutableComponent name(ResourceKey<Enchantment> key) {
+    return net.minecraft.network.chat.Component.translatable(net.minecraft.Util.makeDescriptionId("enchantment", key.location()));
+  }
 }
