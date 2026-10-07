@@ -223,7 +223,7 @@ public class ToolClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerParticleFactories(RegisterParticleProvidersEvent event) {
-    ParticleEngine.SpriteParticleRegistration<SimpleParticleType> factory = AttackParticle.Factory::new;
+    java.util.function.Function<net.minecraft.client.particle.SpriteSet,net.minecraft.client.particle.ParticleProvider<SimpleParticleType>> factory = AttackParticle.Factory::new;
     event.registerSpriteSet(TinkerTools.hammerAttackParticle.get(), factory);
     event.registerSpriteSet(TinkerTools.axeAttackParticle.get(), factory);
     event.registerSpriteSet(TinkerTools.bonkAttackParticle.get(), factory);

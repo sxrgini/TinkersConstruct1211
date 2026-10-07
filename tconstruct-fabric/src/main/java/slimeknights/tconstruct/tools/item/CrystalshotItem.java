@@ -74,12 +74,17 @@ public class CrystalshotItem extends ArrowItem {
 
     public CrystalshotEntity(EntityType<? extends CrystalshotEntity> type, Level level) {
       super(type, level);
-      soundEvent = Sounds.CRYSTALSHOT.getSound();
+      setSoundEvent(Sounds.CRYSTALSHOT.getSound());
+    }
+
+    @Override
+    protected ItemStack getDefaultPickupItem() {
+      return new ItemStack(TinkerTools.crystalshotItem.get());
     }
 
     public CrystalshotEntity(Level level, LivingEntity shooter) {
-      super(TinkerTools.crystalshotEntity.get(), shooter, level);
-      soundEvent = Sounds.CRYSTALSHOT.getSound();
+      super(TinkerTools.crystalshotEntity.get(), shooter, level, new ItemStack(TinkerTools.crystalshotItem.get()), null);
+      setSoundEvent(Sounds.CRYSTALSHOT.getSound());
     }
 
     @Override

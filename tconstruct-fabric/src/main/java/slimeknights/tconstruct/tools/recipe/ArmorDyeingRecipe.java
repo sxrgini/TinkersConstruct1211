@@ -91,12 +91,12 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack stack = inv.getInput(i);
       if (!stack.isEmpty()) {
-        DyeColor dye = DyeColor.getColor(stack);
+        DyeColor dye = stack.getItem() instanceof net.minecraft.world.item.DyeItem dyeItem ? dyeItem.getDyeColor() : null;
         if (dye != null) {
-          float[] color = dye.getTextureDiffuseColors();
-          int r = (int)(color[0] * 255);
-          int g = (int)(color[1] * 255);
-          int b = (int)(color[2] * 255);
+          int color = dye.getTextureDiffuseColor();
+          int r = color >> 16 & 0xFF;
+          int g = color >> 8 & 0xFF;
+          int b = color & 0xFF;
           brightness += Math.max(r, Math.max(g, b));
           nr += r;
           ng += g;
@@ -181,7 +181,7 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
     public DisplayRecipe(ResourceLocation recipeId, List<ItemStack> tools, DyeColor color) {
       this.recipeId = recipeId;
       this.toolWithoutModifier = tools;
-      this.dyes = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, color.getTag()).map(ItemStack::new).toList();
+      this.dyes = List.of(new ItemStack(net.minecraft.world.item.DyeItem.byColor(color)));
       this.variant = Component.translatable("color.minecraft." + color.getSerializedName());
 
       ResourceLocation modID = RESULT.getId().location();
