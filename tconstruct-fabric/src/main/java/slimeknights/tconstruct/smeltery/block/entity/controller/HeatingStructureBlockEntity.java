@@ -489,7 +489,6 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
     if (level != null && level.isClientSide) {
       // update ourself
       this.displayFluid = fluid.copy();
-      this.requestModelDataUpdate();
       BlockState state = getBlockState();
       level.sendBlockUpdated(worldPosition, state, state, 48);
       updateListeners(displayFluid);

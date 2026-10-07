@@ -4,6 +4,7 @@ import net.minecraft.world.level.LevelReader;
 import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.world.item.Item;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +35,7 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
   }
 
   @Override
-  protected boolean openGui(BlockState state, Level world, BlockPos pos, Player player) {
+  protected InteractionResult openGui(BlockState state, Level world, BlockPos pos, Player player) {
     super.openGui(state, world, pos, player);
     // only need to update if holding the proper items
     if (!world.isClientSide && world.getBlockEntity(pos) instanceof HeatingStructureBlockEntity te) {
@@ -43,7 +44,7 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
         TinkerNetwork.getInstance().sendTo(new StructureErrorPositionPacket(pos, result.getPos()), player);
       }
     }
-    return true;
+    return InteractionResult.sidedSuccess(world.isClientSide);
   }
 
   @Override

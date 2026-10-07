@@ -62,7 +62,7 @@ public class CopperCanItem extends Item {
       MutableComponent text;
       if (fluidTag != null) {
         FluidStack displayFluid = new FluidStack(fluid, FluidValues.INGOT, fluidTag);
-        text = displayFluid.getDisplayName().plainCopy();
+        text = displayFluid.getHoverName().plainCopy();
       } else {
         text = Component.translatable(FluidTypes.of(fluid).getDescriptionId());
       }
@@ -133,7 +133,7 @@ public class CopperCanItem extends Item {
     if (nbt != null && nbt.contains(TAG_FLUID, Tag.TAG_STRING)) {
       ResourceLocation location = ResourceLocation.tryParse(nbt.getString(TAG_FLUID));
       if (location != null && BuiltInRegistries.FLUID.containsKey(location)) {
-        Fluid fluid = BuiltInRegistries.FLUID.getValue(location);
+        Fluid fluid = BuiltInRegistries.FLUID.get(location);
         if (fluid != null) {
           return fluid;
         }

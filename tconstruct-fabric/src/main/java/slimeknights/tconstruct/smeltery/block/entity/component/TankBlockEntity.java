@@ -135,7 +135,6 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
     ITankBlockEntity.super.onTankContentsChanged();
     if (this.level != null) {
       updateLight(this, tank);
-      this.requestModelDataUpdate();
     }
   }
 

@@ -34,7 +34,6 @@ public class SafeClient {
         // if the amount change is bigger than a single increment, or we changed whether we have a fluid, update the world renderer
         BlockState state = be.getBlockState();
         if (oldAmount != newAmount) {
-          be.requestModelDataUpdate();
           Minecraft.getInstance().levelRenderer.blockChanged(level, be.getBlockPos(), state, state, 3);
         }
       }

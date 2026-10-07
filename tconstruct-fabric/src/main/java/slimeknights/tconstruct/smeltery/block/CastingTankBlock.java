@@ -68,8 +68,8 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
   }
 
   @Override
-  protected boolean openGui(BlockState state, Level world, BlockPos pos, Player player) {
-    return false;
+  protected InteractionResult openGui(BlockState state, Level world, BlockPos pos, Player player) {
+    return InteractionResult.PASS;
   }
 
   @Deprecated

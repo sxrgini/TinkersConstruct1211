@@ -114,10 +114,6 @@ public class DuctBlockEntity extends SmelteryFluidIO implements MenuProvider {
     if (tags.contains(TAG_ITEM, Tag.TAG_COMPOUND)) {
       itemHandler.readFromNBT(tags.getCompound(TAG_ITEM));
     }
-  }
-
-  public void handleUpdateTag(CompoundTag tag) {
-    super.handleUpdateTag(tag);
     if (level != null && level.isClientSide) {
       updateFluid();
     }

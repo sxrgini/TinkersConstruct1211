@@ -62,8 +62,7 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
     builder.add(LIGHT);
   }
 
-  @Override
-  public PushReaction getPistonPushReaction(BlockState pState) {
+    public PushReaction getPistonPushReaction(BlockState pState) {
     return pushReaction;
   }
 

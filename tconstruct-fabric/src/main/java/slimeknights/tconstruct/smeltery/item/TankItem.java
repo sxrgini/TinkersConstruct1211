@@ -71,7 +71,7 @@ public class TankItem extends BlockTooltipItem {
 
   public int getMaxStackSize(ItemStack stack) {
     if (!limitStackSize) {
-      return super.getMaxStackSize(stack);
+      return getDefaultMaxStackSize();
     }
     return isFilled(stack) ? 16: 64;
   }

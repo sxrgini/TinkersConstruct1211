@@ -264,7 +264,6 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
     tryToProcessItem();
     if (this.level != null) {
       TankBlockEntity.updateLight(this, tank);
-      this.requestModelDataUpdate();
     }
   }
 

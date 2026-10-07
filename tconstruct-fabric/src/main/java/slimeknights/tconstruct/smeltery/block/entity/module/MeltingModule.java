@@ -99,7 +99,7 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
       IMeltingRecipe recipe = findRecipe();
       if (recipe != null) {
         newTime = recipe.getTime(this) * 10;
-        newTemp = recipe.getTemperature();
+        newTemp = recipe.getTemperature(this);
       }
     }
     requiredTime = newTime;
@@ -212,7 +212,7 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
   public CompoundTag writeToTag() {
     CompoundTag nbt = new CompoundTag();
     if (!stack.isEmpty()) {
-      stack.save(nbt);
+      nbt.merge((CompoundTag) stack.save(slimeknights.mantle.util.GlobalRegistries.get()));
       nbt.putInt(TAG_CURRENT_TIME, currentTime);
       nbt.putInt(TAG_REQUIRED_TIME, requiredTime);
       nbt.putInt(TAG_REQUIRED_TEMP, requiredTemp);
