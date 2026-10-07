@@ -37,7 +37,7 @@ public class DragonSkullModel extends SkullModelBase {
     poseStack.pushPose();
     poseStack.translate(0, -0.25f, 0.075f);
     poseStack.scale(0.5f, 0.5f, 0.49f);
-    this.root.render(poseStack, buffer, light, overlay, red, green, blue, alpha);
+    this.root.render(poseStack, buffer, light, overlay, color);
     poseStack.popPose();
   }
 }

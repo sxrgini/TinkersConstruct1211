@@ -37,7 +37,7 @@ public class SlimeNyliumBlock extends Block implements BonemealableBlock {
     }
   }
 
-  public boolean isValidBonemealTarget(LevelReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+  public boolean isValidBonemealTarget(LevelReader worldIn, BlockPos pos, BlockState state) {
     return worldIn.getBlockState(pos.above()).isAir();
   }
 

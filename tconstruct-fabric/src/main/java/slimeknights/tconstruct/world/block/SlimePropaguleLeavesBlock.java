@@ -18,7 +18,7 @@ public class SlimePropaguleLeavesBlock extends SlimeLeavesBlock implements Bonem
     super(properties, foliageType);
   }
 
-  public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+  public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
     return level.getBlockState(pos.below()).isAir();
   }
 

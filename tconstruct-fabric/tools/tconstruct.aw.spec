@@ -127,3 +127,4 @@ accessible Explosion largeExplosionParticles
 accessible Explosion explosionSound
 accessible ItemOverrides <init>
 accessible Minecraft itemColors
+accessible BushBlock canSurvive

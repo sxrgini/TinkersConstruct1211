@@ -88,7 +88,7 @@ public class CongealedSlimeBlock extends Block {
             entityIn.setDeltaMovement(new Vec3(velocity * Math.signum(direction.x()), motion.y(), motion.z()));
             entityIn.hurtMarked = true;
             if (velocity > 0.1) {
-              worldIn.playSound(null, pos, getSoundType(state, worldIn, pos, entityIn).getStepSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
+              worldIn.playSound(null, pos, getSoundType(state).getStepSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
             }
           }
         } else {
@@ -96,7 +96,7 @@ public class CongealedSlimeBlock extends Block {
             entityIn.setDeltaMovement(new Vec3(motion.x(), motion.y(), velocity * Math.signum(direction.z())));
             entityIn.hurtMarked = true;
             if (velocity > 0.1) {
-              worldIn.playSound(null, pos, getSoundType(state, worldIn, pos, entityIn).getStepSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
+              worldIn.playSound(null, pos, getSoundType(state).getStepSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
             }
           }
         }

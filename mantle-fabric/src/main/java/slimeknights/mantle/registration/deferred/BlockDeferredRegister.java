@@ -402,23 +402,24 @@ public class BlockDeferredRegister extends EnumDeferredRegister<Block> {
   }
 
   /** Registers a potted form of the given block using the vanilla pot with the given name getter. */
-  public <E extends Enum<E> & StringRepresentable> EnumObject<E,Block> registerPottedEnum(E[] values, Function<? super E,String> nameGetter, EnumObject<E,Block> block) {
+  @SuppressWarnings("unchecked")
+  public <E extends Enum<E> & StringRepresentable> EnumObject<E,FlowerPotBlock> registerPottedEnum(E[] values, Function<? super E,String> nameGetter, EnumObject<E,? extends Block> block) {
     return EnumObject.generate(values, value -> {
-      Holder<Block> holder = block.getHolder(value);
+      Holder<? extends Block> holder = block.getHolder(value);
       if (holder != null) {
-        return registerPotted(nameGetter.apply(value), holder::value);
+        return (Holder<FlowerPotBlock>)(Holder<?>) registerPotted(nameGetter.apply(value), holder::value);
       }
       return null;
     });
   }
 
   /** Registers a potted form of the given block using the vanilla pot */
-  public <E extends Enum<E> & StringRepresentable> EnumObject<E,Block> registerPottedEnum(E[] values, String name, EnumObject<E,Block> block) {
+  public <E extends Enum<E> & StringRepresentable> EnumObject<E,FlowerPotBlock> registerPottedEnum(E[] values, String name, EnumObject<E,? extends Block> block) {
     return registerPottedEnum(values, suffix(name), block);
   }
 
   /** Registers a potted form of the given blocks using the vanilla pot, automatically choosing the values based on the passed object */
-  public <T extends Enum<T> & StringRepresentable> EnumObject<T,Block> registerPottedEnum(String name, EnumObject<T,Block> block) {
+  public <T extends Enum<T> & StringRepresentable> EnumObject<T,FlowerPotBlock> registerPottedEnum(String name, EnumObject<T,? extends Block> block) {
     return registerPottedEnum(block.keys().iterator().next().getDeclaringClass().getEnumConstants(), name, block);
   }
 

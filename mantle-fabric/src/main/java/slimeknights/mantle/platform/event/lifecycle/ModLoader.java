@@ -11,6 +11,11 @@ public final class ModLoader {
 
   private ModLoader() {}
 
+  /** On Fabric there is no loading state that can become invalid during registration, so this is always true */
+  public static boolean isLoadingStateValid() {
+    return true;
+  }
+
   public static ModLoader get() {
     return INSTANCE;
   }

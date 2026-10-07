@@ -42,7 +42,7 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
     Set<BlockPos> leavesPos = Sets.newHashSet();
 
     BoundingBox boundingBox = BoundingBox.infinite();
-    WorldGenLevel level = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
+    WorldGenLevel level = context.level();
 
     boolean placed = this.place(level, context.random(), context.origin(), trunkPos, foliagePos, boundingBox, context.config());
     if (boundingBox.minX() <= boundingBox.maxX() && placed && !trunkPos.isEmpty()) {
