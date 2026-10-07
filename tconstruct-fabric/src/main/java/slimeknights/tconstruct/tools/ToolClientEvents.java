@@ -304,7 +304,7 @@ public class ToolClientEvents extends ClientEventBase {
       // ensure we pressed the key since the last tick, holding should not use all your jumps at once
       boolean isJumping = minecraft.options.keyJump.isDown();
       if (!wasJumping && isJumping) {
-        if (TinkerEffects.antigravity.get().antigravityJump(event.player)) {
+        if (TinkerEffects.antigravity.antigravityJump(event.player)) {
           TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.ANTIGRAVITY_JUMP);
         }
         else if (DoubleJumpHandler.extraJump(event.player)) {
@@ -352,7 +352,7 @@ public class ToolClientEvents extends ClientEventBase {
     if (player.isUsingItem() && !player.isPassenger()) {
       ItemStack using = player.getUseItem();
       // start with the attribute
-      double speed = player.getAttributeValue(TinkerAttributes.USE_ITEM_SPEED.get());
+      double speed = player.getAttributeValue(TinkerAttributes.USE_ITEM_SPEED);
       // start by calculating tool stat, not an attribute to ensure both hands get their say
       if (using.is(TinkerTags.Items.HELD)) {
         ToolStack tool = ToolStack.from(using);

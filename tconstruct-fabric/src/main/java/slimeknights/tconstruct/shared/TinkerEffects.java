@@ -40,15 +40,15 @@ public class TinkerEffects extends TinkerModule {
   private static final PotionDeferredRegister POTIONS = new PotionDeferredRegister(TConstruct.MOD_ID);
 
   // slimy potions
-  public static final DeferredHolder<MobEffect, TinkerEffect> experienced = MOB_EFFECTS.register("experienced", () -> new TinkerEffect(MobEffectCategory.BENEFICIAL, 0x82c873, true).addAttributeModifier(TinkerAttributes.EXPERIENCE_MULTIPLIER.get(), "ccffb654-9988-451e-9539-f74934274df1", 0.25f, Operation.MULTIPLY_BASE));
-  public static final DeferredHolder<MobEffect, TinkerEffect> ricochet = MOB_EFFECTS.register("ricochet", () -> new TinkerEffect(MobEffectCategory.NEUTRAL, 0x01cbcd, true).addAttributeModifier(TinkerAttributes.KNOCKBACK_MULTIPLIER.get(), "58a4bc13-366f-4f76-82f5-705451498c24", 0.5f, Operation.MULTIPLY_BASE));
+  public static final DeferredHolder<MobEffect, TinkerEffect> experienced = MOB_EFFECTS.register("experienced", () -> new TinkerEffect(MobEffectCategory.BENEFICIAL, 0x82c873, true).addAttributeModifier(TinkerAttributes.EXPERIENCE_MULTIPLIER, "ccffb654-9988-451e-9539-f74934274df1", 0.25f, Operation.MULTIPLY_BASE));
+  public static final DeferredHolder<MobEffect, TinkerEffect> ricochet = MOB_EFFECTS.register("ricochet", () -> new TinkerEffect(MobEffectCategory.NEUTRAL, 0x01cbcd, true).addAttributeModifier(TinkerAttributes.KNOCKBACK_MULTIPLIER, "58a4bc13-366f-4f76-82f5-705451498c24", 0.5f, Operation.MULTIPLY_BASE));
   public static final DeferredHolder<MobEffect, TinkerEffect> enderference = MOB_EFFECTS.register("enderference", () -> new TinkerEffect(MobEffectCategory.HARMFUL, 0xD37CFF, true));
   /** Projectile persistent data key to allow ranged modifiers to hit endermen. */
   public static final ResourceLocation ENDERFERENCE_KEY = enderference.getId();
 
   // slimy cakes
-  public static final DeferredHolder<MobEffect, TinkerEffect> bouncy = MOB_EFFECTS.register("bouncy", () -> new TinkerEffect(MobEffectCategory.BENEFICIAL, 0x71AC63, true).addAttributeModifier(TinkerAttributes.BOUNCY.get(), "5de036ed-bc47-4965-9348-64c3ab5c8ae8", 1, Operation.ADDITION));
-  public static final DeferredHolder<MobEffect, TinkerEffect> doubleJump = MOB_EFFECTS.register("double_jump", () -> new TinkerEffect(MobEffectCategory.BENEFICIAL, 0xA99B87, true).addAttributeModifier(TinkerAttributes.JUMP_COUNT.get(), "9863601a-9d4a-4708-b348-4bf9fe6c0bbd", 1, Operation.ADDITION));
+  public static final DeferredHolder<MobEffect, TinkerEffect> bouncy = MOB_EFFECTS.register("bouncy", () -> new TinkerEffect(MobEffectCategory.BENEFICIAL, 0x71AC63, true).addAttributeModifier(TinkerAttributes.BOUNCY, "5de036ed-bc47-4965-9348-64c3ab5c8ae8", 1, Operation.ADDITION));
+  public static final DeferredHolder<MobEffect, TinkerEffect> doubleJump = MOB_EFFECTS.register("double_jump", () -> new TinkerEffect(MobEffectCategory.BENEFICIAL, 0xA99B87, true).addAttributeModifier(TinkerAttributes.JUMP_COUNT, "9863601a-9d4a-4708-b348-4bf9fe6c0bbd", 1, Operation.ADDITION));
   public static final DeferredHolder<MobEffect, AntigravityEffect> antigravity = MOB_EFFECTS.register("antigravity", AntigravityEffect::new);
   public static final DeferredHolder<MobEffect, ReturningEffect> returning = MOB_EFFECTS.register("returning", ReturningEffect::new);
 
@@ -99,16 +99,16 @@ public class TinkerEffects extends TinkerModule {
 
   /** Checks if the given entity can be hit considering enderman enderference */
   public static boolean canHitWithProjectile(@Nullable LivingEntity living) {
-    return living == null || living.getType() != EntityType.ENDERMAN || living.hasEffect(enderference.get());
+    return living == null || living.getType() != EntityType.ENDERMAN || living.hasEffect(enderference);
   }
 
   /** Checks if the given entity needs special casing for enderference */
   public static boolean needsEnderferenceOverride(@Nullable Entity entity) {
-    return entity != null && entity.getType() == EntityType.ENDERMAN && entity instanceof LivingEntity living && living.hasEffect(enderference.get());
+    return entity != null && entity.getType() == EntityType.ENDERMAN && entity instanceof LivingEntity living && living.hasEffect(enderference);
   }
 
   /** Checks if the given entity needs special casing for enderference */
   public static boolean needsEnderferenceOverride(@Nullable LivingEntity living) {
-    return living != null && living.getType() == EntityType.ENDERMAN && living.hasEffect(enderference.get());
+    return living != null && living.getType() == EntityType.ENDERMAN && living.hasEffect(enderference);
   }
 }

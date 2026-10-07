@@ -71,11 +71,11 @@ public final class TinkerGadgets extends TinkerModule {
 
   // throwballs
   @Deprecated
-  public static final ItemObject<Item, GlowBallItem> glowBall;
+  public static final DeferredItem<GlowBallItem> glowBall;
   @Deprecated
-  public static final ItemObject<Item, EFLNItem> efln;
+  public static final DeferredItem<EFLNItem> efln;
   @Deprecated
-  public static final ItemObject<Item, ShurikenItem> quartzShuriken, flintShuriken;
+  public static final DeferredItem<ShurikenItem> quartzShuriken, flintShuriken;
   static {
     Item.Properties THROWABLE_PROPS = new Item.Properties().stacksTo(16);
     glowBall = ITEMS.register("glow_ball", () -> new GlowBallItem(THROWABLE_PROPS));
@@ -86,7 +86,7 @@ public final class TinkerGadgets extends TinkerModule {
 
   // foods
   public static final EnumObject<FoliageType,FoodCakeBlock> cake;
-  public static final ItemObject<Block, FoodCakeBlock> magmaCake;
+  public static final DeferredBlock<FoodCakeBlock> magmaCake;
   static {
     BlockBehaviour.Properties CAKE = builder(SoundType.WOOL).forceSolidOn().strength(0.5F).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY);
     cake = BLOCKS.registerEnum(FoliageType.values(), "cake", type -> {

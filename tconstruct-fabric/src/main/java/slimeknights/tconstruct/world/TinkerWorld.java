@@ -241,7 +241,7 @@ public final class TinkerWorld extends TinkerModule {
     .build();
 
   // slime vines
-  public static final ItemObject<Block, SlimeVineBlock> skySlimeVine, enderSlimeVine;
+  public static final DeferredBlock<SlimeVineBlock> skySlimeVine, enderSlimeVine;
   static {
     Function<SlimeType,BlockBehaviour.Properties> props = type -> builder(type.getMapColor(), SoundType.GRASS).replaceable().strength(0.75F).noCollission().randomTicks().pushReaction(PushReaction.DESTROY);
     skySlimeVine = BLOCKS.register("sky_slime_vine", () -> new SlimeVineBlock(props.apply(SlimeType.SKY), SlimeType.SKY), BLOCK_ITEM);

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables;
 
+import slimeknights.mantle.platform.registry.DeferredBlock;
 import slimeknights.mantle.platform.registry.DeferredItem;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.minecraft.tags.ItemTags;
@@ -89,7 +90,7 @@ public final class TinkerTables extends TinkerModule {
   /*
    * Blocks
    */
-  public static final ItemObject<Block, TableBlock> craftingStation, tinkerStation, partBuilder, tinkersChest, partChest;
+  public static final DeferredBlock<TableBlock> craftingStation, tinkerStation, partBuilder, tinkersChest, partChest;
   static {
     Block.Properties WOOD_TABLE = builder(MapColor.WOOD, SoundType.WOOD).instrument(NoteBlockInstrument.BASS).strength(1.0F, 5.0F).noOcclusion();
     craftingStation = BLOCKS.register("crafting_station", () -> new CraftingStationBlock(WOOD_TABLE), BLOCK_ITEM);
@@ -99,14 +100,14 @@ public final class TinkerTables extends TinkerModule {
     partChest = BLOCKS.register("part_chest", () -> new ChestBlock(WOOD_TABLE, PartChestBlockEntity::new, true), BLOCK_ITEM);
   }
 
-  public static final ItemObject<Block, TableBlock> castChest, modifierWorktable;
+  public static final DeferredBlock<TableBlock> castChest, modifierWorktable;
   static {
     Block.Properties STONE_TABLE = builder(MapColor.COLOR_GRAY, SoundType.METAL).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 9.0F).noOcclusion();
     castChest = BLOCKS.register("cast_chest", () -> new ChestBlock(STONE_TABLE, CastChestBlockEntity::new, false), BLOCK_ITEM);
     modifierWorktable = BLOCKS.register("modifier_worktable", () -> new GenericTableBlock(STONE_TABLE, ModifierWorktableBlockEntity::new), BLOCK_ITEM);
   }
 
-  public static final ItemObject<Block, TableBlock> tinkersAnvil, scorchedAnvil;
+  public static final DeferredBlock<TableBlock> tinkersAnvil, scorchedAnvil;
   static {
     Block.Properties METAL_TABLE = builder(MapColor.COLOR_GRAY, SoundType.ANVIL).pushReaction(PushReaction.BLOCK).requiresCorrectToolForDrops().strength(5.0F, 1200.0F).noOcclusion();
     Function<Block, BlockItem> blockItem = block -> new AnvilBlockItem(block, ITEM_PROPS, TinkerToolParts.fakeStorageBlockItem, TinkerTags.Materials.COMPATABILITY_ALLOYS);

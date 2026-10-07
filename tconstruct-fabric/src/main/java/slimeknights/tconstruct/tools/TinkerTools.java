@@ -204,7 +204,7 @@ public final class TinkerTools extends TinkerModule {
   public static final DeferredItem<ModifiableCrossbowItem> warPick = ITEMS.register("war_pick", () -> new ModifiableCrossbowItem(UNSTACKABLE_PROPS, ToolDefinitions.WAR_PICK));
   public static final DeferredItem<ModifiableItem> battlesign = ITEMS.register("battlesign", () -> new ModifiableItem(UNSTACKABLE_PROPS, ToolDefinitions.BATTLESIGN));
   public static final DeferredItem<ModifiableItem> swasher = ITEMS.register("swasher", () -> new ModifiableItem(UNSTACKABLE_PROPS, ToolDefinitions.SWASHER));
-  public static final ItemObject<Item, ModifiableItem> minotaurAxe;
+  public static final DeferredItem<ModifiableItem> minotaurAxe;
   static {
     // conditionally register minotaur axe as it's the easiest way to keep it out of JEI display
     if (FabricLoader.getInstance().isModLoaded("twilightforest")) {
