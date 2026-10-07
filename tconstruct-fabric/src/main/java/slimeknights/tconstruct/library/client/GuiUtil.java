@@ -118,7 +118,7 @@ public final class GuiUtil {
   public static void renderTiledFluid(PoseStack matrices, AbstractContainerScreen<?> screen, FluidStack stack, int x, int y, int width, int height, int depth) {
     if (!stack.isEmpty()) {
       IClientFluidTypeExtensions clientFluid = IClientFluidTypeExtensions.of(stack.getFluid());
-      TextureAtlasSprite fluidSprite = screen.getMinecraft().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(clientFluid.getStillTexture(stack));
+      TextureAtlasSprite fluidSprite = net.minecraft.client.Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(clientFluid.getStillTexture(stack));
       RenderUtils.setColorRGBA(clientFluid.getTintColor(stack));
       renderTiledTextureAtlas(matrices, screen, fluidSprite, x, y, width, height, depth, FluidTypes.of(stack.getFluid()).isLighterThanAir());
       RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -140,8 +140,7 @@ public final class GuiUtil {
   public static void renderTiledTextureAtlas(PoseStack matrices, AbstractContainerScreen<?> screen, TextureAtlasSprite sprite, int x, int y, int width, int height, int depth, boolean upsideDown) {
     // start drawing sprites
     RenderUtils.bindTexture(sprite.atlasLocation());
-    BufferBuilder builder = Tesselator.getInstance().getBuilder();
-    builder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+    BufferBuilder builder = Tesselator.getInstance().begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 
     // tile vertically
     float u1 = sprite.getU0();
@@ -178,7 +177,7 @@ public final class GuiUtil {
     } while(height > 0);
 
     // finish drawing sprites
-    BufferUploader.drawWithShader(builder.end());
+    BufferUploader.drawWithShader(builder.buildOrThrow());
     // RenderSystem.enableAlphaTest();
     RenderSystem.enableDepthTest();
   }

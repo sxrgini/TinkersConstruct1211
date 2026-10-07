@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 public abstract class BookElement {
   // TODO: consider renaming to screen, we have too many chains of parent.parent.parent
   @Getter @Setter
-  protected BookScreen parent;
+  public BookScreen parent;
   protected Minecraft mc = Minecraft.getInstance();
 
   public int x, y;

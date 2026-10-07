@@ -129,11 +129,10 @@ public class TinkerClient {
       if (Shapes.joinIsNotEmpty(state.getShape(minecraft.level, pos).move(pos.getX(), pos.getY(), pos.getZ()), Shapes.create(AABB.ofSize(minecraft.player.getEyePosition(), width, 1.0E-6D, width)), BooleanOp.AND)) {
         // this is for the most part a clone of the vanilla logic from ScreenEffectRenderer with some changes mentioned below
 
-        TextureAtlasSprite texture = minecraft.getBlockRenderer().getBlockModelShaper().getTexture(state, minecraft.level, pos);
+        TextureAtlasSprite texture = minecraft.getBlockRenderer().getBlockModelShaper().getParticleIcon(state);
         RenderSystem.setShaderTexture(0, texture.atlasLocation());
         // changed: shader using pos tex
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
 
         // change: handle brightness based on renderWater, and enable blend
         Player player = minecraft.player;
@@ -149,13 +148,13 @@ public class TinkerClient {
         float v0 = texture.getV0();
         float v1 = texture.getV1();
         Matrix4f matrix4f = event.getPoseStack().last().pose();
-        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        BufferBuilder bufferbuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         // change: dropped color, see above
         bufferbuilder.addVertex(matrix4f, -1, -1, -0.5f).setUv(u1, v1);
         bufferbuilder.addVertex(matrix4f, 1, -1, -0.5f).setUv(u0, v1);
         bufferbuilder.addVertex(matrix4f, 1, 1, -0.5f).setUv(u0, v0);
         bufferbuilder.addVertex(matrix4f, -1, 1, -0.5f).setUv(u1, v0);
-        BufferUploader.drawWithShader(bufferbuilder.end());
+        BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
         // changed: disable blend
         RenderSystem.disableBlend();
       }

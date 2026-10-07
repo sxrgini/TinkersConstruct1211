@@ -68,7 +68,7 @@ public class TinkerBook extends BookData {
    * Initializes the books
    */
   public static void initBook() {
-    BookLoader.registerGsonTypeAdapter(Component.class, new Component.Serializer());
+    BookLoader.registerGsonTypeAdapter(Component.class, new Component.Serializer(net.minecraft.core.RegistryAccess.EMPTY));
 
     // register page types
     BookLoader.registerPageType(ContentTool.ID, ContentTool.class);
