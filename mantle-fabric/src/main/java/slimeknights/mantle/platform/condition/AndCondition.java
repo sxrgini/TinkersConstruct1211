@@ -1,5 +1,6 @@
 package slimeknights.mantle.platform.condition;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
@@ -8,7 +9,7 @@ import java.util.List;
 /** Condition that is true when all children are true */
 public record AndCondition(List<ICondition> values) implements ICondition {
   public static final MapCodec<AndCondition> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-    ICondition.CODEC.listOf().fieldOf("values").forGetter(AndCondition::values)
+    Codec.lazyInitialized(() -> ICondition.CODEC).listOf().fieldOf("values").forGetter(AndCondition::values)
   ).apply(i, AndCondition::new));
 
   public AndCondition(ICondition... values) {

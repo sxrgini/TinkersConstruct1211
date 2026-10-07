@@ -1,12 +1,13 @@
 package slimeknights.mantle.platform.condition;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 /** Condition that inverts another condition */
 public record NotCondition(ICondition value) implements ICondition {
   public static final MapCodec<NotCondition> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-    ICondition.CODEC.fieldOf("value").forGetter(NotCondition::value)
+    Codec.lazyInitialized(() -> ICondition.CODEC).fieldOf("value").forGetter(NotCondition::value)
   ).apply(i, NotCondition::new));
 
   @Override

@@ -55,6 +55,11 @@ public class DeferredRegister<T> {
 
   /** Queues a new entry using the given supplier */
   public <I extends T> DeferredHolder<T,I> register(String name, Supplier<? extends I> sup) {
+    return registerEntry(name, sup);
+  }
+
+  /** Non-overridable registration, so overrides of the public methods can safely delegate to the base behavior */
+  protected final <I extends T> DeferredHolder<T,I> registerEntry(String name, Supplier<? extends I> sup) {
     if (registered) {
       throw new IllegalStateException("Cannot register new entries to DeferredRegister after registration: " + namespace + ":" + name);
     }
@@ -68,7 +73,7 @@ public class DeferredRegister<T> {
 
   /** Queues a new entry using the given function, which receives the entry ID */
   public <I extends T> DeferredHolder<T,I> register(String name, Function<ResourceLocation,? extends I> func) {
-    return register(name, () -> func.apply(ResourceLocation.fromNamespaceAndPath(namespace, name)));
+    return registerEntry(name, () -> func.apply(ResourceLocation.fromNamespaceAndPath(namespace, name)));
   }
 
   /** Adds an alias so the old name resolves to the new one, applied when registering */

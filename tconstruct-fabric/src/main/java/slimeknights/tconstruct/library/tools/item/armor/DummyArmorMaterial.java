@@ -23,7 +23,7 @@ public class DummyArmorMaterial implements IdAwareObject {
   public DummyArmorMaterial(ResourceLocation id, Holder<SoundEvent> equipSound) {
     this.id = id;
     Map<ArmorItem.Type,Integer> defense = new java.util.EnumMap<>(ArmorItem.Type.class);
-    for (ArmorItem.Type type : ArmorItem.Type.values()) {
+    for (ArmorItem.Type type : slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.ARMOR_TYPES) {
       defense.put(type, 0);
     }
     this.holder = Holder.direct(new ArmorMaterial(defense, 0, equipSound, () -> Ingredient.EMPTY, List.of(new ArmorMaterial.Layer(id)), 0f, 0f));

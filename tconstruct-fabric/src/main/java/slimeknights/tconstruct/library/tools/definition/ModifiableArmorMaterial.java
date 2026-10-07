@@ -12,6 +12,8 @@ import javax.annotation.Nullable;
 /** Armor material that doubles as a container for tool definitions for each armor slot */
 public class ModifiableArmorMaterial extends DummyArmorMaterial {
   /** Array of all four armor slot types */
+  /** Array of the four armor types, excludes the 1.21 body type which tools do not use */
+  public static final ArmorItem.Type[] ARMOR_TYPES = {ArmorItem.Type.HELMET, ArmorItem.Type.CHESTPLATE, ArmorItem.Type.LEGGINGS, ArmorItem.Type.BOOTS};
   public static final EquipmentSlot[] ARMOR_SLOTS = {EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD};
 
   /** Array of slot index to tool definition for the slot */
@@ -36,7 +38,7 @@ public class ModifiableArmorMaterial extends DummyArmorMaterial {
 
   /** Creates a modifiable armor material, creates tool definition for all four armor slots */
   public static ModifiableArmorMaterial create(ResourceLocation id, Holder<SoundEvent> equipSound) {
-    return create(id, equipSound, ArmorItem.Type.values());
+    return create(id, equipSound, slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.ARMOR_TYPES);
   }
 
   /**

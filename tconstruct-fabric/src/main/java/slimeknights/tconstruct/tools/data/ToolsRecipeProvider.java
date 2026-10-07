@@ -377,7 +377,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .save(consumer, location(folder + "plate_shield"));
 
     // slimesuit recycling
-    for (ArmorItem.Type type : ArmorItem.Type.values()) {
+    for (ArmorItem.Type type : slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.ARMOR_TYPES) {
       PartBuilderToolRecycleBuilder.tool(TinkerTools.slimesuit.get(type))
         // different parts for index 0
         .part(switch (type) {
