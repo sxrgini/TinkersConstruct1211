@@ -47,6 +47,15 @@ public final class EventBus {
     addListener(priority, false, type, consumer);
   }
 
+  /** Adds a listener for a generic attach capabilities event, filtered to objects of the given type */
+  public <T> void addGenericListener(Class<T> type, Consumer<AttachCapabilitiesEvent<T>> consumer) {
+    addListener(EventPriority.NORMAL, false, AttachCapabilitiesEvent.class, (AttachCapabilitiesEvent event) -> {
+      if (type.isInstance(event.getObject())) {
+        consumer.accept((AttachCapabilitiesEvent<T>) event);
+      }
+    });
+  }
+
   /** Registers the static {@link SubscribeEvent} methods of the class */
   public void register(Class<?> clazz) {
     registerMethods(clazz, null);

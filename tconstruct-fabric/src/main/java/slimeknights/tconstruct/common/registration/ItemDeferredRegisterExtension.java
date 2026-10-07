@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.common.registration;
 
+import slimeknights.mantle.platform.registry.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredItem;
 import net.minecraft.world.item.Item;
 import slimeknights.mantle.registration.deferred.ItemDeferredRegister;
 import slimeknights.mantle.registration.object.ItemObject;
@@ -20,9 +22,9 @@ public class ItemDeferredRegisterExtension extends ItemDeferredRegister {
    * @return  Object containing casts
    */
   public CastItemObject registerCast(String name, Supplier<? extends Item> constructor) {
-    ItemObject<Item, Item> cast = register(name + "_cast", constructor);
-    ItemObject<Item, Item> sandCast = register(name + "_sand_cast", constructor);
-    ItemObject<Item, Item> redSandCast = register(name + "_red_sand_cast", constructor);
+    DeferredItem<Item> cast = register(name + "_cast", constructor);
+    DeferredItem<Item> sandCast = register(name + "_sand_cast", constructor);
+    DeferredItem<Item> redSandCast = register(name + "_red_sand_cast", constructor);
     return new CastItemObject(resource(name), cast, sandCast, redSandCast);
   }
 
@@ -42,7 +44,7 @@ public class ItemDeferredRegisterExtension extends ItemDeferredRegister {
    * @param props  Item properties
    * @return  Object containing casts
    */
-  public CastItemObject registerCast(ItemObject<? extends IMaterialItem> item, Item.Properties props) {
+  public CastItemObject registerCast(DeferredHolder<Item, ? extends IMaterialItem> item, Item.Properties props) {
     return registerCast(item.getId().getPath(), () -> new PartCastItem(props, item));
   }
 }

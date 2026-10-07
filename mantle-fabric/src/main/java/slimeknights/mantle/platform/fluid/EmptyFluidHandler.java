@@ -1,10 +1,10 @@
 package slimeknights.mantle.platform.fluid;
 
 /** Fluid handler with no tanks, replacing Forge's {@code EmptyFluidHandler} */
-public final class EmptyFluidHandler implements IFluidHandlerItem {
+public class EmptyFluidHandler implements IFluidHandlerItem {
   public static final EmptyFluidHandler INSTANCE = new EmptyFluidHandler();
 
-  private EmptyFluidHandler() {}
+  protected EmptyFluidHandler() {}
 
   @Override
   public int getTanks() {

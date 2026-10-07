@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common.registration;
 
+import slimeknights.mantle.platform.registry.DeferredHolder;
 import lombok.Getter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -30,16 +31,17 @@ public class CastItemObject extends ItemObject<Item, Item> {
 
   @SuppressWarnings("deprecation")  // you know, pointless deprecations is really going to make people start ignoring deprecations
   public CastItemObject(ResourceLocation name, Item gold, Item sand, Item redSand) {
-    super(BuiltInRegistries.ITEM, gold);
+    super(BuiltInRegistries.ITEM.wrapAsHolder(gold));
     this.name = name;
-    this.sand = getHolder(BuiltInRegistries.ITEM, sand);
-    this.redSand = getHolder(BuiltInRegistries.ITEM, redSand);
+    this.sand = () -> sand;
+    this.redSand = () -> redSand;
     this.singleUseTag = makeTag("single_use");
     this.multiUseTag = makeTag("multi_use");
   }
 
-  public CastItemObject(ResourceLocation name, ItemObject<Item, ? extends Item> gold, Supplier<? extends Item> sand, Supplier<? extends Item> redSand) {
-    super(gold);
+  @SuppressWarnings("unchecked")
+  public CastItemObject(ResourceLocation name, DeferredHolder<Item, ? extends Item> gold, Supplier<? extends Item> sand, Supplier<? extends Item> redSand) {
+    super((DeferredHolder<Item,Item>) gold);
     this.name = name;
     this.sand = sand;
     this.redSand = redSand;

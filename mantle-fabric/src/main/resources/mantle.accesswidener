@@ -143,3 +143,4 @@ accessible method net/minecraft/world/entity/SpawnPlacements$Data <init> (Lnet/m
 accessible field net/minecraft/world/entity/ai/attributes/AttributeSupplier instances Ljava/util/Map;
 accessible method net/minecraft/world/entity/ai/attributes/AttributeSupplier <init> (Ljava/util/Map;)V
 accessible field net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid;
+accessible field net/minecraft/world/level/block/MangrovePropaguleBlock SHAPE_PER_AGE [Lnet/minecraft/world/phys/shapes/VoxelShape;

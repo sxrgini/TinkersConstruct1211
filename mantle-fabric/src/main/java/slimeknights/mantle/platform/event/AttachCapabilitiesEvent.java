@@ -30,6 +30,9 @@ public class AttachCapabilitiesEvent<T> extends Event {
     caps.put(key, provider);
   }
 
+  /** Listener for when the capabilities are invalidated, invalidation is not currently fired on Fabric */
+  public void addListener(Runnable listener) {}
+
   public Map<ResourceLocation,ICapabilityProvider> getCapabilities() {
     return Collections.unmodifiableMap(caps);
   }

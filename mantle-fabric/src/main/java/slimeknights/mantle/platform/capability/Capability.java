@@ -11,6 +11,12 @@ public final class Capability<T> {
     this.name = name;
   }
 
+  /** Returns the instance if the requested capability is this one, otherwise empty */
+  @SuppressWarnings("unchecked")
+  public <R> LazyOptional<R> orEmpty(Capability<R> cap, LazyOptional<T> instance) {
+    return cap == this ? instance.cast() : LazyOptional.empty();
+  }
+
   public String getName() {
     return name;
   }

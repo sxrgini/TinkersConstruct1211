@@ -150,12 +150,6 @@ public final class TinkerCommons extends TinkerModule {
   /* Loot conditions */
   public static final DeferredHolder<LootItemConditionType, LootItemConditionType> lootConfig = LOOT_CONDITIONS.register(ConfigEnabledCondition.ID.getPath(), () -> new LootItemConditionType(ConfigEnabledCondition.CODEC));
   public static final DeferredHolder<LootItemConditionType, LootItemConditionType> lootBlockOrEntity = LOOT_CONDITIONS.register("block_or_entity", () -> new LootItemConditionType(BlockOrEntityCondition.CODEC));
-  /** @deprecated use {@link slimeknights.mantle.loot.MantleLoot#TAG_FILLED} */
-  @SuppressWarnings("removal")
-  @Deprecated(forRemoval = true)
-  /** @deprecated use {@link slimeknights.mantle.loot.MantleLoot#TAG_PREFERENCE} */
-  @SuppressWarnings("removal")
-  @Deprecated(forRemoval = true)
 
   /* Slime Balls are edible, believe it or not */
   public static final EnumObject<SlimeType, Item> slimeball = new EnumObject.Builder<SlimeType, Item>(SlimeType.class)
