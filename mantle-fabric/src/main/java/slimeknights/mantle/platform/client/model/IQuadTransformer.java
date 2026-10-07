@@ -24,6 +24,17 @@ public interface IQuadTransformer {
   void processInPlace(BakedQuad quad);
 
   /** Modifies all quads in place */
+  /** Processes copies of the quads, returning a new list and leaving the originals unchanged */
+  default List<BakedQuad> process(List<BakedQuad> quads) {
+    java.util.ArrayList<BakedQuad> out = new java.util.ArrayList<>(quads.size());
+    for (BakedQuad quad : quads) {
+      BakedQuad copy = new BakedQuad(quad.getVertices().clone(), quad.getTintIndex(), quad.getDirection(), quad.getSprite(), quad.isShade());
+      processInPlace(copy);
+      out.add(copy);
+    }
+    return out;
+  }
+
   default void processInPlace(List<BakedQuad> quads) {
     for (BakedQuad quad : quads) {
       processInPlace(quad);

@@ -513,10 +513,10 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState modelTransform, ItemOverrides overrides) {
     // warn on deprecated keys
     if (showTraits) {
-      TConstruct.LOG.warn("Using deprecated key 'show_traits' in tool model {}, use 'constant' in modifier model maps with 'tconstruct:trait' instead", modelLocation);
+      TConstruct.LOG.warn("Using deprecated key 'show_traits' in tool model {}, use 'constant' in modifier model maps with 'tconstruct:trait' instead", owner.getModelName());
     }
     if (!firstModifiers.isEmpty()) {
-      TConstruct.LOG.warn("Using deprecated key 'first_modifiers' in tool model {}, use 'constant' in modifier model maps with 'tconstruct:crafted' and an early ID instead", modelLocation);
+      TConstruct.LOG.warn("Using deprecated key 'first_modifiers' in tool model {}, use 'constant' in modifier model maps with 'tconstruct:crafted' and an early ID instead", owner.getModelName());
     }
 
     // default is just a single part named tool, no material
@@ -536,7 +536,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       }
     }
     // load modifier models
-    ModifierModelMap modifierModels = ModifierModelMapManager.INSTANCE.getModelsForTool(spriteGetter, this.modifierModels, smallModifierRoots, largeModifierRoots, modelLocation);
+    ModifierModelMap modifierModels = ModifierModelMapManager.INSTANCE.getModelsForTool(spriteGetter, this.modifierModels, smallModifierRoots, largeModifierRoots, owner.getModelName());
 
     // build transforms for various states
     // large tools are stretched in X and Y by 200%, and get a special offset
@@ -708,13 +708,13 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
           List<BakedQuad> ammoQuads = new ArrayList<>();
           RandomSource rand = RandomSource.create();
           for (Direction direction : Direction.values()) {
-            BakedModels.getQuads(ammoQuads.addAll(ammoModel, null, direction, rand, ModelData.EMPTY));
+            ammoQuads.addAll(BakedModels.getQuads(ammoModel, null, direction, rand, ModelData.EMPTY));
           }
-          BakedModels.getQuads(ammoQuads.addAll(ammoModel, null, null, rand, ModelData.EMPTY));
+          ammoQuads.addAll(BakedModels.getQuads(ammoModel, null, null, rand, ModelData.EMPTY));
 
           // bake tints into static colors; saves us having to redirect item colors which is slow
           Int2IntMap tints = new Int2IntArrayMap();
-          ItemColors colors = Minecraft.getInstance().getItemColors();
+          ItemColors colors = Minecraft.getInstance().itemColors;
           Int2IntFunction colorGetter = tint -> ColoredBlockModel.swapColorRedBlue(colors.getColor(ammo, tint));
           ammoQuads = ammoQuads.stream().map(quad -> {
             if (quad.isTinted() || (flipAmmo && quad.getDirection().getAxis() != Direction.Axis.Y)) {
@@ -730,7 +730,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
               if (flipAmmo && direction.getAxis() != Direction.Axis.Y) {
                 direction = direction.getOpposite();
               }
-              return new BakedQuad(vertices, -1, direction, quad.getSprite(), quad.isShade(), quad.hasAmbientOcclusion());
+              return new BakedQuad(vertices, -1, direction, quad.getSprite(), quad.isShade());
             }
             return quad;
           }).toList();

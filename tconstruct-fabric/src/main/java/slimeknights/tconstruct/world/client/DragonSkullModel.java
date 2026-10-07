@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.world.client;
 
+import net.minecraft.util.FastColor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.SkullModelBase;
@@ -25,7 +26,11 @@ public class DragonSkullModel extends SkullModelBase {
   }
 
   @Override
-  public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int light, int overlay, float red, float green, float blue, float alpha) {
+  public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int light, int overlay, int color) {
+    float alpha = FastColor.ARGB32.alpha(color) / 255f;
+    float red = FastColor.ARGB32.red(color) / 255f;
+    float green = FastColor.ARGB32.green(color) / 255f;
+    float blue = FastColor.ARGB32.blue(color) / 255f;
     // note this does not work properly with rotations due to the head origin being weird
     // however, our only usage of this is in SlimeskullArmorModel so its not an issue
     // could patch setupAnim to set two local floats and apply the rotation here via Quaternionf#rotationZYX if it becomes an issue

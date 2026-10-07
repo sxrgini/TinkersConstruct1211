@@ -210,7 +210,7 @@ public class TankModel implements IUnbakedGeometry<TankModel> {
         FluidStack fluid = data.get(ModelProperties.FLUID_STACK);
         if (fluid != null && !fluid.isEmpty()) {
           int capacity = Objects.requireNonNullElse(data.get(ModelProperties.TANK_CAPACITY), fluid.getAmount());
-          return getCachedModel(fluid, BakedModels.getQuads(capacity), state, side, rand, ModelData.EMPTY);
+          return BakedModels.getQuads(getCachedModel(fluid, capacity), state, side, rand, ModelData.EMPTY);
         }
       }
       return BakedModels.getQuads(originalModel, state, side, rand, data);

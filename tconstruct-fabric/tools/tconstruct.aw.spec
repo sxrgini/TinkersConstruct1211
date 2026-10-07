@@ -126,3 +126,4 @@ accessible Explosion smallExplosionParticles
 accessible Explosion largeExplosionParticles
 accessible Explosion explosionSound
 accessible ItemOverrides <init>
+accessible Minecraft itemColors

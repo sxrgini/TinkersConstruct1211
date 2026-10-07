@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.armor.texture;
 
+import net.minecraft.util.FastColor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import lombok.RequiredArgsConstructor;
@@ -120,8 +121,8 @@ public record TrimArmorTextureSupplier(ModifierId modifier, ResourceLocation pat
     @Override
     public void renderTexture(Model model, PoseStack matrices, MultiBufferSource bufferSource, int packedLight, int packedOverlay, float red, float green, float blue, float alpha, boolean hasGlint) {
       // ignoring glint as odds are very low trim texture is the first one
-      VertexConsumer buffer = trimSprite.wrap(bufferSource.getBuffer(Sheets.armorTrimsSheet()));
-      model.renderToBuffer(matrices, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+      VertexConsumer buffer = trimSprite.wrap(bufferSource.getBuffer(Sheets.armorTrimsSheet(false)));
+      model.renderToBuffer(matrices, buffer, packedLight, packedOverlay, FastColor.ARGB32.colorFromFloat(alpha, red, green, blue));
     }
   }
 }

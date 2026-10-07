@@ -124,7 +124,8 @@ public class MaterialModel implements IUnbakedGeometry<MaterialModel> {
    */
   private static BakedModel bakeInternal(IGeometryBakingContext owner, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, MaterialVariantId material, int index, ItemOverrides overrides) {
     TintedSprite materialSprite = getMaterialSprite(spriteGetter, owner.getMaterial("texture"), material);
-    CompositeModel.Baked.Builder builder = CompositeModel.Baked.builder(owner.useAmbientOcclusion(), false, false, materialSprite.sprite(), overrides, owner.getTransforms());
+    IGeometryBakingContext itemContext = StandaloneGeometryBakingContext.builder(owner).withGui3d(false).withUseBlockLight(false).build();
+    CompositeModel.Baked.Builder builder = CompositeModel.Baked.builder(itemContext, materialSprite.sprite(), overrides, owner.getTransforms());
     // TODO: let material choose its render type
     builder.addQuads(MantleItemLayerModel.getDefaultRenderType(owner), MantleItemLayerModel.getQuadsForSprite(materialSprite.color(), index, materialSprite.sprite(), transform, materialSprite.emissivity()));
     return builder.build();

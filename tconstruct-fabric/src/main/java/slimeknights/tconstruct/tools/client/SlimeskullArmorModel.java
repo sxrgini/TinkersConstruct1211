@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.client;
 
+import net.minecraft.util.FastColor;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -106,10 +107,14 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
   }
 
   @Override
-  public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+  public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, int color) {
+    float alpha = FastColor.ARGB32.alpha(color) / 255f;
+    float red = FastColor.ARGB32.red(color) / 255f;
+    float green = FastColor.ARGB32.green(color) / 255f;
+    float blue = FastColor.ARGB32.blue(color) / 255f;
     if (base != null && buffer != null) {
       if (headModel != null && headTexture != null) {
-        VertexConsumer heaadBuffer = ItemRenderer.getArmorFoilBuffer(buffer, RenderType.entityCutoutNoCullZOffset(headTexture), false, hasGlint);
+        VertexConsumer heaadBuffer = ItemRenderer.getArmorFoilBuffer(buffer, RenderType.entityCutoutNoCullZOffset(headTexture), hasGlint);
         matrixStackIn.pushPose();
         if (base.crouching) {
           matrixStackIn.translate(0, base.head.y / 16.0F, 0);
@@ -133,7 +138,7 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
         // offset and resize helmet to be around head
         matrixStackIn.translate(0.0D, base.young ? -0.09D : -0.025D, 0.0D);
         matrixStackIn.scale(1.1f, 1.1f, 1.1f);
-        super.renderToBuffer(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+        super.renderToBuffer(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, FastColor.ARGB32.colorFromFloat(alpha, red, green, blue));
         matrixStackIn.popPose();
       }
     }

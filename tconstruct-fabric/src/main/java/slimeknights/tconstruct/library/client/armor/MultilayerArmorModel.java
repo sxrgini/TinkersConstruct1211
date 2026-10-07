@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.armor;
 
+import net.minecraft.util.FastColor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HumanoidModel;
@@ -37,7 +38,11 @@ public class MultilayerArmorModel extends AbstractArmorModel {
   }
 
   @Override
-  public void renderToBuffer(PoseStack matrices, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+  public void renderToBuffer(PoseStack matrices, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, int color) {
+    float alpha = FastColor.ARGB32.alpha(color) / 255f;
+    float red = FastColor.ARGB32.red(color) / 255f;
+    float green = FastColor.ARGB32.green(color) / 255f;
+    float blue = FastColor.ARGB32.blue(color) / 255f;
     if (this.base != null && buffer != null) {
       boolean armorGlint = hasGlint;
       boolean wingGlint = hasGlint;

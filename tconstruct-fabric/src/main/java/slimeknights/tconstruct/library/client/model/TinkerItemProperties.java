@@ -77,7 +77,7 @@ public class TinkerItemProperties {
       return 0.0F;
     }
     int drawtime = ModifierUtil.getPersistentInt(stack, GeneralInteractionModifierHook.KEY_DRAWTIME, -1);
-    return drawtime == -1 ? 0 : (float)(stack.getUseDuration() - holder.getUseItemRemainingTicks()) / drawtime;
+    return drawtime == -1 ? 0 : (float)(stack.getUseDuration(holder) - holder.getUseItemRemainingTicks()) / drawtime;
   };
   /** ID for the cast fishing rods */
   private static final ResourceLocation CAST_ID = TConstruct.getResource("cast");
@@ -97,21 +97,21 @@ public class TinkerItemProperties {
 
   /** Registers properties for a tool, including the option to have charge/block animations */
   public static void registerBrokenProperty(Item item) {
-    ItemProperties.register(item, BROKEN_ID, BROKEN);
+    ItemProperties.register(item, BROKEN_ID, (net.minecraft.client.renderer.item.ClampedItemPropertyFunction) BROKEN::call);
   }
 
   /** Registers properties for a tool, including the option to have charge/block animations */
   public static void registerToolProperties(ItemLike itemlike) {
     Item item = itemlike.asItem();
     registerBrokenProperty(item);
-    ItemProperties.register(item, CHARGING_ID, CHARGING);
-    ItemProperties.register(item, CHARGE_ID, CHARGE);
-    ItemProperties.register(item, CAST_ID, CAST);
+    ItemProperties.register(item, CHARGING_ID, (net.minecraft.client.renderer.item.ClampedItemPropertyFunction) CHARGING::call);
+    ItemProperties.register(item, CHARGE_ID, (net.minecraft.client.renderer.item.ClampedItemPropertyFunction) CHARGE::call);
+    ItemProperties.register(item, CAST_ID, (net.minecraft.client.renderer.item.ClampedItemPropertyFunction) CAST::call);
   }
 
   /** Registers properties for a bow */
   public static void registerCrossbowProperties(ItemLike item) {
     registerToolProperties(item);
-    ItemProperties.register(item.asItem(), AMMO_ID, AMMO);
+    ItemProperties.register(item.asItem(), AMMO_ID, (net.minecraft.client.renderer.item.ClampedItemPropertyFunction) AMMO::call);
   }
 }
