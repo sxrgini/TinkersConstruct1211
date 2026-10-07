@@ -43,7 +43,8 @@ public class CheeseItem extends Item {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level pLevel, List<Component> tooltip, TooltipFlag pIsAdvanced) {
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag pIsAdvanced) {
+    Level pLevel = context.level();
     tooltip.add(TOOLTIP);
   }
 }

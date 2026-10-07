@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.component;
 
+import net.minecraft.core.HolderLookup;
 import slimeknights.mantle.platform.fluid.FluidTypes;
 import lombok.Getter;
 import lombok.Setter;
@@ -110,7 +111,6 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
   }
 
   @Nonnull
-  @Override
   public ModelData getModelData() {
     return ModelData.builder()
                     .with(ModelProperties.FLUID_STACK, tank.getFluid())
@@ -139,7 +139,6 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
     }
   }
 
-  @Override
   public void onLoad() {
     super.onLoad();
     if (level != null && !level.isClientSide) {
@@ -173,15 +172,15 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
   }
 
   @Override
-  public void load(CompoundTag tag) {
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
     tank.setCapacity(getCapacity(getBlockState().getBlock()));
     updateTank(tag.getCompound(NBTTags.TANK));
-    super.load(tag);
+    super.loadAdditional(tag, registries);
   }
 
   @Override
-  public void saveSynced(CompoundTag tag) {
-    super.saveSynced(tag);
+  public void saveSynced(CompoundTag tag, HolderLookup.Provider registries) {
+    super.saveSynced(tag, registries);
     // want tank on the client on world load
     if (!tank.isEmpty()) {
       tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundTag()));

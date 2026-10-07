@@ -37,7 +37,7 @@ public class TipClearingCastingRecipe extends ModifierPotionCastingRecipe {
   @Override
   public boolean matches(ICastingContainer inv, Level level) {
     // must have the modifier, and the potion set
-    return super.matches(inv, level) && !ModifierUtil.getPersistentString(inv.getStack(), modifier).isEmpty();
+    return super.matches(inv, level) && !ModifierUtil.getPersistentString(inv.getStack(), modifier.location()).isEmpty();
   }
 
   @Override

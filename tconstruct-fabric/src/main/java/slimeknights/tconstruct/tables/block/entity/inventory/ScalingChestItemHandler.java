@@ -31,7 +31,6 @@ public abstract class ScalingChestItemHandler extends ItemStackHandler implement
   @Override
   public abstract boolean isItemValid(int slot, ItemStack stack);
 
-  @Override
   protected void onLoad() {
     int newLimit = getSlots();
     if (newLimit > 1 && this.getStackInSlot(newLimit - 1).isEmpty()) {

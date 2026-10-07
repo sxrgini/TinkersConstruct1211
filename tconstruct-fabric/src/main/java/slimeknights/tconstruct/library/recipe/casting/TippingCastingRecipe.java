@@ -47,7 +47,7 @@ public class TippingCastingRecipe extends ModifierPotionCastingRecipe {
       // must also have a specific potion, it's what we are going to copy
       // but it can't match what is already on the stack
       String potionId = PotionHelper.getPotionId(inv.getFluid());
-      return !potionId.isEmpty() && !ModifierUtil.getPersistentString(inv.getStack(), modifier).equals(potionId);
+      return !potionId.isEmpty() && !ModifierUtil.getPersistentString(inv.getStack(), modifier.location()).equals(potionId);
     }
     return false;
   }

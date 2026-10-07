@@ -99,20 +99,17 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     this.maxStackSize = maxStackSize;
   }
 
-  @Override
   public int getMaxStackSize(ItemStack stack) {
     return stack.isDamaged() ? 1 : maxStackSize;
   }
 
   /* Basic properties */
 
-  @Override
   public boolean isNotReplaceableByPickAction(ItemStack stack, Player player, int inventorySlot) {
     return true;
   }
 
   @Nullable
-  @Override
   public EquipmentSlot getEquipmentSlot(ItemStack stack) {
     if (stack.is(TinkerTags.Items.HELD_ARMOR)) {
       return EquipmentSlot.OFFHAND;
@@ -127,22 +124,18 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     return false;
   }
 
-  @Override
   public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
     return false;
   }
 
-  @Override
   public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
     return enchantment.isCurse() && super.canApplyAtEnchantingTable(stack, enchantment);
   }
 
-  @Override
   public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
     return EnchantmentModifierHook.getEnchantmentLevel(stack, enchantment);
   }
 
-  @Override
   public Map<Enchantment,Integer> getAllEnchantments(ItemStack stack) {
     return EnchantmentModifierHook.getAllEnchantments(stack);
   }
@@ -156,7 +149,6 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     return new ToolCapabilityProvider(stack);
   }
 
-  @Override
   public void verifyTagAfterLoad(CompoundTag nbt) {
     ToolStack.verifyTag(this, nbt, getToolDefinition());
   }
@@ -176,7 +168,6 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     return ModifierUtil.checkVolatileFlag(stack, SHINY);
   }
 
-  @Override
   public Rarity getRarity(ItemStack stack) {
     return RarityModule.getRarity(stack);
   }
@@ -184,13 +175,11 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
 
   /* Item entity */
 
-  @Override
   public boolean hasCustomEntity(ItemStack stack) {
     return IndestructibleItemEntity.hasCustomEntity(stack);
   }
 
   @Nullable
-  @Override
   public Entity createEntity(Level world, Entity original, ItemStack stack) {
     return IndestructibleItemEntity.createFrom(world, original, stack);
   }
@@ -204,7 +193,6 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
 
   /* Damage/Durability */
 
-  @Override
   public boolean isRepairable(ItemStack stack) {
     // handle in the tinker station
     return false;
@@ -215,17 +203,14 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     return false;
   }
 
-  @Override
   public boolean canBeDepleted() {
     return true;
   }
 
-  @Override
   public int getMaxDamage(ItemStack stack) {
     return ToolDamageUtil.getFakeMaxDamage(stack);
   }
 
-  @Override
   public int getDamage(ItemStack stack) {
     if (!canBeDepleted()) {
       return 0;
@@ -233,14 +218,12 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     return ToolStack.from(stack).getDamage();
   }
 
-  @Override
   public void setDamage(ItemStack stack, int damage) {
     if (canBeDepleted()) {
       ToolStack.from(stack).setDamage(damage);
     }
   }
 
-  @Override
   public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
     ToolDamageUtil.handleDamageItem(stack, amount, damager, onBroken);
     return 0;
@@ -267,7 +250,6 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
 
   /* Attacking */
 
-  @Override
   public boolean onLeftClickEntity(ItemStack stack, Player player, Entity target) {
     return stack.getCount() > 1 || EntityInteractionModifierHook.leftClickEntity(stack, player, target);
   }
@@ -277,7 +259,6 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     return AttributesModifierHook.getHeldAttributeModifiers(tool, slot);
   }
 
-  @Override
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
     CompoundTag nbt = stack.getTag();
     if (nbt == null || slot.getType() != Type.HAND) {
@@ -286,7 +267,6 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     return getAttributeModifiers(ToolStack.from(stack), slot);
   }
 
-  @Override
   public boolean canDisableShield(ItemStack stack, ItemStack shield, LivingEntity entity, LivingEntity attacker) {
     return canPerformAction(stack, TinkerToolActions.SHIELD_DISABLE);
   }
@@ -309,7 +289,6 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     return stack.getCount() == 1 ? MiningSpeedToolHook.getDestroySpeed(stack, state) : 0;
   }
 
-  @Override
   public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
     return stack.getCount() > 1 || ToolHarvestLogic.handleBlockBreak(stack, pos, player);
   }
@@ -349,7 +328,6 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     return player == null || !volatileData.getBoolean(DEFER_OFFHAND) || player.getOffhandItem().isEmpty();
   }
   
-  @Override
   public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
     if (stack.getCount() == 1) {
       ToolStack tool = ToolStack.from(stack);
@@ -430,7 +408,6 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     hook.onUsingTick(tool, activeModifier, entityLiving, timeLeft);
   }
 
-  @Override
   public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
     if (super.canContinueUsing(oldStack, newStack)) {
       if (oldStack != newStack) {
@@ -465,7 +442,6 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     hook.onStoppedUsing(tool, activeModifier, entityLiving, timeLeft);
   }
 
-  @Override
   public void onStopUsing(ItemStack stack, LivingEntity entity, int timeLeft) {
     // triggers on scroll away and all that
     ToolStack tool = ToolStack.from(stack);
@@ -493,7 +469,6 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     return UseAnim.NONE;
   }
 
-  @Override
   public boolean canPerformAction(ItemStack stack, ItemAbility toolAction) {
     return stack.getCount() == 1 && ModifierUtil.canPerformAction(ToolStack.from(stack), toolAction);
   }
@@ -507,11 +482,11 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    Level level = context.level();
     TooltipUtil.addInformation(this, stack, level, tooltip, SafeClientAccess.getTooltipKey(), flag);
   }
 
-  @Override
   public int getDefaultTooltipHideFlags(ItemStack stack) {
     return TooltipUtil.getModifierHideFlags(getToolDefinition());
   }
@@ -584,12 +559,10 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     return false;
   }
 
-  @Override
   public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
     return shouldCauseReequipAnimation(oldStack, newStack, false);
   }
 
-  @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
     return shouldCauseReequip(oldStack, newStack, slotChanged);
   }

@@ -13,7 +13,6 @@ public class EndermanHeadItem extends StandingAndWallBlockItem {
     super(pBlock, pWallBlock, pProperties, pAttachmentDirection);
   }
 
-  @Override
   public boolean isEnderMask(ItemStack stack, Player player, EnderMan endermanEntity) {
     return true;
   }

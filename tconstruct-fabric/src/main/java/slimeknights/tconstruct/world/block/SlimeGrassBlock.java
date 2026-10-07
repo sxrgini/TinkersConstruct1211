@@ -31,7 +31,6 @@ public class SlimeGrassBlock extends SnowyDirtBlock implements BonemealableBlock
 
   /* Bonemeal interactions */
 
-  @Override
   public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state, boolean isClient) {
     return world.getBlockState(pos.above()).isAir();
   }

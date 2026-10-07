@@ -103,7 +103,6 @@ public class SlimePropaguleBlock extends SlimeSaplingBlock {
     }
   }
 
-  @Override
   public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState state, boolean pIsClient) {
     return !state.getValue(HANGING) || state.getValue(AGE) != 4;
   }

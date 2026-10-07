@@ -15,12 +15,10 @@ public class SlimesteelBlock extends Block {
     super(properties);
   }
 
-  @Override
   public boolean isSlimeBlock(BlockState state) {
     return true;
   }
 
-  @Override
   public boolean canStickTo(BlockState state, BlockState other) {
     return other.isSlimeBlock();
   }

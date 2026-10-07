@@ -1,6 +1,6 @@
 /*
  * Tinkers' Construct (Fabric port, Minecraft 1.21.1)
- * Depends on the Fabric Mantle port in ../mantle-fabric, build it first with `./gradlew jar` there.
+ * Depends on the Fabric Mantle port in ../mantle-fabric, build it first with `./gradlew remapJar` there.
  */
 plugins {
     id 'java-library'

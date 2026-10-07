@@ -17,7 +17,6 @@ public class ModifiableCrossbowClientExtension extends ModifiableItemClientExten
   protected ModifiableCrossbowClientExtension() {}
 
   @Nullable
-  @Override
   public ArmPose getArmPose(LivingEntity living, InteractionHand hand, ItemStack stack) {
     if (!living.swinging) {
       CompoundTag tag = stack.getTag();

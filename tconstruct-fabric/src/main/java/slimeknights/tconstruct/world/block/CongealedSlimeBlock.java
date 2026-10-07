@@ -37,7 +37,6 @@ public class CongealedSlimeBlock extends Block {
   }
 
   @Nullable
-  @Override
   public PathType getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob mob) {
     return PathType.STICKY_HONEY;
   }

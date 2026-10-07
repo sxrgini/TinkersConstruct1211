@@ -30,7 +30,6 @@ public class HelmetChargingEffect extends MobEffect implements IClientMobEffectE
     super(MobEffectCategory.NEUTRAL, -1);
   }
 
-  @Override
   public List<ItemStack> getCurativeItems() {
     return new ArrayList<>();
   }

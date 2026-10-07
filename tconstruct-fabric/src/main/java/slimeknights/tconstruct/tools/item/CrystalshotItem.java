@@ -55,7 +55,6 @@ public class CrystalshotItem extends ArrowItem {
     return arrow;
   }
 
-  @Override
   public boolean isInfinite(ItemStack stack, ItemStack bow, Player player) {
     return bow.getEnchantmentLevel(Enchantments.INFINITY_ARROWS) > 0;
   }

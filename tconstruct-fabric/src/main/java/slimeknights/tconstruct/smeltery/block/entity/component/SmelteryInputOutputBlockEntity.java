@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.component;
 
+import net.minecraft.core.HolderLookup;
 import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -140,7 +141,6 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
 
   /* Retexturing */
 
-  @Override
   @Nonnull
   public ModelData getModelData() {
     return RetexturedHelper.getModelData(getTexture());
@@ -170,16 +170,16 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
   }
 
   @Override
-  protected void saveSynced(CompoundTag tags) {
-    super.saveSynced(tags);
+  protected void saveSynced(CompoundTag tags, HolderLookup.Provider registries) {
+    super.saveSynced(tags, registries);
     if (texture != Blocks.AIR) {
       tags.putString(TAG_TEXTURE, getTextureName());
     }
   }
 
   @Override
-  public void load(CompoundTag tags) {
-    super.load(tags);
+  public void loadAdditional(CompoundTag tags, HolderLookup.Provider registries) {
+    super.loadAdditional(tags, registries);
     if (tags.contains(TAG_TEXTURE, Tag.TAG_STRING)) {
       texture = RetexturedHelper.getBlock(tags.getString(TAG_TEXTURE));
       RetexturedHelper.onTextureUpdated(this);

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity;
 
+import net.minecraft.core.HolderLookup;
 import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -318,7 +319,6 @@ public class FaucetBlockEntity extends MantleBlockEntity {
     }
   }
 
-  @Override
   public AABB getRenderBoundingBox() {
     return new AABB(worldPosition.getX(), worldPosition.getY() - 1, worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 1, worldPosition.getZ() + 1);
   }
@@ -354,8 +354,8 @@ public class FaucetBlockEntity extends MantleBlockEntity {
   }
 
   @Override
-  protected void saveSynced(CompoundTag compound) {
-    super.saveSynced(compound);
+  protected void saveSynced(CompoundTag compound, HolderLookup.Provider registries) {
+    super.saveSynced(compound, registries);
     compound.putByte(TAG_STATE, (byte)faucetState.ordinal());
     if (!renderFluid.isEmpty()) {
       compound.put(TAG_RENDER_FLUID, renderFluid.writeToNBT(new CompoundTag()));
@@ -363,8 +363,8 @@ public class FaucetBlockEntity extends MantleBlockEntity {
   }
 
   @Override
-  public void saveAdditional(CompoundTag compound) {
-    super.saveAdditional(compound);
+  public void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+    super.saveAdditional(compound, registries);
     compound.putBoolean(TAG_STOP, stopPouring);
     compound.putBoolean(TAG_LAST_REDSTONE, lastRedstoneState);
     if (!drained.isEmpty()) {
@@ -373,8 +373,8 @@ public class FaucetBlockEntity extends MantleBlockEntity {
   }
 
   @Override
-  public void load(CompoundTag compound) {
-    super.load(compound);
+  public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+    super.loadAdditional(compound, registries);
 
     faucetState = FaucetState.fromIndex(compound.getByte(TAG_STATE));
     stopPouring = compound.getBoolean(TAG_STOP);

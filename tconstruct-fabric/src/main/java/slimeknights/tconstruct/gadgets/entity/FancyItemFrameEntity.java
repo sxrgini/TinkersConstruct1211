@@ -178,7 +178,6 @@ public class FancyItemFrameEntity extends ItemFrame implements IEntityAdditional
     return new ItemStack(getFrameItem());
   }
 
-  @Override
   public ItemStack getPickedResult(HitResult target) {
     ItemStack held = this.getItem();
     if (held.isEmpty()) {

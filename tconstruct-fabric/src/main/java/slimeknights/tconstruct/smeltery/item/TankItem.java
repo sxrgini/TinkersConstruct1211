@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.item;
 
+import net.minecraft.world.item.Item;
 import slimeknights.mantle.platform.capability.Caps;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -59,17 +60,14 @@ public class TankItem extends BlockTooltipItem {
     return nbt != null && nbt.contains(NBTTags.TANK, Tag.TAG_COMPOUND);
   }
 
-  @Override
   public boolean hasCraftingRemainingItem(ItemStack stack) {
     return isFilled(stack);
   }
 
-  @Override
   public ItemStack getCraftingRemainingItem(ItemStack stack) {
     return isFilled(stack) ? new ItemStack(this) : ItemStack.EMPTY;
   }
 
-  @Override
   public int getMaxStackSize(ItemStack stack) {
     if (!limitStackSize) {
       return super.getMaxStackSize(stack);
@@ -78,7 +76,8 @@ public class TankItem extends BlockTooltipItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flag) {
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    Level worldIn = context.level();
     if (stack.hasTag()) {
       FluidTank tank = getTank(stack, 1);
       if (tank.getFluidAmount() > 0) {

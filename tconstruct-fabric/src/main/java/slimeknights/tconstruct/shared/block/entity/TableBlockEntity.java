@@ -53,7 +53,6 @@ public abstract class TableBlockEntity extends InventoryBlockEntity {
     return true;
   }
 
-  @Override
   public CompoundTag getUpdateTag() {
     CompoundTag nbt = super.getUpdateTag();
     // inventory is already in main NBT, include it in update tag

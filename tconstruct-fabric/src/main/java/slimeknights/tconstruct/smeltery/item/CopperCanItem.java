@@ -41,12 +41,10 @@ public class CopperCanItem extends Item {
     return new CopperCanFluidHandler(stack);
   }
 
-  @Override
   public boolean hasCraftingRemainingItem(ItemStack stack) {
     return getFluid(stack) != Fluids.EMPTY;
   }
 
-  @Override
   public ItemStack getCraftingRemainingItem(ItemStack stack) {
     if (hasCraftingRemainingItem(stack)) {
       return new ItemStack(this);
@@ -55,7 +53,8 @@ public class CopperCanItem extends Item {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flag) {
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    Level worldIn = context.level();
     Fluid fluid = getFluid(stack);
     if (fluid != Fluids.EMPTY) {
       CompoundTag fluidTag = getFluidTag(stack);

@@ -64,7 +64,8 @@ public class ModifierCrystalItem extends Item {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag advanced) {
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag advanced) {
+    Level level = context.level();
     ModifierId id = getModifier(stack);
     if (id != null) {
       if (ModifierManager.INSTANCE.contains(id)) {
@@ -80,7 +81,6 @@ public class ModifierCrystalItem extends Item {
   }
 
   @Nullable
-  @Override
   public String getCreatorModId(ItemStack stack) {
     ModifierId modifier = getModifier(stack);
     if (modifier != null) {

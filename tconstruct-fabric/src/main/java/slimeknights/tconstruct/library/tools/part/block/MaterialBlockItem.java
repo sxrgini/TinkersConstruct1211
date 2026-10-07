@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.part.block;
 
+import net.minecraft.world.item.Item;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -33,7 +34,6 @@ public class MaterialBlockItem extends BlockItem implements IMaterialItem {
     return MaterialItem.getName(this, stack);
   }
 
-  @Override
   public Rarity getRarity(ItemStack stack) {
     return MaterialRegistry.getMaterial(getMaterial(stack).getId()).getRarity();
   }
@@ -44,18 +44,17 @@ public class MaterialBlockItem extends BlockItem implements IMaterialItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    Level level = context.level();
     MaterialItem.appendHoverText(this, stack, tooltip, flag);
     super.appendHoverText(stack, level, tooltip, flag);
   }
 
   @Nullable
-  @Override
   public String getCreatorModId(ItemStack stack) {
     return MaterialItem.getCreatorModId(this, stack);
   }
 
-  @Override
   public void verifyTagAfterLoad(CompoundTag tag) {
     MaterialItem.verifyTag(tag);
   }

@@ -35,7 +35,6 @@ public class MultilayerArmorItem extends ModifiableArmorItem implements IClientI
   }
 
   @Nullable
-  @Override
   public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
     return ArmorUtil.getDummyArmorTexture(slot);
   }

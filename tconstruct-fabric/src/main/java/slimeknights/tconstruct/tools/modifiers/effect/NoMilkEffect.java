@@ -16,7 +16,6 @@ public class NoMilkEffect extends TinkerEffect {
     super(typeIn, color, show);
   }
 
-  @Override
   public List<ItemStack> getCurativeItems() {
     return new ArrayList<>();
   }

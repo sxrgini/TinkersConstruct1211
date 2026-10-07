@@ -38,7 +38,6 @@ public class SlimeTallGrassBlock extends BushBlock implements IShearable {
 
   /* Forge/MC callbacks */
   @Nonnull
-  @Override
   public List<ItemStack> onSheared(@Nullable Player player, ItemStack item, Level world, BlockPos pos, int fortune) {
     return Lists.newArrayList(new ItemStack(this, 1));
   }

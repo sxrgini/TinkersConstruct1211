@@ -77,7 +77,6 @@ public class WeatheringPlatformBlock extends PlatformBlock implements Weathering
   }
 
   @Nullable
-  @Override
   public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility toolAction, boolean simulate) {
     if (ItemAbilities.AXE_SCRAPE.equals(toolAction)) {
       WeatherState prev = getPrevious(age);

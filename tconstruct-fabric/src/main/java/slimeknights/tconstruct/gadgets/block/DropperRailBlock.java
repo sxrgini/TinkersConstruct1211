@@ -21,7 +21,6 @@ public class DropperRailBlock extends RailBlock {
     super(properties);
   }
 
-  @Override
   public void onMinecartPass(BlockState state, Level world, BlockPos pos, AbstractMinecart cart) {
     if (!Caps.get(cart, Capabilities.ITEM_HANDLER, Direction.DOWN).isPresent() || !(cart instanceof Hopper)) {
       return;

@@ -104,7 +104,6 @@ public class MaterialItem extends Item implements IMaterialItem {
     return getName(this, stack);
   }
 
-  @Override
   public Rarity getRarity(ItemStack stack) {
     return MaterialRegistry.getMaterial(getMaterial(stack).getId()).getRarity();
   }
@@ -125,7 +124,8 @@ public class MaterialItem extends Item implements IMaterialItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flag) {
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    Level worldIn = context.level();
     appendHoverText(this, stack, tooltip, flag);
   }
 
@@ -144,7 +144,6 @@ public class MaterialItem extends Item implements IMaterialItem {
   }
 
   @Nullable
-  @Override
   public String getCreatorModId(ItemStack stack) {
     return getCreatorModId(this, stack);
   }
@@ -175,7 +174,6 @@ public class MaterialItem extends Item implements IMaterialItem {
     }
   }
 
-  @Override
   public void verifyTagAfterLoad(CompoundTag nbt) {
     verifyTag(nbt);
   }

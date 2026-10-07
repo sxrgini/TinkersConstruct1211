@@ -52,7 +52,6 @@ public class DrainBlockEntity extends SmelteryFluidIO implements IDisplayFluidLi
   /* Updating */
 
   // override instead of writeSynced to avoid writing master to the main tag twice
-  @Override
   public CompoundTag getUpdateTag() {
     CompoundTag nbt = super.getUpdateTag();
     writeMaster(nbt);

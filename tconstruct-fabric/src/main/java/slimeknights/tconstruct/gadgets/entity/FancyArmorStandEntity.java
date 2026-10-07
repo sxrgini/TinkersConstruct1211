@@ -129,7 +129,6 @@ public class FancyArmorStandEntity extends ArmorStand {
     return TinkerGadgets.armorStand.get(getStandType());
   }
 
-  @Override
   public ItemStack getPickedResult(HitResult target) {
     return new ItemStack(getStandItem());
   }
@@ -139,7 +138,6 @@ public class FancyArmorStandEntity extends ArmorStand {
     return Component.translatable(getStandItem().getDescriptionId());
   }
 
-  @Override
   protected void brokenByPlayer(DamageSource source) {
     ItemStack stack = new ItemStack(getStandItem());
     if (this.hasCustomName()) {

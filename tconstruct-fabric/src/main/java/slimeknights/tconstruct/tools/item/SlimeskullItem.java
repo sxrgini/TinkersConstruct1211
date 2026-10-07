@@ -38,7 +38,6 @@ public class SlimeskullItem extends ModifiableArmorItem implements IClientItemEx
   }
 
   @Nullable
-  @Override
   public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
     return ArmorUtil.getDummyArmorTexture(slot);
   }

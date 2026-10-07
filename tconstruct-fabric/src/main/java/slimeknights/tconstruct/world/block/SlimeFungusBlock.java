@@ -21,7 +21,6 @@ public class SlimeFungusBlock extends FungusBlock {
     return state.is(TinkerTags.Blocks.SLIMY_SOIL);
   }
 
-  @Override
   public boolean isValidBonemealTarget(LevelReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
     return worldIn.getBlockState(pos.below()).is(TinkerTags.Blocks.SLIMY_SOIL);
   }

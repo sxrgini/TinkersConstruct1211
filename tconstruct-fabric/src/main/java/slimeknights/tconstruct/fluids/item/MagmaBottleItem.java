@@ -32,7 +32,8 @@ public class MagmaBottleItem extends Item {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
+    Level worldIn = context.level();
     super.appendHoverText(stack, worldIn, tooltip, flagIn);
     tooltip.add(Component.translatable(
       "potion.withDuration",

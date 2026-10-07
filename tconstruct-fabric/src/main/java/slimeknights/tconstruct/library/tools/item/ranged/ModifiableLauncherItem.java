@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.item.ranged;
 
+import net.minecraft.world.item.Item;
 import slimeknights.mantle.platform.client.IClientItemExtensionsProvider;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -91,12 +92,10 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   /* Basic properties */
 
-  @Override
   public int getMaxStackSize(ItemStack stack) {
     return 1;
   }
 
-  @Override
   public boolean isNotReplaceableByPickAction(ItemStack stack, Player player, int inventorySlot) {
     return true;
   }
@@ -109,12 +108,10 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     return false;
   }
 
-  @Override
   public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
     return false;
   }
 
-  @Override
   public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
     return enchantment.isCurse() && super.canApplyAtEnchantingTable(stack, enchantment);
   }
@@ -124,12 +121,10 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     return 0;
   }
 
-  @Override
   public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
     return EnchantmentModifierHook.getEnchantmentLevel(stack, enchantment);
   }
 
-  @Override
   public Map<Enchantment,Integer> getAllEnchantments(ItemStack stack) {
     return EnchantmentModifierHook.getAllEnchantments(stack);
   }
@@ -143,7 +138,6 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     return new ToolCapabilityProvider(stack);
   }
 
-  @Override
   public void verifyTagAfterLoad(CompoundTag nbt) {
     ToolStack.verifyTag(this, nbt, getToolDefinition());
   }
@@ -163,7 +157,6 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     return ModifierUtil.checkVolatileFlag(stack, SHINY);
   }
 
-  @Override
   public Rarity getRarity(ItemStack stack) {
     return RarityModule.getRarity(stack);
   }
@@ -171,13 +164,11 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   /* Item entity */
 
-  @Override
   public boolean hasCustomEntity(ItemStack stack) {
     return IndestructibleItemEntity.hasCustomEntity(stack);
   }
 
   @Nullable
-  @Override
   public Entity createEntity(Level world, Entity original, ItemStack stack) {
     return IndestructibleItemEntity.createFrom(world, original, stack);
   }
@@ -191,23 +182,19 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   /* Damage/Durability */
 
-  @Override
   public boolean isRepairable(ItemStack stack) {
     // handle in the tinker station
     return false;
   }
 
-  @Override
   public boolean canBeDepleted() {
     return true;
   }
 
-  @Override
   public int getMaxDamage(ItemStack stack) {
     return ToolDamageUtil.getFakeMaxDamage(stack);
   }
 
-  @Override
   public int getDamage(ItemStack stack) {
     if (!canBeDepleted()) {
       return 0;
@@ -215,14 +202,12 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     return ToolStack.from(stack).getDamage();
   }
 
-  @Override
   public void setDamage(ItemStack stack, int damage) {
     if (canBeDepleted()) {
       ToolStack.from(stack).setDamage(damage);
     }
   }
 
-  @Override
   public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
     ToolDamageUtil.handleDamageItem(stack, amount, damager, onBroken);
     return 0;
@@ -267,12 +252,10 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   /* Attacking */
 
-  @Override
   public boolean onLeftClickEntity(ItemStack stack, Player player, Entity target) {
     return EntityInteractionModifierHook.leftClickEntity(stack, player, target);
   }
 
-  @Override
   public boolean canPerformAction(ItemStack stack, ItemAbility toolAction) {
     return ModifierUtil.canPerformAction(ToolStack.from(stack), toolAction);
   }
@@ -282,7 +265,6 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     return AttributesModifierHook.getHeldAttributeModifiers(tool, slot);
   }
 
-  @Override
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
     CompoundTag nbt = stack.getTag();
     if (nbt == null || slot.getType() != Type.HAND) {
@@ -291,7 +273,6 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     return getAttributeModifiers(ToolStack.from(stack), slot);
   }
 
-  @Override
   public boolean canDisableShield(ItemStack stack, ItemStack shield, LivingEntity entity, LivingEntity attacker) {
     return canPerformAction(stack, TinkerToolActions.SHIELD_DISABLE);
   }
@@ -317,7 +298,6 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     return stack;
   }
 
-  @Override
   public void onStopUsing(ItemStack stack, LivingEntity entity, int timeLeft) {
     onStopUsing(ToolStack.from(stack), entity, timeLeft);
   }
@@ -354,11 +334,11 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    Level level = context.level();
     TooltipUtil.addInformation(this, stack, level, tooltip, SafeClientAccess.getTooltipKey(), flag);
   }
 
-  @Override
   public int getDefaultTooltipHideFlags(ItemStack stack) {
     return TooltipUtil.getModifierHideFlags(getToolDefinition());
   }
@@ -381,12 +361,10 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   /* Misc */
 
-  @Override
   public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
     return shouldCauseReequipAnimation(oldStack, newStack, false);
   }
 
-  @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
     return ModifiableItem.shouldCauseReequip(oldStack, newStack, slotChanged);
   }
@@ -409,7 +387,6 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     return MiningSpeedToolHook.getDestroySpeed(stack, state);
   }
 
-  @Override
   public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
     return ToolHarvestLogic.handleBlockBreak(stack, pos, player);
   }
