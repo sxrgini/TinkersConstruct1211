@@ -79,7 +79,7 @@ public abstract class AbstractCastingBlock extends TableBlock {
   }
 
   @Override
-  protected boolean openGui(Player playerEntity, Level world, BlockPos blockPos) {
+  protected boolean openGui(BlockState state, Level world, BlockPos blockPos, Player playerEntity) {
     return false;
   }
 

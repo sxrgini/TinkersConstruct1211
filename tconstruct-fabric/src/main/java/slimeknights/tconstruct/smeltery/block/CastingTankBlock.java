@@ -68,7 +68,7 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
   }
 
   @Override
-  protected boolean openGui(Player player, Level world, BlockPos pos) {
+  protected boolean openGui(BlockState state, Level world, BlockPos pos, Player player) {
     return false;
   }
 

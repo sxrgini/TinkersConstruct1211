@@ -34,8 +34,8 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
   }
 
   @Override
-  protected boolean openGui(Player player, Level world, BlockPos pos) {
-    super.openGui(player, world, pos);
+  protected boolean openGui(BlockState state, Level world, BlockPos pos, Player player) {
+    super.openGui(state, world, pos, player);
     // only need to update if holding the proper items
     if (!world.isClientSide && world.getBlockEntity(pos) instanceof HeatingStructureBlockEntity te) {
       MultiblockResult result = te.getStructureResult();

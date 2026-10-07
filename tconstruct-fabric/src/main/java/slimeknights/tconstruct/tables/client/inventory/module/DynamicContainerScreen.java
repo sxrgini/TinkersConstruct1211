@@ -118,7 +118,7 @@ public class DynamicContainerScreen<P extends MultiModuleScreen<?>, C extends Ab
   }
 
   @Override
-  public boolean handleMouseScrolled(double mouseX, double mouseY, double scrollData) {
+  public boolean handleMouseScrolled(double mouseX, double mouseY, double scrollX, double scrollData) {
     if (!this.sliderActive) {
       return false;
     }

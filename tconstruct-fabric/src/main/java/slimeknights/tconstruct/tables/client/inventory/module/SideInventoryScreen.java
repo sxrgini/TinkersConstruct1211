@@ -324,9 +324,9 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Abstr
   }
 
   @Override
-  public boolean handleMouseScrolled(double mouseX, double mouseY, double scrollData) {
+  public boolean handleMouseScrolled(double mouseX, double mouseY, double scrollX, double scrollData) {
     if (!this.slider.isEnabled()) {
-      return super.handleMouseScrolled(mouseX, mouseY, scrollData);
+      return super.handleMouseScrolled(mouseX, mouseY, scrollX, scrollData);
     }
 
     return this.slider.mouseScrolled(scrollData, !this.isMouseOverFullSlot(mouseX, mouseY) && this.isMouseInModule((int) mouseX, (int) mouseY));

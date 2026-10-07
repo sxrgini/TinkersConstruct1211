@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.item;
 
+import javax.annotation.Nullable;
 import slimeknights.tconstruct.library.utils.EnchantmentCompat;
 import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.nbt.CompoundTag;
@@ -43,7 +44,7 @@ public class CrystalshotItem extends ArrowItem {
   }
 
   @Override
-  public AbstractArrow createArrow(Level pLevel, ItemStack pStack, LivingEntity pShooter) {
+  public AbstractArrow createArrow(Level pLevel, ItemStack pStack, LivingEntity pShooter, @Nullable ItemStack weapon) {
     CrystalshotEntity arrow = new CrystalshotEntity(pLevel, pShooter);
     String variant = "random";
     CompoundTag tag = StackNbt.getTag(pStack);

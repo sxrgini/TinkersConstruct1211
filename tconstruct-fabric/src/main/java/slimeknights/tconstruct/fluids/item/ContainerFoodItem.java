@@ -28,7 +28,7 @@ public class ContainerFoodItem extends Item {
   }
 
   @Override
-  public int getUseDuration(ItemStack pStack) {
+  public int getUseDuration(ItemStack pStack, LivingEntity entity) {
     return 32;
   }
 

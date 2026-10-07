@@ -44,8 +44,15 @@ public interface IRetexturedBlockEntity {
    * @param texture Texture name
    */
   default void updateTexture(Block texture) {
+    updateTexture(RetexturedHelper.getTextureName(texture));
+  }
+
+  /**
+   * Updates the texture to the given name, the 1.20 form of the method. {@link #updateTexture(Block)} redirects here.
+   * @param newName  Texture name
+   */
+  default void updateTexture(String newName) {
     String oldName = getTextureName();
-    String newName = RetexturedHelper.getTextureName(texture);
     RetexturedHelper.setTexture(getPersistentData(), newName);
     if (!oldName.equals(newName)) {
       // this is an unchecked cast, but no one should be using this interface not on a block entity

@@ -20,7 +20,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 public record FillBottle(Item filled) implements CauldronInteraction {
   @Override
-  public InteractionResult interact(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack stack) {
+  public net.minecraft.world.ItemInteractionResult interact(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack stack) {
     if (!level.isClientSide) {
       player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, PotionHelper.setPotion(new ItemStack(filled), Potions.WATER)));
       player.awardStat(Stats.USE_CAULDRON);
@@ -29,6 +29,6 @@ public record FillBottle(Item filled) implements CauldronInteraction {
       level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
       level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
     }
-    return InteractionResult.sidedSuccess(level.isClientSide);
+    return net.minecraft.world.ItemInteractionResult.sidedSuccess(level.isClientSide);
   }
 }

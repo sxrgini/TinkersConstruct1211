@@ -82,11 +82,11 @@ public abstract class ControllerBlock extends InventoryBlock {
   }
 
   @Override
-  protected boolean openGui(Player player, Level world, BlockPos pos) {
+  protected boolean openGui(BlockState state, Level world, BlockPos pos, Player player) {
     BlockState state = world.getBlockState(pos);
     if (state.getBlock() == this) {
       if (canOpenGui(state)) {
-        return super.openGui(player, world, pos);
+        return super.openGui(state, world, pos, player);
       } else {
         return displayStatus(player, world, pos, state);
       }
