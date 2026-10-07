@@ -23,12 +23,12 @@ import java.util.function.BooleanSupplier;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConfigEnabledCondition implements ICondition, LootItemCondition {
   public static final ResourceLocation ID = TConstruct.getResource("config");
+  /* Map of config names to condition cache */
+  private static final Map<String,ConfigEnabledCondition> PROPS = new HashMap<>();
   public static final MapCodec<ConfigEnabledCondition> CODEC = Codec.STRING.comapFlatMap(prop -> {
     ConfigEnabledCondition config = PROPS.get(prop.toLowerCase(Locale.ROOT));
     return config == null ? DataResult.error(() -> "Invalid property name '" + prop + "'") : DataResult.success(config);
   }, c -> c.configName).fieldOf("prop");
-  /* Map of config names to condition cache */
-  private static final Map<String,ConfigEnabledCondition> PROPS = new HashMap<>();
 
   private final String configName;
   private final BooleanSupplier supplier;

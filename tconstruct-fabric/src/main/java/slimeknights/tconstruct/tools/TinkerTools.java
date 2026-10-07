@@ -157,7 +157,6 @@ public final class TinkerTools extends TinkerModule {
     "tools", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "tools"))
       .icon(() -> TinkerTools.pickaxe.get().getRenderTool())
       .displayItems(TinkerTools::addTabItems)
-      .withSearchBar()
       .build());
 
   /** Loot function type for tool add data */

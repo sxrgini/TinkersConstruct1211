@@ -59,7 +59,7 @@ public class EFLNExplosion extends CustomExplosion {
             BlockState blockstate = this.level.getBlockState(blockpos);
 
             FluidState fluid = this.level.getFluidState(blockpos);
-            float power = Math.max(blockstate.getExplosionResistance(this.level, blockpos, this), fluid.getExplosionResistance(this.level, blockpos, this));
+            float power = Math.max(blockstate.getBlock().getExplosionResistance(), fluid.getExplosionResistance());
             if (this.source != null) {
               power = this.source.getBlockExplosionResistance(this, this.level, blockpos, blockstate, fluid, power);
             }

@@ -112,9 +112,6 @@ public class TinkerEffect extends MobEffect implements IClientMobEffectExtension
    * @param entity  Entity to check
    * @return  Level, or 0 if inactive
    */
-  public static int getLevel(LivingEntity entity, Supplier<? extends MobEffect> effect) {
-    return getAmplifier(entity, effect) + 1;
-  }
 
   /**
    * Gets the amplifier of the effect on the entity starting from 0, or -1 if not active

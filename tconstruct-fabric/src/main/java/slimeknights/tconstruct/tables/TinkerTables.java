@@ -85,7 +85,6 @@ public final class TinkerTables extends TinkerModule {
     "tables", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "tables"))
       .icon(() -> new ItemStack(TinkerTables.tinkersAnvil))
       .displayItems(TinkerTables::addTableVariants)
-      .withSearchBar()
       .build());
   /*
    * Blocks

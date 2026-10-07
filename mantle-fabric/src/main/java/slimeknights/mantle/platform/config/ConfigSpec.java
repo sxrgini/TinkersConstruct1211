@@ -260,6 +260,12 @@ public class ConfigSpec {
       }, v -> v.stream().allMatch(elementValidator)));
     }
 
+    /** Runs the consumer with this builder then builds the spec, returning both, as in Forge's {@code configure} */
+    public <T> org.apache.commons.lang3.tuple.Pair<T,ConfigSpec> configure(java.util.function.Function<Builder,T> consumer) {
+      T object = consumer.apply(this);
+      return org.apache.commons.lang3.tuple.Pair.of(object, build());
+    }
+
     public ConfigSpec build() {
       return new ConfigSpec(List.copyOf(values));
     }

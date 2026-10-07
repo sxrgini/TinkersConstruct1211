@@ -61,9 +61,9 @@ public class FoodCakeBlock extends CakeBlock {
 
   /** Checks if the given player has all potion effects from the food */
   private boolean hasAllEffects(Player player) {
-    for (Pair<MobEffectInstance,Float> pair : food.getEffects()) {
-      if (pair.getFirst() != null) {
-        MobEffectInstance current = player.getEffect(pair.getFirst().getEffect());
+    for (FoodProperties.PossibleEffect pair : food.effects()) {
+      {
+        MobEffectInstance current = player.getEffect(pair.effect().getEffect());
         if (current == null || current.getDuration() < 100) {
           return false;
         }
@@ -83,10 +83,10 @@ public class FoodCakeBlock extends CakeBlock {
     }
     player.awardStat(Stats.EAT_CAKE_SLICE);
     // apply food stats
-    player.getFoodData().eat(food.getNutrition(), food.getSaturationModifier());
-    for (Pair<MobEffectInstance,Float> pair : food.getEffects()) {
-      if (!world.isClientSide() && pair.getFirst() != null && world.getRandom().nextFloat() < pair.getSecond()) {
-        MobEffectInstance effect = new MobEffectInstance(pair.getFirst());
+    player.getFoodData().eat(food.nutrition(), food.saturation());
+    for (FoodProperties.PossibleEffect pair : food.effects()) {
+      if (!world.isClientSide() && world.getRandom().nextFloat() < pair.probability()) {
+        MobEffectInstance effect = new MobEffectInstance(pair.effect());
         // if adding, increase duration by current duration, provided its an exact level match
         if (combination == EffectCombination.ADD) {
           MobEffectInstance current = player.getEffect(effect.getEffect());

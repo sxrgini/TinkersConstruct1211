@@ -174,8 +174,9 @@ public class EnumObject<T extends Enum<T>, R> implements MultiObject.Holders<R> 
      * @param value  Value
      * @return  Builder instance
      */
-    public Builder<T,R> put(T key, Holder<R> value) {
-      this.map.put(key, value);
+    @SuppressWarnings("unchecked")
+    public Builder<T,R> put(T key, Holder<? extends Object> value) {
+      this.map.put(key, (Holder<R>) value);
       return this;
     }
 
@@ -184,8 +185,9 @@ public class EnumObject<T extends Enum<T>, R> implements MultiObject.Holders<R> 
      * @param map  Map
      * @return  Builder instance
      */
-    public Builder<T,R> putAll(Map<T, Holder<R>> map) {
-      this.map.putAll(map);
+    @SuppressWarnings("unchecked")
+    public Builder<T,R> putAll(Map<T, ? extends Holder<?>> map) {
+      map.forEach((key, value) -> this.map.put(key, (Holder<R>) value));
       return this;
     }
 
@@ -194,8 +196,9 @@ public class EnumObject<T extends Enum<T>, R> implements MultiObject.Holders<R> 
      * @param object  Enum object
      * @return  Builder instance
      */
-    public Builder<T,R> putAll(EnumObject<T,R> object) {
-      this.map.putAll(object.map);
+    @SuppressWarnings("unchecked")
+    public Builder<T,R> putAll(EnumObject<T,? extends R> object) {
+      object.map.forEach((key, value) -> this.map.put(key, (Holder<R>) value));
       return this;
     }
 

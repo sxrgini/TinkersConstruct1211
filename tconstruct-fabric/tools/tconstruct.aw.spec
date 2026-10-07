@@ -128,3 +128,4 @@ accessible Explosion explosionSound
 accessible ItemOverrides <init>
 accessible Minecraft itemColors
 accessible BushBlock canSurvive
+extendable ItemFrame setRotation

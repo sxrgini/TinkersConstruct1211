@@ -51,7 +51,7 @@ public class FancyItemFrameItem extends Item {
     HangingEntity frame = this.entityProvider.apply(world, placeLocation, facing);
     CompoundTag tag = StackNbt.getTag(stack);
     if (tag != null) {
-      EntityType.updateCustomEntityTag(world, player, frame, tag);
+      EntityType.updateCustomEntityTag(world, player, frame, net.minecraft.world.item.component.CustomData.of(tag));
     }
 
     if (frame.survives()) {

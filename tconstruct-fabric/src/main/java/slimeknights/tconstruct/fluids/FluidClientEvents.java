@@ -41,7 +41,6 @@ public class FluidClientEvents extends ClientEventBase {
   }
 
   private static void setTranslucent(FlowingFluidObject<?> fluid) {
-    ItemBlockRenderTypes.setRenderLayer(fluid.getStill(), RenderType.translucent());
-    ItemBlockRenderTypes.setRenderLayer(fluid.getFlowing(), RenderType.translucent());
+    net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap.INSTANCE.putFluids(RenderType.translucent(), fluid.getStill(), fluid.getFlowing());
   }
 }

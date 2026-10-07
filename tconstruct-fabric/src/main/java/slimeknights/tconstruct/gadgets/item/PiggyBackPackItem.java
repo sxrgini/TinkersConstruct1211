@@ -39,7 +39,7 @@ import slimeknights.tconstruct.gadgets.capability.PiggybackHandler;
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public class PiggyBackPackItem extends TooltipItem implements IClientMobEffectExtensionsProvider {
+public class PiggyBackPackItem extends TooltipItem {
   private static final int MAX_ENTITY_STACK = 3; // how many entities can be carried at once
   public PiggyBackPackItem(Properties props) {
     super(props);
@@ -155,7 +155,7 @@ public class PiggyBackPackItem extends TooltipItem implements IClientMobEffectEx
   public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     if (entityIn instanceof LivingEntity livingEntity && livingEntity.getItemBySlot(EquipmentSlot.CHEST) == stack && entityIn.isVehicle()) {
       int amplifier = this.getEntitiesCarriedCount(livingEntity) - 1;
-      livingEntity.addEffect(new MobEffectInstance(TinkerGadgets.carryEffect.get(), 2, amplifier, true, false, true));
+      livingEntity.addEffect(new MobEffectInstance(TinkerGadgets.carryEffect.holder(), 2, amplifier, true, false, true));
     }
   }
 

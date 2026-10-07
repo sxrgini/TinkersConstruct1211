@@ -146,7 +146,7 @@ public class FancyArmorStandEntity extends ArmorStand {
     }
     Block.popResource(this.level(), this.blockPosition(), stack);
 
-    this.brokenByAnything(source);
+    this.brokenByAnything((net.minecraft.server.level.ServerLevel) level(), source);
   }
 
 

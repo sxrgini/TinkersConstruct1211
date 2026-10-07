@@ -22,7 +22,7 @@ public final class TinkerFood {
   public static final FoodProperties EARTH_CAKE = new FoodProperties.Builder().nutrition(1).saturationModifier(0.3f).alwaysEdible().effect(new MobEffectInstance(TinkerEffects.bouncy,      30 * 20, 0), 1.0f).build();
   public static final FoodProperties SKY_CAKE   = new FoodProperties.Builder().nutrition(1).saturationModifier(0.2f).alwaysEdible().effect(new MobEffectInstance(TinkerEffects.doubleJump,  30 * 20, 0), 1.0f).build();
   public static final FoodProperties ICHOR_CAKE = new FoodProperties.Builder().nutrition(1).saturationModifier(0.3f).alwaysEdible().effect(new MobEffectInstance(TinkerEffects.antigravity, 30 * 20, 0), 1.0f).build();
-  public static final FoodProperties ENDER_CAKE = new FoodProperties.Builder().nutrition(1).saturationModifier(0.4f).alwaysEdible().effect(new MobEffectInstance(TinkerEffects.returning,   30 * 20, 0), 1.0f).eatSeconds(0.8f).build();
+  public static final FoodProperties ENDER_CAKE = new FoodProperties.Builder().nutrition(1).saturationModifier(0.4f).alwaysEdible().effect(new MobEffectInstance(TinkerEffects.returning,   30 * 20, 0), 1.0f).fast().build();
   public static final FoodProperties MAGMA_CAKE = new FoodProperties.Builder().nutrition(2).saturationModifier(0.2f).alwaysEdible().effect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE,      30 * 20, 0), 1.0f).build();
   // regen is 50 ticks per half heart, so this heals 3 per slice
   public static final FoodProperties BLOOD_CAKE = new FoodProperties.Builder().nutrition(2).saturationModifier(0.2f).alwaysEdible().effect(new MobEffectInstance(MobEffects.REGENERATION, 3 * 50, 0), 1.0f).build();
