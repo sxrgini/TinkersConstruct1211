@@ -246,7 +246,6 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
           projectile = arrow;
           arrow.setCritArrow(true);
           arrow.setSoundEvent(SoundEvents.CROSSBOW_HIT);
-          arrow.setShotFromCrossbow(true);
           speed = 3f;
           damage += 1;
 
@@ -320,11 +319,11 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
     if (!ammo.isEmpty()) {
       level.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.CROSSBOW_LOADING_END, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.5F + 1.0F) + 0.2F);
       if (!level.isClientSide) {
-        CompoundTag ammoNBT = GlobalRegistries.saveStack(ammo);
+        net.minecraft.nbt.Tag ammoNBT = GlobalRegistries.saveStack(ammo);
         persistentData.put(KEY_CROSSBOW_AMMO, ammoNBT);
         // if the crossbow broke during loading, fire immediately
         if (tool.isBroken()) {
-          fireCrossbow(tool, living, player != null && player.getAbilities().instabuild, living.getUsedItemHand(), ammoNBT);
+          fireCrossbow(tool, living, player != null && player.getAbilities().instabuild, living.getUsedItemHand(), (CompoundTag) ammoNBT);
         }
       }
     }
@@ -352,7 +351,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
         // copy the stack's tooltip if advanced
         if (tooltipFlag.isAdvanced() && player != null) {
           List<Component> nestedTooltip = new ArrayList<>();
-          heldStack.getItem().appendHoverText(heldStack, player.level(), nestedTooltip, tooltipFlag);
+          heldStack.getItem().appendHoverText(heldStack, net.minecraft.world.item.Item.TooltipContext.of(player.level()), nestedTooltip, tooltipFlag);
           for (Component nested : nestedTooltip) {
             tooltips.add(Component.literal("  ").append(nested).withStyle(ChatFormatting.GRAY));
           }

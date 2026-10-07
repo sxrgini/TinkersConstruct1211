@@ -76,6 +76,11 @@ import static slimeknights.tconstruct.library.modifiers.hook.interaction.General
 
 /** Base class for any items that launch projectiles */
 public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implements IClientItemExtensionsProvider, IModifiableDisplay {
+  @Override
+  protected void shootProjectile(LivingEntity shooter, net.minecraft.world.entity.projectile.Projectile projectile, int index, float velocity, float inaccuracy, float angle, @Nullable LivingEntity target) {
+    projectile.shootFromRotation(shooter, shooter.getXRot(), shooter.getYRot() + angle, 0.0F, velocity, inaccuracy);
+  }
+
   /** Persistent data key for the ammo being used on drawing back the bow. */
   public static final ResourceLocation KEY_DRAWBACK_AMMO = TConstruct.getResource("drawback_ammo");
 

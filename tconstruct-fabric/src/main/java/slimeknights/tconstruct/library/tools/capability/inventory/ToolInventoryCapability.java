@@ -571,7 +571,7 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
     if (!entity.level().isClientSide) {
       IItemHandler handler = Caps.get(entity.getItem(), Capabilities.ITEM_HANDLER).orElse(EmptyItemHandler.INSTANCE);
       if (handler.getSlots() > 0) {
-        ItemUtils.onContainerDestroyed(entity, IntStream.range(0, handler.getSlots()).mapToObj(handler::getStackInSlot).filter(stack -> !stack.isEmpty()));
+        ItemUtils.onContainerDestroyed(entity, IntStream.range(0, handler.getSlots()).mapToObj(handler::getStackInSlot).filter(stack -> !stack.isEmpty()).toList());
       }
     }
   }

@@ -81,14 +81,12 @@ public class PersistentDataCapability {
   /** copy caps when the player respawns/returns from the end */
   private static void playerClone(PlayerEvent.Clone event) {
     Player original = event.getOriginal();
-    original.reviveCaps();
     Caps.get(original, CAPABILITY).ifPresent(oldData -> {
       CompoundTag nbt = oldData.getCopy();
       if (!nbt.isEmpty()) {
         Caps.get(event.getEntity(), CAPABILITY).ifPresent(newData -> newData.copyFrom(nbt));
       }
     });
-    original.invalidateCaps();
   }
 
   /** sync caps when the player respawns/returns from the end */

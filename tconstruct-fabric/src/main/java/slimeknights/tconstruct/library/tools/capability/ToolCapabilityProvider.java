@@ -43,7 +43,7 @@ public class ToolCapabilityProvider implements ICapabilityProvider {
     // return the first successful provider
     for (IToolCapabilityProvider provider : providers) {
       provider.clearCache();
-      LazyOptional<T> optional = Caps.get(provider, toolStack, cap);
+      LazyOptional<T> optional = provider.getCapability(toolStack, cap);
       if (optional.isPresent()) {
         return optional;
       }

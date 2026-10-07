@@ -267,7 +267,7 @@ public class InventoryModule implements ModifierModule, InventoryModifierHook, V
    * @return Tag written to, same as {@code compound}.
    */
   public static CompoundTag writeStack(ItemStack stack, int slot, CompoundTag compound) {
-    stack.save(compound);
+    stack.save(slimeknights.mantle.util.GlobalRegistries.get(), compound);
     compound.putInt(TAG_SLOT, slot);
     return compound;
   }

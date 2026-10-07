@@ -69,11 +69,11 @@ public class TooltipUtil {
   private static final String KEY_NAME = "tic_name";
 
   /** Function to show all attributes in the tooltip */
-  public static final BiPredicate<Attribute, Operation> SHOW_ALL_ATTRIBUTES = (att, op) -> true;
+  public static final BiPredicate<Holder<Attribute>, Operation> SHOW_ALL_ATTRIBUTES = (att, op) -> true;
   /** Function to show all attributes in the tooltip */
-  public static final BiPredicate<Attribute, Operation> SHOW_MELEE_ATTRIBUTES = (att, op) -> op != Operation.ADD_VALUE || (att != Attributes.ATTACK_DAMAGE && att != Attributes.ATTACK_SPEED && att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
+  public static final BiPredicate<Holder<Attribute>, Operation> SHOW_MELEE_ATTRIBUTES = (att, op) -> op != Operation.ADD_VALUE || (!att.is(Attributes.ATTACK_DAMAGE) && !att.is(Attributes.ATTACK_SPEED) && !att.is(Attributes.ARMOR) && !att.is(Attributes.ARMOR_TOUGHNESS) && !att.is(Attributes.KNOCKBACK_RESISTANCE));
   /** Function to show all attributes in the tooltip */
-  public static final BiPredicate<Attribute, Operation> SHOW_ARMOR_ATTRIBUTES = (att, op) -> op != Operation.ADD_VALUE || (att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
+  public static final BiPredicate<Holder<Attribute>, Operation> SHOW_ARMOR_ATTRIBUTES = (att, op) -> op != Operation.ADD_VALUE || (!att.is(Attributes.ARMOR) && !att.is(Attributes.ARMOR_TOUGHNESS) && !att.is(Attributes.KNOCKBACK_RESISTANCE));
 
   // TODO 1.21: hide flags were replaced by tooltip components, these constants are kept until the item tooltips are ported
   /** Flags used when not holding control or shift */

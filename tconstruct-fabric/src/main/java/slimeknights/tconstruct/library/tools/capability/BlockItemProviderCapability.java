@@ -37,7 +37,7 @@ public interface BlockItemProviderCapability {
   static void register() {
     EventBus.MOD_BUS.addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, BlockItemProviderCapability::register);
     // receive the attach event on low priority, so that our default implementations do not override other mods.
-    EventBus.BUS.addGenericListener(ItemStack.class, EventPriority.LOW, BlockItemProviderCapability::attachCapability);
+    EventBus.BUS.addGenericListener(ItemStack.class, BlockItemProviderCapability::attachCapability);
   }
 
   /** Registers the capability with the event bus */
