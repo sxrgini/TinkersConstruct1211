@@ -220,7 +220,6 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
     public TagAppender<T> remove(ResourceLocation location) {
       // removal is not supported by vanilla tag files, ignored
       return this;
-      return this;
     }
 
     /**

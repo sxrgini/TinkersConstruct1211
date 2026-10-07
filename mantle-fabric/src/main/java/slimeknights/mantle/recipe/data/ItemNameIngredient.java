@@ -27,6 +27,15 @@ public record ItemNameIngredient(ResourceLocation name) implements ICustomIngred
     return new ItemNameIngredient(name).toVanilla();
   }
 
+  /** Creates an ingredient matching any of the items with the given names */
+  public static Ingredient from(ResourceLocation... names) {
+    Ingredient[] ingredients = new Ingredient[names.length];
+    for (int i = 0; i < names.length; i++) {
+      ingredients[i] = from(names[i]);
+    }
+    return net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients.any(ingredients);
+  }
+
   @Override
   public boolean test(ItemStack stack) {
     return BuiltInRegistries.ITEM.getKey(stack.getItem()).equals(name);

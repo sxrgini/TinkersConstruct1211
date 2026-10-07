@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class InstrumentTagProvider extends InstrumentTagsProvider {
   public InstrumentTagProvider(PackOutput output, CompletableFuture<Provider> provider, @Nullable ExistingFileHelper existingFileHelper) {
-    super(output, provider, TConstruct.MOD_ID, existingFileHelper);
+    super(output, provider);
   }
 
   @Override

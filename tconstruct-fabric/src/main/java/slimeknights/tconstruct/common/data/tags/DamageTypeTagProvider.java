@@ -77,7 +77,7 @@ import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.RUGGED_TERRA
 @SuppressWarnings("removal")
 public class DamageTypeTagProvider extends DamageTypeTagsProvider {
   public DamageTypeTagProvider(PackOutput packOutput, CompletableFuture<Provider> lookup, @Nullable ExistingFileHelper existingFileHelper) {
-    super(packOutput, lookup, TConstruct.MOD_ID, existingFileHelper);
+    super(packOutput, lookup);
   }
 
   @SuppressWarnings("unchecked")
@@ -112,7 +112,7 @@ public class DamageTypeTagProvider extends DamageTypeTagsProvider {
     // cramming is not an attack, so it gets protection without making the held tool responsible for the kill
     tag(MELEE_PROTECTION).addTag(IS_MELEE).add(CRAMMING);
     tag(PROJECTILE_PROTECTION).addTag(IS_PROJECTILE).add(FALLING_ANVIL, FALLING_BLOCK, FALLING_STALACTITE);
-    tag(FIRE_PROTECTION).addTags(IS_FIRE, IS_LIGHTNING).add(SHOCK);
+    tag(FIRE_PROTECTION).addTag(IS_FIRE).addTag(IS_LIGHTNING).add(SHOCK);
     tag(BLAST_PROTECTION).addTag(IS_EXPLOSION);
     tag(MAGIC_PROTECTION).addTag(WITCH_RESISTANT_TO).add(WITHER, WITHER_SKULL, DRAGON_BREATH);
     tag(FALL_PROTECTION).addTag(IS_FALL).add(FLY_INTO_WALL);

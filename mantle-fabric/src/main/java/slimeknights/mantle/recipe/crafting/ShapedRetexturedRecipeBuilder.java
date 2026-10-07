@@ -32,6 +32,29 @@ public class ShapedRetexturedRecipeBuilder extends ShapedExtensionBuilder<Shaped
     return shaped(result, 1);
   }
 
+  /** Creates a builder copying the properties of a vanilla shaped recipe builder */
+  public static ShapedRetexturedRecipeBuilder fromShaped(net.minecraft.data.recipes.ShapedRecipeBuilder base) {
+    ShapedRetexturedRecipeBuilder builder = shaped(base.result, base.count);
+    builder.category(base.category);
+    base.rows.forEach(builder::pattern);
+    base.key.forEach(builder::define);
+    base.criteria.forEach(builder::unlockedBy);
+    if (base.group != null) {
+      builder.group(base.group);
+    }
+    return builder;
+  }
+
+  /** Sets the texture source to a key from the texture map, alias of {@link #source(char)} */
+  public ShapedRetexturedRecipeBuilder setSource(char textureKey) {
+    return source(textureKey);
+  }
+
+  /** Saves the recipe, alias of {@link #save(RecipeOutput, ResourceLocation)} */
+  public void build(RecipeOutput output, ResourceLocation id) {
+    save(output, id);
+  }
+
   /** Sets the texture source to a key from the texture map. */
   public ShapedRetexturedRecipeBuilder source(char textureKey) {
     this.textureKey = textureKey;

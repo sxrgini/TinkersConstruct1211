@@ -34,6 +34,11 @@ import java.util.Locale;
 import java.util.function.Consumer;
 
 public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonRecipeHelper {
+  /** Gets the common dye tag for the given color */
+  private static net.minecraft.tags.TagKey<net.minecraft.world.item.Item> dyeTag(net.minecraft.world.item.DyeColor color) {
+    return net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("c", "dyes/" + color.getName()));
+  }
+
   public CommonRecipeProvider(PackOutput output, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> registries) {
     super(output, registries);
   }
@@ -160,7 +165,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
       Block block = TinkerCommons.clearStainedGlass.get(color);
       ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block, 8)
                          .define('#', TinkerCommons.clearGlass)
-                         .define('X', color.getDye().getTag())
+                         .define('X', dyeTag(color.getDye()))
                          .pattern("###")
                          .pattern("#X#")
                          .pattern("###")
@@ -178,7 +183,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                          .save(consumer, prefix(paneId, folder));
       ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, pane, 8)
                          .define('#', TinkerCommons.clearGlassPane)
-                         .define('X', color.getDye().getTag())
+                         .define('X', dyeTag(color.getDye()))
                          .pattern("###")
                          .pattern("#X#")
                          .pattern("###")

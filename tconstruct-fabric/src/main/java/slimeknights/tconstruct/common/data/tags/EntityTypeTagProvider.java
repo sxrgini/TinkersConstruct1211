@@ -26,7 +26,7 @@ import static slimeknights.tconstruct.common.TinkerTags.EntityTypes.TRIDENTS;
 public class EntityTypeTagProvider extends EntityTypeTagsProvider {
 
   public EntityTypeTagProvider(PackOutput packOutput, CompletableFuture<Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
-    super(packOutput, lookupProvider, TConstruct.MOD_ID, existingFileHelper);
+    super(packOutput, lookupProvider);
   }
 
   @SuppressWarnings("removal")
@@ -105,7 +105,7 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
     this.tag(TinkerTags.EntityTypes.REUSABLE_AMMO).addTag(TRIDENTS);
 
     // modifiers
-    this.tag(TinkerTags.EntityTypes.KILLAGERS).addTags(TinkerTags.EntityTypes.VILLAGERS, TinkerTags.EntityTypes.ILLAGERS).add(EntityType.IRON_GOLEM, EntityType.RAVAGER);
+    this.tag(TinkerTags.EntityTypes.KILLAGERS).addTag(TinkerTags.EntityTypes.VILLAGERS).addTag(TinkerTags.EntityTypes.ILLAGERS).add(EntityType.IRON_GOLEM, EntityType.RAVAGER);
     this.tag(TinkerTags.EntityTypes.BACON_PRODUCER).add(EntityType.PIG, EntityType.PIGLIN, EntityType.HOGLIN);
     // in theory this could just be reusable ammo, but it seems better to keep separate
     this.tag(TinkerTags.EntityTypes.ENDERFERENCE_ARROW_BLACKLIST).addTag(TRIDENTS);
@@ -118,7 +118,7 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
     this.tag(COLLECTABLES).add(
         EntityType.ITEM, TinkerTools.indestructibleItem.get(),
         EntityType.EXPERIENCE_ORB
-      ).addTags(TRIDENTS, DISCARDABLE_COLLECTABLES)
+      ).addTag(TRIDENTS).addTag(DISCARDABLE_COLLECTABLES)
       .addOptionalTag(commonResource(COLLECTABLES.location().getPath()));
     this.tag(DISCARDABLE_COLLECTABLES).add(EntityType.ARROW, EntityType.SPECTRAL_ARROW, TinkerTools.materialArrow.get())
       .addOptionalTag(commonResource(DISCARDABLE_COLLECTABLES.location().getPath()));

@@ -22,8 +22,7 @@ public class BlockEntityTypeTagProvider extends IntrinsicHolderTagsProvider<Bloc
   public BlockEntityTypeTagProvider(PackOutput packOutput, CompletableFuture<Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
     super(packOutput, Registries.BLOCK_ENTITY_TYPE, lookupProvider,
           // not sure why fetching the resource key from the object is such a pain
-          type -> BuiltInRegistries.BLOCK_ENTITY_TYPE.getHolder(BuiltInRegistries.BLOCK_ENTITY_TYPE.getId(type)).orElseThrow().key(),
-          TConstruct.MOD_ID, existingFileHelper);
+          type -> BuiltInRegistries.BLOCK_ENTITY_TYPE.getResourceKey(type).orElseThrow());
   }
 
   /** Creates a RL for iron chests */
@@ -52,7 +51,7 @@ public class BlockEntityTypeTagProvider extends IntrinsicHolderTagsProvider<Bloc
     ironchest(sideInventories, "dirt");
 
     // these block entities don't fully sync the fluid to client, so show simplified information
-    tag(MantleTags.BlockEntities.HIDES_GAUGE_AMOUNT).add(TinkerSmeltery.faucet.get(), TinkerSmeltery.channel.get());
+    // gauge hiding is a block tag in 1.21, see BlockTagProvider
   }
 
   @Override

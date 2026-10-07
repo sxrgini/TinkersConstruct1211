@@ -150,3 +150,12 @@ accessible field net/minecraft/client/Minecraft itemColors Lnet/minecraft/client
 # Item ability lookups
 accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
 accessible field net/minecraft/world/item/ShovelItem FLATTENABLES Ljava/util/Map;
+
+# Shaped recipe builder fields, for converting to extension builders
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder category Lnet/minecraft/data/recipes/RecipeCategory;
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder result Lnet/minecraft/world/item/Item;
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder count I
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder rows Ljava/util/List;
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder key Ljava/util/Map;
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder criteria Ljava/util/Map;
+accessible field net/minecraft/data/recipes/ShapedRecipeBuilder group Ljava/lang/String;

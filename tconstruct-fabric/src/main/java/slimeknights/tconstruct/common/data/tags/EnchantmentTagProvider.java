@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class EnchantmentTagProvider extends TagsProvider<Enchantment> {
   public EnchantmentTagProvider(PackOutput packOutput, CompletableFuture<Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
-    super(packOutput, Registries.ENCHANTMENT, lookupProvider, TConstruct.MOD_ID, existingFileHelper);
+    super(packOutput, Registries.ENCHANTMENT, lookupProvider);
   }
 
   @Override
