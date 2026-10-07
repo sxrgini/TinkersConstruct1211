@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets;
 
+import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -59,22 +60,22 @@ public final class TinkerGadgets extends TinkerModule {
   /*
    * Blocks
    */
-  public static final ItemObject<PunjiBlock> punji = BLOCKS.register("punji", () -> new PunjiBlock(builder(MapColor.PLANT, SoundType.GRASS).strength(3.0F).speedFactor(0.4F).noOcclusion().pushReaction(PushReaction.DESTROY)), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block, PunjiBlock> punji = BLOCKS.register("punji", () -> new PunjiBlock(builder(MapColor.PLANT, SoundType.GRASS).strength(3.0F).speedFactor(0.4F).noOcclusion().pushReaction(PushReaction.DESTROY)), TOOLTIP_BLOCK_ITEM);
 
   /*
    * Items
    */
-  public static final ItemObject<PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", () -> new PiggyBackPackItem(new Properties().stacksTo(16)));
+  public static final ItemObject<Item, PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", () -> new PiggyBackPackItem(new Properties().stacksTo(16)));
   public static final EnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(ITEM_PROPS, (world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type)));
   public static final EnumObject<StandType,FancyArmorStandItem> armorStand = ITEMS.registerEnum(StandType.values(), "armor_stand", type -> new FancyArmorStandItem(new Item.Properties().stacksTo(16), type));
 
   // throwballs
   @Deprecated
-  public static final ItemObject<GlowBallItem> glowBall;
+  public static final ItemObject<Item, GlowBallItem> glowBall;
   @Deprecated
-  public static final ItemObject<EFLNItem> efln;
+  public static final ItemObject<Item, EFLNItem> efln;
   @Deprecated
-  public static final ItemObject<ShurikenItem> quartzShuriken, flintShuriken;
+  public static final ItemObject<Item, ShurikenItem> quartzShuriken, flintShuriken;
   static {
     Item.Properties THROWABLE_PROPS = new Item.Properties().stacksTo(16);
     glowBall = ITEMS.register("glow_ball", () -> new GlowBallItem(THROWABLE_PROPS));
@@ -85,7 +86,7 @@ public final class TinkerGadgets extends TinkerModule {
 
   // foods
   public static final EnumObject<FoliageType,FoodCakeBlock> cake;
-  public static final ItemObject<FoodCakeBlock> magmaCake;
+  public static final ItemObject<Block, FoodCakeBlock> magmaCake;
   static {
     BlockBehaviour.Properties CAKE = builder(SoundType.WOOL).forceSolidOn().strength(0.5F).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY);
     cake = BLOCKS.registerEnum(FoliageType.values(), "cake", type -> {
@@ -102,7 +103,7 @@ public final class TinkerGadgets extends TinkerModule {
   /*
    * Entities
    */
-  public static final RegistryObject<EntityType<FancyItemFrameEntity>> itemFrameEntity = ENTITIES.register("fancy_item_frame", () ->
+  public static final DeferredHolder<EntityType<?>, EntityType<FancyItemFrameEntity>> itemFrameEntity = ENTITIES.register("fancy_item_frame", () ->
     EntityType.Builder.<FancyItemFrameEntity>of(
       FancyItemFrameEntity::new, MobCategory.MISC)
       .sized(0.5F, 0.5F)
@@ -111,11 +112,11 @@ public final class TinkerGadgets extends TinkerModule {
       .setCustomClientFactory((spawnEntity, world) -> new FancyItemFrameEntity(TinkerGadgets.itemFrameEntity.get(), world))
       .setShouldReceiveVelocityUpdates(false)
   );
-  public static final RegistryObject<EntityType<FancyArmorStandEntity>> armorStandEntity = ENTITIES.register("armor_stand", () ->
+  public static final DeferredHolder<EntityType<?>, EntityType<FancyArmorStandEntity>> armorStandEntity = ENTITIES.register("armor_stand", () ->
     EntityType.Builder.of(FancyArmorStandEntity::new, MobCategory.MISC).sized(0.5F, 1.975F).clientTrackingRange(10));
 
   @Deprecated
-  public static final RegistryObject<EntityType<GlowballEntity>> glowBallEntity = ENTITIES.register("glow_ball", () ->
+  public static final DeferredHolder<EntityType<?>, EntityType<GlowballEntity>> glowBallEntity = ENTITIES.register("glow_ball", () ->
     EntityType.Builder.<GlowballEntity>of(GlowballEntity::new, MobCategory.MISC)
       .sized(0.25F, 0.25F)
       .setTrackingRange(4)
@@ -124,7 +125,7 @@ public final class TinkerGadgets extends TinkerModule {
       .setShouldReceiveVelocityUpdates(true)
   );
   @Deprecated
-  public static final RegistryObject<EntityType<EFLNEntity>> eflnEntity = ENTITIES.register("efln_ball", () ->
+  public static final DeferredHolder<EntityType<?>, EntityType<EFLNEntity>> eflnEntity = ENTITIES.register("efln_ball", () ->
     EntityType.Builder.<EFLNEntity>of(EFLNEntity::new, MobCategory.MISC)
       .sized(0.25F, 0.25F)
       .setTrackingRange(4)
@@ -132,7 +133,7 @@ public final class TinkerGadgets extends TinkerModule {
       .setCustomClientFactory((spawnEntity, world) -> new EFLNEntity(TinkerGadgets.eflnEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true));
   @Deprecated
-  public static final RegistryObject<EntityType<QuartzShurikenEntity>> quartzShurikenEntity = ENTITIES.register("quartz_shuriken", () ->
+  public static final DeferredHolder<EntityType<?>, EntityType<QuartzShurikenEntity>> quartzShurikenEntity = ENTITIES.register("quartz_shuriken", () ->
     EntityType.Builder.<QuartzShurikenEntity>of(QuartzShurikenEntity::new, MobCategory.MISC)
       .sized(0.25F, 0.25F)
       .setTrackingRange(4)
@@ -141,7 +142,7 @@ public final class TinkerGadgets extends TinkerModule {
       .setShouldReceiveVelocityUpdates(true)
   );
   @Deprecated
-  public static final RegistryObject<EntityType<FlintShurikenEntity>> flintShurikenEntity = ENTITIES.register("flint_shuriken", () ->
+  public static final DeferredHolder<EntityType<?>, EntityType<FlintShurikenEntity>> flintShurikenEntity = ENTITIES.register("flint_shuriken", () ->
     EntityType.Builder.<FlintShurikenEntity>of(FlintShurikenEntity::new, MobCategory.MISC)
       .sized(0.25F, 0.25F)
       .setTrackingRange(4)

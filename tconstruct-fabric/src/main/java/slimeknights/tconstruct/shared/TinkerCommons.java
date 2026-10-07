@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.shared;
 
+import slimeknights.mantle.platform.registry.DeferredHolder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
@@ -99,7 +101,7 @@ import static slimeknights.tconstruct.TConstruct.getResource;
 @SuppressWarnings("unused")
 public final class TinkerCommons extends TinkerModule {
   /** Creative tab for general items, or those that lack another tab */
-  public static final RegistryObject<CreativeModeTab> tabGeneral = CREATIVE_TABS.register(
+  public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabGeneral = CREATIVE_TABS.register(
     "general", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "general"))
                                     .icon(() -> new ItemStack(TinkerCommons.materialsAndYou))
                                     .displayItems(TinkerCommons::addTabItems)
@@ -108,27 +110,27 @@ public final class TinkerCommons extends TinkerModule {
   /*
    * Blocks
    */
-  public static final ItemObject<GlowBlock> glowBlock = BLOCKS.register("glow", () -> new GlowBlock(builder(MapColor.NONE, SoundType.WOOL).noCollission().pushReaction(PushReaction.DESTROY).replaceable().strength(0.0F).lightLevel(s -> 14).noOcclusion()), BLOCK_ITEM);
+  public static final ItemObject<Block, GlowBlock> glowBlock = BLOCKS.register("glow", () -> new GlowBlock(builder(MapColor.NONE, SoundType.WOOL).noCollission().pushReaction(PushReaction.DESTROY).replaceable().strength(0.0F).lightLevel(s -> 14).noOcclusion()), BLOCK_ITEM);
   /**
    * @deprecated Use {@link #glowBlock}
    */
   @Deprecated(forRemoval = true)
-  public static final RegistryObject<GlowBlock> glow = RegistryObject.create(glowBlock.getId(), ForgeRegistries.BLOCKS);
+  public static final DeferredHolder<Block, GlowBlock> glow = RegistryObject.create(glowBlock.getId(), BuiltInRegistries.BLOCK);
   // glass
-  public static final ItemObject<GlassBlock> clearGlass = BLOCKS.register("clear_glass", () -> new GlassBlock(glassBuilder(MapColor.NONE)), BLOCK_ITEM);
-  public static final ItemObject<TintedGlassBlock> clearTintedGlass = BLOCKS.register("clear_tinted_glass", () -> new TintedGlassBlock(glassBuilder(MapColor.COLOR_GRAY).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never)), BLOCK_ITEM);
-  public static final ItemObject<ClearGlassPaneBlock> clearGlassPane = BLOCKS.register("clear_glass_pane", () -> new ClearGlassPaneBlock(glassBuilder(MapColor.NONE)), BLOCK_ITEM);
+  public static final ItemObject<Block, GlassBlock> clearGlass = BLOCKS.register("clear_glass", () -> new GlassBlock(glassBuilder(MapColor.NONE)), BLOCK_ITEM);
+  public static final ItemObject<Block, TintedGlassBlock> clearTintedGlass = BLOCKS.register("clear_tinted_glass", () -> new TintedGlassBlock(glassBuilder(MapColor.COLOR_GRAY).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never)), BLOCK_ITEM);
+  public static final ItemObject<Block, ClearGlassPaneBlock> clearGlassPane = BLOCKS.register("clear_glass_pane", () -> new ClearGlassPaneBlock(glassBuilder(MapColor.NONE)), BLOCK_ITEM);
   public static final EnumObject<GlassColor,ClearStainedGlassBlock> clearStainedGlass = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass", (color) -> new ClearStainedGlassBlock(glassBuilder(color.getDye().getMapColor()), color), BLOCK_ITEM);
   public static final EnumObject<GlassColor,ClearStainedGlassPaneBlock> clearStainedGlassPane = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass_pane", (color) -> new ClearStainedGlassPaneBlock(glassBuilder(color.getDye().getMapColor()), color), BLOCK_ITEM);
-  public static final ItemObject<GlassBlock> soulGlass = BLOCKS.register("soul_glass", () -> new SoulGlassBlock(glassBuilder(MapColor.COLOR_BROWN).speedFactor(0.2F).noCollission().forceSolidOn().isViewBlocking((state, getter, pos) -> true)), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<ClearGlassPaneBlock> soulGlassPane = BLOCKS.register("soul_glass_pane", () -> new SoulGlassPaneBlock(glassBuilder(MapColor.COLOR_BROWN).speedFactor(0.2F)), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block, GlassBlock> soulGlass = BLOCKS.register("soul_glass", () -> new SoulGlassBlock(glassBuilder(MapColor.COLOR_BROWN).speedFactor(0.2F).noCollission().forceSolidOn().isViewBlocking((state, getter, pos) -> true)), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block, ClearGlassPaneBlock> soulGlassPane = BLOCKS.register("soul_glass_pane", () -> new SoulGlassPaneBlock(glassBuilder(MapColor.COLOR_BROWN).speedFactor(0.2F)), TOOLTIP_BLOCK_ITEM);
   // panes
-  public static final ItemObject<IronBarsBlock> goldBars = BLOCKS.register("gold_bars", () -> new IronBarsBlock(builder(MapColor.NONE, SoundType.METAL).requiresCorrectToolForDrops().strength(3.0F, 6.0F).noOcclusion()), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<BetterPaneBlock> obsidianPane = BLOCKS.register("obsidian_pane", () -> new BetterPaneBlock(builder(MapColor.COLOR_BLACK, SoundType.STONE).requiresCorrectToolForDrops().instrument(NoteBlockInstrument.BASEDRUM).noOcclusion().strength(25.0F, 400.0F)), BLOCK_ITEM);
+  public static final ItemObject<Block, IronBarsBlock> goldBars = BLOCKS.register("gold_bars", () -> new IronBarsBlock(builder(MapColor.NONE, SoundType.METAL).requiresCorrectToolForDrops().strength(3.0F, 6.0F).noOcclusion()), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block, BetterPaneBlock> obsidianPane = BLOCKS.register("obsidian_pane", () -> new BetterPaneBlock(builder(MapColor.COLOR_BLACK, SoundType.STONE).requiresCorrectToolForDrops().instrument(NoteBlockInstrument.BASEDRUM).noOcclusion().strength(25.0F, 400.0F)), BLOCK_ITEM);
   // platforms
-  public static final ItemObject<PlatformBlock> goldPlatform = BLOCKS.register("gold_platform", () -> new PlatformBlock(builder(MapColor.GOLD, SoundType.COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).noOcclusion()), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<PlatformBlock> ironPlatform = BLOCKS.register("iron_platform", () -> new PlatformBlock(builder(MapColor.METAL, SoundType.COPPER).requiresCorrectToolForDrops().strength(5.0F, 6.0F).noOcclusion()), BLOCK_ITEM);
-  public static final ItemObject<PlatformBlock> cobaltPlatform = BLOCKS.register("cobalt_platform", () -> new PlatformBlock(builder(MapColor.COLOR_BLUE, SoundType.COPPER).requiresCorrectToolForDrops().strength(5.0f).noOcclusion()), BLOCK_ITEM);
+  public static final ItemObject<Block, PlatformBlock> goldPlatform = BLOCKS.register("gold_platform", () -> new PlatformBlock(builder(MapColor.GOLD, SoundType.COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).noOcclusion()), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block, PlatformBlock> ironPlatform = BLOCKS.register("iron_platform", () -> new PlatformBlock(builder(MapColor.METAL, SoundType.COPPER).requiresCorrectToolForDrops().strength(5.0F, 6.0F).noOcclusion()), BLOCK_ITEM);
+  public static final ItemObject<Block, PlatformBlock> cobaltPlatform = BLOCKS.register("cobalt_platform", () -> new PlatformBlock(builder(MapColor.COLOR_BLUE, SoundType.COPPER).requiresCorrectToolForDrops().strength(5.0f).noOcclusion()), BLOCK_ITEM);
   public static final EnumObject<WeatherState,PlatformBlock> copperPlatform = new EnumObject.Builder<WeatherState,PlatformBlock>(WeatherState.class)
     .put(WeatherState.UNAFFECTED, BLOCKS.register("copper_platform",           () -> new WeatheringPlatformBlock(WeatherState.UNAFFECTED, builder(MapColor.COLOR_ORANGE,          SoundType.COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).noOcclusion()), BLOCK_ITEM))
     .put(WeatherState.EXPOSED,    BLOCKS.register("exposed_copper_platform",   () -> new WeatheringPlatformBlock(WeatherState.EXPOSED,    builder(MapColor.TERRACOTTA_LIGHT_GRAY, SoundType.COPPER).requiresCorrectToolForDrops().strength(3.0F, 6.0F).noOcclusion()), BLOCK_ITEM))
@@ -146,32 +148,32 @@ public final class TinkerCommons extends TinkerModule {
   /*
    * Items
    */
-  public static final ItemObject<EdibleItem> bacon = ITEMS.register("bacon", () -> new EdibleItem(TinkerFood.BACON));
-  public static final ItemObject<EdibleItem> jeweledApple = ITEMS.register("jeweled_apple", () -> new EdibleItem(TinkerFood.JEWELED_APPLE));
-  public static final ItemObject<Item> cheeseIngot = ITEMS.register("cheese_ingot", () -> new CheeseItem(new Properties().food(TinkerFood.CHEESE)));
-  public static final ItemObject<Block> cheeseBlock = BLOCKS.register("cheese_block", () -> new HalfTransparentBlock(builder(MapColor.COLOR_YELLOW, SoundType.HONEY_BLOCK).strength(1.5F, 3.0F).speedFactor(0.4F).jumpFactor(0.5F).noOcclusion()), block -> new CheeseBlockItem(block, new Properties().food(TinkerFood.CHEESE)));
+  public static final ItemObject<Item, EdibleItem> bacon = ITEMS.register("bacon", () -> new EdibleItem(TinkerFood.BACON));
+  public static final ItemObject<Item, EdibleItem> jeweledApple = ITEMS.register("jeweled_apple", () -> new EdibleItem(TinkerFood.JEWELED_APPLE));
+  public static final ItemObject<Item, Item> cheeseIngot = ITEMS.register("cheese_ingot", () -> new CheeseItem(new Properties().food(TinkerFood.CHEESE)));
+  public static final ItemObject<Block, Block> cheeseBlock = BLOCKS.register("cheese_block", () -> new HalfTransparentBlock(builder(MapColor.COLOR_YELLOW, SoundType.HONEY_BLOCK).strength(1.5F, 3.0F).speedFactor(0.4F).jumpFactor(0.5F).noOcclusion()), block -> new CheeseBlockItem(block, new Properties().food(TinkerFood.CHEESE)));
 
-  public static final ItemObject<TinkerBookItem> materialsAndYou  = ITEMS.register("materials_and_you", () -> new TinkerBookItem(UNSTACKABLE_PROPS, BookType.MATERIALS_AND_YOU));
-  public static final ItemObject<TinkerBookItem> punySmelting     = ITEMS.register("puny_smelting",     () -> new TinkerBookItem(UNSTACKABLE_PROPS, BookType.PUNY_SMELTING));
-  public static final ItemObject<TinkerBookItem> mightySmelting   = ITEMS.register("mighty_smelting",   () -> new TinkerBookItem(UNSTACKABLE_PROPS, BookType.MIGHTY_SMELTING));
-  public static final ItemObject<TinkerBookItem> tinkersGadgetry  = ITEMS.register("tinkers_gadgetry",  () -> new TinkerBookItem(UNSTACKABLE_PROPS, BookType.TINKERS_GADGETRY));
-  public static final ItemObject<TinkerBookItem> fantasticFoundry = ITEMS.register("fantastic_foundry", () -> new TinkerBookItem(UNSTACKABLE_PROPS, BookType.FANTASTIC_FOUNDRY));
-  public static final ItemObject<TinkerBookItem> encyclopedia     = ITEMS.register("encyclopedia",      () -> new TinkerBookItem(UNSTACKABLE_PROPS, BookType.ENCYCLOPEDIA));
+  public static final ItemObject<Item, TinkerBookItem> materialsAndYou  = ITEMS.register("materials_and_you", () -> new TinkerBookItem(UNSTACKABLE_PROPS, BookType.MATERIALS_AND_YOU));
+  public static final ItemObject<Item, TinkerBookItem> punySmelting     = ITEMS.register("puny_smelting",     () -> new TinkerBookItem(UNSTACKABLE_PROPS, BookType.PUNY_SMELTING));
+  public static final ItemObject<Item, TinkerBookItem> mightySmelting   = ITEMS.register("mighty_smelting",   () -> new TinkerBookItem(UNSTACKABLE_PROPS, BookType.MIGHTY_SMELTING));
+  public static final ItemObject<Item, TinkerBookItem> tinkersGadgetry  = ITEMS.register("tinkers_gadgetry",  () -> new TinkerBookItem(UNSTACKABLE_PROPS, BookType.TINKERS_GADGETRY));
+  public static final ItemObject<Item, TinkerBookItem> fantasticFoundry = ITEMS.register("fantastic_foundry", () -> new TinkerBookItem(UNSTACKABLE_PROPS, BookType.FANTASTIC_FOUNDRY));
+  public static final ItemObject<Item, TinkerBookItem> encyclopedia     = ITEMS.register("encyclopedia",      () -> new TinkerBookItem(UNSTACKABLE_PROPS, BookType.ENCYCLOPEDIA));
 
-  public static final RegistryObject<ParticleType<FluidParticleData>> fluidParticle = PARTICLE_TYPES.register("fluid", FluidParticleData.Type::new);
+  public static final DeferredHolder<ParticleType<?>, ParticleType<FluidParticleData>> fluidParticle = PARTICLE_TYPES.register("fluid", FluidParticleData.Type::new);
 
   /* Loot conditions */
-  public static final RegistryObject<LootItemConditionType> lootConfig = LOOT_CONDITIONS.register(ConfigEnabledCondition.ID.getPath(), () -> new LootItemConditionType(ConfigEnabledCondition.SERIALIZER));
-  public static final RegistryObject<LootItemConditionType> lootBlockOrEntity = LOOT_CONDITIONS.register("block_or_entity", () -> new LootItemConditionType(new BlockOrEntityCondition.ConditionSerializer()));
-  public static final RegistryObject<LootItemConditionType> hasLootContextSet = LOOT_CONDITIONS.register("has_context_set", () -> new LootItemConditionType(new HasLootContextSetCondition.Serializer()));
+  public static final DeferredHolder<LootItemConditionType, LootItemConditionType> lootConfig = LOOT_CONDITIONS.register(ConfigEnabledCondition.ID.getPath(), () -> new LootItemConditionType(ConfigEnabledCondition.SERIALIZER));
+  public static final DeferredHolder<LootItemConditionType, LootItemConditionType> lootBlockOrEntity = LOOT_CONDITIONS.register("block_or_entity", () -> new LootItemConditionType(new BlockOrEntityCondition.ConditionSerializer()));
+  public static final DeferredHolder<LootItemConditionType, LootItemConditionType> hasLootContextSet = LOOT_CONDITIONS.register("has_context_set", () -> new LootItemConditionType(new HasLootContextSetCondition.Serializer()));
   /** @deprecated use {@link slimeknights.mantle.loot.MantleLoot#TAG_FILLED} */
   @SuppressWarnings("removal")
   @Deprecated(forRemoval = true)
-  public static final RegistryObject<LootItemConditionType> lootTagNotEmptyCondition = LOOT_CONDITIONS.register("tag_not_empty", () -> new LootItemConditionType(new TagNotEmptyCondition.ConditionSerializer()));
+  public static final DeferredHolder<LootItemConditionType, LootItemConditionType> lootTagNotEmptyCondition = LOOT_CONDITIONS.register("tag_not_empty", () -> new LootItemConditionType(new TagNotEmptyCondition.ConditionSerializer()));
   /** @deprecated use {@link slimeknights.mantle.loot.MantleLoot#TAG_PREFERENCE} */
   @SuppressWarnings("removal")
   @Deprecated(forRemoval = true)
-  public static final RegistryObject<LootPoolEntryType> lootTagPreference = LOOT_ENTRIES.register("tag_preference", () -> new LootPoolEntryType(new TagPreferenceLootEntry.Serializer()));
+  public static final DeferredHolder<LootPoolEntryType, LootPoolEntryType> lootTagPreference = LOOT_ENTRIES.register("tag_preference", () -> new LootPoolEntryType(new TagPreferenceLootEntry.Serializer()));
 
   /* Slime Balls are edible, believe it or not */
   public static final EnumObject<SlimeType, Item> slimeball = new EnumObject.Builder<SlimeType, Item>(SlimeType.class)

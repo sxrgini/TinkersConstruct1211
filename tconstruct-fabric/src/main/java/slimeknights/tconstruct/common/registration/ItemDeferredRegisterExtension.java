@@ -20,9 +20,9 @@ public class ItemDeferredRegisterExtension extends ItemDeferredRegister {
    * @return  Object containing casts
    */
   public CastItemObject registerCast(String name, Supplier<? extends Item> constructor) {
-    ItemObject<Item> cast = register(name + "_cast", constructor);
-    ItemObject<Item> sandCast = register(name + "_sand_cast", constructor);
-    ItemObject<Item> redSandCast = register(name + "_red_sand_cast", constructor);
+    ItemObject<Item, Item> cast = register(name + "_cast", constructor);
+    ItemObject<Item, Item> sandCast = register(name + "_sand_cast", constructor);
+    ItemObject<Item, Item> redSandCast = register(name + "_red_sand_cast", constructor);
     return new CastItemObject(resource(name), cast, sandCast, redSandCast);
   }
 

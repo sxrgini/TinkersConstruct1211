@@ -183,12 +183,12 @@ public class TinkerItemModelProvider extends ItemModelProvider {
   }
 
   /** Creates a part model with the given texture */
-  private MaterialModelBuilder<ItemModelBuilder> part(ItemObject<? extends MaterialItem> part, String texture) {
+  private MaterialModelBuilder<ItemModelBuilder> part(ItemObject<Item, ? extends MaterialItem> part, String texture) {
     return part(part.getId(), texture);
   }
 
   /** Creates a part model in the parts folder */
-  private void part(ItemObject<? extends MaterialItem> part) {
+  private void part(ItemObject<Item, ? extends MaterialItem> part) {
     part(part, "parts/" + part.getId().getPath());
   }
 

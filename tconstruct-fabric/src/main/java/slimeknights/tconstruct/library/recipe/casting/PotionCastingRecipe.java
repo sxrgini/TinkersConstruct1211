@@ -117,7 +117,7 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<IDispla
   @Override
   public List<IDisplayableCastingRecipe> getRecipes(RegistryAccess access) {
     if (displayRecipes == null) {
-      Collection<Potion> potions = ForgeRegistries.POTIONS.getValues();
+      Collection<Potion> potions = BuiltInRegistries.POTION.getValues();
       List<ItemStack> results = new ArrayList<>(potions.size());
       // first, make all the potion items
       for (Potion potion : potions) {

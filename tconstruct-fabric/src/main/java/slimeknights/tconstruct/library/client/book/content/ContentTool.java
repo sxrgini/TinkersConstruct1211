@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.book.content;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
@@ -131,7 +132,7 @@ public class ContentTool extends PageContent {
       if (this.toolName == null) {
         this.toolName = this.parent.name;
       }
-      Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(this.toolName));
+      Item item = BuiltInRegistries.ITEM.getValue(new ResourceLocation(this.toolName));
       if (item instanceof IModifiableDisplay tool) {
         this.tool = tool;
       } else {

@@ -15,7 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.Tags;
+import slimeknights.mantle.platform.tags.Tags;
 import slimeknights.mantle.platform.data.ExistingFileHelper;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.registration.object.EnumObject;

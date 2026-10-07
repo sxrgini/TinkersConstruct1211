@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery;
 
+import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -31,7 +32,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import slimeknights.mantle.platform.fluid.FluidType;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.RegisterEvent;
-import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.block.GaugeBlock;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
@@ -147,7 +147,7 @@ public final class TinkerSmeltery extends TinkerModule {
   /** Predicate for something that never happens */
   private static final StatePredicate NEVER = Blocks::never;
   /** Creative tab for smeltery, all contents related to the multiblocks */
-  public static final RegistryObject<CreativeModeTab> tabSmeltery = CREATIVE_TABS.register(
+  public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabSmeltery = CREATIVE_TABS.register(
     "smeltery", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "smeltery"))
                                      .icon(() -> new ItemStack(TinkerSmeltery.smelteryController))
                                      .displayItems(TinkerSmeltery::addTabItems)
@@ -156,13 +156,13 @@ public final class TinkerSmeltery extends TinkerModule {
 
   /* Bricks */
   /* Crafting related items */
-  public static final ItemObject<Block> grout = BLOCKS.register("grout", builder(MapColor.COLOR_LIGHT_GRAY, SoundType.SAND).instrument(NoteBlockInstrument.SNARE).strength(3.0f).friction(0.8F), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block> netherGrout = BLOCKS.register("nether_grout", builder(MapColor.COLOR_BROWN, SoundType.SOUL_SOIL).instrument(NoteBlockInstrument.SNARE).strength(3.0f).friction(0.8F), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block, Block> grout = BLOCKS.register("grout", builder(MapColor.COLOR_LIGHT_GRAY, SoundType.SAND).instrument(NoteBlockInstrument.SNARE).strength(3.0f).friction(0.8F), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block, Block> netherGrout = BLOCKS.register("nether_grout", builder(MapColor.COLOR_BROWN, SoundType.SOUL_SOIL).instrument(NoteBlockInstrument.SNARE).strength(3.0f).friction(0.8F), TOOLTIP_BLOCK_ITEM);
 
   // seared blocks
   public static final BuildingBlockObject searedStone, searedPaver;
   public static final WallBuildingBlockObject searedCobble, searedBricks;
-  public static final ItemObject<Block> searedCrackedBricks, searedFancyBricks, searedTriangleBricks;
+  public static final ItemObject<Block, Block> searedCrackedBricks, searedFancyBricks, searedTriangleBricks;
   static {
     Properties properties = searedSolidProps(1);
     Supplier<SearedBlock> searedBlock = () -> new SearedBlock(properties, false);
@@ -174,10 +174,10 @@ public final class TinkerSmeltery extends TinkerModule {
     searedFancyBricks = BLOCKS.register("seared_fancy_bricks", searedBlock, TOOLTIP_BLOCK_ITEM);
     searedTriangleBricks = BLOCKS.register("seared_triangle_bricks", searedBlock, TOOLTIP_BLOCK_ITEM);
   }
-  public static final ItemObject<Block> searedLamp = BLOCKS.register("seared_lamp", () -> new SearedBlock(searedSolidProps(1).lightLevel(state -> 15), false), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block, Block> searedLamp = BLOCKS.register("seared_lamp", () -> new SearedBlock(searedSolidProps(1).lightLevel(state -> 15), false), TOOLTIP_BLOCK_ITEM);
 
   // scorched blocks
-  public static final ItemObject<Block> scorchedStone, polishedScorchedStone, chiseledScorchedBricks;
+  public static final ItemObject<Block, Block> scorchedStone, polishedScorchedStone, chiseledScorchedBricks;
   public static final FenceBuildingBlockObject scorchedBricks;
   public static final BuildingBlockObject scorchedRoad;
   static {
@@ -190,12 +190,12 @@ public final class TinkerSmeltery extends TinkerModule {
     scorchedRoad = BLOCKS.registerBuilding("scorched_road", block, TOOLTIP_BLOCK_ITEM);
     chiseledScorchedBricks = BLOCKS.register("chiseled_scorched_bricks", block, TOOLTIP_BLOCK_ITEM);
   }
-  public static final ItemObject<Block> scorchedLamp = BLOCKS.register("scorched_lamp", () -> new SearedBlock(scorchedSolidProps(1).lightLevel(state -> 15), false), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block, Block> scorchedLamp = BLOCKS.register("scorched_lamp", () -> new SearedBlock(scorchedSolidProps(1).lightLevel(state -> 15), false), TOOLTIP_BLOCK_ITEM);
 
   // glass
-  public static final ItemObject<SearedGlassBlock> searedGlass, scorchedGlass;
-  public static final ItemObject<ClearGlassPaneBlock> searedGlassPane, scorchedGlassPane;
-  public static final ItemObject<SearedTintedGlassBlock> searedTintedGlass, scorchedTintedGlass;
+  public static final ItemObject<Block, SearedGlassBlock> searedGlass, scorchedGlass;
+  public static final ItemObject<Block, ClearGlassPaneBlock> searedGlassPane, scorchedGlassPane;
+  public static final ItemObject<Block, SearedTintedGlassBlock> searedTintedGlass, scorchedTintedGlass;
   static {
     Properties seared = searedNonSolidProps(SoundType.GLASS);
     searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(seared), TOOLTIP_BLOCK_ITEM);
@@ -208,8 +208,8 @@ public final class TinkerSmeltery extends TinkerModule {
     scorchedGlassPane = BLOCKS.register("scorched_glass_pane", () -> new ClearGlassPaneBlock(scorched), TOOLTIP_BLOCK_ITEM);
   }
   // soul glass
-  public static final ItemObject<SearedSoulGlassBlock> searedSoulGlass, scorchedSoulGlass;
-  public static final ItemObject<SoulGlassPaneBlock> searedSoulGlassPane, scorchedSoulGlassPane;
+  public static final ItemObject<Block, SearedSoulGlassBlock> searedSoulGlass, scorchedSoulGlass;
+  public static final ItemObject<Block, SoulGlassPaneBlock> searedSoulGlassPane, scorchedSoulGlassPane;
   static {
     Properties seared = searedNonSolidProps(SoundType.GLASS).noCollission().speedFactor(0.1f).isViewBlocking((state, getter, pos) -> true);
     searedSoulGlass = BLOCKS.register("seared_soul_glass", () -> new SearedSoulGlassBlock(seared), TOOLTIP_BLOCK_ITEM);
@@ -221,8 +221,8 @@ public final class TinkerSmeltery extends TinkerModule {
   }
 
   // peripherals
-  public static final ItemObject<Block> searedDrain, searedDuct, searedChute;
-  public static final ItemObject<Block> scorchedDrain, scorchedDuct, scorchedChute;
+  public static final ItemObject<Block, Block> searedDrain, searedDuct, searedChute;
+  public static final ItemObject<Block, Block> scorchedDrain, scorchedDuct, scorchedChute;
   static {
     Properties seared = searedSolidProps(2);
     searedDrain = BLOCKS.register("seared_drain", () -> new SearedDrainBlock(seared), TOOLTIP_BLOCK_ITEM);
@@ -236,12 +236,12 @@ public final class TinkerSmeltery extends TinkerModule {
   }
 
   // non-solid blocks
-  public static final ItemObject<SearedLadderBlock> searedLadder, scorchedLadder;
-  public static final ItemObject<FaucetBlock> searedFaucet, scorchedFaucet;
-  public static final ItemObject<ChannelBlock> searedChannel, scorchedChannel;
-  public static final ItemObject<CastingBasinBlock> searedBasin, scorchedBasin;
-  public static final ItemObject<CastingTableBlock> searedTable, scorchedTable;
-  public static final ItemObject<ProxyTankBlock> scorchedProxyTank;
+  public static final ItemObject<Block, SearedLadderBlock> searedLadder, scorchedLadder;
+  public static final ItemObject<Block, FaucetBlock> searedFaucet, scorchedFaucet;
+  public static final ItemObject<Block, ChannelBlock> searedChannel, scorchedChannel;
+  public static final ItemObject<Block, CastingBasinBlock> searedBasin, scorchedBasin;
+  public static final ItemObject<Block, CastingTableBlock> searedTable, scorchedTable;
+  public static final ItemObject<Block, ProxyTankBlock> scorchedProxyTank;
   static {
     Properties seared = searedNonSolidProps(SoundType.METAL);
     searedLadder = BLOCKS.register("seared_ladder", () -> new SearedLadderBlock(seared), TOOLTIP_BLOCK_ITEM);
@@ -261,9 +261,9 @@ public final class TinkerSmeltery extends TinkerModule {
 
   // tank
   public static final EnumObject<TankType,SearedTankBlock> searedTank, scorchedTank;
-  public static final ItemObject<CastingTankBlock> searedCastingTank;
-  public static final ItemObject<FluidCannonBlock> searedFluidCannon, scorchedFluidCannon, endFluidCannon;
-  public static final ItemObject<SearedLanternBlock> searedLantern, scorchedLantern;
+  public static final ItemObject<Block, CastingTankBlock> searedCastingTank;
+  public static final ItemObject<Block, FluidCannonBlock> searedFluidCannon, scorchedFluidCannon, endFluidCannon;
+  public static final ItemObject<Block, SearedLanternBlock> searedLantern, scorchedLantern;
   static {
     Function<Block, BlockItem> tankItem = b -> new TankItem(b, ITEM_PROPS, true);
     Function<Block, BlockItem> lanternItem = b -> new TankItem(b, ITEM_PROPS, false);
@@ -283,7 +283,7 @@ public final class TinkerSmeltery extends TinkerModule {
   }
 
   // utility
-  public static final ItemObject<GaugeBlock> copperGauge, obsidianGauge;
+  public static final ItemObject<Block, GaugeBlock> copperGauge, obsidianGauge;
   static {
     Properties gaugeProperties = Properties.of().mapColor(MapColor.NONE).pushReaction(PushReaction.DESTROY).noCollission().strength(0.5F).noOcclusion().requiresCorrectToolForDrops();
     copperGauge = BLOCKS.register("copper_gauge", () -> new GaugeBlock(gaugeProperties), TOOLTIP_BLOCK_ITEM);
@@ -291,12 +291,12 @@ public final class TinkerSmeltery extends TinkerModule {
   }
 
   // controllers
-  public static final ItemObject<SmelteryControllerBlock> smelteryController;
-  public static final ItemObject<FoundryControllerBlock> foundryController;
+  public static final ItemObject<Block, SmelteryControllerBlock> smelteryController;
+  public static final ItemObject<Block, FoundryControllerBlock> foundryController;
   // tiny
-  public static final ItemObject<MelterBlock> searedMelter;
-  public static final ItemObject<HeaterBlock> searedHeater;
-  public static final ItemObject<AlloyerBlock> scorchedAlloyer;
+  public static final ItemObject<Block, MelterBlock> searedMelter;
+  public static final ItemObject<Block, HeaterBlock> searedHeater;
+  public static final ItemObject<Block, AlloyerBlock> scorchedAlloyer;
   static {
     Supplier<Properties> seared = () -> builder(MapColor.COLOR_GRAY, SoundType.METAL).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(8.0F, 28F).lightLevel(s -> s.getValue(ControllerBlock.ACTIVE) ? 13 : 0);
     Supplier<Properties> scorched = () -> builder(MapColor.TERRACOTTA_BROWN, SoundType.BASALT).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(9.0F, 35f).lightLevel(s -> s.getValue(ControllerBlock.ACTIVE) ? 13 : 0);
@@ -312,7 +312,7 @@ public final class TinkerSmeltery extends TinkerModule {
    * Tile entities
    */
   // smeltery
-  public static final RegistryObject<BlockEntityType<SmelteryComponentBlockEntity>> smelteryComponent = BLOCK_ENTITIES.register("smeltery_component", SmelteryComponentBlockEntity::new, set -> {
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SmelteryComponentBlockEntity>> smelteryComponent = BLOCK_ENTITIES.register("smeltery_component", SmelteryComponentBlockEntity::new, set -> {
     // seared
     set.addAll(searedStone.values());
     set.addAll(searedCobble.values());
@@ -324,43 +324,43 @@ public final class TinkerSmeltery extends TinkerModule {
     set.addAll(scorchedBricks.values());
     set.addAll(scorchedRoad.values());
   });
-  public static final RegistryObject<BlockEntityType<SmelteryFluidIO>> drain = BLOCK_ENTITIES.register("drain", DrainBlockEntity::new, set -> set.add(searedDrain.get(), scorchedDrain.get()));
-  public static final RegistryObject<BlockEntityType<ChuteBlockEntity>> chute = BLOCK_ENTITIES.register("chute", ChuteBlockEntity::new, set -> set.add(searedChute.get(), scorchedChute.get()));
-  public static final RegistryObject<BlockEntityType<DuctBlockEntity>> duct = BLOCK_ENTITIES.register("duct", DuctBlockEntity::new, set -> set.add(searedDuct.get(), scorchedDuct.get()));
-  public static final RegistryObject<BlockEntityType<TankBlockEntity>> tank = BLOCK_ENTITIES.register("tank", TankBlockEntity::new, set -> {
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SmelteryFluidIO>> drain = BLOCK_ENTITIES.register("drain", DrainBlockEntity::new, set -> set.add(searedDrain.get(), scorchedDrain.get()));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ChuteBlockEntity>> chute = BLOCK_ENTITIES.register("chute", ChuteBlockEntity::new, set -> set.add(searedChute.get(), scorchedChute.get()));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DuctBlockEntity>> duct = BLOCK_ENTITIES.register("duct", DuctBlockEntity::new, set -> set.add(searedDuct.get(), scorchedDuct.get()));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TankBlockEntity>> tank = BLOCK_ENTITIES.register("tank", TankBlockEntity::new, set -> {
     set.addAll(searedTank.values());
     set.addAll(scorchedTank.values());
   });
-  public static final RegistryObject<BlockEntityType<FluidCannonBlockEntity>> fluidCannon = BLOCK_ENTITIES.register("fluid_cannon", FluidCannonBlockEntity::new, set -> set.add(searedFluidCannon.get(), scorchedFluidCannon.get(), endFluidCannon.get()));
-  public static final RegistryObject<BlockEntityType<LanternBlockEntity>> lantern = BLOCK_ENTITIES.register("lantern", LanternBlockEntity::new, set -> set.add(searedLantern.get(), scorchedLantern.get()));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FluidCannonBlockEntity>> fluidCannon = BLOCK_ENTITIES.register("fluid_cannon", FluidCannonBlockEntity::new, set -> set.add(searedFluidCannon.get(), scorchedFluidCannon.get(), endFluidCannon.get()));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LanternBlockEntity>> lantern = BLOCK_ENTITIES.register("lantern", LanternBlockEntity::new, set -> set.add(searedLantern.get(), scorchedLantern.get()));
   // controller
-  public static final RegistryObject<BlockEntityType<MelterBlockEntity>> melter = BLOCK_ENTITIES.register("melter", MelterBlockEntity::new, searedMelter);
-  public static final RegistryObject<BlockEntityType<SmelteryBlockEntity>> smeltery = BLOCK_ENTITIES.register("smeltery", SmelteryBlockEntity::new, smelteryController);
-  public static final RegistryObject<BlockEntityType<FoundryBlockEntity>> foundry = BLOCK_ENTITIES.register("foundry", FoundryBlockEntity::new, foundryController);
-  public static final RegistryObject<BlockEntityType<HeaterBlockEntity>> heater = BLOCK_ENTITIES.register("heater", HeaterBlockEntity::new, searedHeater);
-  public static final RegistryObject<BlockEntityType<AlloyerBlockEntity>> alloyer = BLOCK_ENTITIES.register("alloyer", AlloyerBlockEntity::new, scorchedAlloyer);
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MelterBlockEntity>> melter = BLOCK_ENTITIES.register("melter", MelterBlockEntity::new, searedMelter);
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SmelteryBlockEntity>> smeltery = BLOCK_ENTITIES.register("smeltery", SmelteryBlockEntity::new, smelteryController);
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FoundryBlockEntity>> foundry = BLOCK_ENTITIES.register("foundry", FoundryBlockEntity::new, foundryController);
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HeaterBlockEntity>> heater = BLOCK_ENTITIES.register("heater", HeaterBlockEntity::new, searedHeater);
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlloyerBlockEntity>> alloyer = BLOCK_ENTITIES.register("alloyer", AlloyerBlockEntity::new, scorchedAlloyer);
   // fluid transfer
-  public static final RegistryObject<BlockEntityType<FaucetBlockEntity>> faucet = BLOCK_ENTITIES.register("faucet", FaucetBlockEntity::new, set -> set.add(searedFaucet.get(), scorchedFaucet.get()));
-  public static final RegistryObject<BlockEntityType<ChannelBlockEntity>> channel = BLOCK_ENTITIES.register("channel", ChannelBlockEntity::new, set -> set.add(searedChannel.get(), scorchedChannel.get()));
-  public static final RegistryObject<BlockEntityType<GaugeBlockEntity>> gauge = BLOCK_ENTITIES.register("gauge", GaugeBlockEntity::new, obsidianGauge);
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FaucetBlockEntity>> faucet = BLOCK_ENTITIES.register("faucet", FaucetBlockEntity::new, set -> set.add(searedFaucet.get(), scorchedFaucet.get()));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ChannelBlockEntity>> channel = BLOCK_ENTITIES.register("channel", ChannelBlockEntity::new, set -> set.add(searedChannel.get(), scorchedChannel.get()));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GaugeBlockEntity>> gauge = BLOCK_ENTITIES.register("gauge", GaugeBlockEntity::new, obsidianGauge);
   // casting
-  public static final RegistryObject<BlockEntityType<CastingBlockEntity>> basin = BLOCK_ENTITIES.register("basin", CastingBlockEntity.Basin::new, set -> set.add(searedBasin.get(), scorchedBasin.get()));
-  public static final RegistryObject<BlockEntityType<CastingBlockEntity>> table = BLOCK_ENTITIES.register("table", CastingBlockEntity.Table::new, set -> set.add(searedTable.get(), scorchedTable.get()));
-  public static final RegistryObject<BlockEntityType<ProxyTankBlockEntity>> proxyTank = BLOCK_ENTITIES.register("proxy_tank", ProxyTankBlockEntity::new, scorchedProxyTank);
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CastingBlockEntity>> basin = BLOCK_ENTITIES.register("basin", CastingBlockEntity.Basin::new, set -> set.add(searedBasin.get(), scorchedBasin.get()));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CastingBlockEntity>> table = BLOCK_ENTITIES.register("table", CastingBlockEntity.Table::new, set -> set.add(searedTable.get(), scorchedTable.get()));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ProxyTankBlockEntity>> proxyTank = BLOCK_ENTITIES.register("proxy_tank", ProxyTankBlockEntity::new, scorchedProxyTank);
   // casting tank
-  public static final RegistryObject<BlockEntityType<CastingTankBlockEntity>> castingTank = BLOCK_ENTITIES.register("casting_tank", CastingTankBlockEntity::new, set -> set.add(searedCastingTank.get()));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CastingTankBlockEntity>> castingTank = BLOCK_ENTITIES.register("casting_tank", CastingTankBlockEntity::new, set -> set.add(searedCastingTank.get()));
 
   /*
    * Items
    */
-  public static final ItemObject<Item> searedBrick = ITEMS.register("seared_brick", ITEM_PROPS);
-  public static final ItemObject<Item> scorchedBrick = ITEMS.register("scorched_brick", ITEM_PROPS);
-  public static final ItemObject<Item> copperCan = ITEMS.register("copper_can", () -> new CopperCanItem(new Item.Properties().stacksTo(16)));
+  public static final ItemObject<Item, Item> searedBrick = ITEMS.register("seared_brick", ITEM_PROPS);
+  public static final ItemObject<Item, Item> scorchedBrick = ITEMS.register("scorched_brick", ITEM_PROPS);
+  public static final ItemObject<Item, Item> copperCan = ITEMS.register("copper_can", () -> new CopperCanItem(new Item.Properties().stacksTo(16)));
 
   // casts
   // basic
-  public static final ItemObject<Item> blankSandCast  = ITEMS.register("blank_sand_cast", ITEM_PROPS);
-  public static final ItemObject<Item> blankRedSandCast  = ITEMS.register("blank_red_sand_cast", ITEM_PROPS);
+  public static final ItemObject<Item, Item> blankSandCast  = ITEMS.register("blank_sand_cast", ITEM_PROPS);
+  public static final ItemObject<Item, Item> blankRedSandCast  = ITEMS.register("blank_red_sand_cast", ITEM_PROPS);
   public static final CastItemObject ingotCast  = ITEMS.registerCast("ingot", ITEM_PROPS);
   public static final CastItemObject nuggetCast = ITEMS.registerCast("nugget", ITEM_PROPS);
   public static final CastItemObject gemCast    = ITEMS.registerCast("gem", ITEM_PROPS);
@@ -390,7 +390,7 @@ public final class TinkerSmeltery extends TinkerModule {
   // bow
   public static final CastItemObject bowLimbCast = ITEMS.registerCast(TinkerToolParts.bowLimb, ITEM_PROPS);
   public static final CastItemObject bowGripCast = ITEMS.registerCast(TinkerToolParts.bowGrip, ITEM_PROPS);
-  public static final ItemObject<Item> arrowCast = ITEMS.register("arrow_cast", TOOLTIP_ITEM);
+  public static final ItemObject<Item, Item> arrowCast = ITEMS.register("arrow_cast", TOOLTIP_ITEM);
   // armor
   public static final CastItemObject helmetPlatingCast = ITEMS.registerCast("helmet_plating", () -> new PartCastItem(ITEM_PROPS, () -> TinkerToolParts.plating.get(ArmorItem.Type.HELMET)));
   public static final CastItemObject chestplatePlatingCast = ITEMS.registerCast("chestplate_plating", () -> new PartCastItem(ITEM_PROPS, () -> TinkerToolParts.plating.get(ArmorItem.Type.CHESTPLATE)));
@@ -405,51 +405,51 @@ public final class TinkerSmeltery extends TinkerModule {
    * Recipe
    */
   // casting
-  public static final RegistryObject<TypeAwareRecipeSerializer<ItemCastingRecipe>> basinRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin", () -> LoadableRecipeSerializer.of(ItemCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
-  public static final RegistryObject<TypeAwareRecipeSerializer<ItemCastingRecipe>> tableRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table", () -> LoadableRecipeSerializer.of(ItemCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
-  public static final RegistryObject<TypeAwareRecipeSerializer<ContainerFillingRecipe>> basinFillingRecipeSerializer = RECIPE_SERIALIZERS.register("basin_filling", () -> LoadableRecipeSerializer.of(ContainerFillingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
-  public static final RegistryObject<TypeAwareRecipeSerializer<ContainerFillingRecipe>> tableFillingRecipeSerializer = RECIPE_SERIALIZERS.register("table_filling", () -> LoadableRecipeSerializer.of(ContainerFillingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
-  public static final RegistryObject<TypeAwareRecipeSerializer<CastDuplicationRecipe>> basinDuplicationRecipeSerializer = RECIPE_SERIALIZERS.register("basin_duplication", () -> LoadableRecipeSerializer.of(CastDuplicationRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
-  public static final RegistryObject<TypeAwareRecipeSerializer<CastDuplicationRecipe>> tableDuplicationRecipeSerializer = RECIPE_SERIALIZERS.register("table_duplication", () -> LoadableRecipeSerializer.of(CastDuplicationRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
-  public static final RegistryObject<TypeAwareRecipeSerializer<PotionCastingRecipe>> basinPotionRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin_potion", () -> LoadableRecipeSerializer.of(PotionCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
-  public static final RegistryObject<TypeAwareRecipeSerializer<PotionCastingRecipe>> tablePotionRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table_potion", () -> LoadableRecipeSerializer.of(PotionCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
-  public static final RegistryObject<TypeAwareRecipeSerializer<TippingCastingRecipe>> basinTippingRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin_tipping", () -> LoadableRecipeSerializer.of(TippingCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
-  public static final RegistryObject<TypeAwareRecipeSerializer<TippingCastingRecipe>> tableTippingRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table_tipping", () -> LoadableRecipeSerializer.of(TippingCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
-  public static final RegistryObject<TypeAwareRecipeSerializer<TipClearingCastingRecipe>> basinTipClearingRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin_tipped_clearing", () -> LoadableRecipeSerializer.of(TipClearingCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
-  public static final RegistryObject<TypeAwareRecipeSerializer<TipClearingCastingRecipe>> tableTipClearingRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table_tipped_clearing", () -> LoadableRecipeSerializer.of(TipClearingCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
-  public static final RegistryObject<TypeAwareRecipeSerializer<RetexturedCastingRecipe>> retexturedBasinRecipeSerializer = RECIPE_SERIALIZERS.register("retextured_casting_basin", () -> LoadableRecipeSerializer.of(RetexturedCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
-  public static final RegistryObject<TypeAwareRecipeSerializer<RetexturedCastingRecipe>> retexturedTableRecipeSerializer = RECIPE_SERIALIZERS.register("retextured_casting_table", () -> LoadableRecipeSerializer.of(RetexturedCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<ItemCastingRecipe>> basinRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin", () -> LoadableRecipeSerializer.of(ItemCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<ItemCastingRecipe>> tableRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table", () -> LoadableRecipeSerializer.of(ItemCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<ContainerFillingRecipe>> basinFillingRecipeSerializer = RECIPE_SERIALIZERS.register("basin_filling", () -> LoadableRecipeSerializer.of(ContainerFillingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<ContainerFillingRecipe>> tableFillingRecipeSerializer = RECIPE_SERIALIZERS.register("table_filling", () -> LoadableRecipeSerializer.of(ContainerFillingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<CastDuplicationRecipe>> basinDuplicationRecipeSerializer = RECIPE_SERIALIZERS.register("basin_duplication", () -> LoadableRecipeSerializer.of(CastDuplicationRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<CastDuplicationRecipe>> tableDuplicationRecipeSerializer = RECIPE_SERIALIZERS.register("table_duplication", () -> LoadableRecipeSerializer.of(CastDuplicationRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<PotionCastingRecipe>> basinPotionRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin_potion", () -> LoadableRecipeSerializer.of(PotionCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<PotionCastingRecipe>> tablePotionRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table_potion", () -> LoadableRecipeSerializer.of(PotionCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<TippingCastingRecipe>> basinTippingRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin_tipping", () -> LoadableRecipeSerializer.of(TippingCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<TippingCastingRecipe>> tableTippingRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table_tipping", () -> LoadableRecipeSerializer.of(TippingCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<TipClearingCastingRecipe>> basinTipClearingRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin_tipped_clearing", () -> LoadableRecipeSerializer.of(TipClearingCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<TipClearingCastingRecipe>> tableTipClearingRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table_tipped_clearing", () -> LoadableRecipeSerializer.of(TipClearingCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<RetexturedCastingRecipe>> retexturedBasinRecipeSerializer = RECIPE_SERIALIZERS.register("retextured_casting_basin", () -> LoadableRecipeSerializer.of(RetexturedCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<RetexturedCastingRecipe>> retexturedTableRecipeSerializer = RECIPE_SERIALIZERS.register("retextured_casting_table", () -> LoadableRecipeSerializer.of(RetexturedCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
   // material casting
-  public static final RegistryObject<TypeAwareRecipeSerializer<MaterialCastingRecipe>> basinMaterialSerializer = RECIPE_SERIALIZERS.register("basin_casting_material", () -> LoadableRecipeSerializer.of(MaterialCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
-  public static final RegistryObject<TypeAwareRecipeSerializer<MaterialCastingRecipe>> tableMaterialSerializer = RECIPE_SERIALIZERS.register("table_casting_material", () -> LoadableRecipeSerializer.of(MaterialCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
-  public static final RegistryObject<TypeAwareRecipeSerializer<CompositeCastingRecipe>> basinCompositeSerializer = RECIPE_SERIALIZERS.register("basin_casting_composite", () -> LoadableRecipeSerializer.of(CompositeCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
-  public static final RegistryObject<TypeAwareRecipeSerializer<CompositeCastingRecipe>> tableCompositeSerializer = RECIPE_SERIALIZERS.register("table_casting_composite", () -> LoadableRecipeSerializer.of(CompositeCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
-  public static final RegistryObject<TypeAwareRecipeSerializer<ToolCastingRecipe>> basinToolSerializer = RECIPE_SERIALIZERS.register("basin_tool_casting", () -> LoadableRecipeSerializer.of(ToolCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
-  public static final RegistryObject<TypeAwareRecipeSerializer<ToolCastingRecipe>> tableToolSerializer = RECIPE_SERIALIZERS.register("table_tool_casting", () -> LoadableRecipeSerializer.of(ToolCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
-  public static final RegistryObject<RecipeSerializer<MaterialFluidRecipe>> materialFluidRecipe = RECIPE_SERIALIZERS.register("material_fluid", () -> LoadableRecipeSerializer.of(MaterialFluidRecipe.LOADER));
-  public static final RegistryObject<TypeAwareRecipeSerializer<PartSwapCastingRecipe>> basinPartSwappingSerializer = RECIPE_SERIALIZERS.register("basin_casting_part_swapping", () -> LoadableRecipeSerializer.of(PartSwapCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
-  public static final RegistryObject<TypeAwareRecipeSerializer<PartSwapCastingRecipe>> tablePartSwappingSerializer = RECIPE_SERIALIZERS.register("table_casting_part_swapping", () -> LoadableRecipeSerializer.of(PartSwapCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<MaterialCastingRecipe>> basinMaterialSerializer = RECIPE_SERIALIZERS.register("basin_casting_material", () -> LoadableRecipeSerializer.of(MaterialCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<MaterialCastingRecipe>> tableMaterialSerializer = RECIPE_SERIALIZERS.register("table_casting_material", () -> LoadableRecipeSerializer.of(MaterialCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<CompositeCastingRecipe>> basinCompositeSerializer = RECIPE_SERIALIZERS.register("basin_casting_composite", () -> LoadableRecipeSerializer.of(CompositeCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<CompositeCastingRecipe>> tableCompositeSerializer = RECIPE_SERIALIZERS.register("table_casting_composite", () -> LoadableRecipeSerializer.of(CompositeCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<ToolCastingRecipe>> basinToolSerializer = RECIPE_SERIALIZERS.register("basin_tool_casting", () -> LoadableRecipeSerializer.of(ToolCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<ToolCastingRecipe>> tableToolSerializer = RECIPE_SERIALIZERS.register("table_tool_casting", () -> LoadableRecipeSerializer.of(ToolCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
+  public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MaterialFluidRecipe>> materialFluidRecipe = RECIPE_SERIALIZERS.register("material_fluid", () -> LoadableRecipeSerializer.of(MaterialFluidRecipe.LOADER));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<PartSwapCastingRecipe>> basinPartSwappingSerializer = RECIPE_SERIALIZERS.register("basin_casting_part_swapping", () -> LoadableRecipeSerializer.of(PartSwapCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<PartSwapCastingRecipe>> tablePartSwappingSerializer = RECIPE_SERIALIZERS.register("table_casting_part_swapping", () -> LoadableRecipeSerializer.of(PartSwapCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
   // molding
-  public static final RegistryObject<TypeAwareRecipeSerializer<MoldingRecipe>> moldingBasinSerializer = RECIPE_SERIALIZERS.register("molding_basin", () -> LoadableRecipeSerializer.of(MoldingRecipe.LOADER, TinkerRecipeTypes.MOLDING_BASIN));
-  public static final RegistryObject<TypeAwareRecipeSerializer<MoldingRecipe>> moldingTableSerializer = RECIPE_SERIALIZERS.register("molding_table", () -> LoadableRecipeSerializer.of(MoldingRecipe.LOADER, TinkerRecipeTypes.MOLDING_TABLE));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<MoldingRecipe>> moldingBasinSerializer = RECIPE_SERIALIZERS.register("molding_basin", () -> LoadableRecipeSerializer.of(MoldingRecipe.LOADER, TinkerRecipeTypes.MOLDING_BASIN));
+  public static final DeferredHolder<RecipeSerializer<?>, TypeAwareRecipeSerializer<MoldingRecipe>> moldingTableSerializer = RECIPE_SERIALIZERS.register("molding_table", () -> LoadableRecipeSerializer.of(MoldingRecipe.LOADER, TinkerRecipeTypes.MOLDING_TABLE));
   // melting
-  public static final RegistryObject<RecipeSerializer<MeltingRecipe>> meltingSerializer = RECIPE_SERIALIZERS.register("melting", () -> LoadableRecipeSerializer.of(MeltingRecipe.LOADER));
-  public static final RegistryObject<RecipeSerializer<OreMeltingRecipe>> oreMeltingSerializer = RECIPE_SERIALIZERS.register("ore_melting", () -> LoadableRecipeSerializer.of(OreMeltingRecipe.LOADER));
+  public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MeltingRecipe>> meltingSerializer = RECIPE_SERIALIZERS.register("melting", () -> LoadableRecipeSerializer.of(MeltingRecipe.LOADER));
+  public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<OreMeltingRecipe>> oreMeltingSerializer = RECIPE_SERIALIZERS.register("ore_melting", () -> LoadableRecipeSerializer.of(OreMeltingRecipe.LOADER));
   // TODO 1.21: correct misspelled name
-  public static final RegistryObject<RecipeSerializer<DamageableMeltingRecipe>> damagableMeltingSerializer = RECIPE_SERIALIZERS.register("damagable_melting", () -> LoadableRecipeSerializer.of(DamageableMeltingRecipe.LOADER));
-  public static final RegistryObject<RecipeSerializer<MaterialMeltingRecipe>> materialMeltingSerializer = RECIPE_SERIALIZERS.register("material_melting", () -> LoadableRecipeSerializer.of(MaterialMeltingRecipe.LOADER));
-  public static final RegistryObject<RecipeSerializer<MeltingFuel>> fuelSerializer = RECIPE_SERIALIZERS.register("melting_fuel", () -> LoadableRecipeSerializer.of(MeltingFuel.LOADER));
-  public static final RegistryObject<RecipeSerializer<EntityMeltingRecipe>> entityMeltingSerializer = RECIPE_SERIALIZERS.register("entity_melting", () -> LoadableRecipeSerializer.of(EntityMeltingRecipe.LOADER));
+  public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<DamageableMeltingRecipe>> damagableMeltingSerializer = RECIPE_SERIALIZERS.register("damagable_melting", () -> LoadableRecipeSerializer.of(DamageableMeltingRecipe.LOADER));
+  public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MaterialMeltingRecipe>> materialMeltingSerializer = RECIPE_SERIALIZERS.register("material_melting", () -> LoadableRecipeSerializer.of(MaterialMeltingRecipe.LOADER));
+  public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MeltingFuel>> fuelSerializer = RECIPE_SERIALIZERS.register("melting_fuel", () -> LoadableRecipeSerializer.of(MeltingFuel.LOADER));
+  public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<EntityMeltingRecipe>> entityMeltingSerializer = RECIPE_SERIALIZERS.register("entity_melting", () -> LoadableRecipeSerializer.of(EntityMeltingRecipe.LOADER));
   // alloying
-  public static final RegistryObject<RecipeSerializer<AlloyRecipe>> alloyingSerializer = RECIPE_SERIALIZERS.register("alloy", () -> LoadableRecipeSerializer.of(AlloyRecipe.LOADER));
+  public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<AlloyRecipe>> alloyingSerializer = RECIPE_SERIALIZERS.register("alloy", () -> LoadableRecipeSerializer.of(AlloyRecipe.LOADER));
 
   /*
    * Inventory
    */
-  public static final RegistryObject<MenuType<MelterContainerMenu>> melterContainer = MENUS.register("melter", MelterContainerMenu::new);
-  public static final RegistryObject<MenuType<HeatingStructureContainerMenu>> smelteryContainer = MENUS.register("smeltery", HeatingStructureContainerMenu::new);
-  public static final RegistryObject<MenuType<SingleItemContainerMenu>> singleItemContainer = MENUS.register("single_item", SingleItemContainerMenu::new);
-  public static final RegistryObject<MenuType<AlloyerContainerMenu>> alloyerContainer = MENUS.register("alloyer", AlloyerContainerMenu::new);
+  public static final DeferredHolder<MenuType<?>, MenuType<MelterContainerMenu>> melterContainer = MENUS.register("melter", MelterContainerMenu::new);
+  public static final DeferredHolder<MenuType<?>, MenuType<HeatingStructureContainerMenu>> smelteryContainer = MENUS.register("smeltery", HeatingStructureContainerMenu::new);
+  public static final DeferredHolder<MenuType<?>, MenuType<SingleItemContainerMenu>> singleItemContainer = MENUS.register("single_item", SingleItemContainerMenu::new);
+  public static final DeferredHolder<MenuType<?>, MenuType<AlloyerContainerMenu>> alloyerContainer = MENUS.register("alloyer", AlloyerContainerMenu::new);
 
   @SubscribeEvent
   void commonSetup(FMLCommonSetupEvent event) {

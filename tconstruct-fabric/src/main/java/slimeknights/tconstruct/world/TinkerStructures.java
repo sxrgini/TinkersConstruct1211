@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.world;
 
+import slimeknights.mantle.platform.registry.DeferredHolder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -17,7 +19,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
+import slimeknights.mantle.platform.registry.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.Logger;
@@ -40,7 +42,7 @@ import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeature;
 @SuppressWarnings("unused")
 public final class TinkerStructures extends TinkerModule {
   static final Logger log = Util.getLogger("tinker_structures");
-  private static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, TConstruct.MOD_ID);
+  private static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(BuiltInRegistries.FEATURE, TConstruct.MOD_ID);
   private static final DeferredRegister<StructureType<?>> STRUCTURE_TYPE = DeferredRegister.create(Registries.STRUCTURE_TYPE, TConstruct.MOD_ID);
   private static final DeferredRegister<StructurePieceType> STRUCTURE_PIECE = DeferredRegister.create(Registries.STRUCTURE_PIECE, TConstruct.MOD_ID);
   private static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATORS = DeferredRegister.create(Registries.TREE_DECORATOR_TYPE, TConstruct.MOD_ID);
@@ -49,11 +51,11 @@ public final class TinkerStructures extends TinkerModule {
 
   public TinkerStructures() {
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-    FEATURES.register(bus);
-    STRUCTURE_TYPE.register(bus);
-    STRUCTURE_PIECE.register(bus);
-    TREE_DECORATORS.register(bus);
-    ROOT_PLACERS.register(bus);
+    FEATURES.register();
+    STRUCTURE_TYPE.register();
+    STRUCTURE_PIECE.register();
+    TREE_DECORATORS.register();
+    ROOT_PLACERS.register();
   }
 
 
@@ -67,7 +69,7 @@ public final class TinkerStructures extends TinkerModule {
    * Features
    */
   /** Overworld variant of slimy trees */
-  public static final RegistryObject<SlimeTreeFeature> slimeTree = FEATURES.register("slime_tree", () -> new SlimeTreeFeature(SlimeTreeConfig.CODEC));
+  public static final DeferredHolder<Feature<?>, SlimeTreeFeature> slimeTree = FEATURES.register("slime_tree", () -> new SlimeTreeFeature(SlimeTreeConfig.CODEC));
   /** Nether variant of slimy trees */
   public static final RegistryObject<SlimeFungusFeature> slimeFungus = FEATURES.register("slime_fungus", () -> new SlimeFungusFeature(SlimeFungusConfig.CODEC));
 

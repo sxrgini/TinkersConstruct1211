@@ -35,6 +35,7 @@ CLASS_MAP = {
   'net.minecraftforge.common.crafting.conditions.TrueCondition': P+'condition.TrueCondition',
   'net.minecraftforge.common.crafting.conditions.FalseCondition': P+'condition.FalseCondition',
   'net.minecraftforge.common.crafting.conditions.NotCondition': P+'condition.NotCondition',
+  'net.minecraftforge.common.Tags': P+'tags.Tags',
   'net.minecraftforge.api.distmarker.Dist': 'net.fabricmc.api.EnvType',
   'net.minecraftforge.fml.ModList': 'net.fabricmc.loader.api.FabricLoader',
 }
@@ -78,6 +79,28 @@ def migrate(text):
         new = re.sub(r'\b' + old + r'\b', nw, new)
     return new, changed
 
+REGISTRY_NAMES = {
+  'ITEMS': 'ITEM', 'BLOCKS': 'BLOCK', 'FLUIDS': 'FLUID', 'ENTITY_TYPES': 'ENTITY_TYPE', 'BLOCK_ENTITY_TYPES': 'BLOCK_ENTITY_TYPE',
+  'MOB_EFFECTS': 'MOB_EFFECT', 'POTIONS': 'POTION', 'RECIPE_TYPES': 'RECIPE_TYPE', 'RECIPE_SERIALIZERS': 'RECIPE_SERIALIZER',
+  'MENU_TYPES': 'MENU', 'SOUND_EVENTS': 'SOUND_EVENT', 'ATTRIBUTES': 'ATTRIBUTE', 'PARTICLE_TYPES': 'PARTICLE_TYPE', 'FEATURES': 'FEATURE',
+}
+def migrate_registries(text):
+    if 'ForgeRegistries' not in text:
+        return text, False
+    new = text
+    for old, nw in REGISTRY_NAMES.items():
+        new = re.sub(r'\bForgeRegistries\.' + old + r'\b', 'BuiltInRegistries.' + nw, new)
+        new = re.sub(r'\bForgeRegistries\.Keys\.' + old + r'\b', 'Registries.' + nw, new)
+    if new == text:
+        return text, False
+    if 'BuiltInRegistries.' in new and 'import net.minecraft.core.registries.BuiltInRegistries;' not in new:
+        new = re.sub(r'^(package .*;\n)', r'\1\nimport net.minecraft.core.registries.BuiltInRegistries;', new, count=1, flags=re.M)
+    if 'Registries.' in re.sub(r'BuiltInRegistries\.', '', new) and 'import net.minecraft.core.registries.Registries;' not in new:
+        new = re.sub(r'^(package .*;\n)', r'\1\nimport net.minecraft.core.registries.Registries;', new, count=1, flags=re.M)
+    if 'ForgeRegistries' not in new:
+        new = new.replace('import net.minecraftforge.registries.ForgeRegistries;\n', '')
+    return new, True
+
 def main(root):
     n = 0
     for d, _, fs in os.walk(root):
@@ -86,6 +109,8 @@ def main(root):
                 p = os.path.join(d, f)
                 s = open(p, encoding='utf8').read()
                 t, ch = migrate(s)
+                t, ch2 = migrate_registries(t)
+                ch = ch or ch2
                 if ch and t != s:
                     open(p, 'w', encoding='utf8').write(t); n += 1
     print('rewrote', n, 'files')

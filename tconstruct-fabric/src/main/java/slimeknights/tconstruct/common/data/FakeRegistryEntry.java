@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common.data;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -33,22 +34,22 @@ public class FakeRegistryEntry {
 
   /** Gets or creates a fake block with the given ID */
   public static Block block(ResourceLocation id) {
-    return getOrCreate(ForgeRegistries.BLOCKS, id, () -> new Block(BlockBehaviour.Properties.of()));
+    return getOrCreate(BuiltInRegistries.BLOCK, id, () -> new Block(BlockBehaviour.Properties.of()));
   }
 
   /** Gets or creates a fake item with the given ID */
   public static Item item(ResourceLocation id) {
-    return getOrCreate(ForgeRegistries.ITEMS, id, () -> new Item(new Item.Properties()));
+    return getOrCreate(BuiltInRegistries.ITEM, id, () -> new Item(new Item.Properties()));
   }
 
   /** Gets or creates a fake mob effect with the given ID */
   public static MobEffect effect(ResourceLocation id) {
-    return getOrCreate(ForgeRegistries.MOB_EFFECTS, id, () -> new TinkerEffect(MobEffectCategory.NEUTRAL, false));
+    return getOrCreate(BuiltInRegistries.MOB_EFFECT, id, () -> new TinkerEffect(MobEffectCategory.NEUTRAL, false));
   }
 
   /** Gets or creates a fake entity with the given ID */
   public static <T extends Entity> EntityType<?> entity(ResourceLocation id) {
-    return getOrCreate(ForgeRegistries.ENTITY_TYPES, id, () ->
+    return getOrCreate(BuiltInRegistries.ENTITY_TYPE, id, () ->
       EntityType.Builder.of((type, level) -> {
         throw new UnsupportedOperationException("Cannot create instance of fake entity");
       }, MobCategory.MISC).build(id.toString()));

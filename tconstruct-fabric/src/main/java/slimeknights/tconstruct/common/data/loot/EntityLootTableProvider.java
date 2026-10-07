@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common.data.loot;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.NbtPredicate;
@@ -43,7 +44,7 @@ public class EntityLootTableProvider extends EntityLootSubProvider {
 
   @Override
   protected Stream<EntityType<?>> getKnownEntityTypes() {
-    return ForgeRegistries.ENTITY_TYPES.getEntries().stream()
+    return BuiltInRegistries.ENTITY_TYPE.getEntries().stream()
                                    // remove earth slime entity, we redirect to the vanilla loot table
                                    .filter(entry -> TConstruct.MOD_ID.equals(entry.getKey().location().getNamespace()))
                                    .map(Entry::getValue);

@@ -132,8 +132,8 @@ public class CopperCanItem extends Item {
     CompoundTag nbt = stack.getTag();
     if (nbt != null && nbt.contains(TAG_FLUID, Tag.TAG_STRING)) {
       ResourceLocation location = ResourceLocation.tryParse(nbt.getString(TAG_FLUID));
-      if (location != null && ForgeRegistries.FLUIDS.containsKey(location)) {
-        Fluid fluid = ForgeRegistries.FLUIDS.getValue(location);
+      if (location != null && BuiltInRegistries.FLUID.containsKey(location)) {
+        Fluid fluid = BuiltInRegistries.FLUID.getValue(location);
         if (fluid != null) {
           return fluid;
         }
