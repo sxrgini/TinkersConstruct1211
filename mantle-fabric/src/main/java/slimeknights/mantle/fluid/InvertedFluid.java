@@ -18,8 +18,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.EventHooks;
-import net.neoforged.neoforge.fluids.BaseFlowingFluid;
+import slimeknights.mantle.platform.fluid.BaseFlowingFluid;
 
 import java.util.Map;
 
@@ -113,7 +112,7 @@ public abstract class InvertedFluid extends BaseFlowingFluid {
       BlockState sideBlock = level.getBlockState(side);
       FluidState sideFluid = sideBlock.getFluidState();
       if (sideFluid.getType().isSame(this) && this.canPassThroughWall(direction, level, pos, block, side, sideBlock)) {
-        if (sideFluid.isSource() && EventHooks.canCreateFluidSource(level, side, sideBlock)) {
+        if (sideFluid.isSource() && getFluidType().canConvertToSource()) {
           sourceSides++;
         }
         maxSide = Math.max(maxSide, sideFluid.getAmount());

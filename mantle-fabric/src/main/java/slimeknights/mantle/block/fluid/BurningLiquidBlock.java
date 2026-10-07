@@ -26,7 +26,7 @@ public class BurningLiquidBlock extends LiquidBlock {
 
   @Override
   public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-    if (!entity.fireImmune() && entity.getFluidTypeHeight(fluid.getFluidType()) > 0) {
+    if (!entity.fireImmune() && entity.level().getFluidState(entity.blockPosition()).is(fluid)) {
       entity.igniteForSeconds(burnTime);
       if (entity.hurt(entity.damageSources().lava(), damage)) {
         entity.playSound(SoundEvents.GENERIC_BURN, 0.4F, 2.0F + level.random.nextFloat() * 0.4F);

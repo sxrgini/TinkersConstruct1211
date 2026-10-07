@@ -1,5 +1,6 @@
 package slimeknights.mantle.data.predicate.fluid;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.platform.fluid.FluidType;
@@ -19,7 +20,7 @@ public record FluidTypePredicate(Set<FluidType> types) implements FluidPredicate
 
   @Override
   public boolean matches(Fluid fluid) {
-    return types.contains(fluid.getFluidType());
+    return types.contains(FluidTypes.of(fluid));
   }
 
   @Override

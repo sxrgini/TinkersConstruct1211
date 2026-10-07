@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.neoforge.fluids.BaseFlowingFluid;
+import slimeknights.mantle.platform.fluid.BaseFlowingFluid;
 import slimeknights.mantle.platform.fluid.FluidType;
 
 import javax.annotation.Nullable;

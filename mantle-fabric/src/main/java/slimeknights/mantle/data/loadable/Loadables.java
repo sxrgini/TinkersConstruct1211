@@ -34,7 +34,7 @@ import slimeknights.mantle.platform.ingredient.SizedIngredient;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.platform.fluid.crafting.FluidIngredient;
 import slimeknights.mantle.platform.fluid.crafting.SizedFluidIngredient;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.mantle.data.loadable.common.CodecLoadable;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
@@ -64,7 +64,7 @@ public class Loadables {
   /* Registries */
   public static final ResourceLocationLoadable<SoundEvent> SOUND_EVENT = new RegistryLoadable<>(BuiltInRegistries.SOUND_EVENT);
   public static final ResourceLocationLoadable<Fluid> FLUID = new RegistryLoadable<>(BuiltInRegistries.FLUID);
-  public static final ResourceLocationLoadable<FluidType> FLUID_TYPE = new RegistryLoadable<>(NeoForgeRegistries.FLUID_TYPES);
+  public static final ResourceLocationLoadable<FluidType> FLUID_TYPE = new RegistryLoadable<>(FluidTypes.REGISTRY);
   public static final ResourceLocationLoadable<Block> BLOCK = new RegistryLoadable<>(BuiltInRegistries.BLOCK);
   public static final ResourceLocationLoadable<EntityType<?>> ENTITY_TYPE = new RegistryLoadable<>(BuiltInRegistries.ENTITY_TYPE);
   public static final ResourceLocationLoadable<Item> ITEM = new RegistryLoadable<>(BuiltInRegistries.ITEM);

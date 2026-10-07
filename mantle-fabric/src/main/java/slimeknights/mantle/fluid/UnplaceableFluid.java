@@ -16,6 +16,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import slimeknights.mantle.platform.fluid.FluidType;
+import slimeknights.mantle.platform.fluid.FluidTypeProvider;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.registration.FluidBuilder;
 
@@ -23,7 +24,7 @@ import java.util.function.Supplier;
 
 /** Fluid with a bucket form, but no block form (hence no flowing) */
 @AllArgsConstructor
-public class UnplaceableFluid extends Fluid {
+public class UnplaceableFluid extends Fluid implements FluidTypeProvider {
   /** Forge fluid attributes builder */
   private final Supplier<? extends FluidType> type;
   /** Bucket form of the liquid, use a supplier to air if no bucket form */

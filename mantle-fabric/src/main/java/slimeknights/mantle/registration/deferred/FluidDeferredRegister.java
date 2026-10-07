@@ -15,12 +15,12 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.neoforged.neoforge.fluids.BaseFlowingFluid;
-import net.neoforged.neoforge.fluids.BaseFlowingFluid.Properties;
+import slimeknights.mantle.platform.fluid.BaseFlowingFluid;
+import slimeknights.mantle.platform.fluid.BaseFlowingFluid.Properties;
 import slimeknights.mantle.platform.fluid.FluidType;
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import slimeknights.mantle.platform.registry.DeferredRegister;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.mantle.block.fluid.BurningLiquidBlock;
 import slimeknights.mantle.block.fluid.MobEffectLiquidBlock;
 import slimeknights.mantle.fluid.InvertedFluid;
@@ -55,7 +55,7 @@ public class FluidDeferredRegister extends DeferredRegister<Fluid> {
   /** Creates an instance with default registers */
   public FluidDeferredRegister(String modID) {
     this(modID,
-      DeferredRegister.create(NeoForgeRegistries.Keys.FLUID_TYPES, modID),
+      DeferredRegister.create(FluidTypes.KEY, modID),
       DeferredRegister.create(Registries.BLOCK, modID),
       DeferredRegister.create(Registries.ITEM, modID)
     );

@@ -1,5 +1,6 @@
 package slimeknights.mantle.client.render;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -268,7 +269,7 @@ public class FluidRenderer {
     TextureAtlasSprite still = getBlockSprite(clientFluid.getStillTexture(fluid));
     TextureAtlasSprite flowing = getBlockSprite(clientFluid.getFlowingTexture(fluid));
     int color = clientFluid.getTintColor(fluid);
-    FluidType type = fluid.getFluid().getFluidType();
+    FluidType type = FluidTypes.of(fluid.getFluid());
     light = withBlockLight(light, type.getLightLevel(fluid));
     boolean isGas = type.isLighterThanAir();
 
@@ -322,7 +323,7 @@ public class FluidRenderer {
     IClientFluidTypeExtensions clientFluid = IClientFluidTypeExtensions.of(fluid.getFluid());
     TextureAtlasSprite still = getBlockSprite(clientFluid.getStillTexture(fluid));
     TextureAtlasSprite flowing = getBlockSprite(clientFluid.getFlowingTexture(fluid));
-    FluidType type = fluid.getFluid().getFluidType();
+    FluidType type = FluidTypes.of(fluid.getFluid());
     boolean isGas = type.isLighterThanAir();
     int color = clientFluid.getTintColor(fluid);
     light = withBlockLight(light, type.getLightLevel(fluid));

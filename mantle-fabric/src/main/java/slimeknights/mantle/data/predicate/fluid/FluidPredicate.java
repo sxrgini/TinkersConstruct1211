@@ -1,5 +1,6 @@
 package slimeknights.mantle.data.predicate.fluid;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluid;
@@ -54,7 +55,7 @@ public interface FluidPredicate extends IJsonPredicate<Fluid> {
   /** Checks if the fluid has a bucket form. */
   FluidPredicate HAS_BUCKET = simple(fluid -> fluid.getBucket() != Items.AIR);
   /** Checks if the fluid is lighter than air, typically meaning it flows upwards. */
-  FluidPredicate LIGHTER_THAN_AIR = simple(fluid -> fluid.getFluidType().isLighterThanAir());
+  FluidPredicate LIGHTER_THAN_AIR = simple(fluid -> FluidTypes.of(fluid).isLighterThanAir());
 
 
   /* Helper methods */

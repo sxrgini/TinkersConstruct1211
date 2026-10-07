@@ -1,5 +1,6 @@
 package slimeknights.mantle.fluid;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.core.BlockPos;
@@ -21,8 +22,8 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import slimeknights.mantle.platform.capability.FluidHandlers;
-import net.neoforged.neoforge.common.SoundAction;
-import net.neoforged.neoforge.common.SoundActions;
+import slimeknights.mantle.platform.fluid.SoundAction;
+import slimeknights.mantle.platform.fluid.SoundActions;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
@@ -49,7 +50,7 @@ public class FluidTransferHelper {
 
   /** Gets the given sound from the fluid */
   public static SoundEvent getSound(FluidStack fluid, SoundAction action, SoundEvent fallback) {
-    SoundEvent event = fluid.getFluid().getFluidType().getSound(fluid, action);
+    SoundEvent event = FluidTypes.of(fluid.getFluid()).getSound(fluid, action);
     if (event == null) {
       return fallback;
     }
