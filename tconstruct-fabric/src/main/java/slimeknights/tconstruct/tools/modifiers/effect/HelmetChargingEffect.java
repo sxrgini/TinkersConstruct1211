@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.effect;
 
+import net.minecraft.core.Holder;
 import slimeknights.mantle.platform.client.IClientMobEffectExtensionsProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

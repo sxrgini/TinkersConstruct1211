@@ -34,6 +34,11 @@ public class TinkerEffect extends MobEffect implements IClientMobEffectExtension
     return this;
   }
 
+  /** Gets this effect as a holder */
+  public Holder<MobEffect> holder() {
+    return net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(this);
+  }
+
   /* Visibility */
 
   public void initializeClient(Consumer<IClientMobEffectExtensions> consumer) {
@@ -88,7 +93,7 @@ public class TinkerEffect extends MobEffect implements IClientMobEffectExtension
    */
   @Deprecated
   public MobEffectInstance apply(LivingEntity entity, int duration, int amplifier, boolean showIcon) {
-    MobEffectInstance effect = new MobEffectInstance(this, duration, amplifier, false, false, showIcon);
+    MobEffectInstance effect = new MobEffectInstance(holder(), duration, amplifier, false, false, showIcon);
     entity.addEffect(effect);
     return effect;
   }
@@ -98,7 +103,7 @@ public class TinkerEffect extends MobEffect implements IClientMobEffectExtension
    * @param entity  Entity to check
    * @return  Level, or 0 if inactive
    */
-  public static int getLevel(LivingEntity entity, MobEffect effect) {
+  public static int getLevel(LivingEntity entity, Holder<MobEffect> effect) {
     return getAmplifier(entity, effect) + 1;
   }
 
@@ -108,7 +113,7 @@ public class TinkerEffect extends MobEffect implements IClientMobEffectExtension
    * @return  Level, or 0 if inactive
    */
   public static int getLevel(LivingEntity entity, Supplier<? extends MobEffect> effect) {
-    return getAmplifier(entity, effect.get()) + 1;
+    return getAmplifier(entity, effect) + 1;
   }
 
   /**
@@ -116,7 +121,7 @@ public class TinkerEffect extends MobEffect implements IClientMobEffectExtension
    * @param entity  Entity to check
    * @return  Amplifier, or -1 if inactive
    */
-  public static int getAmplifier(LivingEntity entity, MobEffect effect) {
+  public static int getAmplifier(LivingEntity entity, Holder<MobEffect> effect) {
     MobEffectInstance instance = entity.getEffect(effect);
     if (instance != null) {
       return instance.getAmplifier();
@@ -127,6 +132,6 @@ public class TinkerEffect extends MobEffect implements IClientMobEffectExtension
   /** @deprecated use {@link #getAmplifier(LivingEntity, MobEffect)} which is better named or {@link #getLevel(LivingEntity, MobEffect)} which gives a more useful return */
   @Deprecated(forRemoval = true)
   public int getLevel(LivingEntity entity) {
-    return getAmplifier(entity, this);
+    return getAmplifier(entity, holder());
   }
 }

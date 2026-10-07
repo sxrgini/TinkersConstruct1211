@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modules.armor;
 
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -65,7 +66,7 @@ public record RecurrentProtectionModule(LevelingValue percent, LevelingInt durat
       int level = SlotInChargeModule.getLevel(context.getTinkerData(), SLOT_KEY, slotType);
       if (level > 0) {
         // step 1: reduce damage based on the current effect level
-        MobEffect effect = TinkerModifiers.momentumEffect.get(ToolType.ARMOR);
+        Holder<MobEffect> effect = TinkerModifiers.momentumEffect.get(ToolType.ARMOR);
         LivingEntity entity = context.getEntity();
         amount -= TinkerEffect.getLevel(entity, effect);
 

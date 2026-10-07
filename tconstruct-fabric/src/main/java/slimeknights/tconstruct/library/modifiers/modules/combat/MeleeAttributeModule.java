@@ -117,7 +117,7 @@ public record MeleeAttributeModule(String unique, Holder<Attribute> attribute, U
   }
 
   public static Builder builder(Supplier<Attribute> attribute, Operation operation) {
-    return new Builder(attribute.get(), operation);
+    return new Builder(attribute, operation);
   }
 
   @Setter

@@ -26,7 +26,7 @@ import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.SimpleFinishedRecipe;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.mantle.recipe.ingredient.item.FluidContainerIngredient;
-import slimeknights.mantle.platform.fluid.crafting.FluidIngredient;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.platform.ingredient.SizedIngredient;
 import slimeknights.mantle.registration.object.WoodBlockObject;
 import slimeknights.tconstruct.TConstruct;

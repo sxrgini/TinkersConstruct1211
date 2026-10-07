@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
+import net.minecraft.core.Holder;
 import slimeknights.tconstruct.library.utils.PotionHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -43,7 +44,7 @@ public record PotionFluidEffect(float scale, TagPredicate predicate) implements 
         // report whichever effect used the most
         float used = 0;
         for (MobEffectInstance instance : effects) {
-          MobEffect effect = instance.getEffect();
+          Holder<MobEffect> effect = instance.getEffect();
           if (effect.isInstantenous()) {
             // instant effects just apply full value always
             used = level.value();

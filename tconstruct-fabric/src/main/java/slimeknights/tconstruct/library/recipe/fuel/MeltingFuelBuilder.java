@@ -10,7 +10,7 @@ import slimeknights.mantle.platform.fluid.FluidStack;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
-import slimeknights.mantle.platform.fluid.crafting.FluidIngredient;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 
 import java.util.function.Consumer;
 

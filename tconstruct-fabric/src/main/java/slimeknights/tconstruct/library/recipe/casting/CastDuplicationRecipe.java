@@ -12,7 +12,7 @@ import slimeknights.tconstruct.library.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
-import slimeknights.mantle.platform.fluid.crafting.FluidIngredient;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 
 import java.util.List;
 

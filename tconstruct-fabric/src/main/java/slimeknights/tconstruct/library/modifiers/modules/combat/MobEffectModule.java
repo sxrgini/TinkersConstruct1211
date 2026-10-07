@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.modules.combat;
 
+import net.minecraft.core.Holder;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -115,13 +116,8 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
 
 
   /** Creates a builder instance */
-  static MobEffectModule.Builder builder(MobEffect effect) {
+  static MobEffectModule.Builder builder(Holder<MobEffect> effect) {
     return new Builder(effect);
-  }
-
-  /** Creates a builder instance */
-  static MobEffectModule.Builder builder(Supplier<? extends MobEffect> effect) {
-    return new Builder(effect.get());
   }
 
   /** Builder for this modifier in datagen */
@@ -131,7 +127,7 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
   class Builder extends ModuleBuilder.Stack<Builder> {
     // general fields
     /** Effect to apply. */
-    private final MobEffect effect;
+    private final Holder<MobEffect> effect;
     /** Entity getting the effect. */
     private IJsonPredicate<LivingEntity> target = LivingEntityPredicate.ANY;
     /** Entity using the weapon. Unused for non-combat effects. */
@@ -217,7 +213,7 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
   }
 
   /** Represents a mob effect applied via a modifier. Meant to be nested inside a modifier module. */
-  record ModifierMobEffect(MobEffect effect, RandomLevelingValue level, RandomLevelingValue time, IJsonPredicate<LivingEntity> target, @Nullable List<Item> curativeItems) {
+  record ModifierMobEffect(Holder<MobEffect> effect, RandomLevelingValue level, RandomLevelingValue time, IJsonPredicate<LivingEntity> target, @Nullable List<Item> curativeItems) {
     public static final RecordLoadable<ModifierMobEffect> LOADER = RecordLoadable.create(
       Loadables.MOB_EFFECT.requiredField("effect", ModifierMobEffect::effect),
       RandomLevelingValue.LOADABLE.requiredField("level", ModifierMobEffect::level),
@@ -239,9 +235,6 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
       float duration = this.time.computeValue(scaledLevel);
       if (duration > 0) {
         MobEffectInstance instance = new MobEffectInstance(effect, (int)duration, level);
-        if (curativeItems != null) {
-          instance.setCurativeItems(curativeItems.stream().map(ItemStack::new).collect(Collectors.toList()));
-        }
         target.addEffect(new MobEffectInstance(effect, (int)duration, level), cause);
       }
     }

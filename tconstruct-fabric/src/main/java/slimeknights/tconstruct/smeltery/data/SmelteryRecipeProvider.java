@@ -46,7 +46,7 @@ import slimeknights.mantle.recipe.data.ItemNameIngredient;
 import slimeknights.mantle.recipe.data.ItemNameOutput;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
-import slimeknights.mantle.platform.fluid.crafting.FluidIngredient;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.recipe.ingredient.item.PotionDisplayIngredient;
 import slimeknights.mantle.registration.deferred.PotionDeferredRegister.PotionType;
 import slimeknights.mantle.registration.object.FluidObject;

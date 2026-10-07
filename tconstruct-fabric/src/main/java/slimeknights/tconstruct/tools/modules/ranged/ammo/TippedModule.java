@@ -100,7 +100,7 @@ public enum TippedModule implements ModifierModule, ProjectileLaunchModifierHook
         target.invulnerableTime = 0;
         // not a problem if the ID is invalid, will just do nothing
         for (MobEffectInstance instance : BuiltInRegistries.POTION.get(id).getEffects()) {
-          MobEffect effect = instance.getEffect();
+          Holder<MobEffect> effect = instance.getEffect();
           if (effect.isInstantenous()) {
             effect.applyInstantenousEffect(projectile, projectile.getOwner(), target, instance.getAmplifier(), 1f / (divisor * 0.75f));
           } else {

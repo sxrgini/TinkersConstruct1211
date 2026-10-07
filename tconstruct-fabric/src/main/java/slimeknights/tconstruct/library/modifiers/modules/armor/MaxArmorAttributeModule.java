@@ -105,7 +105,7 @@ public record MaxArmorAttributeModule(String unique, net.minecraft.core.Holder<A
   }
 
   public static Builder builder(Supplier<Attribute> attribute, Operation operation) {
-    return new Builder(attribute.get(), operation);
+    return new Builder(attribute, operation);
   }
 
 
