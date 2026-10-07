@@ -134,11 +134,11 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     return false;
   }
 
-  public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
+  public int getEnchantmentLevel(ItemStack stack, net.minecraft.resources.ResourceKey<Enchantment> enchantment) {
     return EnchantmentModifierHook.getEnchantmentLevel(stack, enchantment);
   }
 
-  public Map<Enchantment,Integer> getAllEnchantments(ItemStack stack) {
+  public Map<net.minecraft.resources.ResourceKey<Enchantment>,Integer> getAllEnchantments(ItemStack stack) {
     return EnchantmentModifierHook.getAllEnchantments(stack);
   }
 

@@ -3,12 +3,18 @@ package slimeknights.tconstruct.library.tools.helper;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 
-import static net.minecraft.world.damagesource.CombatRules.getDamageAfterAbsorb;
 
 /**
  * Utinet.minecraft.world.damagesource.CombatRulesation logic
  */
 public class ArmorUtil {
+  /** Pre 1.21 vanilla armor formula */
+  private static float damageAfterAbsorb(float damage, float armor, float toughness) {
+    float f = 2.0F + toughness / 4.0F;
+    float f1 = Mth.clamp(armor - damage / f, armor * 0.2F, 20.0F);
+    return damage * (1.0F - f1 / 25.0F);
+  }
+
   private ArmorUtil() {}
 
   /**
@@ -92,7 +98,7 @@ public class ArmorUtil {
     float damage = originalDamage;
     // if there is no armor value though, no work is needed
     if (armor > 0) {
-      damage = getDamageAfterAbsorb(damage, armor, toughness);
+      damage = damageAfterAbsorb(damage, armor, toughness);
     }
 
     // next, we want to apply our modifiers bonus M(x), it works out to be a reduction between 0 and 80%

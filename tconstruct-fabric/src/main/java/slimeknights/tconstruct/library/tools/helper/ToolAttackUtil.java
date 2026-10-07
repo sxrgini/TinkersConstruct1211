@@ -51,6 +51,16 @@ import java.util.function.BiConsumer;
 import java.util.function.DoubleSupplier;
 
 public class ToolAttackUtil {
+  /** Gets the mainhand attribute modifiers on the stack, using the tool hook for modifiable items */
+  private static com.google.common.collect.Multimap<net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>,AttributeModifier> mainhandModifiers(ItemStack stack) {
+    if (stack.getItem() instanceof slimeknights.tconstruct.library.tools.item.ITinkerStationDisplay display) {
+      return display.getAttributeModifiers(slimeknights.tconstruct.library.tools.nbt.ToolStack.from(stack), EquipmentSlot.MAINHAND);
+    }
+    com.google.common.collect.Multimap<net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute>,AttributeModifier> map = com.google.common.collect.HashMultimap.create();
+    stack.forEachModifier(EquipmentSlot.MAINHAND, map::put);
+    return map;
+  }
+
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
   private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.attributeId(null, TConstruct.MOD_ID + ".anti_knockback"), 1f, Operation.ADD_VALUE);
   /** @deprecated new default for {@link ToolAttackContext.Builder} */
@@ -84,7 +94,7 @@ public class ToolAttackUtil {
     // remove mainhand attributes
     ItemStack mainStack = CombatHelper.getMainhandAttributeStack(holder);
     if (!mainStack.isEmpty()) {
-      for (AttributeModifier modifier : mainStack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(attribute)) {
+      for (AttributeModifier modifier : mainhandModifiers(mainStack).get(attribute)) {
         modifiers.get(modifier.operation()).remove(modifier);
       }
     }
@@ -311,9 +321,6 @@ public class ToolAttackUtil {
 
     // deal attacker thorns damage
     attackerLiving.setLastHurtMob(targetEntity);
-    if (targetLiving != null) {
-      EnchantmentHelper.doPostHurtEffects(targetLiving, attackerLiving);
-    }
 
     // apply modifier effects
     // removed: bane of arthropods hook, replaced by this
@@ -392,7 +399,7 @@ public class ToolAttackUtil {
   public static AttributeInstance disableKnockback(@Nullable LivingEntity living) {
     if (living != null) {
       AttributeInstance instance = living.getAttribute(Attributes.KNOCKBACK_RESISTANCE);
-      if (instance != null && !instance.hasModifier(ANTI_KNOCKBACK_MODIFIER)) {
+      if (instance != null && !instance.hasModifier(ANTI_KNOCKBACK_MODIFIER.id())) {
         instance.addTransientModifier(ANTI_KNOCKBACK_MODIFIER);
         return instance;
       }

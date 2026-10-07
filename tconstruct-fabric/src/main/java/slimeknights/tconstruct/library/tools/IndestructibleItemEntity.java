@@ -26,7 +26,7 @@ public class IndestructibleItemEntity extends ItemEntity {
     super(entityType, world);
     // using setUnlimitedLifetime() makes the item no longer spin, dumb design
     // since age is a short, this value should never be reachable so the item will never despawn
-    this.lifespan = Integer.MAX_VALUE;
+    this.setUnlimitedLifetime();
   }
 
   public IndestructibleItemEntity(Level worldIn, double x, double y, double z, ItemStack stack) {

@@ -68,6 +68,14 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay {
+  /** UUIDs used for armor attribute modifiers by slot type, same values vanilla used before 1.21 */
+  private static final java.util.Map<ArmorItem.Type,UUID> ARMOR_UUIDS = java.util.Map.of(
+    ArmorItem.Type.BOOTS, UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"),
+    ArmorItem.Type.LEGGINGS, UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"),
+    ArmorItem.Type.CHESTPLATE, UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"),
+    ArmorItem.Type.HELMET, UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150"),
+    ArmorItem.Type.BODY, UUID.fromString("C1C72771-8B8E-BA4A-ACE0-81A93C8928B2"));
+
   /** Volatile modifier tag to make piglins neutal when worn */
   public static final ResourceLocation PIGLIN_NEUTRAL = TConstruct.getResource("piglin_neutral");
   /** Volatile modifier tag to make this item an elytra */
@@ -129,14 +137,14 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   }
 
   public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-    return enchantment.isCurse() && super.canApplyAtEnchantingTable(stack, enchantment);
+    return false;
   }
 
-  public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
+  public int getEnchantmentLevel(ItemStack stack, net.minecraft.resources.ResourceKey<Enchantment> enchantment) {
     return EnchantmentModifierHook.getEnchantmentLevel(stack, enchantment);
   }
 
-  public Map<Enchantment,Integer> getAllEnchantments(ItemStack stack) {
+  public Map<net.minecraft.resources.ResourceKey<Enchantment>,Integer> getAllEnchantments(ItemStack stack) {
     return EnchantmentModifierHook.getAllEnchantments(stack);
   }
 
@@ -278,7 +286,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     if (!tool.isBroken()) {
       // base stats
       StatsNBT statsNBT = tool.getStats();
-      UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(type);
+      UUID uuid = ARMOR_UUIDS.get(type);
       float armor = statsNBT.get(ToolStats.ARMOR);
       if (armor > 0) {
         builder.put(Attributes.ARMOR, new AttributeModifier(TConstruct.attributeId(uuid, "tconstruct.armor.armor"), armor, AttributeModifier.Operation.ADD_VALUE));

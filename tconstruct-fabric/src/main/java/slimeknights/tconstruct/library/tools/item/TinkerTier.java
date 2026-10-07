@@ -22,10 +22,9 @@ public enum TinkerTier implements Tier {
     return 0;
   }
 
-  @Deprecated
   @Override
-  public int getLevel() {
-    return 0;
+  public net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> getIncorrectBlocksForDrops() {
+    return net.minecraft.tags.BlockTags.INCORRECT_FOR_WOODEN_TOOL;
   }
 
   @Override
