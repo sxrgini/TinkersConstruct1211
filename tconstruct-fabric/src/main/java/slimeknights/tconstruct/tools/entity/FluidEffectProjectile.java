@@ -28,7 +28,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.mantle.platform.capability.Capabilities;
-import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.mantle.platform.PlatformHooks;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
 import slimeknights.mantle.platform.item.IItemHandler;
@@ -183,7 +183,7 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
     super.tick();
     HitResult hitResult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
     HitResult.Type hitType = hitResult.getType();
-    if (hitType != HitResult.Type.MISS && !ForgeEventFactory.onProjectileImpact(this, hitResult)) {
+    if (hitType != HitResult.Type.MISS && !PlatformHooks.onProjectileImpact(this, hitResult)) {
       this.onHit(hitResult);
     }
     if (!this.isRemoved()) {

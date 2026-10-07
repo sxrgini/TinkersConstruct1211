@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
+import slimeknights.mantle.platform.event.client.RegisterClientReloadListenersEvent;
 import slimeknights.mantle.platform.event.EventBus;
 import slimeknights.mantle.data.listener.IEarlySafeManagerReloadListener;
 import slimeknights.mantle.util.JsonHelper;

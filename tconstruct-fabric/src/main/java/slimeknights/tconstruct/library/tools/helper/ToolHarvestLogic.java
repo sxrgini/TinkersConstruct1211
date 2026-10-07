@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
+import slimeknights.mantle.platform.PlatformHooks;
 import slimeknights.mantle.platform.item.ItemAbilities;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -129,12 +129,12 @@ public class ToolHarvestLogic {
     ServerLevel world = context.getWorld();
     BlockPos pos = context.getPos();
     GameType type = player.gameMode.getGameModeForPlayer();
-    int exp = useLastXP ? BlockSideHitListener.getLastXP(player) : ForgeHooks.onBlockBreakEvent(world, type, player, pos);
+    int exp = useLastXP ? BlockSideHitListener.getLastXP(player) : PlatformHooks.onBlockBreakEvent(world, type, player, pos);
     if (exp == -1) {
       return false;
     }
     // checked after the Forge hook, so we have to recheck
-    // TODO: is this needed? Seems its called inside ForgeHooks.onBlockBreakEvent
+    // TODO: is this needed? Seems its called inside PlatformHooks.onBlockBreakEvent
     if (player.blockActionRestricted(world, pos, type)) {
       return false;
     }

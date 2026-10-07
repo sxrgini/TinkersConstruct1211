@@ -55,6 +55,7 @@ def keepData = [
     'slimeknights/tconstruct/smeltery/data/SmelteryCompat.java',
 ]
 sourceSets.main.java {
+    exclude 'slimeknights/tconstruct/plugin/**'
     exclude { el ->
         if (el.directory) return false
         def p = el.relativePath.pathString

@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.fabricmc.api.EnvType;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent.RegisterGeometryLoaders;
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
+import slimeknights.mantle.platform.event.client.RegisterClientReloadListenersEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import slimeknights.mantle.platform.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.mantle.client.render.ChannelFluids;

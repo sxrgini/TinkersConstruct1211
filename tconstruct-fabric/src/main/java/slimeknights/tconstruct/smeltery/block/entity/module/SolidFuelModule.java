@@ -6,7 +6,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.ForgeHooks;
+import slimeknights.mantle.platform.PlatformHooks;
 import slimeknights.mantle.platform.capability.Capabilities;
 import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.util.NonNullConsumer;
@@ -70,7 +70,7 @@ public class SolidFuelModule extends FuelModule {
   private int trySolidFuel(IItemHandler handler, boolean consume) {
     for (int i = 0; i < handler.getSlots(); i++) {
       ItemStack stack = handler.getStackInSlot(i);
-      int time = ForgeHooks.getBurnTime(stack, TinkerRecipeTypes.FUEL.get()) / 4;
+      int time = PlatformHooks.getBurnTime(stack, TinkerRecipeTypes.FUEL.get()) / 4;
       if (time > 0) {
         MeltingFuel solid = MeltingFuelLookup.getSolid();
         if (consume) {

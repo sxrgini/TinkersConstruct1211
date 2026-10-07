@@ -25,7 +25,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.mantle.platform.PlatformHooks;
 import slimeknights.mantle.util.CombatHelper;
 import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -176,7 +176,7 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
       if (!stack.isEmpty() && type == HitResult.Type.ENTITY && ModifierUtil.canPerformAction(getTool(), TinkerToolActions.SHIELD_DISABLE)) {
         ModifierUtil.disableShield(((EntityHitResult)hit).getEntity());
       }
-      if (!ForgeEventFactory.onProjectileImpact(this, hit)) {
+      if (!PlatformHooks.onProjectileImpact(this, hit)) {
         this.onHit(hit);
       }
     }

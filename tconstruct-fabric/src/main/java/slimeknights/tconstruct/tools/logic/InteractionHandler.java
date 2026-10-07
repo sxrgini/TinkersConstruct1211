@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.mantle.platform.PlatformHooks;
 import slimeknights.mantle.platform.event.living.ShieldBlockEvent;
 import slimeknights.mantle.platform.event.player.AttackEntityEvent;
 import slimeknights.mantle.platform.event.player.PlayerInteractEvent;
@@ -500,7 +500,7 @@ public class InteractionHandler {
           if (damage >= 3) {
             InteractionHand usingHand = entity.getUsedItemHand();
             if (ToolDamageUtil.damageAnimated(tool, 1 + Mth.floor(damage), entity, usingHand)) {
-              ForgeEventFactory.onPlayerDestroyItem(player, activeStack, usingHand);
+              PlatformHooks.onPlayerDestroyItem(player, activeStack, usingHand);
               entity.stopUsingItem();
               entity.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + entity.level().random.nextFloat() * 0.4F);
             }

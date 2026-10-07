@@ -18,7 +18,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.ForgeHooks;
+import slimeknights.mantle.platform.PlatformHooks;
 import slimeknights.mantle.platform.event.player.PlayerInteractEvent;
 import slimeknights.mantle.platform.event.Event.Result;
 import slimeknights.mantle.platform.fluid.FluidStack;
@@ -103,7 +103,7 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
       Result useItem = Result.DEFAULT;
       Result useBlock = Result.DEFAULT;
       if (player != null) {
-        PlayerInteractEvent.RightClickBlock event = ForgeHooks.onRightClickBlock(player, hand, pos, hitResult);
+        PlayerInteractEvent.RightClickBlock event = PlatformHooks.onRightClickBlock(player, hand, pos, hitResult);
         if (event.isCanceled()) {
           // if successful, swing hand
           if (event.getCancellationResult().consumesAction()) {

@@ -25,7 +25,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.ForgeHooks;
+import slimeknights.mantle.platform.PlatformHooks;
 import net.minecraftforge.entity.PartEntity;
 import slimeknights.mantle.platform.event.player.CriticalHitEvent;
 import slimeknights.mantle.util.CombatHelper;
@@ -111,7 +111,7 @@ public class ToolAttackUtil {
 
     float criticalModifier = isCritical ? 1.5f : 1.0f;
     if (attackerPlayer != null) {
-      CriticalHitEvent hitResult = ForgeHooks.getCriticalHit(attackerPlayer, target, isCritical, criticalModifier);
+      CriticalHitEvent hitResult = PlatformHooks.getCriticalHit(attackerPlayer, target, isCritical, criticalModifier);
       if (hitResult != null) {
         criticalModifier = hitResult.getDamageModifier();
       } else {

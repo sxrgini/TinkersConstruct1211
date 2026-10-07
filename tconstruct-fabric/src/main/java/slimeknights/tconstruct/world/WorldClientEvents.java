@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.fabricmc.api.EnvType;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
+import slimeknights.mantle.platform.event.client.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import slimeknights.mantle.platform.util.Lazy;

@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeHooks;
+import slimeknights.mantle.platform.PlatformHooks;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
@@ -51,7 +51,7 @@ public enum EntityInteractFluidEffect implements FluidEffect<FluidEffectContext.
         Vec3 hit = context.getLocation().subtract(target.position());
 
         // check if forge wants to override
-        InteractionResult result = ForgeHooks.onInteractEntityAt(player, target, hit, hand);
+        InteractionResult result = PlatformHooks.onInteractEntityAt(player, target, hit, hand);
         // skipped: never spectator mode if we made it this far
         if (result == null) {
           // no forge override, so find first success from vanilla hooks

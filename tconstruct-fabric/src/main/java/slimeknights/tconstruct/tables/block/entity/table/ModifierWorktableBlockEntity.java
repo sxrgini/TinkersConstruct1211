@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.platform.capability.LazyOptional;
-import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.mantle.platform.PlatformHooks;
 import slimeknights.mantle.platform.item.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -210,7 +210,7 @@ public class ModifierWorktableBlockEntity extends RetexturedTableBlockEntity imp
 
     // we are definitely crafting at this point
     resultItem.onCraftedBy(this.level, player, amount);
-    ForgeEventFactory.firePlayerCraftingEvent(player, resultItem, this.inventoryWrapper);
+    PlatformHooks.firePlayerCraftingEvent(player, resultItem, this.inventoryWrapper);
     this.playCraftSound(player);
 
     // run the recipe, will shrink inputs

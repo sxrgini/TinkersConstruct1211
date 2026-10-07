@@ -21,8 +21,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.platform.event.EventBus;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.platform.condition.ICondition.IContext;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.OnDatapackSyncEvent;
+import slimeknights.mantle.platform.event.server.AddReloadListenerEvent;
+import slimeknights.mantle.platform.event.server.OnDatapackSyncEvent;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 

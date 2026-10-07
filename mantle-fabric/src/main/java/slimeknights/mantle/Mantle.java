@@ -88,6 +88,7 @@ public class Mantle implements ModInitializer {
     MantleData.init();
     MantleNetwork.registerPackets();
     MantleEvents.init();
+    slimeknights.mantle.platform.event.server.OnDatapackSyncEvent.init();
     FabricEventBridge.init();
 
     // setup

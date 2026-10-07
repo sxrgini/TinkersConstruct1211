@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.platform.client.model.ModelData;
 import slimeknights.mantle.platform.capability.LazyOptional;
-import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.mantle.platform.PlatformHooks;
 import slimeknights.mantle.platform.item.ItemHandlerHelper;
 import org.apache.commons.lang3.StringUtils;
 import slimeknights.mantle.util.RetexturedHelper;
@@ -218,7 +218,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
 
     // fire crafting events
     resultItem.onCraftedBy(this.level, player, amount);
-    ForgeEventFactory.firePlayerCraftingEvent(player, resultItem, this.inventoryWrapper);
+    PlatformHooks.firePlayerCraftingEvent(player, resultItem, this.inventoryWrapper);
     this.playCraftSound(player);
 
     // fetch this before updating inputs so they can do input sensitive shrinking

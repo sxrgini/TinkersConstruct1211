@@ -7,7 +7,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.ForgeHooks;
+import slimeknights.mantle.platform.PlatformHooks;
 import slimeknights.mantle.platform.item.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -75,7 +75,7 @@ public interface BowAmmoModifierHook {
     // if no predicate, means we want the event result, used for ballista
     // TODO: this is a little bit janky in retrospective, probably just handle in the caller?
     if (predicate == null) {
-      return ForgeHooks.getProjectile(living, bow, ItemStack.EMPTY);
+      return PlatformHooks.getProjectile(living, bow, ItemStack.EMPTY);
     }
     // locate standard ammo
     ItemStack standardAmmo;
@@ -174,7 +174,7 @@ public interface BowAmmoModifierHook {
       standardAmmo = predicate == null ? ItemStack.EMPTY : findMatchingAmmo(ItemStack.EMPTY, living, predicate);
     } else if (predicate == null) {
       // no predicate means we just want the event result to start, used for ballista
-      standardAmmo = ForgeHooks.getProjectile(living, bow, ItemStack.EMPTY);
+      standardAmmo = PlatformHooks.getProjectile(living, bow, ItemStack.EMPTY);
     } else {
       standardAmmo = living.getProjectile(bow);
     }
@@ -231,7 +231,7 @@ public interface BowAmmoModifierHook {
         standardAmmo = findMatchingAmmo(bow, living, predicate);
         /* TODO: was this necessary?
         if (!bow.isEmpty()) {
-          standardAmmo = ForgeHooks.getProjectile(living, bow, standardAmmo);
+          standardAmmo = PlatformHooks.getProjectile(living, bow, standardAmmo);
         }*/
       }
       // next, try asking modifiers if they have anything new again

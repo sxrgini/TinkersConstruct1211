@@ -29,11 +29,6 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.utils.Util;
-import slimeknights.tconstruct.plugin.DietPlugin;
-import slimeknights.tconstruct.plugin.DummmmmmyPlugin;
-import slimeknights.tconstruct.plugin.ImmersiveEngineeringPlugin;
-import slimeknights.tconstruct.plugin.craftingtweaks.CraftingTweaksPlugin;
-import slimeknights.tconstruct.plugin.jsonthings.JsonThingsPlugin;
 import slimeknights.tconstruct.shared.TinkerAttributes;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -107,29 +102,16 @@ public class TConstruct implements ModInitializer {
       TinkerClient.onConstruct();
     }
 
-    // compat
-    if (FabricLoader.getInstance().isModLoaded("immersiveengineering")) {
-      bus.register(new ImmersiveEngineeringPlugin());
-    }
-    if (FabricLoader.getInstance().isModLoaded("jsonthings")) {
-      JsonThingsPlugin.onConstruct();
-    }
-    if (FabricLoader.getInstance().isModLoaded("diet")) {
-      DietPlugin.onConstruct();
-    }
-    if (FabricLoader.getInstance().isModLoaded("craftingtweaks")) {
-      CraftingTweaksPlugin.onConstruct();
-    }
-    if (FabricLoader.getInstance().isModLoaded("dummmmmmy")) {
-      bus.register(new DummmmmmyPlugin());
-    }
+    // compat plugins are ported separately, see tconstruct-fabric build.gradle excludes
 
     TinkerEventSubscribers.registerCommon();
     if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
       TinkerEventSubscribers.registerClient();
+      bus.post(new slimeknights.mantle.platform.event.client.RegisterClientReloadListenersEvent());
     }
     registerAliases();
     bus.post(new FMLCommonSetupEvent());
+    slimeknights.mantle.platform.event.server.AddReloadListenerEvent.fire();
   }
 
   @SubscribeEvent

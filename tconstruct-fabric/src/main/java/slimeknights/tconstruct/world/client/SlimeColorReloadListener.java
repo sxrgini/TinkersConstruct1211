@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraftforge.fml.ModLoader;
+import slimeknights.mantle.platform.event.lifecycle.ModLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.world.block.FoliageType;
 
