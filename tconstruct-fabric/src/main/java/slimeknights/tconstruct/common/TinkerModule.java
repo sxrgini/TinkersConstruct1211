@@ -27,7 +27,6 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import slimeknights.mantle.platform.loot.IGlobalLootModifier;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistries.Keys;
 import slimeknights.mantle.item.tooltip.BlockTooltipItem;
 import slimeknights.mantle.item.tooltip.TooltipItem;

@@ -12,7 +12,6 @@ import slimeknights.mantle.platform.event.player.PlayerInteractEvent;
 import slimeknights.mantle.platform.event.player.PlayerInteractEvent.LeftClickEmpty;
 import slimeknights.mantle.platform.event.EventPriority;
 import slimeknights.mantle.platform.event.SubscribeEvent;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;

@@ -1,0 +1,8 @@
+  @SubscribeEvent
+  void gatherData(final GatherDataEvent event) {
+    DataGenerator generator = event.getGenerator();
+    boolean server = event.includeServer();
+    PackOutput packOutput = generator.getPackOutput();
+    generator.addProvider(server, new WorldRecipeProvider(packOutput));
+    generator.addProvider(server, new MobEquipmentProvider(packOutput));
+  }

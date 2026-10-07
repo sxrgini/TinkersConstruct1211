@@ -14,7 +14,6 @@ import slimeknights.mantle.platform.event.living.LivingDropsEvent;
 import slimeknights.mantle.platform.event.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.world.logic.AncientToolItemListing;
 

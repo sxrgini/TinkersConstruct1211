@@ -5,8 +5,6 @@ import net.minecraft.server.level.ServerPlayer;
 import slimeknights.mantle.platform.event.EventBus;
 import slimeknights.mantle.platform.event.server.AddReloadListenerEvent;
 import slimeknights.mantle.platform.event.server.OnDatapackSyncEvent;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.PacketDistributor.PacketTarget;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.command.argument.TagSource;
 import slimeknights.mantle.network.ISimplePacket;

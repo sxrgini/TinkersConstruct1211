@@ -10,7 +10,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.tconstruct.library.utils.TagUtil;

@@ -3,8 +3,6 @@ package slimeknights.tconstruct.world;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -15,16 +13,13 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import slimeknights.mantle.platform.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
 import slimeknights.mantle.platform.event.EventBus;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import slimeknights.mantle.platform.registry.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.utils.Util;
-import slimeknights.tconstruct.world.data.StructureRepalleter;
 import slimeknights.tconstruct.world.worldgen.islands.IslandPiece;
 import slimeknights.tconstruct.world.worldgen.islands.IslandStructure;
 import slimeknights.tconstruct.world.worldgen.trees.ExtraRootVariantPlacer;
@@ -111,14 +106,4 @@ public final class TinkerStructures extends TinkerModule {
   public static final ResourceKey<StructureSet> endSkyIsland = key(Registries.STRUCTURE_SET, "end_sky_island");
 
 
-  @SubscribeEvent
-  void gatherData(final GatherDataEvent event) {
-    DataGenerator generator = event.getGenerator();
-    PackOutput packOutput = generator.getPackOutput();
-    ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-    boolean server = event.includeServer();
-    generator.addProvider(server, new StructureRepalleter(packOutput, existingFileHelper));
-//    generator.addProvider(server, new StructureUpdater(packOutput, existingFileHelper, TConstruct.MOD_ID, Target.DATA_PACK, "structures"));
-//    generator.addProvider(event.includeClient(), new StructureUpdater(packOutput, existingFileHelper, TConstruct.MOD_ID, Target.RESOURCE_PACK, "book/structures"));
-  }
 }

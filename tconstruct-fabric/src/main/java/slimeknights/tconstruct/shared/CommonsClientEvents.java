@@ -9,7 +9,6 @@ import slimeknights.mantle.platform.event.client.RegisterClientReloadListenersEv
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import slimeknights.mantle.platform.event.lifecycle.FMLClientSetupEvent;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.book.TinkerBook;
 import slimeknights.tconstruct.library.client.model.UniqueGuiModel;

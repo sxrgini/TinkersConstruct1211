@@ -7,7 +7,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
 import slimeknights.mantle.platform.event.SubscribeEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.platform.event.lifecycle.RegisterEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;

@@ -7,7 +7,6 @@ import net.fabricmc.api.EnvType;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent.RegisterAdditional;
 import slimeknights.mantle.platform.event.SubscribeEvent;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.gadgets.client.FancyArmorStandRenderer;
 import slimeknights.tconstruct.gadgets.client.FancyItemFrameRenderer;
