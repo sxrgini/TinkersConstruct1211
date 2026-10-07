@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
+import slimeknights.tconstruct.library.utils.PotionHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
@@ -33,7 +33,7 @@ public record PotionFluidEffect(float scale, TagPredicate predicate) implements 
     LivingEntity target = context.getLivingTarget();
     // must match the tag predicate
     if (target != null && predicate.test(fluid.getTag())) {
-      List<MobEffectInstance> effects = PotionUtils.getPotion(fluid.getTag()).getEffects();
+      List<MobEffectInstance> effects = PotionHelper.getEffects(fluid);
       if (!effects.isEmpty()) {
         LivingEntity attacker = context.getEntity();
         Entity directSource = context.getDirectSource();

@@ -13,7 +13,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.platform.event.client.RegisterClientReloadListenersEvent;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import slimeknights.mantle.platform.client.IClientItemExtensions;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;

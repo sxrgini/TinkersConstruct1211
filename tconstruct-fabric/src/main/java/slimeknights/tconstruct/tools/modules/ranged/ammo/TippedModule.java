@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.tools.modules.ranged.ammo;
 
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.Tag;
@@ -15,7 +17,6 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.phys.EntityHitResult;
 import slimeknights.mantle.client.TooltipKey;
@@ -122,11 +123,7 @@ public enum TippedModule implements ModifierModule, ProjectileLaunchModifierHook
     if (toolData.contains(key, Tag.TAG_STRING)) {
       ResourceLocation id = ResourceLocation.tryParse(toolData.getString(key));
       if (id != null) {
-        Potion potion = BuiltInRegistries.POTION.get(id);
-        if (potion != Potions.EMPTY) {
-          PotionUtils.getColor(potion);
-          PotionUtils.addPotionTooltip(potion.getEffects(), tooltip, 1f / getDivisor(modifier));
-        }
+        BuiltInRegistries.POTION.getHolder(id).ifPresent(potion -> new PotionContents(potion).addPotionTooltip(tooltip::add, 1f / getDivisor(modifier), 20f));
       }
     }
   }
@@ -138,13 +135,14 @@ public enum TippedModule implements ModifierModule, ProjectileLaunchModifierHook
     if (toolData.contains(key, Tag.TAG_STRING)) {
       ResourceLocation id = ResourceLocation.tryParse(toolData.getString(key));
       if (id != null) {
-        Potion potion = BuiltInRegistries.POTION.get(id);
-        if (potion != Potions.EMPTY) {
+        Holder<Potion> potion = BuiltInRegistries.POTION.getHolder(id).orElse(null);
+        if (potion != null) {
           // formats as Tipped <level> (<potion>)
+          PotionContents contents = new PotionContents(potion);
           return Component.translatable(FORMAT,
             RomanNumeralHelper.getNumeral(entry.getLevel()),
-            Component.translatable(potion.getName("item.minecraft.potion.effect."))
-          ).withStyle(style -> style.withColor(PotionUtils.getColor(potion)));
+            Component.translatable(Potion.getName(contents.potion(), "item.minecraft.potion.effect."))
+          ).withStyle(style -> style.withColor(contents.getColor()));
         }
       }
     }

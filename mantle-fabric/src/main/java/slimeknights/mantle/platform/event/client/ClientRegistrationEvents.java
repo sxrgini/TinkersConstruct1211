@@ -22,5 +22,6 @@ public final class ClientRegistrationEvents {
     bus.post(new RegisterParticleProvidersEvent());
     bus.post(new RegisterKeyMappingsEvent());
     bus.post(new RegisterClientReloadListenersEvent());
+    slimeknights.mantle.platform.client.ClientExtensions.init();
   }
 }

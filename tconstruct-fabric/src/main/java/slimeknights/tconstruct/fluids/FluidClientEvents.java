@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.fluids;
 
+import slimeknights.tconstruct.library.utils.PotionHelper;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.fabricmc.api.EnvType;
 import slimeknights.mantle.platform.event.client.ModelEvent.RegisterGeometryLoaders;
 import slimeknights.mantle.platform.event.client.RegisterColorHandlersEvent;
@@ -32,7 +32,7 @@ public class FluidClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void itemColors(final RegisterColorHandlersEvent.Item event) {
-    event.register((stack, index) -> index > 0 ? -1 : PotionUtils.getColor(stack), TinkerFluids.potion.asItem());
+    event.register((stack, index) -> index > 0 ? -1 : PotionHelper.getColor(stack), TinkerFluids.potion.asItem());
   }
 
   @SubscribeEvent

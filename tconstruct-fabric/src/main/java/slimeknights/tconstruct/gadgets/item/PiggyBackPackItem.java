@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import slimeknights.mantle.platform.client.IClientMobEffectExtensionsProvider;
 import slimeknights.mantle.platform.capability.Caps;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -23,7 +24,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.extensions.common.IClientMobEffectExtensions;
+import slimeknights.mantle.platform.client.IClientMobEffectExtensions;
 import slimeknights.mantle.platform.item.ItemHandlerHelper;
 import slimeknights.mantle.item.tooltip.TooltipItem;
 import slimeknights.tconstruct.TConstruct;
@@ -37,7 +38,7 @@ import slimeknights.tconstruct.gadgets.capability.PiggybackHandler;
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public class PiggyBackPackItem extends TooltipItem {
+public class PiggyBackPackItem extends TooltipItem implements IClientMobEffectExtensionsProvider {
   private static final int MAX_ENTITY_STACK = 3; // how many entities can be carried at once
   public PiggyBackPackItem(Properties props) {
     super(props);
@@ -190,8 +191,7 @@ public class PiggyBackPackItem extends TooltipItem {
       }
     }
 
-    @Override
-    public void initializeClient(Consumer<IClientMobEffectExtensions> consumer) {
+      public void initializeClient(Consumer<IClientMobEffectExtensions> consumer) {
       consumer.accept(new IClientMobEffectExtensions() {
         private final Minecraft mc = Minecraft.getInstance();
         private static final ResourceLocation[] ICONS = {

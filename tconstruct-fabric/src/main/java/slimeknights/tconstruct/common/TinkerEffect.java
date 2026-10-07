@@ -1,18 +1,19 @@
 package slimeknights.tconstruct.common;
 
+import slimeknights.mantle.platform.client.IClientMobEffectExtensionsProvider;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraftforge.client.extensions.common.IClientMobEffectExtensions;
+import slimeknights.mantle.platform.client.IClientMobEffectExtensions;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /** Effect extension with a few helpers */
-public class TinkerEffect extends MobEffect {
+public class TinkerEffect extends MobEffect implements IClientMobEffectExtensionsProvider {
   /** If true, effect is visible, false for hidden */
   private final boolean show;
   public TinkerEffect(MobEffectCategory typeIn, boolean show) {
@@ -33,7 +34,6 @@ public class TinkerEffect extends MobEffect {
 
   /* Visibility */
 
-  @Override
   public void initializeClient(Consumer<IClientMobEffectExtensions> consumer) {
     consumer.accept(new IClientMobEffectExtensions() {
       @Override

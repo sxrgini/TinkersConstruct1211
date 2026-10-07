@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
+import slimeknights.tconstruct.library.utils.PotionHelper;
 import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import net.minecraft.core.NonNullList;
@@ -10,7 +11,6 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -103,7 +103,7 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<IDispla
   @Override
   public ItemStack assemble(ICastingContainer inv, HolderLookup.Provider access) {
     ItemStack result = new ItemStack(this.result);
-    result.setTag(inv.getFluidTag());
+    result.applyComponents(inv.getFluidStack().getComponentsPatch());
     return result;
   }
 
@@ -115,12 +115,11 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<IDispla
   @Override
   public List<IDisplayableCastingRecipe> getRecipes(HolderLookup.Provider access) {
     if (displayRecipes == null) {
-      Collection<Potion> potions = BuiltInRegistries.POTION.getValues();
+      List<net.minecraft.core.Holder.Reference<Potion>> potions = BuiltInRegistries.POTION.holders().toList();
       List<ItemStack> results = new ArrayList<>(potions.size());
       // first, make all the potion items
-      for (Potion potion : potions) {
-        if (potion == Potions.EMPTY) continue;
-        results.add(PotionUtils.setPotion(new ItemStack(this.result), potion));
+      for (net.minecraft.core.Holder<Potion> potion : potions) {
+        results.add(PotionHelper.setPotion(new ItemStack(this.result), potion));
       }
       // next, it's time to do the fluids
       // we want an order of Mod 1 Potion 1, Mod 1 Potion 2, ..., Mod 2 Potion 1, ...

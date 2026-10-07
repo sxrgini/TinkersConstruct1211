@@ -121,3 +121,8 @@ accessible field net/minecraft/world/level/storage/loot/functions/ApplyBonusCoun
 accessible method net/minecraft/world/level/storage/loot/functions/ApplyBonusCount$OreDrops <init> ()V
 accessible method net/minecraft/world/level/storage/loot/functions/ApplyBonusCount$UniformBonusCount <init> (I)V
 accessible method net/minecraft/world/level/storage/loot/functions/ApplyBonusCount$BinomialWithBonusCount <init> (IF)V
+accessible field net/minecraft/world/item/crafting/ShapedRecipe result Lnet/minecraft/world/item/ItemStack;
+accessible field net/minecraft/world/item/crafting/ShapedRecipe pattern Lnet/minecraft/world/item/crafting/ShapedRecipePattern;
+accessible field net/minecraft/world/item/crafting/ShapedRecipePattern data Ljava/util/Optional;
+accessible class net/minecraft/world/item/crafting/ShapedRecipePattern$Data
+accessible field net/minecraft/world/item/crafting/ShapelessRecipe result Lnet/minecraft/world/item/ItemStack;

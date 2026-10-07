@@ -29,7 +29,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import slimeknights.mantle.platform.client.IClientItemExtensions;
 import slimeknights.mantle.platform.item.ItemAbilities;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -112,7 +112,6 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
     return true;
   }
 
-  @Override
   public void initializeClient(Consumer<IClientItemExtensions> consumer) {
     consumer.accept(ModifiableCrossbowClientExtension.INSTANCE);
   }

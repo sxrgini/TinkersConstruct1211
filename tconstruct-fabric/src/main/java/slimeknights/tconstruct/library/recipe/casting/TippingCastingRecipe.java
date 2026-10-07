@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
+import slimeknights.tconstruct.library.utils.PotionHelper;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
@@ -7,7 +8,6 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.platform.fluid.FluidStack;
@@ -46,9 +46,8 @@ public class TippingCastingRecipe extends ModifierPotionCastingRecipe {
     if (super.matches(inv, level)) {
       // must also have a specific potion, it's what we are going to copy
       // but it can't match what is already on the stack
-      CompoundTag fluidTag = inv.getFluidTag();
-      return fluidTag != null && fluidTag.contains(PotionUtils.TAG_POTION, Tag.TAG_STRING)
-        && !ModifierUtil.getPersistentString(inv.getStack(), modifier).equals(fluidTag.getString(PotionUtils.TAG_POTION));
+      String potionId = PotionHelper.getPotionId(inv.getFluid());
+      return !potionId.isEmpty() && !ModifierUtil.getPersistentString(inv.getStack(), modifier).equals(potionId);
     }
     return false;
   }
@@ -56,9 +55,9 @@ public class TippingCastingRecipe extends ModifierPotionCastingRecipe {
   @Override
   public ItemStack assemble(ICastingContainer inv, HolderLookup.Provider access) {
     ItemStack result = inv.getStack().copy();
-    CompoundTag tag = inv.getFluidTag();
-    if (tag != null) {
-      ToolStack.from(result).getPersistentData().putString(modifier, tag.getString(PotionUtils.TAG_POTION));
+    String potionId = PotionHelper.getPotionId(inv.getFluid());
+    if (!potionId.isEmpty()) {
+      ToolStack.from(result).getPersistentData().putString(modifier, potionId);
     }
     return result;
   }
@@ -71,10 +70,9 @@ public class TippingCastingRecipe extends ModifierPotionCastingRecipe {
     if (displayRecipes == null) {
       // first, get a list of potion IDs
       List<String> potions = getPotionIds();
-      List<CompoundTag> potionNBT = potions.stream().map(id -> {
-        CompoundTag fluidNBT = new CompoundTag();
-        fluidNBT.putString(PotionUtils.TAG_POTION, id);
-        return fluidNBT;
+      List<net.minecraft.core.component.DataComponentPatch> potionNBT = potions.stream().map(id -> {
+        var potion = PotionHelper.byId(id);
+        return net.minecraft.core.component.DataComponentPatch.builder().set(net.minecraft.core.component.DataComponents.POTION_CONTENTS, new net.minecraft.world.item.alchemy.PotionContents(potion)).build();
       }).toList();
 
       // next, make 1 copy of the potion fluid with NBT list per potion fluid

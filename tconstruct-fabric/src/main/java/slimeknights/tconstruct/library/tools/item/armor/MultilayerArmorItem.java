@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.library.tools.item.armor;
 
+import slimeknights.mantle.platform.client.IClientItemExtensionsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import slimeknights.mantle.platform.client.IClientItemExtensions;
 import slimeknights.tconstruct.library.client.armor.ArmorModelManager.ArmorModelDispatcher;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
@@ -16,7 +17,7 @@ import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /** Armor model that applies multiple texture layers in order */
-public class MultilayerArmorItem extends ModifiableArmorItem {
+public class MultilayerArmorItem extends ModifiableArmorItem implements IClientItemExtensionsProvider {
   private final ResourceLocation name;
   public MultilayerArmorItem(ModifiableArmorMaterial material, ArmorItem.Type slot, Properties properties) {
     this(material, slot, properties, material.getId());
@@ -43,7 +44,6 @@ public class MultilayerArmorItem extends ModifiableArmorItem {
     return ArmorUtil.getDummyArmorTexture(slot);
   }
 
-  @Override
   public void initializeClient(Consumer<IClientItemExtensions> consumer) {
     consumer.accept(new ArmorModelDispatcher() {
       @Override

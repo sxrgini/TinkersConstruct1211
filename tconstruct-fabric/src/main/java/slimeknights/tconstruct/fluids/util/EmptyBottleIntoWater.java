@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.fluids.util;
 
+import slimeknights.tconstruct.library.utils.PotionHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.sounds.SoundEvents;
@@ -11,7 +12,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 public record EmptyBottleIntoWater(Supplier<Item> empty, CauldronInteraction fallback) implements CauldronInteraction {
   @Override
   public InteractionResult interact(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack stack) {
-    if (state.getValue(LayeredCauldronBlock.LEVEL) == 3 || PotionUtils.getPotion(stack) != Potions.WATER) {
+    if (state.getValue(LayeredCauldronBlock.LEVEL) == 3 || !PotionHelper.isWater(stack)) {
       return fallback.interact(state, level, pos, player, hand, stack);
     }
     if (!level.isClientSide) {

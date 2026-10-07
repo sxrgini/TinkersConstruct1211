@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.item.ranged;
 
+import slimeknights.mantle.platform.client.IClientItemExtensionsProvider;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import lombok.Getter;
@@ -28,7 +29,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import slimeknights.mantle.platform.client.IClientItemExtensions;
 import slimeknights.mantle.platform.item.ItemAbility;
 import slimeknights.mantle.platform.capability.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
@@ -71,7 +72,7 @@ import java.util.function.Consumer;
 import static slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook.KEY_DRAWTIME;
 
 /** Base class for any items that launch projectiles */
-public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implements IModifiableDisplay {
+public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implements IClientItemExtensionsProvider, IModifiableDisplay {
   /** Persistent data key for the ammo being used on drawing back the bow. */
   public static final ResourceLocation KEY_DRAWBACK_AMMO = TConstruct.getResource("drawback_ammo");
 
@@ -373,7 +374,6 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     return toolForRendering;
   }
 
-  @Override
   public void initializeClient(Consumer<IClientItemExtensions> consumer) {
     consumer.accept(ModifiableItemClientExtension.INSTANCE);
   }

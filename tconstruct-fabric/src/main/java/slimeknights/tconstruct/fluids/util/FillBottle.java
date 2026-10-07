@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.fluids.util;
 
+import slimeknights.tconstruct.library.utils.PotionHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.sounds.SoundEvents;
@@ -11,7 +12,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
@@ -22,7 +22,7 @@ public record FillBottle(Item filled) implements CauldronInteraction {
   @Override
   public InteractionResult interact(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack stack) {
     if (!level.isClientSide) {
-      player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, PotionUtils.setPotion(new ItemStack(filled), Potions.WATER)));
+      player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, PotionHelper.setPotion(new ItemStack(filled), Potions.WATER)));
       player.awardStat(Stats.USE_CAULDRON);
       player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
       LayeredCauldronBlock.lowerFillLevel(state, level, pos);

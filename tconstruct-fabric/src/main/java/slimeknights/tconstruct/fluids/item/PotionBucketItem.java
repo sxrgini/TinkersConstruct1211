@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.fluids.item;
 
+import slimeknights.tconstruct.library.utils.PotionHelper;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -13,7 +14,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -43,7 +43,7 @@ public class PotionBucketItem extends PotionItem {
 
   @Override
   public String getDescriptionId(ItemStack stack) {
-    String bucketKey = PotionUtils.getPotion(stack.getTag()).getName(getDescriptionId() + ".effect.");
+    String bucketKey = PotionHelper.getName(stack, getDescriptionId() + ".effect.");
     if (Util.canTranslate(bucketKey)) {
       return bucketKey;
     }
@@ -52,18 +52,17 @@ public class PotionBucketItem extends PotionItem {
 
   @Override
   public Component getName(ItemStack stack) {
-    Potion potion = PotionUtils.getPotion(stack.getTag());
-    String bucketKey = potion.getName(getDescriptionId() + ".effect.");
+    String bucketKey = PotionHelper.getName(stack, getDescriptionId() + ".effect.");
     if (Util.canTranslate(bucketKey)) {
       return Component.translatable(bucketKey);
     }
     // default to filling with the contents
-    return Component.translatable(getDescriptionId() + ".contents", Component.translatable(potion.getName("item.minecraft.potion.effect.")));
+    return Component.translatable(getDescriptionId() + ".contents", Component.translatable(PotionHelper.getName(stack, "item.minecraft.potion.effect.")));
   }
 
   @Override
   public ItemStack getDefaultInstance() {
-    return PotionUtils.setPotion(new ItemStack(this), Potions.AWKWARD);
+    return PotionHelper.setPotion(new ItemStack(this), Potions.AWKWARD);
   }
 
   @Override
@@ -75,7 +74,7 @@ public class PotionBucketItem extends PotionItem {
 
     // effects are 2x duration
     if (!level.isClientSide) {
-      for (MobEffectInstance effect : PotionUtils.getMobEffects(stack)) {
+      for (MobEffectInstance effect : PotionHelper.getEffects(stack)) {
         if (effect.getEffect().isInstantenous()) {
           effect.getEffect().applyInstantenousEffect(player, player, living, effect.getAmplifier(), 2.5D);
         } else {
@@ -107,7 +106,7 @@ public class PotionBucketItem extends PotionItem {
 
   @Override
   public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-    PotionUtils.addPotionTooltip(pStack, pTooltip, 2.5f);
+    PotionHelper.addTooltip(pStack, pTooltip::add, 2.5f, 20f);
   }
 
   @Override

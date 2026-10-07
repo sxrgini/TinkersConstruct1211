@@ -101,7 +101,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<IDis
   public ItemStack assemble(ICastingContainer inv, HolderLookup.Provider access) {
     ItemStack stack = inv.getStack().copy();
     return Caps.get(stack, Capabilities.FLUID_HANDLER_ITEM).map(handler -> {
-      handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount, inv.getFluidTag()), FluidAction.EXECUTE);
+      handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount, inv.getFluidStack().getComponentsPatch()), FluidAction.EXECUTE);
       return handler.getContainer();
     }).orElse(stack);
   }

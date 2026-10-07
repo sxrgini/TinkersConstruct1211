@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.item;
 
+import slimeknights.mantle.platform.client.IClientItemExtensionsProvider;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.resources.ResourceLocation;
@@ -8,7 +9,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import slimeknights.mantle.platform.client.IClientItemExtensions;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.armor.ArmorModelManager.ArmorModelDispatcher;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
@@ -21,7 +22,7 @@ import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /** This item is mainly to return the proper model for a slimeskull */
-public class SlimeskullItem extends ModifiableArmorItem {
+public class SlimeskullItem extends ModifiableArmorItem implements IClientItemExtensionsProvider {
   /** Model ID for our slimeskull. You may want your own for a custom slimeskull */
   public static final ResourceLocation MODEL_LOCATION = TConstruct.getResource("slimeskull");
 
@@ -42,7 +43,6 @@ public class SlimeskullItem extends ModifiableArmorItem {
     return ArmorUtil.getDummyArmorTexture(slot);
   }
 
-  @Override
   public void initializeClient(Consumer<IClientItemExtensions> consumer) {
     consumer.accept(new ArmorModelDispatcher() {
       @Override

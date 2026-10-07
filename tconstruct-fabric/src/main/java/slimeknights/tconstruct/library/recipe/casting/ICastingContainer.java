@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
+import slimeknights.mantle.platform.fluid.FluidStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.recipe.input.SingleItemInput;
@@ -14,14 +15,11 @@ public interface ICastingContainer extends SingleItemInput {
    * Gets the contained fluid in this inventory
    * @return  Contained fluid
    */
-  Fluid getFluid();
+  FluidStack getFluidStack();
 
-  /**
-   * Gets the NBT for the contained fluid
-   * @return  Fluid's NBT
-   */
-  @Nullable
-  default CompoundTag getFluidTag() {
-    return null;
+  /** {@return the contained fluid} */
+  default Fluid getFluid() {
+    return getFluidStack().getFluid();
   }
+
 }

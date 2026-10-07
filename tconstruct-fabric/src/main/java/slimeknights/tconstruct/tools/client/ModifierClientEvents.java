@@ -26,7 +26,7 @@ import slimeknights.mantle.platform.event.client.ClientPlayerNetworkEvent.Loggin
 import slimeknights.mantle.platform.event.client.ComputeFovModifierEvent;
 import slimeknights.mantle.platform.event.client.RenderGuiOverlayEvent;
 import slimeknights.mantle.platform.event.client.RenderHandEvent;
-import net.minecraftforge.client.extensions.common.IClientMobEffectExtensions;
+import slimeknights.mantle.platform.client.IClientMobEffectExtensions;
 import slimeknights.mantle.platform.event.client.RenderGuiOverlayEvent.VanillaGuiOverlay;
 import slimeknights.mantle.platform.event.player.ItemTooltipEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;

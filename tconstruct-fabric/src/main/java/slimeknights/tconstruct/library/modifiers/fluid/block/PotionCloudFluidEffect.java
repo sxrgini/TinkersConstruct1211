@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.modifiers.fluid.block;
 
+import slimeknights.tconstruct.library.utils.PotionHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
@@ -32,8 +32,7 @@ public record PotionCloudFluidEffect(float scale, TagPredicate predicate) implem
   public float apply(FluidStack fluid, EffectLevel level, FluidEffectContext.Block context, FluidAction action) {
     CompoundTag tag = fluid.getTag();
     if (predicate.test(tag) && context.isOffsetReplaceable()) {
-      Potion potion = PotionUtils.getPotion(fluid.getTag());
-      List<MobEffectInstance> effects = potion.getEffects();
+      List<MobEffectInstance> effects = PotionHelper.getEffects(fluid);
       if (!effects.isEmpty()) {
         float scale = level.value();
         if (action.execute()) {

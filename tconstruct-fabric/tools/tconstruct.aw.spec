@@ -113,3 +113,8 @@ accessible ApplyBonusCount FORMULA_CODEC
 accessible ApplyBonusCount$OreDrops <init>
 accessible ApplyBonusCount$UniformBonusCount <init>
 accessible ApplyBonusCount$BinomialWithBonusCount <init>
+accessible ShapedRecipe result
+accessible ShapedRecipe pattern
+accessible ShapedRecipePattern data
+accessible ShapedRecipePattern$Data class
+accessible ShapelessRecipe result
