@@ -38,10 +38,10 @@ public class UniqueGuiModel implements IUnbakedGeometry<UniqueGuiModel> {
   }
 
   @Override
-  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation location) {
+  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides) {
     return new Baked(
-      model.bake(owner, baker, spriteGetter, transform, overrides, location),
-      gui.bake(owner, baker, spriteGetter, transform, overrides, location)
+      model.bake(owner, baker, spriteGetter, transform, overrides),
+      gui.bake(owner, baker, spriteGetter, transform, overrides)
     );
   }
 
@@ -56,12 +56,9 @@ public class UniqueGuiModel implements IUnbakedGeometry<UniqueGuiModel> {
       this.gui = gui;
     }
 
-    @Override
+    /** Gets the model to use for the given display context, not an override as Fabric has no per-context transform hook */
     public BakedModel applyTransform(ItemDisplayContext itemDisplay, PoseStack mat, boolean applyLeftHandTransform) {
-      if (itemDisplay == ItemDisplayContext.GUI) {
-        return gui.applyTransform(itemDisplay, mat, applyLeftHandTransform);
-      }
-      return originalModel.applyTransform(itemDisplay, mat, applyLeftHandTransform);
+      return itemDisplay == ItemDisplayContext.GUI ? gui : originalModel;
     }
   }
 

@@ -125,3 +125,4 @@ accessible Explosion blockInteraction
 accessible Explosion smallExplosionParticles
 accessible Explosion largeExplosionParticles
 accessible Explosion explosionSound
+accessible ItemOverrides <init>

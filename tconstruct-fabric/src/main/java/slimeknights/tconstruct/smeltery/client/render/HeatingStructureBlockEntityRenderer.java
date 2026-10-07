@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.client.render;
 
+import slimeknights.mantle.platform.client.model.BakedModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -117,9 +118,9 @@ public class HeatingStructureBlockEntityRenderer implements BlockEntityRenderer<
               RandomSource random = smeltery.getLevel().getRandom();
               // not setting the seed on the random and ignoring the forge layered model stuff means this is just an estimate, but since this is for the sake of performance its not a huge deal for it to be exact
               for (Direction direction : Direction.values()) {
-                quadsRendered += model.getQuads(null, direction, random, ModelData.EMPTY, null).size();
+                quadsRendered += BakedModels.getQuads(model, null, direction, random, ModelData.EMPTY).size();
               }
-              quadsRendered += model.getQuads(null, null, random, ModelData.EMPTY, null).size();
+              quadsRendered += BakedModels.getQuads(model, null, null, random, ModelData.EMPTY).size();
             }
             if (quadsRendered > max) {
               break;

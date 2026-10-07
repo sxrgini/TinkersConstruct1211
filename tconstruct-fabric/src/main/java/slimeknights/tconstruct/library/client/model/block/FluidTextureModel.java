@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.model.block;
 
+import slimeknights.mantle.platform.client.model.BakedModels;
 import slimeknights.tconstruct.library.utils.StackNbt;
 import slimeknights.mantle.platform.fluid.FluidTypes;
 import com.google.common.collect.ImmutableSet;
@@ -83,9 +84,9 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
   }
 
   @Override
-  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation modelLocation) {
+  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides) {
     // start by baking the model, handing UV lock
-    BakedModel baked = model.bake(owner, baker, spriteGetter, transform, overrides, modelLocation);
+    BakedModel baked = model.bake(owner, baker, spriteGetter, transform, overrides);
 
     // determine which block parts are fluids
     Set<String> fluidTextures = this.fluids.isEmpty() ? Collections.emptySet() : RetexturedModel.getAllRetextured(owner, model, this.fluids);
@@ -102,7 +103,7 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
         // if this is undesired, just use separate elements
         if (fluidFaces > 0) {
           if (fluidFaces < part.faces.size()) {
-            TConstruct.LOG.warn("Mixed fluid and non-fluid elements in model {}, may cause unexpected results", modelLocation);
+            TConstruct.LOG.warn("Mixed fluid and non-fluid elements in model {}, may cause unexpected results", owner);
           }
           fluidParts.set(i);
         }
@@ -181,7 +182,7 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
           ColoredBlockModel.bakePart(builder, textured, element, colors.luminosity(), spriteGetter, transform.getRotation(), partTransformer, colors.isUvLock(defaultUvLock), TankModel.BAKE_LOCATION);
         }
       }
-      return builder.build(SimpleBlockModel.getRenderTypeGroup(owner));
+      return builder.build();
     }
 
     /** Gets a retextured model for the given fluid, using the cached model if possible */
@@ -199,9 +200,9 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
       Block block = retextured.isEmpty() ? null : data.get(RetexturedHelper.BLOCK_PROPERTY);
       if (!fluid.isEmpty() || block != null) {
         BakedCacheKey key = new BakedCacheKey(fluid, block != null ? ModelHelper.getParticleTexture(block) : null);
-        return getCachedModel(key).getQuads(state, direction, random, data, renderType);
+        return BakedModels.getQuads(getCachedModel(key), state, direction, random, data);
       }
-      return originalModel.getQuads(state, direction, random, data, renderType);
+      return BakedModels.getQuads(originalModel, state, direction, random, data);
     }
 
     @Override

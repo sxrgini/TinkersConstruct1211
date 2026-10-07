@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.model.block;
 
+import slimeknights.mantle.platform.client.model.BakedModels;
 import slimeknights.tconstruct.library.utils.StackNbt;
 import slimeknights.mantle.platform.fluid.FluidTypes;
 import com.google.common.cache.Cache;
@@ -80,12 +81,12 @@ public class TankModel implements IUnbakedGeometry<TankModel> {
   }
 
   @Override
-  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation location) {
-    BakedModel baked = model.bake(owner, baker, spriteGetter, transform, overrides, location);
+  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides) {
+    BakedModel baked = model.bake(owner, baker, spriteGetter, transform, overrides);
     // bake the GUI model if present
     BakedModel bakedGui = baked;
     if (gui != null) {
-      bakedGui = gui.bake(owner, baker, spriteGetter, transform, overrides, location);
+      bakedGui = gui.bake(owner, baker, spriteGetter, transform, overrides);
     }
     return new Baked(owner, transform, baked, bakedGui, this);
   }
@@ -137,12 +138,12 @@ public class TankModel implements IUnbakedGeometry<TankModel> {
       IQuadTransformer quadTransformer = SimpleBlockModel.applyTransform(originalTransforms, owner.getRootTransform());
       // first, add all regular elements
       for (BlockElement element : baseModel.getElements()) {
-        SimpleBlockModel.bakePart(builder, owner, element, spriteGetter, originalTransforms, quadTransformer, BAKE_LOCATION);
+        SimpleBlockModel.bakePart(builder, owner, element, spriteGetter, originalTransforms, quadTransformer);
       }
       // next, add in the fluid
       IQuadTransformer fluidTransformer = color == -1 ? quadTransformer : quadTransformer.andThen(ColoredBlockModel.applyColorQuadTransformer(color));
-      ColoredBlockModel.bakePart(builder, owner, fluid, luminosity, spriteGetter, originalTransforms.getRotation(), fluidTransformer, originalTransforms.isUvLocked(), BAKE_LOCATION);
-      return builder.build(SimpleBlockModel.getRenderTypeGroup(owner));
+      ColoredBlockModel.bakePart(builder, owner, fluid, luminosity, spriteGetter, originalTransforms.getRotation(), fluidTransformer, originalTransforms.isUvLocked());
+      return builder.build();
     }
 
     /**
@@ -209,10 +210,10 @@ public class TankModel implements IUnbakedGeometry<TankModel> {
         FluidStack fluid = data.get(ModelProperties.FLUID_STACK);
         if (fluid != null && !fluid.isEmpty()) {
           int capacity = Objects.requireNonNullElse(data.get(ModelProperties.TANK_CAPACITY), fluid.getAmount());
-          return getCachedModel(fluid, capacity).getQuads(state, side, rand, ModelData.EMPTY, renderType);
+          return getCachedModel(fluid, BakedModels.getQuads(capacity), state, side, rand, ModelData.EMPTY);
         }
       }
-      return originalModel.getQuads(state, side, rand, data, renderType);
+      return BakedModels.getQuads(originalModel, state, side, rand, data);
     }
 
     /** Override to add the fluid part to the item model */

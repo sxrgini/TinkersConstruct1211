@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.model.tools;
 
+import slimeknights.mantle.platform.client.model.BakedModels;
 import slimeknights.mantle.util.GlobalRegistries;
 import slimeknights.tconstruct.library.utils.StackNbt;
 import com.google.common.cache.Cache;
@@ -509,7 +510,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   }
 
   @Override
-  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState modelTransform, ItemOverrides overrides, ResourceLocation modelLocation) {
+  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState modelTransform, ItemOverrides overrides) {
     // warn on deprecated keys
     if (showTraits) {
       TConstruct.LOG.warn("Using deprecated key 'show_traits' in tool model {}, use 'constant' in modifier model maps with 'tconstruct:trait' instead", modelLocation);
@@ -707,9 +708,9 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
           List<BakedQuad> ammoQuads = new ArrayList<>();
           RandomSource rand = RandomSource.create();
           for (Direction direction : Direction.values()) {
-            ammoQuads.addAll(ammoModel.getQuads(null, direction, rand, ModelData.EMPTY, null));
+            BakedModels.getQuads(ammoQuads.addAll(ammoModel, null, direction, rand, ModelData.EMPTY));
           }
-          ammoQuads.addAll(ammoModel.getQuads(null, null, rand, ModelData.EMPTY, null));
+          BakedModels.getQuads(ammoQuads.addAll(ammoModel, null, null, rand, ModelData.EMPTY));
 
           // bake tints into static colors; saves us having to redirect item colors which is slow
           Int2IntMap tints = new Int2IntArrayMap();

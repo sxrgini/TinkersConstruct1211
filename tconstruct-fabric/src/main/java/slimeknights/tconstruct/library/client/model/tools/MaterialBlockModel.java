@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.model.tools;
 
+import slimeknights.mantle.platform.client.model.BakedModels;
 import slimeknights.tconstruct.library.utils.StackNbt;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -117,8 +118,8 @@ public class MaterialBlockModel implements IUnbakedGeometry<MaterialBlockModel> 
   }
 
   @Override
-  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation location) {
-    BakedModel baked = model.bake(owner, baker, spriteGetter, transform, overrides, location);
+  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material, TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides) {
+    BakedModel baked = model.bake(owner, baker, spriteGetter, transform, overrides);
     List<Set<String>> parts = this.parts.stream().map(part -> RetexturedModel.getAllRetextured(owner, model, part)).toList();
 
     // part model - fetches material from NBT field
@@ -232,12 +233,12 @@ public class MaterialBlockModel implements IUnbakedGeometry<MaterialBlockModel> 
         // apply color if we have it
         if (tint != null) {
           IQuadTransformer partTransformer = tint.color() == -1 ? quadTransformer : quadTransformer.andThen(ColoredBlockModel.applyColorQuadTransformer(tint.color()));
-          ColoredBlockModel.bakePart(builder, retextureContext, part, tint.emissivity(), spriteGetter, transformation, partTransformer, uvlock, BAKE_LOCATION);
+          ColoredBlockModel.bakePart(builder, retextureContext, part, tint.emissivity(), spriteGetter, transformation, partTransformer, uvlock);
         } else {
-          SimpleBlockModel.bakePart(builder, retextureContext, part, spriteGetter, transform, quadTransformer, BAKE_LOCATION);
+          SimpleBlockModel.bakePart(builder, retextureContext, part, spriteGetter, transform, quadTransformer);
         }
       }
-      return builder.build(SimpleBlockModel.getRenderTypeGroup(owner));
+      return builder.build();
     }
 
     /** Gets the cached model for the given materials. */
@@ -248,10 +249,10 @@ public class MaterialBlockModel implements IUnbakedGeometry<MaterialBlockModel> 
       if (particleRetextured) {
         P materials = data.get(property);
         if (materials != null) {
-          return getCachedModel(materials).getParticleIcon(data);
+          return BakedModels.getParticleIcon(getCachedModel(materials), data);
         }
       }
-      return originalModel.getParticleIcon(data);
+      return BakedModels.getParticleIcon(originalModel, data);
     }
 
     @Nonnull
@@ -259,9 +260,9 @@ public class MaterialBlockModel implements IUnbakedGeometry<MaterialBlockModel> 
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand, ModelData extraData, @Nullable RenderType renderType) {
       P materials = extraData.get(property);
       if (materials != null) {
-        return getCachedModel(materials).getQuads(state, side, rand, extraData, renderType);
+        return BakedModels.getQuads(getCachedModel(materials), state, side, rand, extraData);
       }
-      return originalModel.getQuads(state, side, rand, extraData, renderType);
+      return BakedModels.getQuads(originalModel, state, side, rand, extraData);
     }
   }
 
@@ -424,7 +425,7 @@ public class MaterialBlockModel implements IUnbakedGeometry<MaterialBlockModel> 
       if (particleRetextured) {
         Block block = data.get(RetexturedHelper.BLOCK_PROPERTY);
         if (block != null) {
-          return getCachedModel(block).getParticleIcon(data);
+          return BakedModels.getParticleIcon(getCachedModel(block), data);
         }
       }
       return super.getParticleIcon(data);
@@ -435,7 +436,7 @@ public class MaterialBlockModel implements IUnbakedGeometry<MaterialBlockModel> 
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand, ModelData extraData, @Nullable RenderType renderType) {
       Block block = extraData.get(RetexturedHelper.BLOCK_PROPERTY);
       if (block != null) {
-        return getCachedModel(block).getQuads(state, side, rand, extraData, renderType);
+        return BakedModels.getQuads(getCachedModel(block), state, side, rand, extraData);
       }
       return super.getQuads(state, side, rand, extraData, renderType);
     }

@@ -133,3 +133,4 @@ accessible field net/minecraft/world/level/Explosion blockInteraction Lnet/minec
 accessible field net/minecraft/world/level/Explosion smallExplosionParticles Lnet/minecraft/core/particles/ParticleOptions;
 accessible field net/minecraft/world/level/Explosion largeExplosionParticles Lnet/minecraft/core/particles/ParticleOptions;
 accessible field net/minecraft/world/level/Explosion explosionSound Lnet/minecraft/core/Holder;
+accessible method net/minecraft/client/renderer/block/model/ItemOverrides <init> ()V
