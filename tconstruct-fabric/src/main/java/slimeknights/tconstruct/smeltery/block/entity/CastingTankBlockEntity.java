@@ -306,7 +306,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
     super.saveSynced(tag, registries);
     // want tank on the client on world load
     if (!tank.isEmpty()) {
-      tag.put(NBTTags.TANK, tank.save());
+      tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundTag()));
     }
   }
 

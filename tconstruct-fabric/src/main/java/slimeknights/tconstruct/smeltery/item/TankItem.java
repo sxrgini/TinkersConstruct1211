@@ -224,7 +224,7 @@ public class TankItem extends BlockTooltipItem {
     if (tank.isEmpty()) {
       removeTank(stack);
     } else {
-      StackNbt.getOrCreateTag(stack).put(NBTTags.TANK, tank.save());
+      StackNbt.getOrCreateTag(stack).put(NBTTags.TANK, tank.writeToNBT(new CompoundTag()));
     }
     return stack;
   }

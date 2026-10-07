@@ -421,7 +421,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
   protected void saveSynced(CompoundTag nbt, HolderLookup.Provider registries) {
     super.saveSynced(nbt, registries);
     nbt.putByteArray(TAG_IS_FLOWING, isFlowing);
-    nbt.put(TAG_TANK, tank.save());
+    nbt.put(TAG_TANK, tank.writeToNBT(new CompoundTag()));
   }
 
 	@Override

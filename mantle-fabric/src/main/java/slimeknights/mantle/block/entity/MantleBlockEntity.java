@@ -38,6 +38,15 @@ public class MantleBlockEntity extends BlockEntity implements slimeknights.mantl
     return persistentData;
   }
 
+  /** Called when the block entity is loaded into a level, replaces Forge's {@code onLoad} */
+  public void onLoad() {}
+
+  @Override
+  public void setLevel(net.minecraft.world.level.Level level) {
+    super.setLevel(level);
+    onLoad();
+  }
+
   public MantleBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state);
   }

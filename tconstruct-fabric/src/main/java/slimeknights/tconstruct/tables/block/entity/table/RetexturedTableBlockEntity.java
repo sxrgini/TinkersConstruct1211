@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.block.entity.table;
 
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -27,7 +28,7 @@ public abstract class RetexturedTableBlockEntity extends TableBlockEntity implem
     super(type, pos, state, name, size);
   }
   public AABB getRenderBoundingBox() {
-    return new AABB(worldPosition, worldPosition.offset(1, 2, 1));
+    return new AABB(Vec3.atLowerCornerOf(worldPosition), Vec3.atLowerCornerOf(worldPosition.offset(1, 2, 1)));
   }
 
 

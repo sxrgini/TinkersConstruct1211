@@ -94,7 +94,7 @@ public class ChestBlock extends TabbedTableBlock {
       }
     }
 
-    return super.use(state, worldIn, pos, player, handIn, hit);
+    return super.useWithoutItem(state, worldIn, pos, player, hit);
   }
 
   @Override

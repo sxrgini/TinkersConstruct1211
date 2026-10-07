@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.component;
 
+import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -51,8 +52,8 @@ public class DrainBlockEntity extends SmelteryFluidIO implements IDisplayFluidLi
   /* Updating */
 
   // override instead of writeSynced to avoid writing master to the main tag twice
-  public CompoundTag getUpdateTag() {
-    CompoundTag nbt = super.getUpdateTag();
+  public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+    CompoundTag nbt = super.getUpdateTag(registries);
     writeMaster(nbt);
     return nbt;
   }

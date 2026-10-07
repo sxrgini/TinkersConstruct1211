@@ -86,7 +86,7 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
     if (FluidTransferHelper.interactWithTank(world, pos, player, hand, hit)) {
       return InteractionResult.SUCCESS;
     }
-    return super.use(state, world, pos, player, hand, hit);
+    return super.useWithoutItem(state, world, pos, player, hit);
   }
 
   /** Helper for setting the light level on placement */

@@ -57,7 +57,7 @@ public abstract class AbstractCastingBlock extends TableBlock {
       ((CastingBlockEntity) te).interact(player, hand);
       return InteractionResult.SUCCESS;
     }
-    return super.use(state, world, pos, player, hand, rayTraceResult);
+    return super.useWithoutItem(state, world, pos, player, rayTraceResult);
   }
 
   @SuppressWarnings("deprecation")

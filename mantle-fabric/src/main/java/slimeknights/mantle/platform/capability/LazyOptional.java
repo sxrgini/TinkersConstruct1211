@@ -126,6 +126,13 @@ public final class LazyOptional<T> {
     }
   }
 
+  /** Removes a listener added with {@link #addListener(NonNullConsumer)} */
+  public void removeListener(NonNullConsumer<LazyOptional<T>> listener) {
+    if (listeners != null) {
+      listeners.remove(listener);
+    }
+  }
+
   public void invalidate() {
     if (isValid && supplier != null) {
       isValid = false;

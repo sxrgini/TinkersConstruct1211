@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.multiblock;
 
+import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.library.utils.NbtCompat;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -75,7 +76,7 @@ public class MultiblockStructureData {
     innerX = maxInside.getX() - minInside.getX() + 1;
     innerY = maxInside.getY() - minInside.getY() + 1;
     innerZ = maxInside.getZ() - minInside.getZ() + 1;
-    bounds = new AABB(minInside, maxInside.offset(1, 1, 1));
+    bounds = new AABB(Vec3.atLowerCornerOf(minInside), Vec3.atLowerCornerOf(maxInside.offset(1, 1, 1)));
   }
 
   /**

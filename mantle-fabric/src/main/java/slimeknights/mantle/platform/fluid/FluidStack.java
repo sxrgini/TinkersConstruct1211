@@ -253,4 +253,68 @@ public final class FluidStack implements net.minecraft.core.component.DataCompon
   public static FluidStack parse(net.minecraft.core.HolderLookup.Provider registries, net.minecraft.nbt.Tag tag) {
     return CODEC.parse(registries.createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), tag).result().orElse(EMPTY);
   }
+
+  /* Legacy NBT API, backed by the custom data component, used by code ported from 1.20 */
+
+  /** Creates a stack with the given legacy tag stored in custom data */
+  public FluidStack(Fluid fluid, int amount, @javax.annotation.Nullable net.minecraft.nbt.CompoundTag tag) {
+    this(fluid, amount);
+    setTag(tag);
+  }
+
+  /** Creates a copy of the stack with a different amount */
+  public FluidStack(FluidStack stack, int amount) {
+    this(stack.fluid, amount, PatchedDataComponentMap.fromPatch(DataComponentMap.EMPTY, stack.components.asPatch()));
+  }
+
+  /** Gets the legacy tag, or null if none is set. The returned tag is live. */
+  @javax.annotation.Nullable
+  public net.minecraft.nbt.CompoundTag getTag() {
+    net.minecraft.world.item.component.CustomData data = components.get(net.minecraft.core.component.DataComponents.CUSTOM_DATA);
+    return data == null ? null : data.getUnsafe();
+  }
+
+  /** Checks if the stack has a non-empty legacy tag */
+  public boolean hasTag() {
+    net.minecraft.world.item.component.CustomData data = components.get(net.minecraft.core.component.DataComponents.CUSTOM_DATA);
+    return data != null && !data.isEmpty();
+  }
+
+  /** Gets the legacy tag, creating it if missing */
+  public net.minecraft.nbt.CompoundTag getOrCreateTag() {
+    net.minecraft.nbt.CompoundTag tag = getTag();
+    if (tag == null) {
+      tag = new net.minecraft.nbt.CompoundTag();
+      setTag(tag);
+    }
+    return tag;
+  }
+
+  /** Sets the legacy tag, removing it if null */
+  public void setTag(@javax.annotation.Nullable net.minecraft.nbt.CompoundTag tag) {
+    if (tag == null) {
+      components.remove(net.minecraft.core.component.DataComponents.CUSTOM_DATA);
+    } else {
+      components.set(net.minecraft.core.component.DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(tag));
+    }
+  }
+
+  /** Writes this stack into the passed tag, 1.20 style */
+  public net.minecraft.nbt.CompoundTag writeToNBT(net.minecraft.nbt.CompoundTag tag) {
+    net.minecraft.nbt.Tag saved = save();
+    if (saved instanceof net.minecraft.nbt.CompoundTag compound) {
+      tag.merge(compound);
+    }
+    return tag;
+  }
+
+  /** Reads a stack from a tag written by {@link #writeToNBT(net.minecraft.nbt.CompoundTag)} */
+  public static FluidStack loadFluidStackFromNBT(net.minecraft.nbt.CompoundTag tag) {
+    return parse(tag);
+  }
+
+  /** Checks if both stacks have the same data, ignoring fluid and amount */
+  public static boolean areFluidStackTagsEqual(FluidStack a, FluidStack b) {
+    return java.util.Objects.equals(a.getComponentsPatch(), b.getComponentsPatch());
+  }
 }
