@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import net.minecraft.core.NonNullList;
@@ -86,7 +87,7 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
   }
 
   @Override
-  public boolean matches(CraftingContainer inv, Level level) {
+  public boolean matches(CraftingInput inv, Level level) {
     ToolFound match = findTool(inv, tools, ingredient);
     if (match == null) {
       return false;
@@ -99,7 +100,7 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer inv, HolderLookup.Provider registryAccess) {
+  public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registryAccess) {
     ToolFound match = findTool(inv, tools, ingredient);
     if (match == null) {
       TConstruct.LOG.error("Overslime crafting table recipe {} failed to find tool after matching", getId());
@@ -111,7 +112,7 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
   }
 
   /** Gets the remaining items after repairing the necessary number of times */
-  public static NonNullList<ItemStack> getRemainingItems(CraftingContainer inv, Ingredient ingredient, int repairNeeded, int repairPerItem) {
+  public static NonNullList<ItemStack> getRemainingItems(CraftingInput inv, Ingredient ingredient, int repairNeeded, int repairPerItem) {
     NonNullList<ItemStack> list = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
     for (int i = 0; i < inv.getContainerSize(); i++) {
       ItemStack stack = inv.getItem(i);
@@ -131,7 +132,7 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
   }
 
   @Override
-  public NonNullList<ItemStack> getRemainingItems(CraftingContainer inv) {
+  public NonNullList<ItemStack> getRemainingItems(CraftingInput inv) {
     // step 1: find out how much we need to repair
     ToolFound inputs = findTool(inv, tools, ingredient);
     int repairNeeded = 0;

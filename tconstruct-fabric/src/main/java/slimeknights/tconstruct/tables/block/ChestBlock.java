@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.block;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -58,7 +59,7 @@ public class ChestBlock extends TabbedTableBlock {
     super.setPlacedBy(worldIn, pos, state, placer, stack);
     // check if we also have an inventory
 
-    CompoundTag tag = stack.getTag();
+    CompoundTag tag = StackNbt.getTag(stack);
     if (tag != null && tag.contains("TinkerData", Tag.TAG_COMPOUND)) {
       CompoundTag tinkerData = tag.getCompound("TinkerData");
       BlockEntity te = worldIn.getBlockEntity(pos);
@@ -78,7 +79,8 @@ public class ChestBlock extends TabbedTableBlock {
   @SuppressWarnings("deprecation")
   @Override
   @Deprecated
-  public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+  public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player player, BlockHitResult hit) {
+    InteractionHand handIn = InteractionHand.MAIN_HAND;
     BlockEntity te = worldIn.getBlockEntity(pos);
     Inventory playerInventory = player.getInventory();
     ItemStack heldItem = playerInventory.getSelected();

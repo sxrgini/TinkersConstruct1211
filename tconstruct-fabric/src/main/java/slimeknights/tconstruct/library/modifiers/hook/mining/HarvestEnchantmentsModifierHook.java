@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.hook.mining;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -103,7 +104,7 @@ public interface HarvestEnchantmentsModifierHook {
    * @param originalTag  Original list of enchantments. If empty, will remove the tag
    */
   static void restoreEnchantments(ItemStack stack, ListTag originalTag) {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = StackNbt.getTag(stack);
     if (nbt != null) {
       if (originalTag.isEmpty()) {
         nbt.remove(TAG_ENCHANTMENTS);

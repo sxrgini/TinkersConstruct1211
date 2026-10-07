@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation;
 
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
@@ -59,7 +60,7 @@ public interface IDisplayCraftingTinkering extends IDisplayToolTinkering, Crafti
   }
 
   @Override
-  default boolean matches(CraftingContainer container, Level pLevel) {
+  default boolean matches(CraftingInput container, Level pLevel) {
     return false;
   }
 
@@ -69,7 +70,7 @@ public interface IDisplayCraftingTinkering extends IDisplayToolTinkering, Crafti
   }
 
   @Override
-  default ItemStack assemble(CraftingContainer container, HolderLookup.Provider access) {
+  default ItemStack assemble(CraftingInput container, HolderLookup.Provider access) {
     return ItemStack.EMPTY;
   }
 

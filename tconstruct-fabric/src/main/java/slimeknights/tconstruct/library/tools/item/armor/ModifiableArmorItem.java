@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.item.armor;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.world.item.Item;
 import net.minecraft.core.Holder;
 import com.google.common.collect.ImmutableMultimap;
@@ -301,7 +302,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   }
 
   public Multimap<Attribute,AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = StackNbt.getTag(stack);
     if (slot != getEquipmentSlot() || nbt == null) {
       return ImmutableMultimap.of();
     }

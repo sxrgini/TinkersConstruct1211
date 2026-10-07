@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.recipe;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.core.HolderLookup;
 import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
@@ -262,7 +263,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
             List.of(IModifiableDisplay.getDisplayStack(stack)),
             parts.object2IntEntrySet().stream().map(pi -> {
               ItemStack part = pi.getKey().withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(pi.getIntValue()));
-              part.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+              StackNbt.getOrCreateTag(part).putBoolean(TooltipUtil.KEY_DISPLAY, true);
               return part;
             }).toList(),
             partItems.stream().flatMap(part -> MaterialItemCache.getAllMaterials(part).stream()).toList()

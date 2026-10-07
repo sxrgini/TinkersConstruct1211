@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
+import net.minecraft.world.item.crafting.CraftingInput;
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -47,7 +48,7 @@ public class ModifierMaterialRepairKitRecipe extends CraftingTableRepairKitRecip
   }
 
   @Override
-  public boolean matches(CraftingContainer inv, Level worldIn) {
+  public boolean matches(CraftingInput inv, Level worldIn) {
     ToolRepair inputs = getRelevantInputs(inv);
     if (inputs == null || !repairMaterial.equals(IMaterialItem.getMaterialFromStack(inputs.repairKit()).getId())) {
       return false;

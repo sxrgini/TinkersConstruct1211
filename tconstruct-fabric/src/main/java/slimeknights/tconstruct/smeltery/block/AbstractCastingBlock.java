@@ -47,7 +47,8 @@ public abstract class AbstractCastingBlock extends TableBlock {
 
   @Deprecated
   @Override
-  public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult rayTraceResult) {
+  public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult rayTraceResult) {
+    InteractionHand hand = InteractionHand.MAIN_HAND;
     if (player.isShiftKeyDown()) {
       return InteractionResult.PASS;
     }

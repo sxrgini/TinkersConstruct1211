@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery.block.controller;
 
+import net.minecraft.world.level.LevelReader;
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.world.item.Item;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -66,7 +68,7 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
     super.setPlacedBy(world, pos, state, placer, stack);
     if (world.getBlockEntity(pos) instanceof HeatingStructureBlockEntity te) {
       // update controller texture
-      if (stack.hasTag()) {
+      if (StackNbt.hasTag(stack)) {
         te.updateTexture(RetexturedHelper.getTextureName(stack));
       }
       // check structure
@@ -84,7 +86,7 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
   }
 
   @Override
-  public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+  public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
     return RetexturedBlock.getPickBlock(world, pos, state);
   }
 

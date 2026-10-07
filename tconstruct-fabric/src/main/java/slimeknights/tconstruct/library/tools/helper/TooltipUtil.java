@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import com.google.common.collect.Multimap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
@@ -98,26 +99,26 @@ public class TooltipUtil {
    * @return  True if marked display
    */
   public static boolean isDisplay(ItemStack stack) {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = StackNbt.getTag(stack);
     return nbt != null && nbt.getBoolean(KEY_DISPLAY);
   }
 
   /** Sets the tool name in a way that will not be italic */
   public static void setDisplayName(ItemStack tool, String name) {
     if (name.isEmpty()) {
-      CompoundTag tag = tool.getTag();
+      CompoundTag tag = StackNbt.getTag(tool);
       if (tag != null) {
         tag.remove(KEY_NAME);
       }
     } else {
-      tool.getOrCreateTag().putString(KEY_NAME, name);
+      StackNbt.getOrCreateTag(tool).putString(KEY_NAME, name);
       tool.resetHoverName();
     }
   }
 
   /** Gets the display name from the given tool */
   public static String getDisplayName(ItemStack tool) {
-    CompoundTag tag = tool.getTag();
+    CompoundTag tag = StackNbt.getTag(tool);
     if (tag != null) {
       return tag.getString(KEY_NAME);
     }
@@ -171,7 +172,7 @@ public class TooltipUtil {
     } else if (!ToolStack.isInitialized(stack)) {
       tooltip.add(UNINITIALIZED);
       if (definition.hasMaterials()) {
-        CompoundTag nbt = stack.getTag();
+        CompoundTag nbt = StackNbt.getTag(stack);
         if (nbt == null || !nbt.contains(ToolStack.TAG_MATERIALS, Tag.TAG_LIST)) {
           tooltip.add(RANDOM_MATERIALS);
         }
@@ -217,7 +218,7 @@ public class TooltipUtil {
       }
     }
     if (!stack.isEmpty()) {
-      CompoundTag tag = stack.getTag();
+      CompoundTag tag = StackNbt.getTag(stack);
       if (tag != null && tag.contains("Enchantments", Tag.TAG_LIST)) {
         ListTag enchantments = tag.getList("Enchantments", Tag.TAG_COMPOUND);
         for (int i = 0; i < enchantments.size(); ++i) {

@@ -36,7 +36,7 @@ public class ReturningEffect extends TinkerEffect {
   }
 
   @Override
-  public boolean isDurationEffectTick(int duration, int amplifier) {
+  public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
     return duration == 1;
   }
 

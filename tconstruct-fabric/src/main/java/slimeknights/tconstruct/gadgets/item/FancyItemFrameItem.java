@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -48,7 +49,7 @@ public class FancyItemFrameItem extends Item {
 
     Level world = context.getLevel();
     HangingEntity frame = this.entityProvider.apply(world, placeLocation, facing);
-    CompoundTag tag = stack.getTag();
+    CompoundTag tag = StackNbt.getTag(stack);
     if (tag != null) {
       EntityType.updateCustomEntityTag(world, player, frame, tag);
     }

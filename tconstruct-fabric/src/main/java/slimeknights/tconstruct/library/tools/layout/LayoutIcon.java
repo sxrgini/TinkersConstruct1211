@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.layout;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -106,7 +107,7 @@ public abstract class LayoutIcon {
     public JsonObject toJson() {
       JsonObject json = new JsonObject();
       json.add("item", Loadables.ITEM.serialize(stack.getItem()));
-      CompoundTag tag = stack.getTag();
+      CompoundTag tag = StackNbt.getTag(stack);
       if (tag != null) {
         json.addProperty("nbt", tag.toString());
       }

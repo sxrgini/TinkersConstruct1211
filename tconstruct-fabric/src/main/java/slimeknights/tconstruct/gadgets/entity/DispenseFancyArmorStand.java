@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets.entity;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.BlockSource;
@@ -26,7 +27,7 @@ public class DispenseFancyArmorStand extends DefaultDispenseItemBehavior {
     BlockPos blockpos = source.pos().relative(direction);
     ServerLevel server = source.level();
     Consumer<FancyArmorStandEntity> consumer = EntityType.appendDefaultStackConfig(stand -> stand.setYRot(direction.toYRot()), server, stack, null);
-    FancyArmorStandEntity stand = TinkerGadgets.armorStandEntity.get().spawn(server, stack.getTag(), consumer, blockpos, MobSpawnType.DISPENSER, false, false);
+    FancyArmorStandEntity stand = TinkerGadgets.armorStandEntity.get().spawn(server, StackNbt.getTag(stack), consumer, blockpos, MobSpawnType.DISPENSER, false, false);
     if (stand != null) {
       stack.shrink(1);
       type.onPlace(stand);

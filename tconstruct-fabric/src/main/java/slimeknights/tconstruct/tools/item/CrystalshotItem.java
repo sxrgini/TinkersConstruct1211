@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.item;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -44,7 +45,7 @@ public class CrystalshotItem extends ArrowItem {
   public AbstractArrow createArrow(Level pLevel, ItemStack pStack, LivingEntity pShooter) {
     CrystalshotEntity arrow = new CrystalshotEntity(pLevel, pShooter);
     String variant = "random";
-    CompoundTag tag = pStack.getTag();
+    CompoundTag tag = StackNbt.getTag(pStack);
     if (tag != null && tag.contains(TAG_VARIANT, Tag.TAG_STRING)) {
       variant = tag.getString(TAG_VARIANT);
     }
@@ -62,7 +63,7 @@ public class CrystalshotItem extends ArrowItem {
   /** Creates a crystal shot with the given variant */
   public static ItemStack withVariant(String variant, int size) {
     ItemStack stack = new ItemStack(TinkerTools.crystalshotItem, size);
-    stack.getOrCreateTag().putString(TAG_VARIANT, variant);
+    StackNbt.getOrCreateTag(stack).putString(TAG_VARIANT, variant);
     return stack;
   }
 
@@ -87,9 +88,9 @@ public class CrystalshotItem extends ArrowItem {
     }
 
     @Override
-    protected void defineSynchedData() {
-      super.defineSynchedData();
-      this.entityData.define(SYNC_VARIANT, "");
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+      super.defineSynchedData(builder);
+      builder.define(SYNC_VARIANT, "");
     }
 
     /** Gets the texture variant of this shot */

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.armor.texture;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.Util;
 import net.minecraft.core.RegistryAccess;
@@ -147,7 +148,7 @@ public abstract class MaterialArmorTextureSupplier implements ArmorTextureSuppli
 
     @Override
     protected String getMaterial(ItemStack stack) {
-      CompoundTag tag = stack.getTag();
+      CompoundTag tag = StackNbt.getTag(stack);
       if (tag != null && tag.contains(ToolStack.TAG_MATERIALS, Tag.TAG_LIST)) {
         return tag.getList(ToolStack.TAG_MATERIALS, Tag.TAG_STRING).getString(index);
       }

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -172,7 +173,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
         .map(item -> {
           if (item instanceof IModifiableDisplay modifiable) {
             ItemStack stack = modifiable.getRenderTool().copy();
-            CompoundTag tag = stack.getOrCreateTag();
+            CompoundTag tag = StackNbt.getOrCreateTag(stack);
             tag.put(ToolStack.TAG_STATS, stats);
             tag.put(ToolStack.TAG_UPGRADES, modifiers);
             tag.put(ToolStack.TAG_MODIFIERS, modifiers);
@@ -185,7 +186,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
         .toList();
       toolWithModifier = toolWithoutModifier.stream().map(stack -> {
         stack = stack.copy();
-        stack.getOrCreateTag().putInt(ToolStack.TAG_DAMAGE, 200 - repairAmount);
+        StackNbt.getOrCreateTag(stack).putInt(ToolStack.TAG_DAMAGE, 200 - repairAmount);
         return stack;
       }).toList();
     }

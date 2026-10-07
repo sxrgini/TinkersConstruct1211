@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.model.block;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import slimeknights.mantle.platform.fluid.FluidTypes;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
@@ -213,7 +214,7 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
       @Nullable
       @Override
       public BakedModel resolve(BakedModel originalModel, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int pSeed) {
-        if (stack.isEmpty() || !stack.hasTag()) {
+        if (stack.isEmpty() || !StackNbt.hasTag(stack)) {
           return originalModel;
         }
 

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.item.ranged;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.world.item.Item;
 import slimeknights.mantle.platform.client.IClientItemExtensionsProvider;
 import com.google.common.collect.ImmutableMultimap;
@@ -266,7 +267,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   }
 
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = StackNbt.getTag(stack);
     if (nbt == null || slot.getType() != Type.HAND) {
       return ImmutableMultimap.of();
     }

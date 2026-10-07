@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.fluids.item;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.world.item.Item;
 import slimeknights.tconstruct.library.utils.PotionHelper;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -130,7 +131,7 @@ public class PotionBucketItem extends PotionItem {
     @Override
     public FluidStack getFluid() {
       return new FluidStack(((PotionBucketItem)container.getItem()).getFluid(),
-                            FluidType.BUCKET_VOLUME, container.getTag());
+                            FluidType.BUCKET_VOLUME, StackNbt.getTag(container));
     }
   }
 }

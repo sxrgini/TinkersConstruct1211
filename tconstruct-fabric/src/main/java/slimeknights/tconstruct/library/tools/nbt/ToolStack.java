@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import com.google.common.collect.ImmutableSet;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -149,7 +150,7 @@ public class ToolStack implements IToolStackView {
     ToolDefinition definition = item instanceof IModifiable mod
                                 ? mod.getToolDefinition()
                                 : ToolDefinition.EMPTY;
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = StackNbt.getTag(stack);
     if (nbt == null) {
       nbt = new CompoundTag();
       if (!copyNbt) {
@@ -157,7 +158,7 @@ public class ToolStack implements IToolStackView {
         if (definition != ToolDefinition.EMPTY) {
           // bypass the setter as vanilla insists on setting damage values there, along with verifying the tag
           // both are things we will do later, doing so now causes us to recursively call this method (though not infinite)
-          stack.tag = nbt;
+          StackNbt.setTag(stack, nbt);
           // no need to set the damage value, if the tool wanted it set the stack would have had a tag already
         } else {
           switch (Config.COMMON.logInvalidToolStack.get()) {
@@ -244,10 +245,10 @@ public class ToolStack implements IToolStackView {
   /** Updates the tool stack instance to match the given item stack */
   @Internal
   public void refreshTag(ItemStack stack) {
-    CompoundTag tag = stack.getTag();
+    CompoundTag tag = StackNbt.getTag(stack);
     if (tag == null) {
       tag = new CompoundTag();
-      stack.setTag(tag);
+      StackNbt.setTag(stack, tag);
     }
     this.nbt = tag;
     clearCache();
@@ -257,7 +258,7 @@ public class ToolStack implements IToolStackView {
   public ItemStack createStack(int size) {
     ItemStack stack = new ItemStack(item, size);
     // set the raw tag to avoid going through verifyTagAfterLoad and rebuilding stats again
-    stack.tag = nbt;
+    StackNbt.setTag(stack, nbt);
     // damage value is already enforced via the stack creation above
     return stack;
   }
@@ -288,13 +289,14 @@ public class ToolStack implements IToolStackView {
     }
     // set the raw tag to avoid going through verifyTagAfterLoad and rebuilding stats again
     if (copyNBT) {
-      stack.tag = nbt.copy();
+      StackNbt.setTag(stack, nbt.copy());
     } else {
-      stack.tag = nbt;
+      StackNbt.setTag(stack, nbt);
     }
     // ensure the damage value is set on the stack for the sake of stacking, since bypassing the vanilla setter skips that
-    if (!stack.tag.contains(TAG_DAMAGE, Tag.TAG_ANY_NUMERIC) && stack.getItem().isDamageable(stack)) {
-      stack.tag.putInt(TAG_DAMAGE, 0);
+    CompoundTag stackTag = StackNbt.getTag(stack);
+    if (stackTag != null && !stackTag.contains(TAG_DAMAGE, Tag.TAG_ANY_NUMERIC) && stack.getItem() instanceof IModifiable) {
+      stackTag.putInt(TAG_DAMAGE, 0);
     }
     return stack;
   }
@@ -324,7 +326,7 @@ public class ToolStack implements IToolStackView {
   public boolean isSameStack(ItemStack stack) {
     // tool stacks share NBT with their stack instance unless copied so changes are mirrored
     // item check allows empty as empty stacks change their item to air. This won't false positive with ItemStack#EMPTY as the NBT won't match.
-    return nbt == stack.getTag() && (stack.isEmpty() || stack.getItem() == item);
+    return nbt == StackNbt.getTag(stack) && (stack.isEmpty() || stack.getItem() == item);
   }
 
 
@@ -784,7 +786,7 @@ public class ToolStack implements IToolStackView {
    * @return  True if initialized
    */
   public static boolean isInitialized(ItemStack stack) {
-    CompoundTag tag = stack.getTag();
+    CompoundTag tag = StackNbt.getTag(stack);
     return tag != null && isInitialized(tag);
   }
 
@@ -817,7 +819,7 @@ public class ToolStack implements IToolStackView {
     if (!toolDefinition.isDataLoaded()) {
       return;
     }
-    CompoundTag tag = stack.getTag();
+    CompoundTag tag = StackNbt.getTag(stack);
     // already initialized? nothing to do
     if (tag != null && isInitialized(tag)) {
       return;

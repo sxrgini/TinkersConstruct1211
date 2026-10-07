@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.item;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -181,7 +182,7 @@ public class ModifierCrystalItem extends Item {
   /** Creates a stack with the given modifier */
   public static ItemStack withModifier(ModifierId modifier, int count) {
     ItemStack stack = new ItemStack(TinkerModifiers.modifierCrystal.get(), count);
-    stack.getOrCreateTag().putString(TAG_MODIFIER, modifier.toString());
+    StackNbt.getOrCreateTag(stack).putString(TAG_MODIFIER, modifier.toString());
     return stack;
   }
 
@@ -193,7 +194,7 @@ public class ModifierCrystalItem extends Item {
   /** Gets the modifier stored on this stack */
   @Nullable
   public static ModifierId getModifier(ItemStack stack) {
-    CompoundTag tag = stack.getTag();
+    CompoundTag tag = StackNbt.getTag(stack);
     if (tag != null) {
       return ModifierId.tryParse(tag.getString(TAG_MODIFIER));
     }

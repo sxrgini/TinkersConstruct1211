@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.item;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import slimeknights.mantle.platform.client.IClientItemExtensionsProvider;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -260,7 +261,7 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
   }
 
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = StackNbt.getTag(stack);
     if (nbt == null || slot.getType() != Type.HAND) {
       return ImmutableMultimap.of();
     }

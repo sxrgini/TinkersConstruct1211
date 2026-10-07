@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.part;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -51,7 +52,7 @@ public class MaterialItem extends Item implements IMaterialItem {
 
   @Override
   public MaterialVariantId getMaterial(ItemStack stack) {
-    return getMaterialId(stack.getTag());
+    return getMaterialId(StackNbt.getTag(stack));
   }
 
   @Nullable

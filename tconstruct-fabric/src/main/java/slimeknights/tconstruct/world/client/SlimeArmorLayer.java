@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.world.client;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -93,7 +94,7 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
         if (item instanceof BlockItem block && block.getBlock() instanceof AbstractSkullBlock skullBlock) {
           matrices.scale(1.1875F, -1.1875F, -1.1875F);
           GameProfile gameprofile = null;
-          CompoundTag tag = helmet.getTag();
+          CompoundTag tag = StackNbt.getTag(helmet);
           if (tag != null && tag.contains("SkullOwner", Tag.TAG_COMPOUND)) {
             gameprofile = NbtUtils.readGameProfile(tag.getCompound("SkullOwner"));
           }

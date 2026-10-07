@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.core.HolderLookup;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -311,7 +312,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
           } else {
             // not a full list? mark it for display with just the materials on the end
             result = new MaterialIdNBT(list).updateStack(new ItemStack(output, outputCount));
-            result.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+            StackNbt.getOrCreateTag(result).putBoolean(TooltipUtil.KEY_DISPLAY, true);
           }
         }
       }

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.logic;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import slimeknights.mantle.platform.capability.Caps;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multiset;
@@ -220,7 +221,7 @@ public class ModifierEvents {
       for (int i = 0; i < hotbarSize; i++) {
         ItemStack stack = inventory.getItem(i);
         if (!stack.isEmpty() && (soulBelt || ModifierUtil.checkVolatileFlag(stack, SOULBOUND))) {
-          stack.getOrCreateTag().putInt(MantleEvents.SOULBOUND_SLOT, i);
+          StackNbt.getOrCreateTag(stack).putInt(MantleEvents.SOULBOUND_SLOT, i);
         }
       }
       // rest of the inventory, only check soulbound (no modifier that moves non-soulbound currently)
@@ -229,7 +230,7 @@ public class ModifierEvents {
       for (int i = hotbarSize; i < totalSize; i++) {
         ItemStack stack = inventory.getItem(i);
         if (!stack.isEmpty() && ModifierUtil.checkVolatileFlag(stack, SOULBOUND)) {
-          stack.getOrCreateTag().putInt(MantleEvents.SOULBOUND_SLOT, i);
+          StackNbt.getOrCreateTag(stack).putInt(MantleEvents.SOULBOUND_SLOT, i);
         }
       }
     }

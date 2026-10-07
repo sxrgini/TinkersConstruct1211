@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,7 +30,7 @@ public class ToolDamageUtil {
    * @param stack  Tool stack
    */
   public static void breakTool(ItemStack stack) {
-    stack.getOrCreateTag().putBoolean(ToolStack.TAG_BROKEN, true);
+    StackNbt.getOrCreateTag(stack).putBoolean(ToolStack.TAG_BROKEN, true);
   }
 
   /**
@@ -38,7 +39,7 @@ public class ToolDamageUtil {
    * @return  True if broken
    */
   public static boolean isBroken(ItemStack stack) {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = StackNbt.getTag(stack);
     return nbt != null && nbt.getBoolean(ToolStack.TAG_BROKEN);
   }
 

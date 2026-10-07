@@ -47,7 +47,8 @@ public class FoodCakeBlock extends CakeBlock {
   }
 
   @Override
-  public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+  public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+    InteractionHand handIn = InteractionHand.MAIN_HAND;
     InteractionResult result = this.eatSlice(world, pos, state, player);
     if (result.consumesAction()) {
       return result;

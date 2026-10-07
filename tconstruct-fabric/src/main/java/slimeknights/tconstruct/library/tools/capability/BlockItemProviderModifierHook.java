@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.capability;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -65,7 +66,7 @@ public interface BlockItemProviderModifierHook {
                     return;
                 }
             }
-            TConstruct.LOG.warn("Could not find a modifier to consume {} from after providing it from ToolBlockItemProviderHook. This is likely causing a duplication glitch! Stack nbt: {}", Loadables.ITEM.getKey(backingStack.getItem()), backingStack.getTag());
+            TConstruct.LOG.warn("Could not find a modifier to consume {} from after providing it from ToolBlockItemProviderHook. This is likely causing a duplication glitch! Stack nbt: {}", Loadables.ITEM.getKey(backingStack.getItem()), StackNbt.getTag(backingStack));
         }
     }
 

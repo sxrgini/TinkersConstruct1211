@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.recipe;
 
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -86,7 +87,7 @@ public class CraftingTableRepairKitRecipe extends CustomRecipe {
   }
 
   @Override
-  public boolean matches(CraftingContainer inv, Level worldIn) {
+  public boolean matches(CraftingInput inv, Level worldIn) {
     // no match
     ToolRepair inputs = getRelevantInputs(inv);
     if (inputs == null) {
@@ -108,7 +109,7 @@ public class CraftingTableRepairKitRecipe extends CustomRecipe {
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer inv, HolderLookup.Provider access) {
+  public ItemStack assemble(CraftingInput inv, HolderLookup.Provider access) {
     ToolRepair inputs = getRelevantInputs(inv);
     if (inputs == null) {
       TConstruct.LOG.error("Recipe repair on {} failed to find items after matching", getId());

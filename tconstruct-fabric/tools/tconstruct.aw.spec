@@ -119,3 +119,4 @@ accessible ShapedRecipePattern data
 accessible ShapedRecipePattern$Data class
 accessible ShapelessRecipe result
 accessible MangrovePropaguleBlock SHAPE_PER_AGE
+accessible CustomData <init>

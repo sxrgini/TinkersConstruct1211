@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.part;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -37,7 +38,7 @@ public interface IMaterialItem extends ItemLike, IMaterialUser {
   /** Sets the material on the existing stack, bypassing the valid material check. */
   default ItemStack setMaterialForced(ItemStack stack, MaterialVariantId material) {
     // FIXME: it is odd that we assume the NBT format in this method but not in getMaterial, should be consistent in the implementation location
-    stack.getOrCreateTag().putString(MATERIAL_TAG, material.toString());
+    StackNbt.getOrCreateTag(stack).putString(MATERIAL_TAG, material.toString());
     return stack;
   }
 

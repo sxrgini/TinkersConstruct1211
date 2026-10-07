@@ -59,7 +59,8 @@ public class FluidCannonBlock extends SearedTankBlock implements IFluidCannon, E
 
   @Deprecated
   @Override
-  public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+  public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+    InteractionHand hand = InteractionHand.MAIN_HAND;
     if (world.getBlockEntity(pos) instanceof FluidCannonBlockEntity cannon) {
       Vec3 location = hit.getLocation();
       boolean clickedTank = location.y - pos.getY() > 0.5;

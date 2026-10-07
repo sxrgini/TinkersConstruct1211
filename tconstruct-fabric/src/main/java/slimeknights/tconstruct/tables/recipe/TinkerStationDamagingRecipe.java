@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.recipe;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -149,7 +150,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe, IDispl
         .map(item -> {
           if (item instanceof IModifiableDisplay modifiable) {
             ItemStack stack = modifiable.getRenderTool().copy();
-            stack.getOrCreateTag().put(ToolStack.TAG_STATS, stats);
+            StackNbt.getOrCreateTag(stack).put(ToolStack.TAG_STATS, stats);
             return stack;
           }
           return ItemStack.EMPTY;
@@ -166,7 +167,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe, IDispl
       toolWithModifier = getToolWithoutModifier().stream()
         .map(stack -> {
           stack = stack.copy();
-          stack.getOrCreateTag().putInt(ToolStack.TAG_DAMAGE, damageAmount);
+          StackNbt.getOrCreateTag(stack).putInt(ToolStack.TAG_DAMAGE, damageAmount);
           return stack;
         }).toList();
     }

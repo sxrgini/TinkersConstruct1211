@@ -376,7 +376,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   }
 
   @Override
-  public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+  public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double delta) {
     //if (this.infoPanelScreen.handleMouseScrolled(mouseX, mouseY, delta)) {
     //  return false;
     //}

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.recipe;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
@@ -233,7 +234,7 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
           // add the recipe to the end of the stream
           List<ItemStack> bannersWithPattern = banners.stream().map(stack -> {
             stack = stack.copy();
-            stack.setTag(stack.getItem() == Items.BLACK_BANNER ? stackTagBlack : stackTag);
+            StackNbt.setTag(stack, stack.getItem() == Items.BLACK_BANNER ? stackTagBlack : stackTag);
             return stack;
           }).toList();
           recipes.add(new DisplayRecipe(id, toolInputs, bannersWithPattern, List.of(clearInput.getItems())));

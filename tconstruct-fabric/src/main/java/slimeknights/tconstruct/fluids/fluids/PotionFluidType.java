@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.fluids.fluids;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import slimeknights.tconstruct.library.utils.PotionHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -94,7 +95,7 @@ public class PotionFluidType extends FluidType {
   public static ItemStack potionBucket(ResourceKey<Potion> potion) {
     ItemStack stack = new ItemStack(TinkerFluids.potion);
     if (potion != Potions.EMPTY_ID) {
-      stack.setTag(potionTag(potion.location()));
+      StackNbt.setTag(stack, potionTag(potion.location()));
     }
     return stack;
   }
@@ -104,7 +105,7 @@ public class PotionFluidType extends FluidType {
   public static ItemStack potionBucket(Potion potion) {
     ItemStack stack = new ItemStack(TinkerFluids.potion);
     if (potion != Potions.EMPTY) {
-      stack.setTag(potionTag(BuiltInRegistries.POTION.getKey(potion)));
+      StackNbt.setTag(stack, potionTag(BuiltInRegistries.POTION.getKey(potion)));
     }
     return stack;
   }

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import slimeknights.tconstruct.library.utils.PotionHelper;
 import net.minecraft.core.HolderLookup;
 import lombok.Getter;
@@ -131,7 +132,7 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<IDispla
       for (FluidStack fluid : potionFluids) {
         displayResults.addAll(results);
         for (ItemStack result : results) {
-          displayFluids.add(new FluidStack(fluid.getFluid(), fluid.getAmount(), result.getTag()));
+          displayFluids.add(new FluidStack(fluid.getFluid(), fluid.getAmount(), StackNbt.getTag(result)));
         }
       }
       this.displayRecipes = List.of(DisplayCastingRecipe.from(this)

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modules;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import lombok.RequiredArgsConstructor;
@@ -105,7 +106,7 @@ public class AutosmeltModule implements ModifierModule, ProcessLootModifierHook 
   @Nullable
   private AbstractCookingRecipe findCachedRecipe(ItemStack stack, Level world) {
     // don't use the cache if there is a tag, prevent breaking NBT sensitive recipes
-    if (stack.hasTag()) {
+    if (StackNbt.hasTag(stack)) {
       return findRecipe(stack, world).orElse(null);
     }
     try {

@@ -88,7 +88,8 @@ public class WeatheringPlatformBlock extends PlatformBlock implements Weathering
   }
 
   @Override
-  public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+  public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+    InteractionHand hand = InteractionHand.MAIN_HAND;
     ItemStack stack = player.getItemInHand(hand);
     if (stack.getItem() == Items.HONEYCOMB) {
       if (player instanceof ServerPlayer serverPlayer) {

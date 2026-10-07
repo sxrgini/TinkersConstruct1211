@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.menu;
 
+import slimeknights.tconstruct.library.utils.StackNbt;
 import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -118,7 +119,7 @@ public class ToolContainerMenu extends AbstractContainerMenu {
     }
     // if the stack looks like it could be our tool, fetch the handler from it
     IItemHandler handler;
-    if (stack.hasTag() && stack.is(TinkerTags.Items.MODIFIABLE)) {
+    if (StackNbt.hasTag(stack) && stack.is(TinkerTags.Items.MODIFIABLE)) {
       handler = Caps.get(stack, Capabilities.ITEM_HANDLER).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(EmptyItemHandler.INSTANCE);
       // wrong number of slots means something went wrong, use a dummy
       if (handler.getSlots() != size) {

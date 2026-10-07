@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.tools.part.block;
 
+import net.minecraft.world.level.LevelReader;
+import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -33,7 +35,7 @@ public class MaterialBlock extends Block implements EntityBlock {
 
   @Override
   public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-    if (stack.hasTag()) {
+    if (StackNbt.hasTag(stack)) {
       MaterialVariantId material = IMaterialItem.getMaterialFromStack(stack);
       if (material != MaterialId.UNKNOWN && level.getBlockEntity(pos) instanceof MaterialBlockEntity be) {
         be.setMaterial(material);
@@ -43,7 +45,7 @@ public class MaterialBlock extends Block implements EntityBlock {
 
   @Deprecated
   @Override
-  public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
+  public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
     ItemStack stack = new ItemStack(state.getBlock());
     if (level.getBlockEntity(pos) instanceof MaterialBlockEntity be) {
       stack = IMaterialItem.withMaterial(stack, be.getMaterial());
