@@ -4,7 +4,7 @@ import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
+
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
@@ -54,10 +54,10 @@ public class CraftingTableRepairKitRecipe extends CustomRecipe {
    * @return  Relevant inputs, or null if invalid
    */
   @Nullable
-  protected ToolRepair getRelevantInputs(CraftingContainer inv) {
+  protected ToolRepair getRelevantInputs(CraftingInput inv) {
     ItemStack tool = null;
     ItemStack repairKit = null;
-    for (int i = 0; i < inv.getContainerSize(); i++) {
+    for (int i = 0; i < inv.size(); i++) {
       ItemStack stack = inv.getItem(i);
       if (stack.isEmpty()) {
         continue;
@@ -112,7 +112,7 @@ public class CraftingTableRepairKitRecipe extends CustomRecipe {
   public ItemStack assemble(CraftingInput inv, HolderLookup.Provider access) {
     ToolRepair inputs = getRelevantInputs(inv);
     if (inputs == null) {
-      TConstruct.LOG.error("Recipe repair on {} failed to find items after matching", getId());
+      TConstruct.LOG.error("Recipe repair on {} failed to find items after matching", getClass().getSimpleName());
       return ItemStack.EMPTY;
     }
 

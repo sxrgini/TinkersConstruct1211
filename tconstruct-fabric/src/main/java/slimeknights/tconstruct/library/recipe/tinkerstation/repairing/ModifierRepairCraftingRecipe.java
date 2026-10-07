@@ -6,7 +6,7 @@ import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
+
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
@@ -48,8 +48,8 @@ public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModif
   private final Ingredient ingredient;
   @Getter
   private final int repairAmount;
-  public ModifierRepairCraftingRecipe(ResourceLocation idIn, ModifierId modifier, Ingredient ingredient, int repairAmount) {
-    super(idIn, CraftingBookCategory.EQUIPMENT);
+  public ModifierRepairCraftingRecipe(ModifierId modifier, Ingredient ingredient, int repairAmount) {
+    super(CraftingBookCategory.EQUIPMENT);
     this.modifier = modifier;
     this.ingredient = ingredient;
     this.repairAmount = repairAmount;
@@ -70,7 +70,7 @@ public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModif
   public ItemStack assemble(CraftingInput inv, HolderLookup.Provider access) {
     ToolFound inputs = OverslimeCraftingTableRecipe.findTool(inv, TOOLS, ingredient);
     if (inputs == null) {
-      TConstruct.LOG.error("Recipe repair on {} failed to find items after matching", getId());
+      TConstruct.LOG.error("Recipe repair on {} failed to find items after matching", getClass().getSimpleName());
       return ItemStack.EMPTY;
     }
 
@@ -133,7 +133,7 @@ public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModif
   @Override
   public List<IDisplayCraftingTinkering> getFilteredRecipes(RegistryAccess access) {
     if (displayRecipes == null) {
-      displayRecipes = List.of(new ModifierRepairTinkerStationRecipe.DisplayRecipe(getId(), this, true));
+      displayRecipes = List.of(new ModifierRepairTinkerStationRecipe.DisplayRecipe(slimeknights.mantle.recipe.RecipeIds.get(this), this, true));
     }
     return displayRecipes;
   }

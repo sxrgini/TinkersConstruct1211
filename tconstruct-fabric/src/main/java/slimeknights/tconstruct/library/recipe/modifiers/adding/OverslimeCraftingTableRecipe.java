@@ -6,7 +6,7 @@ import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
+
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
@@ -46,7 +46,7 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
     this.restoreAmount = restoreAmount;
   }
 
-  /** Result from {@link #findTool(CraftingContainer, Predicate, Ingredient)} */
+  /** Result from {@link #findTool(CraftingInput, Predicate, Ingredient)} */
   public record ToolFound(ItemStack tool, int itemsFound) {}
 
   /**
@@ -57,10 +57,10 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
    * @return  Found tool, or null if either the tool or overslime ingredient is absent
    */
   @Nullable
-  public static ToolFound findTool(CraftingContainer inv, Predicate<ItemStack> tools, Ingredient ingredient) {
+  public static ToolFound findTool(CraftingInput inv, Predicate<ItemStack> tools, Ingredient ingredient) {
     ItemStack foundTool = null;
     int itemsFound = 0;
-    for (int i = 0; i < inv.getContainerSize(); i++) {
+    for (int i = 0; i < inv.size(); i++) {
       ItemStack stack = inv.getItem(i);
       if (stack.isEmpty()) {
         continue;
@@ -103,7 +103,7 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
   public ItemStack assemble(CraftingInput inv, HolderLookup.Provider registryAccess) {
     ToolFound match = findTool(inv, tools, ingredient);
     if (match == null) {
-      TConstruct.LOG.error("Overslime crafting table recipe {} failed to find tool after matching", getId());
+      TConstruct.LOG.error("Overslime crafting table recipe {} failed to find tool after matching", getClass().getSimpleName());
       return ItemStack.EMPTY;
     }
     ToolStack tool = ToolStack.copyFrom(match.tool);
@@ -113,8 +113,8 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
 
   /** Gets the remaining items after repairing the necessary number of times */
   public static NonNullList<ItemStack> getRemainingItems(CraftingInput inv, Ingredient ingredient, int repairNeeded, int repairPerItem) {
-    NonNullList<ItemStack> list = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
-    for (int i = 0; i < inv.getContainerSize(); i++) {
+    NonNullList<ItemStack> list = NonNullList.withSize(inv.size(), ItemStack.EMPTY);
+    for (int i = 0; i < inv.size(); i++) {
       ItemStack stack = inv.getItem(i);
       if (ingredient.test(stack)) {
         // if done repairing, leave the items
@@ -124,8 +124,8 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
         }
         repairNeeded -= repairPerItem;
       }
-      if (stack.hasCraftingRemainingItem()) {
-        list.set(i, stack.getRecipeRemainder());
+      if (stack.getItem().getCraftingRemainingItem() != null) {
+        list.set(i, new ItemStack(stack.getItem().getCraftingRemainingItem()));
       }
     }
     return list;
