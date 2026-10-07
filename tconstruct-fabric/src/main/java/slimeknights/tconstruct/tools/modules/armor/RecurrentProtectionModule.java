@@ -66,7 +66,7 @@ public record RecurrentProtectionModule(LevelingValue percent, LevelingInt durat
       int level = SlotInChargeModule.getLevel(context.getTinkerData(), SLOT_KEY, slotType);
       if (level > 0) {
         // step 1: reduce damage based on the current effect level
-        Holder<MobEffect> effect = TinkerModifiers.momentumEffect.get(ToolType.ARMOR);
+        Holder<MobEffect> effect = TinkerModifiers.momentumEffect.get(ToolType.ARMOR).holder();
         LivingEntity entity = context.getEntity();
         amount -= TinkerEffect.getLevel(entity, effect);
 
@@ -87,7 +87,7 @@ public record RecurrentProtectionModule(LevelingValue percent, LevelingInt durat
       TooltipModifierHook.addPercentBoost(modifier.getModifier(), PROTECTION, this.percent.compute(modifier.getLevel()), tooltip);
     } else {
       // if we have a player, use the current effect level for reduction display
-      int level = TinkerEffect.getLevel(player, TinkerModifiers.momentumEffect.get(ToolType.ARMOR));
+      int level = TinkerEffect.getLevel(player, TinkerModifiers.momentumEffect.get(ToolType.ARMOR).holder());
       if (level > 0) {
         TooltipModifierHook.addFlatBoost(modifier.getModifier(), PROTECTION, this.percent.compute(modifier.getLevel()), tooltip);
       }

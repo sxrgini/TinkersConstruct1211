@@ -57,7 +57,7 @@ public record PlaceGlowModule(int damage) implements ModifierModule, BlockIntera
           if (damage > 0 && ToolDamageUtil.damage(tool, damage, player, context.getItemInHand(), modifier.getId()) && player != null) {
             player.onEquippedItemBroken(player.getItemBySlot(source.getSlot(context.getHand())).getItem(), source.getSlot(context.getHand()));
           }
-          world.playSound(null, pos, world.getBlockState(pos).getSoundType(world, pos, player).getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
+          world.playSound(null, pos, world.getBlockState(pos).getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
         }
       }
       return InteractionResult.sidedSuccess(context.getLevel().isClientSide);

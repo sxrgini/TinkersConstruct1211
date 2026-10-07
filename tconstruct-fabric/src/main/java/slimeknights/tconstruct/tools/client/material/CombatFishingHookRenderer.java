@@ -109,11 +109,11 @@ public class CombatFishingHookRenderer extends EntityRenderer<CombatFishingHook>
       // render bobber
       PoseStack.Pose lastPose = poseStack.last();
       Matrix4f pose = lastPose.pose();
-      Matrix3f normal = lastPose.setNormal();
-      texture.addVertex(consumer, pose, normal, bobberLight, 0f, 0, 0, 1);
-      texture.addVertex(consumer, pose, normal, bobberLight, 1f, 0, 1, 1);
-      texture.addVertex(consumer, pose, normal, bobberLight, 1f, 1, 1, 0);
-      texture.addVertex(consumer, pose, normal, bobberLight, 0f, 1, 0, 0);
+      Matrix3f normal = lastPose.normal();
+      texture.vertex(consumer, pose, normal, bobberLight, 0f, 0, 0, 1);
+      texture.vertex(consumer, pose, normal, bobberLight, 1f, 0, 1, 1);
+      texture.vertex(consumer, pose, normal, bobberLight, 1f, 1, 1, 0);
+      texture.vertex(consumer, pose, normal, bobberLight, 0f, 1, 0, 0);
       poseStack.popPose();
 
       // handle hand side
@@ -193,7 +193,7 @@ public class CombatFishingHookRenderer extends EntityRenderer<CombatFishingHook>
       consumer.addVertex(pose, pX - 0.5f, pY - 0.5f, 0f)
         .setColor(red, green, blue, alpha)
         .setUv(pU, pV)
-        .setUv1(OverlayTexture.NO_OVERLAY)
+        .setOverlay(OverlayTexture.NO_OVERLAY)
         .setLight(lightmap)
         .setNormal(normal, 0.0F, 1.0F, 0.0F)
         ;

@@ -51,12 +51,12 @@ public class MomentumModifier extends Modifier implements ProjectileLaunchModifi
 
   /** Gets the bonus for the modifier */
   private static float getBonus(LivingEntity living, ToolType type, ModifierEntry modifier) {
-    return modifier.getEffectiveLevel() * (TinkerEffect.getLevel(living, TinkerModifiers.momentumEffect.get(type)));
+    return modifier.getEffectiveLevel() * (TinkerEffect.getLevel(living, TinkerModifiers.momentumEffect.get(type).holder()));
   }
 
   /** Applies the effect to the target */
   private static void applyEffect(LivingEntity living, ToolType type, int duration, int maxLevel) {
-    TinkerEffect effect = TinkerModifiers.momentumEffect.get(type);
+    net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect> effect = TinkerModifiers.momentumEffect.get(type).holder();
     effect.apply(living, duration, Math.min(maxLevel, TinkerEffect.getAmplifier(living, effect) + 1), true);
   }
 

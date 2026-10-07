@@ -69,7 +69,7 @@ public enum KineticModule implements ModifierModule, OnAttackedModifierHook, Too
     float bonus = modifier.getLevel();
     if (player != null && tooltipKey == TooltipKey.SHIFT) {
       // armor does not scale the effect level for its bonus
-      bonus = TinkerEffect.getLevel(player, TinkerModifiers.insatiableEffect.get(ToolType.ARMOR));
+      bonus = TinkerEffect.getLevel(player, TinkerModifiers.insatiableEffect.get(ToolType.ARMOR).holder());
     }
     if (bonus > 0) {
       TooltipModifierHook.addFlatBoost(modifier.getModifier(), TooltipModifierHook.statName(modifier.getModifier(), ToolStats.ATTACK_DAMAGE), bonus, tooltip);
