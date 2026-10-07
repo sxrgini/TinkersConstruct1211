@@ -33,6 +33,18 @@ public final class ItemHandlerHelper {
   }
 
   /** Gives the stack to the player, dropping what does not fit */
+  public static void giveItemToPlayer(Player player, ItemStack stack, int preferredSlot) {
+    if (stack.isEmpty()) {
+      return;
+    }
+    net.minecraft.world.entity.player.Inventory inventory = player.getInventory();
+    if (preferredSlot >= 0 && preferredSlot < inventory.items.size() && inventory.items.get(preferredSlot).isEmpty()) {
+      inventory.items.set(preferredSlot, stack);
+      return;
+    }
+    giveItemToPlayer(player, stack);
+  }
+
   public static void giveItemToPlayer(Player player, ItemStack stack) {
     if (stack.isEmpty()) {
       return;

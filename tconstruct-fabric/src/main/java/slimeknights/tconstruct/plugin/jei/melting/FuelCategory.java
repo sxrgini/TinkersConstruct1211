@@ -78,7 +78,7 @@ public class FuelCategory extends AbstractRecipeCategory<MeltingFuel> {
     Font font = Minecraft.getInstance().font;
     if (!fluids.isEmpty()) {
       FluidStack fluid = fluids.get(0);
-      title = fluid.getDisplayName();
+      title = fluid.getHoverName();
       if (fuel != null) {
         builder.addWidget(new LiquidFuelWidget(fuelPosition, 105, font, fuel, recipe.getDuration() / 5));
       }

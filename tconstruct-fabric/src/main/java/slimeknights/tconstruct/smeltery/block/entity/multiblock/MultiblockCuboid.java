@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.multiblock;
 
+import slimeknights.tconstruct.library.utils.NbtCompat;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import lombok.AccessLevel;
@@ -445,7 +446,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
     ListTag list = rootTag.getList(key, Tag.TAG_COMPOUND);
     List<BlockPos> collection = new ArrayList<>(list.size());
     for (int i = 0; i < list.size(); i++) {
-      BlockPos pos = NbtUtils.readBlockPos(list.getCompound(i));
+      BlockPos pos = NbtCompat.readBlockPos(list.getCompound(i));
       if (!pos.equals(BlockPos.ZERO)) {
         collection.add(pos.offset(offset));
       }

@@ -78,7 +78,7 @@ public record MeleeAttributeModule(String unique, Holder<Attribute> attribute, U
         AttributeInstance instance = target.getAttribute(attribute);
         if (instance != null) {
           // ensure we don't already have the modifier from someone misusing melee hooks or simultaneous attacks
-          instance.removeModifier(uuid);
+          instance.removeModifier(TConstruct.attributeId(uuid, unique));
           instance.addTransientModifier(new AttributeModifier(TConstruct.attributeId(uuid, unique), amount.compute(modifier.getEffectiveLevel()), operation));
         }
       }
@@ -90,7 +90,7 @@ public record MeleeAttributeModule(String unique, Holder<Attribute> attribute, U
     if (target != null) {
       AttributeInstance instance = target.getAttribute(attribute);
       if (instance != null) {
-        instance.removeModifier(uuid);
+        instance.removeModifier(TConstruct.attributeId(uuid, unique));
       }
     }
   }

@@ -94,8 +94,8 @@ public record GoldenAttributeModule(String unique, TinkerDataKey<TotalGold> data
     // update attribute
     AttributeInstance instance = living.getAttribute(attribute);
     if (instance != null) {
-      if (instance.getModifier(uuid) != null) {
-        instance.removeModifier(uuid);
+      if (instance.getModifier(TConstruct.attributeId(uuid, unique)) != null) {
+        instance.removeModifier(TConstruct.attributeId(uuid, unique));
       }
       instance.addTransientModifier(new AttributeModifier(TConstruct.attributeId(uuid, unique), amount.compute(totalGold), operation));
       checkHealth(living, instance);
@@ -135,7 +135,7 @@ public record GoldenAttributeModule(String unique, TinkerDataKey<TotalGold> data
         LivingEntity living = context.getEntity();
         AttributeInstance instance = living.getAttribute(attribute);
         if (instance != null) {
-          instance.removeModifier(uuid);
+          instance.removeModifier(TConstruct.attributeId(uuid, unique));
           checkHealth(living, instance);
         }
       }
@@ -163,7 +163,7 @@ public record GoldenAttributeModule(String unique, TinkerDataKey<TotalGold> data
     if (player != null && tooltipKey == TooltipKey.SHIFT) {
       AttributeInstance instance = player.getAttribute(attribute);
       if (instance != null) {
-        AttributeModifier modifier = instance.getModifier(uuid);
+        AttributeModifier modifier = instance.getModifier(TConstruct.attributeId(uuid, unique));
         if (modifier != null) {
           amount = (float) modifier.getAmount();
         }

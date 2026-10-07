@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.entity;
 
+import slimeknights.tconstruct.library.utils.NbtCompat;
 import slimeknights.mantle.platform.fluid.FluidTypes;
 import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
@@ -343,7 +344,7 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
     nbt.putFloat(KEY_KNOCKBACK, knockback);
     nbt.putFloat(KEY_WATER_INERTIA, this.entityData.get(WATER_INERTIA));
     if (cannon != null) {
-      nbt.put(KEY_CANNON, NbtUtils.writeBlockPos(cannon));
+      nbt.put(KEY_CANNON, NbtCompat.writeBlockPos(cannon));
     }
     FluidStack fluid = getFluid();
     if (!fluid.isEmpty()) {
@@ -358,7 +359,7 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
     this.knockback = nbt.getFloat(KEY_KNOCKBACK);
     this.entityData.set(WATER_INERTIA, nbt.getFloat(KEY_WATER_INERTIA));
     if (nbt.contains(KEY_CANNON)) {
-      this.cannon = NbtUtils.readBlockPos(nbt.getCompound(KEY_CANNON));
+      this.cannon = NbtCompat.readBlockPos(nbt.getCompound(KEY_CANNON));
     } else {
       this.cannon = null;
     }

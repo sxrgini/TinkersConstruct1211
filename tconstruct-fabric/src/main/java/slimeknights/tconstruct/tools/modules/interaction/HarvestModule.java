@@ -155,7 +155,7 @@ public enum HarvestModule implements ModifierModule, BlockInteractionModifierHoo
       world.setBlockAndUpdate(pos, replant);
       state.spawnAfterBreak(world, pos, stack, true);
       // set block state will not play sounds, destory block will
-      world.playSound(null, pos, state.getSoundType(world, pos, player).getBreakSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
+      world.playSound(null, pos, state.getSoundType().getBreakSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
     } else {
       world.destroyBlock(pos, false);
     }

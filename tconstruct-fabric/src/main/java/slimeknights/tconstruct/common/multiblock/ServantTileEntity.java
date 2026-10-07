@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common.multiblock;
 
+import slimeknights.tconstruct.library.utils.NbtCompat;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import lombok.Getter;
@@ -140,7 +141,7 @@ public class ServantTileEntity extends MantleBlockEntity implements IServantLogi
   @SuppressWarnings({"UnusedReturnValue"})
   protected CompoundTag writeMaster(CompoundTag tags) {
     if (masterPos != null && masterBlock != null) {
-      tags.put(TAG_MASTER_POS, NbtUtils.writeBlockPos(masterPos.subtract(this.worldPosition)));
+      tags.put(TAG_MASTER_POS, NbtCompat.writeBlockPos(masterPos.subtract(this.worldPosition)));
       tags.putString(TAG_MASTER_BLOCK, Loadables.BLOCK.getKey(masterBlock).toString());
     }
     return tags;

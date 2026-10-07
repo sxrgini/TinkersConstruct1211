@@ -86,8 +86,8 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Holder<Attribu
       return;
     }
     // start by removing the attribute, we are likely going to give it a new number
-    if (attribute.getModifier(uuid) != null) {
-      attribute.removeModifier(uuid);
+    if (attribute.getModifier(TConstruct.attributeId(uuid, unique)) != null) {
+      attribute.removeModifier(TConstruct.attributeId(uuid, unique));
     }
 
     // not above air
@@ -114,8 +114,8 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Holder<Attribu
       // damaging the tool will trigger this hook, so ensure the new tool has the same level
       if (newTool == null || newTool.isBroken() || newTool.getModifier(modifier.getId()).getEffectiveLevel() != modifier.getEffectiveLevel()) {
         AttributeInstance attribute = livingEntity.getAttribute(this.attribute);
-        if (attribute != null && attribute.getModifier(uuid) != null) {
-          attribute.removeModifier(uuid);
+        if (attribute != null && attribute.getModifier(TConstruct.attributeId(uuid, unique)) != null) {
+          attribute.removeModifier(TConstruct.attributeId(uuid, unique));
         }
       }
     }

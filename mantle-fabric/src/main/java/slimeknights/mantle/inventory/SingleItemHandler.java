@@ -136,6 +136,16 @@ public abstract class SingleItemHandler<T extends MantleBlockEntity> implements 
     }
   }
 
+  /** Writes this module to NBT using the global registries */
+  public CompoundTag writeToNBT() {
+    return writeToNBT(slimeknights.mantle.util.GlobalRegistries.get());
+  }
+
+  /** Reads this module from NBT using the global registries */
+  public void readFromNBT(CompoundTag nbt) {
+    readFromNBT(slimeknights.mantle.util.GlobalRegistries.get(), nbt);
+  }
+
   /**
    * Writes this module to NBT
    * @return  Module in NBT

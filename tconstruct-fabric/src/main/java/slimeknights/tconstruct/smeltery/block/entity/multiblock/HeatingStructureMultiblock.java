@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.multiblock;
 
+import slimeknights.tconstruct.library.utils.NbtCompat;
 import com.google.common.collect.ImmutableList;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -276,7 +277,7 @@ public abstract class HeatingStructureMultiblock<T extends MantleBlockEntity & I
     public CompoundTag writeToTag(BlockPos controllerPos) {
       CompoundTag nbt = super.writeToTag(controllerPos);
       if (insideCheck != null) {
-        nbt.put(TAG_INSIDE_CHECK, NbtUtils.writeBlockPos(insideCheck.subtract(controllerPos)));
+        nbt.put(TAG_INSIDE_CHECK, NbtCompat.writeBlockPos(insideCheck.subtract(controllerPos)));
       }
       return nbt;
     }

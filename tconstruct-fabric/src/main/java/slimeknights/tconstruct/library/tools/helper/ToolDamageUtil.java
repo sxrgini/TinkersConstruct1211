@@ -158,7 +158,7 @@ public class ToolDamageUtil {
    */
   public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity, EquipmentSlot slot, ModifierId cause) {
     if (damage(tool, amount, entity, entity.getItemBySlot(slot), cause)) {
-      entity.broadcastBreakEvent(slot);
+      entity.onEquippedItemBroken(entity.getItemBySlot(slot).getItem(), slot);
       return true;
     }
     return false;
@@ -188,7 +188,7 @@ public class ToolDamageUtil {
    */
   public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity, InteractionHand hand, ModifierId cause) {
     if (damage(tool, amount, entity, entity.getItemInHand(hand), cause)) {
-      entity.broadcastBreakEvent(hand);
+      entity.onEquippedItemBroken(entity.getItemInHand(hand).getItem(), LivingEntity.getSlotForHand(hand));
       // TODO: why don't we fire PlatformHooks.onPlayerDestroyItem here?
       return true;
     }
@@ -222,7 +222,7 @@ public class ToolDamageUtil {
         ItemStack stack = entity.getItemBySlot(slot);
         if (!stack.isEmpty() && tool.isSameStack(stack)) {
           if (damage(tool, amount, entity, stack, cause)) {
-            entity.broadcastBreakEvent(slot);
+            entity.onEquippedItemBroken(entity.getItemBySlot(slot).getItem(), slot);
             return true;
           }
           return false;

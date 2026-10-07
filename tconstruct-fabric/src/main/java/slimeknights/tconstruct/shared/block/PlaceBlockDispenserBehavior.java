@@ -36,8 +36,8 @@ public class PlaceBlockDispenserBehavior extends OptionalDispenseItemBehavior {
           block.setPlacedBy(level, target, state, null, stack);
         }
         level.gameEvent(null, GameEvent.BLOCK_PLACE, target);
-        SoundType sound = state.getSoundType(level, target, null);
-        level.playSound(null, target, state.getSoundType(level, target, null).getPlaceSound(), SoundSource.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
+        SoundType sound = state.getSoundType();
+        level.playSound(null, target, state.getSoundType().getPlaceSound(), SoundSource.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
       }
       stack.shrink(1);
       this.setSuccess(true);

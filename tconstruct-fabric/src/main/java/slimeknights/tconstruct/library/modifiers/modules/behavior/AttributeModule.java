@@ -137,7 +137,7 @@ public record AttributeModule(String unique, Holder<Attribute> attribute, Operat
         AttributeModifier attributeModifier = createModifier(tool, modifier, context.getChangedSlot());
         if (attributeModifier != null) {
           // for safety, remove it already there
-          instance.removeModifier(attributeModifier.getId());
+          instance.removeModifier(attributeModifier.id());
           instance.addTransientModifier(attributeModifier);
         }
       }
@@ -151,7 +151,7 @@ public record AttributeModule(String unique, Holder<Attribute> attribute, Operat
       if (uuid != null) {
         AttributeInstance instance = context.getEntity().getAttribute(attribute);
         if (instance != null) {
-          instance.removeModifier(uuid);
+          instance.removeModifier(TConstruct.attributeId(uuid, unique + "." + context.getChangedSlot().getName()));
         }
       }
     }

@@ -76,6 +76,16 @@ public class FluidTank implements IFluidHandler, IFluidTank {
     return this;
   }
 
+  /** Reads the tank from NBT using the global registry access */
+  public FluidTank readFromNBT(CompoundTag nbt) {
+    return readFromNBT(slimeknights.mantle.util.GlobalRegistries.get(), nbt);
+  }
+
+  /** Writes the tank to NBT using the global registry access */
+  public CompoundTag writeToNBT(CompoundTag nbt) {
+    return writeToNBT(slimeknights.mantle.util.GlobalRegistries.get(), nbt);
+  }
+
   /** Writes the tank to NBT */
   public CompoundTag writeToNBT(HolderLookup.Provider registries, CompoundTag nbt) {
     if (!fluid.isEmpty()) {

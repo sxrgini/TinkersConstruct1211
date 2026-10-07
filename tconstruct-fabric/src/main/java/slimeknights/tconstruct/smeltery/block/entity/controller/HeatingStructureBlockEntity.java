@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.controller;
 
+import slimeknights.tconstruct.library.utils.NbtCompat;
 import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -631,7 +632,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
     }
     // only exists to be sent server to client in update packets
     if (nbt.contains(TAG_ERROR_POS, Tag.TAG_COMPOUND)) {
-      this.errorPos = NbtUtils.readBlockPos(nbt.getCompound(TAG_ERROR_POS)).offset(this.worldPosition);
+      this.errorPos = NbtCompat.readBlockPos(nbt.getCompound(TAG_ERROR_POS)).offset(this.worldPosition);
     }
     fuelModule.readFromTag(nbt);
     if (nbt.contains(TAG_TEXTURE, Tag.TAG_STRING)) {
@@ -669,7 +670,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
     }
     // sync error position, not actually saved in Tag
     if (errorPos != null) {
-      nbt.put(TAG_ERROR_POS, NbtUtils.writeBlockPos(errorPos.subtract(this.worldPosition)));
+      nbt.put(TAG_ERROR_POS, NbtCompat.writeBlockPos(errorPos.subtract(this.worldPosition)));
     }
     return nbt;
   }
