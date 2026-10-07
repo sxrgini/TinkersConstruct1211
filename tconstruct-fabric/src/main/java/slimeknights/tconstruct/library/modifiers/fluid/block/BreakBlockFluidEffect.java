@@ -98,7 +98,7 @@ public record BreakBlockFluidEffect(float hardness, Map<ResourceKey<Enchantment>
         Player player = context.getPlayer();
         boolean removed;
         if (player != null) {
-          removed = state.onDestroyedByPlayer(world, pos, player, true, world.getFluidState(pos));
+          removed = slimeknights.mantle.platform.PlatformHooks.onDestroyedByPlayer(state, world, pos, player, true, world.getFluidState(pos));
           if (removed) {
             player.awardStat(Stats.BLOCK_MINED.get(block));
           }

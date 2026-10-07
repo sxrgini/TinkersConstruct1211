@@ -32,6 +32,17 @@ import java.util.List;
 
 /** Replacement for the Forge hook and event factory methods Tinkers calls, implemented on Fabric events or Mantle's event bus. */
 public final class PlatformHooks {
+  /** Forge's {@code BlockState#canHarvestBlock}: checks if the player's held tool is correct for drops */
+  public static boolean canHarvestBlock(net.minecraft.world.level.block.state.BlockState state, net.minecraft.world.level.BlockGetter level, BlockPos pos, Player player) {
+    return !state.requiresCorrectToolForDrops() || player.hasCorrectToolForDrops(state);
+  }
+
+  /** Forge's {@code BlockState#onDestroyedByPlayer}: runs the vanilla break logic and replaces with the fluid state */
+  public static boolean onDestroyedByPlayer(net.minecraft.world.level.block.state.BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, net.minecraft.world.level.material.FluidState fluid) {
+    state.getBlock().playerWillDestroy(level, pos, state, player);
+    return level.setBlock(pos, fluid.createLegacyBlock(), level.isClientSide ? 11 : 3);
+  }
+
   private PlatformHooks() {}
 
   private static final ThreadLocal<Player> CRAFTING_PLAYER = new ThreadLocal<>();

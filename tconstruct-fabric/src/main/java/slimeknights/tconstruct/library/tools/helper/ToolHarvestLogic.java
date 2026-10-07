@@ -94,7 +94,7 @@ public class ToolHarvestLogic {
     ServerLevel world = context.getWorld();
     BlockPos pos = context.getPos();
     if (removed == null) {
-      removed = state.onDestroyedByPlayer(world, pos, context.getPlayer(), context.canHarvest(), world.getFluidState(pos));
+      removed = slimeknights.mantle.platform.PlatformHooks.onDestroyedByPlayer(state, world, pos, context.getPlayer(), context.canHarvest(), world.getFluidState(pos));
     }
     // if removed by anything, finally destroy it
     if (removed) {
@@ -252,7 +252,7 @@ public class ToolHarvestLogic {
       // no harvest context
       player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
       ToolHarvestContext context = new ToolHarvestContext(world, serverPlayer, state, pos, sideHit,
-        !player.isCreative() && state.canHarvestBlock(world, pos, player), false);
+        !player.isCreative() && slimeknights.mantle.platform.PlatformHooks.canHarvestBlock(state, world, pos, player), false);
       breakBlock(tool, ItemStack.EMPTY, context, true);
       player.setItemInHand(InteractionHand.MAIN_HAND, stack);
     } else {
@@ -278,7 +278,7 @@ public class ToolHarvestLogic {
     // add in harvest info
     // must not be broken, and the tool definition must be effective
     ToolHarvestContext context = new ToolHarvestContext(world, player, projectile, state, pos, sideHit,
-                                                        !player.isCreative() && state.canHarvestBlock(world, pos, player),
+                                                        !player.isCreative() && slimeknights.mantle.platform.PlatformHooks.canHarvestBlock(state, world, pos, player),
                                                         IsEffectiveToolHook.isEffective(tool, state));
     // tell modifiers we are about to harvest, lets them add for instance modifiers conditioned on harvesting
     for (ModifierEntry entry : tool.getModifierList()) {
