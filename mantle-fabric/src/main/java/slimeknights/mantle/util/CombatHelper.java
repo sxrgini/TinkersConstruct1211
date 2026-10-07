@@ -32,13 +32,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.CommonHooks;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
-import net.neoforged.neoforge.entity.PartEntity;
-import net.neoforged.neoforge.event.EventHooks;
-import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
-import net.neoforged.neoforge.event.entity.player.SweepAttackEvent;
+import slimeknights.mantle.platform.item.ItemAbilities;
+import slimeknights.mantle.platform.item.ItemAbility;
 import slimeknights.mantle.Mantle;
 
 import javax.annotation.Nullable;
@@ -239,19 +234,15 @@ public class CombatHelper {
 
         // find critical
         boolean critical = fullyCharged && player.fallDistance > 0 && !player.onGround() && !player.onClimbable() && !player.isSprinting() && !player.isInWater() && !player.hasEffect(MobEffects.BLINDNESS) && !player.isPassenger() && targetLiving != null;
-        CriticalHitEvent critEvent = CommonHooks.fireCriticalHit(player, target, critical, critical ? 1.5f : 1f);
-        critical = critEvent.isCriticalHit();
         if (critical) {
-          damage *= critEvent.getDamageMultiplier();
+          damage *= 1.5f;
         }
 
         // finish damage enchantments
         float combinedDamage = damage + enchantmentDamage;
 
         // check if we can do a sweep attack
-        boolean canSweep = fullyCharged && !sprinting && !(critical && critEvent.disableSweep()) && player.onGround() && (player.walkDist - player.walkDistO) < player.getSpeed() && stack.canPerformAction(ItemAbilities.SWORD_SWEEP);
-        SweepAttackEvent sweepEvent = CommonHooks.fireSweepAttack(player, target, canSweep);
-        canSweep = sweepEvent.isSweeping();
+        boolean canSweep = fullyCharged && !sprinting && player.onGround() && (player.walkDist - player.walkDistO) < player.getSpeed() && ItemAbilities.canPerform(stack, ItemAbilities.SWORD_SWEEP);
 
         // fetch health
         float health = 0.0F;
@@ -265,7 +256,7 @@ public class CombatHelper {
 
         // cancel knockback if requested
         applyHit: {
-          if (stack.canPerformAction(NO_BASE_KNOCKBACK) && targetLiving != null) {
+          if (ItemAbilities.canPerform(stack, NO_BASE_KNOCKBACK) && targetLiving != null) {
             AttributeInstance knockbackAttribute = targetLiving.getAttribute(Attributes.KNOCKBACK_RESISTANCE);
             if (knockbackAttribute != null && !knockbackAttribute.hasModifier(ANTI_KNOCKBACK_MODIFIER.id())) {
               knockbackAttribute.addTransientModifier(ANTI_KNOCKBACK_MODIFIER);
@@ -349,8 +340,8 @@ public class CombatHelper {
           // handle multipart
           ;
           LivingEntity parent;
-          if (target instanceof PartEntity<?> part) {
-            parent = part.getParent() instanceof LivingEntity l ? l : null;
+          if (target instanceof net.minecraft.world.entity.boss.EnderDragonPart part) {
+            parent = part.parentMob;
           } else {
             parent = targetLiving;
           }
@@ -369,7 +360,6 @@ public class CombatHelper {
               stack.postHurtEnemy(parent, player);
             }
             if (stack.isEmpty()) {
-              EventHooks.onPlayerDestroyItem(player, copy, hand);
               player.setItemInHand(hand, ItemStack.EMPTY);
             }
           }

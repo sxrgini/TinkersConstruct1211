@@ -29,7 +29,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntries;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
-import net.neoforged.neoforge.common.ItemAbility;
+import slimeknights.mantle.platform.item.ItemAbility;
 import slimeknights.mantle.platform.ingredient.SizedIngredient;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.platform.fluid.crafting.FluidIngredient;

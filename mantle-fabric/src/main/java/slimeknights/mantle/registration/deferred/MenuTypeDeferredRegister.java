@@ -3,13 +3,13 @@ package slimeknights.mantle.registration.deferred;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
-import net.neoforged.neoforge.network.IContainerFactory;
+import slimeknights.mantle.platform.menu.IContainerFactory;
+import slimeknights.mantle.platform.menu.MenuTypes;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import slimeknights.mantle.platform.registry.DeferredRegister;
 
 /**
- * Deferred register for menu types, automatically mapping a factory argument in {@link IMenuTypeExtension}
+ * Deferred register for menu types, automatically mapping a factory argument in {@link MenuTypes}
  */
 @SuppressWarnings("unused")
 public class MenuTypeDeferredRegister extends DeferredRegister<MenuType<?>> {
@@ -25,6 +25,6 @@ public class MenuTypeDeferredRegister extends DeferredRegister<MenuType<?>> {
    * @return  Registry object containing the container type
    */
   public <C extends AbstractContainerMenu> DeferredHolder<MenuType<?>,MenuType<C>> register(String name, IContainerFactory<C> factory) {
-    return register(name, () -> IMenuTypeExtension.create(factory));
+    return register(name, () -> MenuTypes.create(factory));
   }
 }
