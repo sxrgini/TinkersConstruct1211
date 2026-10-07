@@ -1,0 +1,29 @@
+package slimeknights.mantle.client.model.builder;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import slimeknights.mantle.platform.client.model.generators.ModelBuilder;
+import slimeknights.mantle.platform.data.ExistingFileHelper;
+import slimeknights.mantle.client.model.RetexturedModel;
+
+/** Builder for using {@link slimeknights.mantle.client.model.RetexturedModel} in Neo block model datagen. */
+@SuppressWarnings("unused") // API
+public class RetexturedModelBuilder<T extends ModelBuilder<T>> extends ColoredModelBuilder<T> {
+  private final JsonArray retextured = new JsonArray();
+  public RetexturedModelBuilder(T parent, ExistingFileHelper existingFileHelper, boolean allowInlineElements) {
+    super(RetexturedModel.ID, parent, existingFileHelper, allowInlineElements);
+  }
+
+  /** Marks the given texture as retextured. Uses the texture name, not path. */
+  public RetexturedModelBuilder<T> retexture(String name) {
+    this.retextured.add(name);
+    return this;
+  }
+
+  @Override
+  public JsonObject toJson(JsonObject json) {
+    json = super.toJson(json);
+    json.add("retextured", retextured);
+    return json;
+  }
+}

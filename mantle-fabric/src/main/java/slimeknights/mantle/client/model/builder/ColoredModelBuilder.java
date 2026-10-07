@@ -1,0 +1,54 @@
+package slimeknights.mantle.client.model.builder;
+
+import com.google.gson.JsonObject;
+import net.minecraft.resources.ResourceLocation;
+import slimeknights.mantle.platform.client.model.generators.CustomLoaderBuilder;
+import slimeknights.mantle.platform.client.model.generators.ModelBuilder;
+import slimeknights.mantle.platform.data.ExistingFileHelper;
+import slimeknights.mantle.client.model.util.ColoredBlockModel;
+import slimeknights.mantle.client.model.util.ColoredBlockModel.ColorData;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Builder for {@link ColoredBlockModel}, used as a base for other model builders.
+ * @param <T>  Builder type
+ */
+@SuppressWarnings("unused")  // API
+public class ColoredModelBuilder<T extends ModelBuilder<T>> extends CustomLoaderBuilder<T> {
+  private final List<ColorData> colors = new ArrayList<>();
+
+  public ColoredModelBuilder(T parent, ExistingFileHelper existingFileHelper, boolean allowInlineElements) {
+    this(ColoredBlockModel.ID, parent, existingFileHelper, allowInlineElements);
+  }
+
+  protected ColoredModelBuilder(ResourceLocation loaderId, T parent, ExistingFileHelper existingFileHelper, boolean allowInlineElements) {
+    super(loaderId, parent, existingFileHelper, allowInlineElements);
+  }
+
+  /** Adds a full color data for the next element */
+  public ColoredModelBuilder<T> colorData(ColorData data) {
+    colors.add(data);
+    return this;
+  }
+
+  /** Sets the color for the next element */
+  public ColoredModelBuilder<T> color(int color) {
+    return colorData(new ColorData(color, -1, null));
+  }
+
+  /** Sets the luminosity for the next element */
+  public ColoredModelBuilder<T> luminosity(int luminosity) {
+    return colorData(new ColorData(-1, luminosity, null));
+  }
+
+  @Override
+  public JsonObject toJson(JsonObject json) {
+    json = super.toJson(json);
+    if (!colors.isEmpty()) {
+      json.add("colors", ColorData.LIST_LOADABLE.serialize(colors));
+    }
+    return json;
+  }
+}
