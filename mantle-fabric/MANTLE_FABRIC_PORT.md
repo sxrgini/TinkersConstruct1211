@@ -6,10 +6,14 @@ Source: SlimeKnights/Mantle branch `1.21` (NeoForge 21.1.238, MC 1.21.1), copied
 - Loom build (`build.gradle`, `gradle.properties`, `settings.gradle`), `fabric.mod.json` template.
 - NeoForge AT kept as `accesstransformer.neoforge.reference.cfg` for conversion to an access widener.
 
-## NOT done / unverified
-- Nothing has been compiled: maven.fabricmc.net etc. were blocked by the sandbox network policy.
-- Fabric versions in gradle.properties are unverified.
-- ~154 of 589 source files still import `net.neoforged.*` and will not compile.
+- Toolchain verified: `./gradlew compileJava` resolves Minecraft 1.21.1 + Parchment + Fabric API and runs javac.
+  Pinned: Loom 1.15.5 (newer Loom needs Gradle 9.5 / Java 25), Fabric API 0.116.0+1.21.1 (0.116.1x were built with Loom 1.18.2), JEI 19.51.0.418 (newer JEI is also built with a newer Loom).
+
+## NOT done
+- Source is unported. Baseline: 5194 javac errors in 383 files (many cascade from missing NeoForge imports).
+- Most frequent missing packages: neoforge.registries, neoforge.fluids(+capability/crafting), neoforge.client.model.geometry, neoforge.common.conditions, neoforge.common.data, neoforge.bus.api (events), neoforge.network.handling, neoforge.client.model.generators.
+- Access widener not yet written (reference AT in accesstransformer.neoforge.reference.cfg).
+- Maven Central via the sandbox proxy intermittently returns 429; just retry.
 
 ## Port order
 1. Access widener (needs field descriptors; generate with Loom once online)
