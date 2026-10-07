@@ -152,7 +152,7 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
         ResourceLocation id = getId();
         // one recipe per material
         // TODO: worth using just a single material? focus link material to output tool?
-        displayRecipes = access.registryOrThrow(Registries.TRIM_MATERIAL).holders()
+        displayRecipes = access.lookupOrThrow(Registries.TRIM_MATERIAL).listElements()
           .map(material -> new DisplayRecipe(id, toolInputs, trims, material))
           .collect(Collectors.toList());
       } else {
@@ -184,7 +184,7 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
       toolWithoutModifier = tools;
       this.trim = trim;
       TrimMaterial material = holder.value();
-      this.materialItem = List.of(new ItemStack(material.ingredient().get()));
+      this.materialItem = List.of(new ItemStack(material.ingredient()));
       this.variant = material.description().plainCopy();
 
       String materialName = holder.key().location().toString();

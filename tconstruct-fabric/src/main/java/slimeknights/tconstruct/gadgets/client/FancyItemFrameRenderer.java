@@ -58,7 +58,7 @@ public class FancyItemFrameRenderer<T extends FancyItemFrameEntity> extends Item
     RenderNameTagEvent renderNameplate = new RenderNameTagEvent(frame, frame.getDisplayName(), this, matrices, bufferIn, packedLight, partialTicks);
     EventBus.BUS.post(renderNameplate);
     if (renderNameplate.getResult() == Result.ALLOW || (renderNameplate.getResult() != Result.DENY && this.shouldShowName(frame))) {
-      this.renderNameTag(frame, renderNameplate.getContent(), matrices, bufferIn, packedLight);
+      this.renderNameTag(frame, renderNameplate.getContent(), matrices, bufferIn, packedLight, partialTicks);
     }
 
     // orient the renderer

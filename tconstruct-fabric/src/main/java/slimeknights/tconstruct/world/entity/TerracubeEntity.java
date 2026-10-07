@@ -86,7 +86,7 @@ public class TerracubeEntity extends ArmoredSlimeEntity {
         Item item = armorQuality == 5 ? Items.TURTLE_HELMET : getEquipmentForSlot(EquipmentSlot.HEAD, armorQuality);
         if (item != null) {
           this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(item));
-          if (this.level() instanceof net.minecraft.server.level.ServerLevelAccessor serverLevel) {
+          if (this.level() instanceof net.minecraft.world.level.ServerLevelAccessor serverLevel) {
             this.enchantSpawnedArmor(serverLevel, random, EquipmentSlot.HEAD, difficulty);
           }
         }

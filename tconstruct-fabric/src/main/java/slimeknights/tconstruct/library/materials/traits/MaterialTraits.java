@@ -141,8 +141,9 @@ public class MaterialTraits {
       // also suppress the map if no stat types were defined
       Map<ResourceLocation,List<ModifierEntry>> newMap = null;
       if (!traitsPerStats.isEmpty()) {
-        newMap = new HashMap<>(traitsPerStats.size());
-        traitsPerStats.forEach((key, value) -> newMap.put(key.location(), value));
+        Map<ResourceLocation,List<ModifierEntry>> built = new HashMap<>(traitsPerStats.size());
+        traitsPerStats.forEach((key, value) -> built.put(key.location(), value));
+        newMap = built;
       }
       return new MaterialTraitsJson(defaultTraits, newMap);
     }

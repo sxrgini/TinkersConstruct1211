@@ -66,7 +66,7 @@ public class FancyArmorStandItem extends Item {
     if (level instanceof ServerLevel server) {
       Player player = context.getPlayer();
       Consumer<FancyArmorStandEntity> consumer = EntityType.createDefaultStackConfig(server, stack, player);
-      FancyArmorStandEntity stand = TinkerGadgets.armorStandEntity.get().create(server, StackNbt.getTag(stack), consumer, pos, MobSpawnType.SPAWN_EGG, true, true);
+      FancyArmorStandEntity stand = TinkerGadgets.armorStandEntity.get().create(server, consumer, pos, MobSpawnType.SPAWN_EGG, true, true);
       if (stand == null) {
         return InteractionResult.FAIL;
       }

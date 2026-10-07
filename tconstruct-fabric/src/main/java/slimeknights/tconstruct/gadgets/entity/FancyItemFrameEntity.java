@@ -129,7 +129,7 @@ public class FancyItemFrameEntity extends ItemFrame implements IEntityAdditional
   }
 
   @Override
-  protected void setRotation(int rotationIn, boolean updateComparator) {
+  public void setRotation(int rotationIn, boolean updateComparator) {
     this.rotationTimer = 0;
     // diamond, manyullyn, and netherite goes 0-8 rotation
     int id = getFrameId();
