@@ -73,7 +73,7 @@ public record SoulSpeedModule(LevelingInt level, ModifierCondition<IToolStackVie
     if (level.isEmptyBlock(pos)) {
       BlockPos below = pos.below();
       BlockState blockstate = level.getBlockState(below);
-      if (blockstate.collisionExtendsVertically(level, below, living)) {
+      if (!blockstate.getCollisionShape(level, below).isEmpty()) {
         return below;
       }
     }

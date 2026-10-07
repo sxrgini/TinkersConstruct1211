@@ -76,7 +76,7 @@ public record BucketModule(IJsonPredicate<Fluid> fluids) implements ModifierModu
    */
   private static boolean cannotContainFluid(Level world, BlockPos pos, BlockState state, Fluid fluid) {
     Block block = state.getBlock();
-    return !(block instanceof LiquidBlockContainer container && container.canPlaceLiquid(world, pos, state, fluid));
+    return !(block instanceof LiquidBlockContainer container && container.canPlaceLiquid(null, world, pos, state, fluid));
   }
 
   @Override
@@ -121,11 +121,7 @@ public record BucketModule(IJsonPredicate<Fluid> fluids) implements ModifierModu
     boolean placed = false;
     // start with forge vaporizing
     FluidType fluidType = FluidTypes.of(fluid);
-    if (fluidType.isVaporizedOnPlacement(world, target, fluidStack)) {
-      fluidType.onVaporize(player, world, target, fluidStack);
-      placed = true;
-      // next, try vanilla vaporizing
-    } else if (world.dimensionType().ultraWarm() && fluid.is(FluidTags.WATER)) {
+    if (world.dimensionType().ultraWarm() && fluid.is(FluidTags.WATER)) {
       world.playSound(player, target, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
       for(int l = 0; l < 8; ++l) {
         world.addParticle(ParticleTypes.LARGE_SMOKE, target.getX() + Math.random(), target.getY() + Math.random(), target.getZ() + Math.random(), 0.0D, 0.0D, 0.0D);
@@ -192,9 +188,9 @@ public record BucketModule(IJsonPredicate<Fluid> fluids) implements ModifierModu
     BlockState state = world.getBlockState(target);
     // note that not all bucket pickup is a fluid, but we validated fluid state above
     if (state.getBlock() instanceof BucketPickup bucketPickup) {
-      ItemStack bucket = bucketPickup.pickupBlock(world, target, state);
+      ItemStack bucket = bucketPickup.pickupBlock(player, world, target, state);
       if (!bucket.isEmpty() && bucket.getItem() instanceof BucketItem bucketItem) {
-        Fluid pickedUpFluid = bucketItem.getFluid();
+        Fluid pickedUpFluid = bucketItem.content;
         if (pickedUpFluid != Fluids.EMPTY) {
           player.playSound(Objects.requireNonNullElse(FluidTypes.of(pickedUpFluid).getSound(SoundActions.BUCKET_FILL), SoundEvents.BUCKET_FILL), 1.0F, 1.0F);
           // set the fluid if empty, increase the fluid if filled

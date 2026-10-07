@@ -238,9 +238,6 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
         float oldHealth = targetLiving != null ? targetLiving.getHealth() : 0;
         if (target.hurt(source, damage)) {
           if (!this.level().isClientSide && owner instanceof LivingEntity ownerLiving) {
-            if (targetLiving != null) {
-              EnchantmentHelper.doPostHurtEffects(targetLiving, owner);
-            }
 
             // run modifier hook
             modifierHook: {

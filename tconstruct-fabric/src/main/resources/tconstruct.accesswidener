@@ -104,6 +104,7 @@ accessible field net/minecraft/client/renderer/block/model/BlockElementFace text
 accessible method net/minecraft/client/renderer/block/model/BlockElementFace texture ()Ljava/lang/String;
 accessible field net/minecraft/client/renderer/blockentity/SkullBlockRenderer SKIN_BY_TYPE Ljava/util/Map;
 accessible field net/minecraft/client/renderer/Sheets SHIELD_MATERIALS Ljava/util/Map;
+extendable method net/minecraft/client/gui/screens/inventory/AbstractContainerScreen isHovering (Lnet/minecraft/world/inventory/Slot;DD)Z
 accessible field net/minecraft/client/renderer/entity/layers/HumanoidArmorLayer ARMOR_LOCATION_CACHE Ljava/util/Map;
 accessible field net/minecraft/client/renderer/ItemInHandRenderer MAP_BACKGROUND_CHECKERBOARD Lnet/minecraft/client/renderer/RenderType;
 accessible field net/minecraft/client/renderer/ItemInHandRenderer MAP_BACKGROUND Lnet/minecraft/client/renderer/RenderType;
@@ -143,3 +144,5 @@ extendable method net/minecraft/world/entity/decoration/ItemFrame setRotation (I
 accessible method net/minecraft/world/level/levelgen/feature/HugeFungusFeature placeStem (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/level/levelgen/feature/HugeFungusConfiguration;Lnet/minecraft/core/BlockPos;IZ)V
 accessible method net/minecraft/world/level/levelgen/feature/HugeFungusFeature placeHat (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/level/levelgen/feature/HugeFungusConfiguration;Lnet/minecraft/core/BlockPos;IZ)V
 accessible field net/minecraft/client/renderer/Sheets SHIELD_MATERIALS Ljava/util/Map;
+extendable method net/minecraft/client/gui/screens/inventory/AbstractContainerScreen isHovering (Lnet/minecraft/world/inventory/Slot;DD)Z
+accessible field net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid;

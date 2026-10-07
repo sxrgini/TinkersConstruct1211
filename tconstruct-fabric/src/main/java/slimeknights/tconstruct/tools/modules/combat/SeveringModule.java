@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modules.combat;
 
+import slimeknights.tconstruct.library.modifiers.hook.behavior.EnchantmentModifierHook;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -56,7 +57,7 @@ public enum SeveringModule implements ModifierModule, ProcessLootModifierHook {
         List<SeveringRecipe> recipes = SeveringRecipeCache.findRecipe(world.getRecipeManager(), entity.getType());
         if (!recipes.isEmpty()) {
           float level = modifier.getEffectiveLevel();
-          float looting = context.getLootingModifier();
+          float looting = context.getParamOrNull(LootContextParams.ATTACKING_ENTITY) instanceof net.minecraft.world.entity.LivingEntity killer ? EnchantmentModifierHook.getEnchantmentLevel(killer.getMainHandItem(), net.minecraft.world.item.enchantment.Enchantments.LOOTING) : 0;
           // deprecated method of doubling chances
           float chanceMultiplier = entity.getType().is(TinkerTags.EntityTypes.RARE_MOBS) ? 2 : 1;
           for (SeveringRecipe recipe : recipes) {

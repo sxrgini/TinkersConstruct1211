@@ -165,12 +165,12 @@ public record GoldenAttributeModule(String unique, TinkerDataKey<TotalGold> data
       if (instance != null) {
         AttributeModifier modifier = instance.getModifier(TConstruct.attributeId(uuid, unique));
         if (modifier != null) {
-          amount = (float) modifier.getAmount();
+          amount = (float) modifier.amount();
         }
       }
     }
     if (amount != 0) {
-      TooltipModifierHook.addFlatBoost(entry.getModifier(), Component.translatable(attribute.getDescriptionId()), amount, tooltip);
+      TooltipModifierHook.addFlatBoost(entry.getModifier(), Component.translatable(attribute.value().getDescriptionId()), amount, tooltip);
     }
   }
 
@@ -184,7 +184,7 @@ public record GoldenAttributeModule(String unique, TinkerDataKey<TotalGold> data
       return tool.getVolatileData().getBoolean(ModifiableArmorItem.PIGLIN_NEUTRAL);
     } else {
       LivingEntity living = context.getEntity();
-      return living.getItemBySlot(slotType).makesPiglinsNeutral(living);
+      return living.getItemBySlot(slotType).getItem() instanceof net.minecraft.world.item.ArmorItem armorItem && armorItem.getMaterial().is(net.minecraft.world.item.ArmorMaterials.GOLD);
     }
   }
 

@@ -74,7 +74,7 @@ public class AnvilBlockItem extends MaterialBlockItem {
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
     Level level = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     // ditch the super call advanced tooltip material ID, we will handle it ourselves later
-    this.getBlock().appendHoverText(stack, level, tooltip, flag);
+    this.getBlock().appendHoverText(stack, context, tooltip, flag);
     MaterialVariantId material = getMaterial(stack);
     if (!MaterialId.UNKNOWN.equals(material)) {
       // put tool material in tooltip. Its technically below texture but the two should never coexist.

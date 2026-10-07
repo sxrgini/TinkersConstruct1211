@@ -57,7 +57,7 @@ public class TinkerStationContainerWrapper implements IMutableTinkerStationConta
       return null;
     }
     // try last recipe
-    SingleItemInput inv = () -> stack;
+    net.minecraft.world.item.crafting.SingleRecipeInput inv = new net.minecraft.world.item.crafting.SingleRecipeInput(stack);
     if (lastMaterialRecipe != null && lastMaterialRecipe.matches(inv, world)) {
       return lastMaterialRecipe;
     }

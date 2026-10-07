@@ -20,7 +20,7 @@ public class SlimesteelBlock extends Block {
   }
 
   public boolean canStickTo(BlockState state, BlockState other) {
-    return other.isSlimeBlock();
+    return other.is(net.minecraft.world.level.block.Blocks.SLIME_BLOCK) || other.getBlock() instanceof SlimesteelBlock;
   }
 
   @Override

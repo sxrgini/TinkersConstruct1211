@@ -59,6 +59,11 @@ public final class RetexturedHelper {
     return nbt.getString(TAG_TEXTURE);
   }
 
+  /** Gets the name of the texture stored on the stack, or empty if none */
+  public static String getTextureName(ItemStack stack) {
+    return getTextureName(getTexture(stack));
+  }
+
   /**
    * Gets the name of the texture from the block
    * @param block  Block

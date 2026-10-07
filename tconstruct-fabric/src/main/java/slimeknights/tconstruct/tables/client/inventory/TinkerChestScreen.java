@@ -69,7 +69,7 @@ public class TinkerChestScreen extends BaseTabbedScreen<AbstractChestBlockEntity
       return false;
     }
 
-    if (this.scalingChestScreen.handleMouseScrolled(mouseX, mouseY, delta)) {
+    if (this.scalingChestScreen.handleMouseScrolled(mouseX, mouseY, scrollX, delta)) {
       return false;
     }
 
