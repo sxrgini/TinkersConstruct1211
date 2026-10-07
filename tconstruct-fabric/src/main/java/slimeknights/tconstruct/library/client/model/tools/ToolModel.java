@@ -593,7 +593,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       this.gui = gui;
     }
 
-    @Override
+    /** Selects the model to render for the given display context. TODO 1.21: needs a hook in item rendering to be called, see docs/porting-gaps.md */
     public BakedModel applyTransform(ItemDisplayContext cameraTransformType, PoseStack mat, boolean applyLeftHandTransform) {
       BakedModel model = originalModel;
       if (cameraTransformType == ItemDisplayContext.GUI) {
@@ -603,7 +603,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       } else if (originalModel != small && SMALL_TOOL_TYPES.get(cameraTransformType.ordinal())) {
         model = small;
       }
-      return model.applyTransform(cameraTransformType, mat, applyLeftHandTransform);
+      return model;
     }
   }
 

@@ -63,6 +63,11 @@ public final class UnbakedGeometryHelper {
   }
 
   /** Bakes the elements into quads using the given sprite getter */
+  /** Overload with the model location, which is unused as quad baking no longer takes it */
+  public static List<BakedQuad> bakeElements(List<BlockElement> elements, Function<Material,TextureAtlasSprite> spriteGetter, ModelState state, net.minecraft.resources.ResourceLocation modelLocation) {
+    return bakeElements(elements, spriteGetter, state);
+  }
+
   public static List<BakedQuad> bakeElements(List<BlockElement> elements, Function<Material,TextureAtlasSprite> spriteGetter, ModelState state) {
     if (elements.isEmpty()) {
       return List.of();

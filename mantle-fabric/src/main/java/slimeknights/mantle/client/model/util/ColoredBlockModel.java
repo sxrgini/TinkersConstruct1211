@@ -86,6 +86,10 @@ public class ColoredBlockModel extends SimpleBlockModel {
    * @param quadTransformer  Forge transformations for the face, this is notably where you should handle color transformations
    * @param uvlock           UV lock for the face, separated to allow overriding the model state
    */
+  public static void bakePart(Builder builder, IGeometryBakingContext owner, BlockElement part, int emissivity, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transform, IQuadTransformer quadTransformer, boolean uvlock, net.minecraft.resources.ResourceLocation modelLocation) {
+    bakePart(builder, owner, part, emissivity, spriteGetter, transform, quadTransformer, uvlock);
+  }
+
   public static void bakePart(Builder builder, IGeometryBakingContext owner, BlockElement part, int emissivity, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transform, IQuadTransformer quadTransformer, boolean uvlock) {
     for (Entry<Direction, BlockElementFace> entry : part.faces.entrySet()) {
       BlockElementFace face = entry.getValue();

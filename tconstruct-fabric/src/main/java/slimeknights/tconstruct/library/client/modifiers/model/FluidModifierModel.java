@@ -93,7 +93,7 @@ public record FluidModifierModel(@Nullable Material small, @Nullable Material la
     // build fluid like the forge dynamic container model
     List<BlockElement> unbaked = UnbakedGeometryHelper.createUnbakedItemMaskElements(-1, spriteGetter.apply(template).contents()); // Use template as mask
     // TODO: is there anything that can be done about the fluid? to prevent weird offsets?
-    List<BakedQuad> fluidQuads = UnbakedGeometryHelper.bakeElements(unbaked, mat -> fluidSprite, new SimpleModelState(transforms.applyOrigin(ORIGIN).compose(FluidContainerModel.FLUID_TRANSFORM), false), BAKE_LOCATION); // Bake with fluid texture
+    List<BakedQuad> fluidQuads = UnbakedGeometryHelper.bakeElements(unbaked, mat -> fluidSprite, new SimpleModelState(slimeknights.mantle.platform.client.model.Transformations.applyOrigin(transforms, ORIGIN).compose(FluidContainerModel.FLUID_TRANSFORM), false), BAKE_LOCATION); // Bake with fluid texture
 
     // apply brightness and color
     int luminosity = FluidTypes.of(fluid.getFluid()).getLightLevel(fluid);
