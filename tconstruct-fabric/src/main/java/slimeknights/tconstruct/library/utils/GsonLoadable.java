@@ -26,7 +26,7 @@ public record GsonLoadable<T>(Gson gson, Class<T> classType) implements Loadable
 
   @Override
   public T decode(RegistryFriendlyByteBuf buffer, TypedMap context) {
-    CompoundTag tag = buffer.readAnySizeNbt();
+    CompoundTag tag = (CompoundTag) buffer.readNbt(net.minecraft.nbt.NbtAccounter.unlimitedHeap());
     if (tag != null) {
       return gson.fromJson(NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, tag), classType);
     }

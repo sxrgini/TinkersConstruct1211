@@ -142,3 +142,4 @@ extendable method net/minecraft/world/entity/decoration/ItemFrame setRotation (I
 extendable method net/minecraft/world/entity/decoration/ItemFrame setRotation (IZ)V
 accessible method net/minecraft/world/level/levelgen/feature/HugeFungusFeature placeStem (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/level/levelgen/feature/HugeFungusConfiguration;Lnet/minecraft/core/BlockPos;IZ)V
 accessible method net/minecraft/world/level/levelgen/feature/HugeFungusFeature placeHat (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/level/levelgen/feature/HugeFungusConfiguration;Lnet/minecraft/core/BlockPos;IZ)V
+accessible field net/minecraft/client/renderer/Sheets SHIELD_MATERIALS Ljava/util/Map;

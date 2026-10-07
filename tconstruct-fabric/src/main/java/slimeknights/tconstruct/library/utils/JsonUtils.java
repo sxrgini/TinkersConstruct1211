@@ -16,7 +16,17 @@ public class JsonUtils {
 
   /** Called when the player logs in to send packets */
   public static void syncPackets(OnDatapackSyncEvent event, ISimplePacket... packets) {
-    JsonHelper.syncPackets(event, TinkerNetwork.getInstance(), packets);
+    TinkerNetwork network = TinkerNetwork.getInstance();
+    net.minecraft.server.level.ServerPlayer player = event.getPlayer();
+    for (ISimplePacket packet : packets) {
+      if (player != null) {
+        network.sendTo(packet, player);
+      } else {
+        for (net.minecraft.server.level.ServerPlayer target : event.getPlayerList().getPlayers()) {
+          network.sendTo(packet, target);
+        }
+      }
+    }
   }
 
   /** Creates a JSON object with the given key set to a resource location */

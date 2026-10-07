@@ -103,13 +103,12 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
 
   /** Gets the list of patterns from the banner stack */
   private static ListTag getBannerPatterns(ItemStack banner) {
-    // get the banner data
-    CompoundTag bannerData = BlockItem.getBlockEntityData(banner);
-    ListTag patterns;
-    if (bannerData != null) {
-      patterns = bannerData.getList("Patterns", Tag.TAG_COMPOUND);
-    } else {
-      patterns = new ListTag();
+    ListTag patterns = new ListTag();
+    for (net.minecraft.world.level.block.entity.BannerPatternLayers.Layer layer : banner.getOrDefault(net.minecraft.core.component.DataComponents.BANNER_PATTERNS, net.minecraft.world.level.block.entity.BannerPatternLayers.EMPTY).layers()) {
+      CompoundTag tag = new CompoundTag();
+      tag.putString("Pattern", slimeknights.tconstruct.library.utils.BannerCompat.idOf(layer.pattern()));
+      tag.putInt("Color", layer.color().getId());
+      patterns.add(tag);
     }
     return patterns;
   }
@@ -176,20 +175,8 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
   private List<IDisplayModifierRecipe> displayRecipes;
 
   /** Creates the tag for a single pattern with the given color */
-  private static CompoundTag createDisplayPatternTag(BannerPattern pattern, DyeColor color) {
-    ListTag singlePattern = new ListTag();
-    CompoundTag patternTag = new CompoundTag();
-    patternTag.putString("Pattern", pattern.getHashname());
-    patternTag.putInt("Color", color.getId());
-    singlePattern.add(patternTag);
-
-    // create NBT for the banner stacks
-    CompoundTag blockEntityData = new CompoundTag();
-    blockEntityData.put("Patterns", singlePattern);
-    BlockEntity.addEntityType(blockEntityData, BlockEntityType.BANNER);
-    CompoundTag stackTag = new CompoundTag();
-    stackTag.put("BlockEntityTag", blockEntityData);
-    return stackTag;
+  private static net.minecraft.world.level.block.entity.BannerPatternLayers createDisplayPatternTag(net.minecraft.core.Holder<BannerPattern> pattern, DyeColor color) {
+    return new net.minecraft.world.level.block.entity.BannerPatternLayers(List.of(new net.minecraft.world.level.block.entity.BannerPatternLayers.Layer(pattern, color)));
   }
 
   @Override
@@ -222,8 +209,8 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
         if (clearInput != Ingredient.EMPTY) {
           // we want a pattern on it to make it more clear what it does
           // but put a white pattern on the black banner for visibility
-          CompoundTag stackTag, stackTagBlack;
-          BannerPattern cross = BuiltInRegistries.BANNER_PATTERN.get(BannerPatterns.CROSS);
+          net.minecraft.world.level.block.entity.BannerPatternLayers stackTag, stackTagBlack;
+          net.minecraft.core.Holder<BannerPattern> cross = slimeknights.tconstruct.library.utils.BannerCompat.byId(access, BannerPatterns.CROSS.location().toString());
           if (cross != null) {
             stackTag = createDisplayPatternTag(cross, DyeColor.BLACK);
             stackTagBlack = createDisplayPatternTag(cross, DyeColor.WHITE);
@@ -234,7 +221,9 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
           // add the recipe to the end of the stream
           List<ItemStack> bannersWithPattern = banners.stream().map(stack -> {
             stack = stack.copy();
-            StackNbt.setTag(stack, stack.getItem() == Items.BLACK_BANNER ? stackTagBlack : stackTag);
+            if (stackTag != null) {
+              stack.set(net.minecraft.core.component.DataComponents.BANNER_PATTERNS, stack.getItem() == Items.BLACK_BANNER ? stackTagBlack : stackTag);
+            }
             return stack;
           }).toList();
           recipes.add(new DisplayRecipe(id, toolInputs, bannersWithPattern, List.of(clearInput.getItems())));

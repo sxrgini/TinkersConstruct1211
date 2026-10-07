@@ -140,7 +140,7 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
       buffer.writeResourceLocation(entry.getKey().location());
       buffer.writeResourceLocation(entry.getValue().location());
     }
-    GenericTagUtil.encodeTags(buffer, Modifier::getId, this.tags);
+    GenericTagUtil.encodeTags(buffer, modifier -> modifier.getId().location(), this.tags);
 
     // enchantment mapping
     buffer.writeVarInt(enchantmentMap.size());

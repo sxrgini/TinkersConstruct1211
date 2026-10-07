@@ -77,7 +77,7 @@ public enum BannerModule implements ModifierModule, DisplayNameModifierHook, Too
         for (int i = 0; i < patterns.size(); i++) {
           CompoundTag tag = patterns.getCompound(i);
           DyeColor dye = DyeColor.byId(tag.getInt(KEY_DYE));
-          Holder<BannerPattern> holder = BannerPattern.byHash(tag.getString(KEY_PATTERN));
+          Holder<BannerPattern> holder = slimeknights.tconstruct.library.utils.BannerCompat.byId(tag.getString(KEY_PATTERN));
           if (holder != null) {
             // note that Forge is dumb in BannerItem with their patch - mojang already adds the mod ID to the tooltip key
             holder.unwrapKey().ifPresent(key ->
@@ -114,14 +114,11 @@ public enum BannerModule implements ModifierModule, DisplayNameModifierHook, Too
       hashCode = baseColor;
 
       // add in the base pattern, it only exists on shield NBT, but the recipe comes from banners
-      BannerPattern base = BuiltInRegistries.BANNER_PATTERN.get(BannerPatterns.BASE);
-      if (base != null) {
-        CompoundTag basePattern = new CompoundTag();
-        basePattern.putString(KEY_PATTERN, base.getHashname());
-        basePattern.putInt(KEY_DYE, dye.getId());
-        basePattern.putInt(KEY_COLOR, baseColor);
-        patterns.add(basePattern);
-      }
+      CompoundTag basePattern = new CompoundTag();
+      basePattern.putString(KEY_PATTERN, BannerPatterns.BASE.location().toString());
+      basePattern.putInt(KEY_DYE, dye.getId());
+      basePattern.putInt(KEY_COLOR, baseColor);
+      patterns.add(basePattern);
     }
 
     // add in all other patterns

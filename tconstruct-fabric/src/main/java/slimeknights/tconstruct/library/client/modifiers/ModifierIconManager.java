@@ -51,7 +51,7 @@ public class ModifierIconManager implements IEarlySafeManagerReloadListener {
    */
   public static void init() {
     EventBus bus = EventBus.MOD_BUS;
-    bus.addListener(ModifierIconManager::onResourceManagerRegister);
+    bus.addListener(RegisterClientReloadListenersEvent.class, ModifierIconManager::onResourceManagerRegister);
   }
 
   /** Called on resource manager build to add the manager */

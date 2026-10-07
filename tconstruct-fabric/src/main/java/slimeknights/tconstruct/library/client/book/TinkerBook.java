@@ -68,7 +68,7 @@ public class TinkerBook extends BookData {
    * Initializes the books
    */
   public static void initBook() {
-    BookLoader.registerGsonTypeAdapter(Component.class, new Component.Serializer(net.minecraft.core.RegistryAccess.EMPTY));
+    BookLoader.registerGsonTypeAdapter(Component.class, new ComponentAdapter());
 
     // register page types
     BookLoader.registerPageType(ContentTool.ID, ContentTool.class);
@@ -212,5 +212,18 @@ public class TinkerBook extends BookData {
       case FANTASTIC_FOUNDRY -> FANTASTIC_FOUNDRY;
       case ENCYCLOPEDIA      -> ENCYCLOPEDIA;
     };
+  }
+
+  /** Gson adapter for components using vanilla's serializer */
+  private static class ComponentAdapter implements com.google.gson.JsonDeserializer<Component>, com.google.gson.JsonSerializer<Component> {
+    @Override
+    public Component deserialize(com.google.gson.JsonElement json, java.lang.reflect.Type type, com.google.gson.JsonDeserializationContext context) {
+      return Component.Serializer.fromJson(json, net.minecraft.core.RegistryAccess.EMPTY);
+    }
+
+    @Override
+    public com.google.gson.JsonElement serialize(Component component, java.lang.reflect.Type type, com.google.gson.JsonSerializationContext context) {
+      return com.google.gson.JsonParser.parseString(Component.Serializer.toJson(component, net.minecraft.core.RegistryAccess.EMPTY));
+    }
   }
 }

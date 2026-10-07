@@ -130,7 +130,7 @@ public class ContentTool extends PageContent {
       if (this.toolName == null) {
         this.toolName = this.parent.name;
       }
-      Item item = BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(this.toolName));
+      Item item = BuiltInRegistries.ITEM.get(ResourceLocation.parse(this.toolName));
       if (item instanceof IModifiableDisplay tool) {
         this.tool = tool;
       } else {
@@ -157,11 +157,13 @@ public class ContentTool extends PageContent {
       List<IToolPart> required = ToolPartsHook.parts(tool.getToolDefinition());
 
       // get the stacks for the first crafting table recipe, prefer this option over parts as it may not be craftable with said parts
-      Recipe<CraftingContainer> recipe = Optional.ofNullable(Minecraft.getInstance().level)
+      Recipe<?> recipe = Optional.ofNullable(Minecraft.getInstance().level)
                                                  .flatMap(world -> {
                                                    RegistryAccess access = world.registryAccess();
-                                                   return world.getRecipeManager().byType(RecipeType.CRAFTING).values().stream()
+                                                   return world.getRecipeManager().byType(RecipeType.CRAFTING).stream()
+                                                        .map(net.minecraft.world.item.crafting.RecipeHolder::value)
                                                         .filter(r -> r.getResultItem(access).getItem() == tool.asItem())
+                                                        .<Recipe<?>>map(r -> r)
                                                         .findFirst();
                                                  })
                                                  .orElse(null);
@@ -182,7 +184,7 @@ public class ContentTool extends PageContent {
         }
         // fetch the tool building recipe for extra ingredients
         List<Ingredient> extraRequirements = Optional.ofNullable(Minecraft.getInstance().level)
-                                                     .flatMap(world -> world.getRecipeManager().byType(TinkerRecipeTypes.TINKER_STATION.get()).values().stream()
+                                                     .flatMap(world -> world.getRecipeManager().byType(TinkerRecipeTypes.TINKER_STATION.get()).stream().map(net.minecraft.world.item.crafting.RecipeHolder::value)
                                                                             .filter(r -> r instanceof ToolBuildingRecipe toolRecipe && toolRecipe.getOutput() == tool)
                                                                             .map(r -> ((ToolBuildingRecipe)r).getExtraRequirements())
                                                                             .findFirst()).orElse(List.of());

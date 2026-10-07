@@ -51,7 +51,7 @@ public enum EntityInteractFluidEffect implements FluidEffect<FluidEffectContext.
         Vec3 hit = context.getLocation().subtract(target.position());
 
         // check if forge wants to override
-        InteractionResult result = PlatformHooks.onInteractEntityAt(player, target, hit, hand);
+        InteractionResult result = PlatformHooks.onInteractEntityAt(player, target, new net.minecraft.world.phys.EntityHitResult(target, hit), hand);
         // skipped: never spectator mode if we made it this far
         if (result == null) {
           // no forge override, so find first success from vanilla hooks

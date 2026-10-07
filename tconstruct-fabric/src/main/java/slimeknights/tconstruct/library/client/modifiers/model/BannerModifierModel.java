@@ -46,8 +46,8 @@ public record BannerModifierModel(@Nullable ResourceLocation smallPrefix, @Nulla
   public void validate(Function<Material, TextureAtlasSprite> spriteGetter) {
     // since these are dynamically loaded, condition based on the config option
     if (Config.CLIENT.logMissingModifierTextures.get()) {
-      for (ResourceKey<BannerPattern> key : Sheets.SHIELD_MATERIALS.keySet()) {
-        String suffix = MaterialRenderInfo.getSuffix(key.location());
+      for (ResourceLocation key : Sheets.SHIELD_MATERIALS.keySet()) {
+        String suffix = MaterialRenderInfo.getSuffix(key);
         if (smallPrefix != null) {
           spriteGetter.apply(ModifierModel.blockAtlas(smallPrefix.withSuffix(suffix)));
         }
@@ -77,7 +77,7 @@ public record BannerModifierModel(@Nullable ResourceLocation smallPrefix, @Nulla
           // patterns are stored as short strings for some reason, for consistency we also store as hashes
           // map that back to the pattern
           CompoundTag tag = list.getCompound(i);
-          Holder<BannerPattern> pattern = BannerPattern.byHash(tag.getString(BannerModule.KEY_PATTERN));
+          Holder<BannerPattern> pattern = slimeknights.tconstruct.library.utils.BannerCompat.byId(tag.getString(BannerModule.KEY_PATTERN));
           int color = tag.getInt(BannerModule.KEY_COLOR);
           if (pattern != null) {
             // why must holders be such a pain?
