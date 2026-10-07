@@ -73,7 +73,7 @@ public class CreativeSlotItem extends Item {
 
   @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-    Level level = context.level();
+    Level level = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     SlotType slot = getSlot(stack);
     if (slot != null) {
       tooltip.add(Component.translatable(TOOLTIP, slot.getDisplayName()).withStyle(ChatFormatting.GRAY));

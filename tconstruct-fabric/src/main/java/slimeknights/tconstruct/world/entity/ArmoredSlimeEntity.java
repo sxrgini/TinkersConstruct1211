@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.world.entity;
 
+import net.minecraft.core.Holder;
+import slimeknights.tconstruct.TConstruct;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -37,9 +39,9 @@ public abstract class ArmoredSlimeEntity extends Slime {
   public ArmoredSlimeEntity(EntityType<? extends ArmoredSlimeEntity> type, Level world) {
     super(type, world);
     if (!world.isClientSide) {
-      tryAddAttribute(Attributes.ARMOR, new AttributeModifier("tconstruct.small_armor_bonus", 3, Operation.ADD_MULTIPLIED_TOTAL));
-      tryAddAttribute(Attributes.ARMOR_TOUGHNESS, new AttributeModifier("tconstruct.small_toughness_bonus", 3, Operation.ADD_MULTIPLIED_TOTAL));
-      tryAddAttribute(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("tconstruct.small_resistence_bonus", 3, Operation.ADD_MULTIPLIED_TOTAL));
+      tryAddAttribute(Attributes.ARMOR, new AttributeModifier(TConstruct.attributeId(null, "tconstruct.small_armor_bonus"), 3, Operation.ADD_MULTIPLIED_TOTAL));
+      tryAddAttribute(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(TConstruct.attributeId(null, "tconstruct.small_toughness_bonus"), 3, Operation.ADD_MULTIPLIED_TOTAL));
+      tryAddAttribute(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(TConstruct.attributeId(null, "tconstruct.small_resistence_bonus"), 3, Operation.ADD_MULTIPLIED_TOTAL));
     }
     this.entityData.set(METAL, false);
   }
@@ -80,7 +82,7 @@ public abstract class ArmoredSlimeEntity extends Slime {
   }
 
   /** Adds an attribute if possible */
-  private void tryAddAttribute(Attribute attribute, AttributeModifier modifier) {
+  private void tryAddAttribute(Holder<Attribute> attribute, AttributeModifier modifier) {
     AttributeInstance instance = getAttribute(attribute);
     if (instance != null) {
       instance.addTransientModifier(modifier);

@@ -175,9 +175,9 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
       ItemStack stack = living.getMainHandItem();
       InteractionHand hand = InteractionHand.MAIN_HAND;
       // must be able to cast
-      if (!stack.canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
+      if (!ItemAbilities.canPerform(stack, ItemAbilities.FISHING_ROD_CAST)) {
         stack = living.getOffhandItem();
-        if (!stack.canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
+        if (!ItemAbilities.canPerform(stack, ItemAbilities.FISHING_ROD_CAST)) {
           return;
         }
         hand = InteractionHand.OFF_HAND;
@@ -246,9 +246,9 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
             modifierHook: {
               // find out which stack was used
               ItemStack stack = ownerLiving.getMainHandItem();
-              if (!stack.canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
+              if (!ItemAbilities.canPerform(stack, ItemAbilities.FISHING_ROD_CAST)) {
                 stack = ownerLiving.getOffhandItem();
-                if (!stack.canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
+                if (!ItemAbilities.canPerform(stack, ItemAbilities.FISHING_ROD_CAST)) {
                   break modifierHook;
                 }
               }

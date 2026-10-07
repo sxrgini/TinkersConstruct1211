@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import net.minecraft.core.Holder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.ChatFormatting;
@@ -164,7 +165,7 @@ public class TooltipBuilder {
    *
    * @return the tooltip builder
    */
-  public TooltipBuilder addWithAttribute(INumericToolStat<?> stat, Attribute attribute) {
+  public TooltipBuilder addWithAttribute(INumericToolStat<?> stat, Holder<Attribute> attribute) {
     float damage = (float) attribute.getDefaultValue();
     Player player = Minecraft.getInstance().player;
     if (player != null) {

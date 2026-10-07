@@ -177,7 +177,7 @@ public record FireballModule(List<FireballType> options, DamageTypePair damageTy
           builder.add(type.ammoModifiers);
           modifiers = builder.build();
         }
-        Caps.get(EntityModifierCapability, projectile).setModifiers(modifiers);
+        EntityModifierCapability.getCapability(projectile).setModifiers(modifiers);
 
         // fetch the persistent data for the fireball as modifiers may want to store data
         ModDataNBT projectileData = PersistentDataCapability.getOrWarn(projectile);

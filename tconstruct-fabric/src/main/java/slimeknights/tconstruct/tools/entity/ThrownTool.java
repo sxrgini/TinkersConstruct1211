@@ -68,6 +68,8 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
   /** Volatile integer key for the magnet level */
   public static final ResourceLocation MAGNET = TConstruct.getResource("magnet");
 
+  /** Stack used for the tool, trident no longer stores this directly */
+  protected ItemStack tridentItem = ItemStack.EMPTY;
   @Nullable
   private IToolStackView tool = null;
   private float charge = 1;
@@ -95,6 +97,7 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
     }
     // trident - stack constructor
     this.tridentItem = stack.copyWithCount(1);
+    this.setPickupItemStack(this.tridentItem);
     this.charge = charge;
     this.multiplier = multiplier;
     this.entityData.set(WATER_INERTIA, waterInertia);
@@ -126,7 +129,6 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
     return entityData.get(WATER_INERTIA);
   }
 
-  @Override
   public boolean isChanneling() {
     return !tridentItem.isEmpty() && getTool().getModifiers().getLevel(ModifierIds.channeling) > 0;
   }
@@ -355,7 +357,7 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
       if (current.isEmpty()) {
         inventory.setItem(originalSlot, pickup);
         return true;
-      } else if (current.getCount() < current.getMaxStackSize() && ItemStack.isSameItemSameTags(current, pickup)) {
+      } else if (current.getCount() < current.getMaxStackSize() && ItemStack.isSameItemSameComponents(current, pickup)) {
         current.grow(1);
         return true;
       }

@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
+import net.minecraft.core.Holder;
+import slimeknights.tconstruct.TConstruct;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.network.chat.Component;
@@ -50,7 +52,7 @@ import java.util.function.Supplier;
 /**
  * Module to add an attribute to a tool.
  */
-public record AttributeModule(String unique, Attribute attribute, Operation operation, ToolFormula formula, UUID[] slotUUIDs, TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) implements AttributesModifierHook, ModifierModule, EquipmentChangeModifierHook, TooltipModifierHook, ConditionalModule<IToolStackView> {
+public record AttributeModule(String unique, Holder<Attribute> attribute, Operation operation, ToolFormula formula, UUID[] slotUUIDs, TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) implements AttributesModifierHook, ModifierModule, EquipmentChangeModifierHook, TooltipModifierHook, ConditionalModule<IToolStackView> {
   /** Default variables */
   private static final String[] VARIABLES = { "level" };
   /** Loader for the variables */
@@ -110,13 +112,13 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
   private AttributeModifier createModifier(IToolStackView tool, ModifierEntry modifier, EquipmentSlot slot) {
     UUID uuid = getUUID(slot);
     if (uuid != null) {
-      return new AttributeModifier(uuid, unique + "." + slot.getName(), formula.apply(tool, modifier), operation);
+      return new AttributeModifier(TConstruct.attributeId(uuid, unique + "." + slot.getName()), formula.apply(tool, modifier), operation);
     }
     return null;
   }
 
   @Override
-  public void addAttributes(IToolStackView tool, ModifierEntry modifier, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {
+  public void addAttributes(IToolStackView tool, ModifierEntry modifier, EquipmentSlot slot, BiConsumer<Holder<Attribute>,AttributeModifier> consumer) {
     if (condition.matches(tool, modifier)) {
       AttributeModifier attributeModifier = createModifier(tool, modifier, slot);
       if (attributeModifier != null) {
@@ -156,7 +158,7 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
   }
 
   /** Adds the tooltip for the given attribute */
-  public static void addTooltip(Modifier modifier, Attribute attribute, Operation operation, TooltipStyle tooltipStyle, float amount, @Nullable UUID uuid, @Nullable Player player, List<Component> tooltip) {
+  public static void addTooltip(Modifier modifier, Holder<Attribute> attribute, Operation operation, TooltipStyle tooltipStyle, float amount, @Nullable UUID uuid, @Nullable Player player, List<Component> tooltip) {
     switch (tooltipStyle) {
       case ATTRIBUTE -> TooltipUtil.addAttribute(attribute, operation, amount, uuid, player, tooltip);
       case BOOST -> TooltipModifierHook.addFlatBoost(modifier, Component.translatable(attribute.getDescriptionId()), amount, tooltip);
@@ -199,7 +201,7 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
 
 
   /** Creates a new builder instance */
-  public static Builder builder(Attribute attribute, Operation operation) {
+  public static Builder builder(Holder<Attribute> attribute, Operation operation) {
     return new Builder(attribute, operation);
   }
 
@@ -209,7 +211,7 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
 
   @Accessors(fluent = true)
   public static class Builder extends VariableFormula.Builder<Builder,AttributeModule,ToolVariable> {
-    protected final Attribute attribute;
+    protected final Holder<Attribute> attribute;
     protected final Operation operation;
     @Setter
     protected String unique = "";
@@ -218,7 +220,7 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
     @Setter
     private TooltipStyle tooltipStyle = TooltipStyle.ATTRIBUTE;
 
-    protected Builder(Attribute attribute, Operation operation) {
+    protected Builder(Holder<Attribute> attribute, Operation operation) {
       super(VARIABLES);
       this.attribute = attribute;
       this.operation = operation;

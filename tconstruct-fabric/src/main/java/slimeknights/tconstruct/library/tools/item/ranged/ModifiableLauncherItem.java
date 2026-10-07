@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.item.ranged;
 
+import net.minecraft.core.Holder;
 import slimeknights.tconstruct.library.utils.StackNbt;
 import net.minecraft.world.item.Item;
 import slimeknights.mantle.platform.client.IClientItemExtensionsProvider;
@@ -262,11 +263,11 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   }
 
   @Override
-  public Multimap<Attribute,AttributeModifier> getAttributeModifiers(IToolStackView tool, EquipmentSlot slot) {
+  public Multimap<Holder<Attribute>,AttributeModifier> getAttributeModifiers(IToolStackView tool, EquipmentSlot slot) {
     return AttributesModifierHook.getHeldAttributeModifiers(tool, slot);
   }
 
-  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
+  public Multimap<Holder<Attribute>,AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
     CompoundTag nbt = StackNbt.getTag(stack);
     if (nbt == null || slot.getType() != Type.HAND) {
       return ImmutableMultimap.of();
@@ -336,7 +337,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-    Level level = context.level();
+    Level level = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     TooltipUtil.addInformation(this, stack, level, tooltip, SafeClientAccess.getTooltipKey(), flag);
   }
 

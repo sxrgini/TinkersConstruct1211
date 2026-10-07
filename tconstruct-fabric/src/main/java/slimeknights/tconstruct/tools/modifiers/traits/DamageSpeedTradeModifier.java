@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -73,12 +74,12 @@ public class DamageSpeedTradeModifier extends Modifier implements AttributesModi
   }
 
   @Override
-  public void addAttributes(IToolStackView tool, ModifierEntry modifier, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {
+  public void addAttributes(IToolStackView tool, ModifierEntry modifier, EquipmentSlot slot, BiConsumer<Holder<Attribute>,AttributeModifier> consumer) {
     if (slot == EquipmentSlot.MAINHAND) {
       double boost = getMultiplier(tool, modifier.getLevel());
       if (boost != 0) {
         // half boost for attack speed, its
-        consumer.accept(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid.get(), attributeName.get(), boost / 2, Operation.ADD_MULTIPLIED_TOTAL));
+        consumer.accept(Attributes.ATTACK_DAMAGE, new AttributeModifier(TConstruct.attributeId(uuid.get(), attributeName.get()), boost / 2, Operation.ADD_MULTIPLIED_TOTAL));
       }
     }
   }

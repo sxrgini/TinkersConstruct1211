@@ -57,7 +57,7 @@ public class ContainerFoodItem extends Item {
 
   @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
-    Level worldIn = context.level();
+    Level worldIn = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     FoodProperties food = stack.getFoodProperties(null);
     if (food != null) {
       addEffectTooltip(food, tooltip);

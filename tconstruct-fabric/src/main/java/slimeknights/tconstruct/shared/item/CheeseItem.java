@@ -44,7 +44,7 @@ public class CheeseItem extends Item {
 
   @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag pIsAdvanced) {
-    Level pLevel = context.level();
+    Level pLevel = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     tooltip.add(TOOLTIP);
   }
 }

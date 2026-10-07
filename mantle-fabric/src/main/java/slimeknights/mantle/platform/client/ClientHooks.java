@@ -29,4 +29,10 @@ public final class ClientHooks {
     model.getTransforms().getTransform(context).apply(leftHand, poseStack);
     return model;
   }
+
+  /** Gets the level for tooltips, as the 1.21 tooltip context no longer exposes it. May be null outside a world */
+  @javax.annotation.Nullable
+  public static net.minecraft.world.level.Level tooltipLevel() {
+    return net.minecraft.client.Minecraft.getInstance().level;
+  }
 }

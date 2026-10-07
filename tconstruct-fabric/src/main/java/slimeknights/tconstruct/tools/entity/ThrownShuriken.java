@@ -116,7 +116,7 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
     setStack(stack);
     // initialize arrow stats
     IToolStackView tool = getTool();
-    Caps.get(EntityModifierCapability, this).addModifiers(tool.getModifiers());
+    EntityModifierCapability.getCapability(this).addModifiers(tool.getModifiers());
     this.power = ConditionalStatModifierHook.getModifiedStat(tool, shooter, ToolStats.PROJECTILE_DAMAGE);
     this.entityData.set(WATER_INERTIA, ConditionalStatModifierHook.getModifiedStat(tool, shooter, ToolStats.WATER_INERTIA));
     return tool;

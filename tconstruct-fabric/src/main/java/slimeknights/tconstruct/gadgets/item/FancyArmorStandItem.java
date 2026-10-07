@@ -42,7 +42,7 @@ public class FancyArmorStandItem extends Item {
 
   @Override
   public void appendHoverText(ItemStack pStack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag pIsAdvanced) {
-    Level pLevel = context.level();
+    Level pLevel = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     tooltip.add(Component.translatable(getDescriptionId() + ".tooltip").withStyle(ChatFormatting.GRAY));
   }
 

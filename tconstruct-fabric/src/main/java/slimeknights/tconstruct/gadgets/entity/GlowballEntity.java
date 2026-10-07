@@ -70,7 +70,7 @@ public class GlowballEntity extends ThrowableItemProjectile implements IEntityAd
 
   @Override
   public void writeSpawnData(RegistryFriendlyByteBuf buffer) {
-    ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, this.getItemRaw());
+    ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, this.getItem());
   }
 
   @Override

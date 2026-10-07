@@ -108,7 +108,7 @@ public class PotionBucketItem extends PotionItem {
 
   @Override
   public void appendHoverText(ItemStack pStack, Item.TooltipContext context, List<Component> pTooltip, TooltipFlag pFlag) {
-    Level pLevel = context.level();
+    Level pLevel = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     PotionHelper.addTooltip(pStack, pTooltip::add, 2.5f, 20f);
   }
 

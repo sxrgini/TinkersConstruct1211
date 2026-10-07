@@ -22,7 +22,7 @@ public class SlimeFungusFeature extends HugeFungusFeature {
       return super.place(context);
     }
     // must be on the right ground
-    WorldGenLevel level = context.level();
+    WorldGenLevel level = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     BlockPos pos = context.origin();
     if (!level.getBlockState(pos.below()).is(config.getGroundTag())) {
       return false;

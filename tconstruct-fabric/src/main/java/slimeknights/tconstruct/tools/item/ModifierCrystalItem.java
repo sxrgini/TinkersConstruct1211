@@ -66,7 +66,7 @@ public class ModifierCrystalItem extends Item {
 
   @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag advanced) {
-    Level level = context.level();
+    Level level = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     ModifierId id = getModifier(stack);
     if (id != null) {
       if (ModifierManager.INSTANCE.contains(id)) {

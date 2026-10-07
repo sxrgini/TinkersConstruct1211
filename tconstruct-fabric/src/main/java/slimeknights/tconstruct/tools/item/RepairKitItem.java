@@ -52,8 +52,8 @@ public class RepairKitItem extends MaterialItem implements IRepairKitItem {
 
   @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-    Level world = context.level();
-    super.appendHoverText(stack, world, tooltip, flag);
+    Level world = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
+    super.appendHoverText(stack, context, tooltip, flag);
     // tooltip is about inventory repair
     if (canRepairInCraftingTable()) {
       tooltip.add(Component.translatable(TOOLTIP_KEY, TranslationHelper.COMMA_FORMAT.format(getRepairAmount())).withStyle(ChatFormatting.GRAY));

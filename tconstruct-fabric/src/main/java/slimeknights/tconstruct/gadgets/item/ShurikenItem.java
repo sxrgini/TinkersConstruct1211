@@ -51,8 +51,8 @@ public class ShurikenItem extends SnowballItem {
 
   @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-    Level level = context.level();
+    Level level = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     TranslationHelper.addOptionalTooltip(stack, tooltip);
-    super.appendHoverText(stack, level, tooltip, flag);
+    super.appendHoverText(stack, context, tooltip, flag);
   }
 }

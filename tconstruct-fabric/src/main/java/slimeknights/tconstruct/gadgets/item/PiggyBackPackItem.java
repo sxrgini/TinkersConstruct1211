@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import net.minecraft.core.Holder;
 import slimeknights.mantle.platform.client.IClientMobEffectExtensionsProvider;
 import slimeknights.mantle.platform.capability.Caps;
 import com.google.common.collect.ImmutableMultimap;
@@ -160,7 +161,7 @@ public class PiggyBackPackItem extends TooltipItem implements IClientMobEffectEx
 
   @SuppressWarnings("deprecation")
   @Override
-  public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
+  public Multimap<Holder<Attribute>,AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
     return ImmutableMultimap.of(); // no attributes, the potion effect handles them
   }
 

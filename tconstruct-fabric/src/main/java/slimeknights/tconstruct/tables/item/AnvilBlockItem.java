@@ -72,7 +72,7 @@ public class AnvilBlockItem extends MaterialBlockItem {
 
   @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-    Level level = context.level();
+    Level level = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     // ditch the super call advanced tooltip material ID, we will handle it ourselves later
     this.getBlock().appendHoverText(stack, level, tooltip, flag);
     MaterialVariantId material = getMaterial(stack);

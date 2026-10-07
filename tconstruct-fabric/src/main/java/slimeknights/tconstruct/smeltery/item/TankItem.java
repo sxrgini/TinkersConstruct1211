@@ -78,7 +78,7 @@ public class TankItem extends BlockTooltipItem {
 
   @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-    Level worldIn = context.level();
+    Level worldIn = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     if (StackNbt.hasTag(stack)) {
       FluidTank tank = getTank(stack, 1);
       if (tank.getFluidAmount() > 0) {
@@ -91,7 +91,7 @@ public class TankItem extends BlockTooltipItem {
       }
     }
     else {
-      super.appendHoverText(stack, worldIn, tooltip, flag);
+      super.appendHoverText(stack, context, tooltip, flag);
     }
   }
 

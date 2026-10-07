@@ -71,7 +71,7 @@ public enum FishingModule implements ModifierModule, GeneralInteractionModifierH
   @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     // disallow casting if the main hand can cast. Only comes up if the main hand is doing left click fishing; vanilla limitations means we can't support that
-    if (source != InteractionSource.ARMOR && !tool.isBroken() && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source) && (hand == InteractionHand.MAIN_HAND || !player.getMainHandItem().canPerformAction(ItemAbilities.FISHING_ROD_CAST))) {
+    if (source != InteractionSource.ARMOR && !tool.isBroken() && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source) && (hand == InteractionHand.MAIN_HAND || !ItemAbilities.canPerform(player.getMainHandItem(), ItemAbilities.FISHING_ROD_CAST))) {
       Level level = player.level();
       if (player.fishing != null) {
         ItemStack stack = player.getItemInHand(hand);
@@ -101,7 +101,7 @@ public enum FishingModule implements ModifierModule, GeneralInteractionModifierH
 
           // copy tool data to the bobber for modifier hooks
           ModifierNBT modifiers = tool.getModifiers();
-          Caps.get(EntityModifierCapability, hook).setModifiers(modifiers);
+          EntityModifierCapability.getCapability(hook).setModifiers(modifiers);
           // apply grapple or drill
           if (ModifierUtil.canPerformAction(tool, TinkerToolActions.GRAPPLE_HOOK)) {
             hook.setGrapple(ModifierUtil.canPerformAction(tool, TinkerToolActions.DRILL_ATTACK) ? GrappleType.DRILL : GrappleType.DASH);
@@ -149,7 +149,7 @@ public enum FishingModule implements ModifierModule, GeneralInteractionModifierH
     // if the main hand changed such that it gained the ability to fish, then vanilla is going to move our fishing bobber to attach to the mainhand
     // so just retrieve it to prevent a cheese
     // there is technically an issue with us inheriting someone elses bobber, but thats just a worse version of our bobber, so not really a cheese
-    if (slotType == EquipmentSlot.OFFHAND && context.getChangedSlot() == EquipmentSlot.MAINHAND && context.getEntity() instanceof Player player && player.fishing != null && !context.getOriginal().canPerformAction(ItemAbilities.FISHING_ROD_CAST) && context.getReplacement().canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
+    if (slotType == EquipmentSlot.OFFHAND && context.getChangedSlot() == EquipmentSlot.MAINHAND && context.getEntity() instanceof Player player && player.fishing != null && !ItemAbilities.canPerform(context.getOriginal(), ItemAbilities.FISHING_ROD_CAST) && ItemAbilities.canPerform(context.getReplacement(), ItemAbilities.FISHING_ROD_CAST)) {
       player.fishing.discard();
     }
   }

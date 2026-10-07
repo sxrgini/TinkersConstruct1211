@@ -55,7 +55,7 @@ public class CopperCanItem extends Item {
 
   @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-    Level worldIn = context.level();
+    Level worldIn = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     Fluid fluid = getFluid(stack);
     if (fluid != Fluids.EMPTY) {
       CompoundTag fluidTag = getFluidTag(stack);

@@ -119,7 +119,7 @@ public class CombatFishingHookRenderer extends EntityRenderer<CombatFishingHook>
       // handle hand side
       int sideOffset = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
       ItemStack itemstack = player.getMainHandItem();
-      if (!itemstack.canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
+      if (!ItemAbilities.canPerform(itemstack, ItemAbilities.FISHING_ROD_CAST)) {
         sideOffset = -sideOffset;
       }
 

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.item;
 
+import net.minecraft.core.Holder;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.network.chat.Component;
@@ -45,7 +46,7 @@ public interface ITinkerStationDisplay extends ItemLike {
    * @param slot   Slot with attributes
    * @return  Attribute map
    */
-  default Multimap<Attribute,AttributeModifier> getAttributeModifiers(IToolStackView tool, EquipmentSlot slot) {
+  default Multimap<Holder<Attribute>,AttributeModifier> getAttributeModifiers(IToolStackView tool, EquipmentSlot slot) {
     return ImmutableMultimap.of();
   }
 }

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import net.minecraft.core.Holder;
 import slimeknights.tconstruct.library.utils.StackNbt;
 import com.google.common.collect.Multimap;
 import net.minecraft.ChatFormatting;
@@ -422,17 +423,17 @@ public class TooltipUtil {
    */
   public static void addAttributes(ITinkerStationDisplay item, IToolStackView tool, @Nullable Player player, List<Component> tooltip, BiPredicate<Attribute, Operation> showAttribute, EquipmentSlot... slots) {
     for (EquipmentSlot slot : slots) {
-      Multimap<Attribute,AttributeModifier> modifiers = item.getAttributeModifiers(tool, slot);
+      Multimap<Holder<Attribute>,AttributeModifier> modifiers = item.getAttributeModifiers(tool, slot);
       if (!modifiers.isEmpty()) {
         if (slots.length > 1) {
           tooltip.add(Component.empty());
           tooltip.add((Component.translatable("item.modifiers." + slot.getName())).withStyle(ChatFormatting.GRAY));
         }
 
-        for (Entry<Attribute, AttributeModifier> entry : modifiers.entries()) {
+        for (Entry<Holder<Attribute>,AttributeModifier> entry : modifiers.entries()) {
           Attribute attribute = entry.getKey();
           AttributeModifier modifier = entry.getValue();
-          Operation operation = modifier.getOperation();
+          Operation operation = modifier.operation();
           // allow suppressing specific attributes
           if (!showAttribute.test(attribute, operation)) {
             continue;
@@ -452,7 +453,7 @@ public class TooltipUtil {
    * @param player     Player instance
    * @param tooltip    Tooltip list
    */
-  public static void addAttribute(Attribute attribute, Operation operation, double amount, @Nullable UUID uuid, @Nullable Player player, List<Component> tooltip) {
+  public static void addAttribute(Holder<Attribute> attribute, Operation operation, double amount, @Nullable UUID uuid, @Nullable Player player, List<Component> tooltip) {
     // find value
     boolean showEquals = false;
     if (player != null) {

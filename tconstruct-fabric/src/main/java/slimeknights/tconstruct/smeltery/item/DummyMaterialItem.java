@@ -20,7 +20,7 @@ public class DummyMaterialItem extends Item {
 
   @Override
   public void appendHoverText(ItemStack pStack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag pIsAdvanced) {
-    Level pLevel = context.level();
+    Level pLevel = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     tooltip.add(DUMMY_TOOL_PART);
   }
 }

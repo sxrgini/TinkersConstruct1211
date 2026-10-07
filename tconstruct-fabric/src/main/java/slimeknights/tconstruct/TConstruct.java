@@ -148,6 +148,19 @@ public class TConstruct implements ModInitializer {
    * @param name  Resource path
    * @return  Location for tinkers
    */
+  /**
+   * Creates an attribute modifier ID from a legacy UUID and name, as modifiers are now identified by location.
+   * @param uuid  Legacy unique ID, may be null if the name alone is unique
+   * @param name  Legacy modifier name
+   */
+  public static ResourceLocation attributeId(@javax.annotation.Nullable java.util.UUID uuid, String name) {
+    String path = name.toLowerCase(java.util.Locale.ROOT).replaceAll("[^a-z0-9_./-]", "_");
+    if (path.startsWith(MOD_ID + ".")) {
+      path = path.substring(MOD_ID.length() + 1);
+    }
+    return getResource(uuid == null ? path : path + "/" + uuid);
+  }
+
   public static ResourceLocation getResource(String name) {
     return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
   }

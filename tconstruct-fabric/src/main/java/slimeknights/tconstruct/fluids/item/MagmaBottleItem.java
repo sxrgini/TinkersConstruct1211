@@ -33,8 +33,8 @@ public class MagmaBottleItem extends Item {
 
   @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
-    Level worldIn = context.level();
-    super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    Level worldIn = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
+    super.appendHoverText(stack, context, tooltip, flagIn);
     tooltip.add(Component.translatable(
       "potion.withDuration",
       Blocks.FIRE.getName(),

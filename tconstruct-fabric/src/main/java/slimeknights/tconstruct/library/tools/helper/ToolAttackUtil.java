@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.boss.EnderDragonPart;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -51,7 +52,7 @@ import java.util.function.DoubleSupplier;
 
 public class ToolAttackUtil {
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
-  private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.MOD_ID + ".anti_knockback", 1f, Operation.ADD_VALUE);
+  private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.attributeId(null, TConstruct.MOD_ID + ".anti_knockback"), 1f, Operation.ADD_VALUE);
   /** @deprecated new default for {@link ToolAttackContext.Builder} */
   @Deprecated(forRemoval = true)
   public static final DoubleSupplier NO_COOLDOWN = () -> 1.0;
@@ -66,7 +67,7 @@ public class ToolAttackUtil {
    * @param attribute  Attribute to fetch
    * @return  Base value of the attribute
    */
-  public static float getToolAttribute(IToolStackView tool, LivingEntity holder, Attribute attribute, float toolValue) {
+  public static float getToolAttribute(IToolStackView tool, LivingEntity holder, Holder<Attribute> attribute, float toolValue) {
     // fetch attribute instance
     AttributeInstance instance = holder.getAttribute(attribute);
     if (instance == null) {
@@ -84,15 +85,15 @@ public class ToolAttackUtil {
     ItemStack mainStack = CombatHelper.getMainhandAttributeStack(holder);
     if (!mainStack.isEmpty()) {
       for (AttributeModifier modifier : mainStack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(attribute)) {
-        modifiers.get(modifier.getOperation()).remove(modifier);
+        modifiers.get(modifier.operation()).remove(modifier);
       }
     }
 
     // start adding in "mainhand" attributes for the given slot and attribute
-    BiConsumer<Attribute, AttributeModifier> attributeConsumer = (check, modifier) -> {
+    BiConsumer<Holder<Attribute>,AttributeModifier> attributeConsumer = (check, modifier) -> {
       if (check == attribute) {
         // this will remove duplicates due to AttributeModifier equals only checking UUID
-        modifiers.get(modifier.getOperation()).add(modifier);
+        modifiers.get(modifier.operation()).add(modifier);
       }
     };
     for (ModifierEntry entry : tool.getModifierList()) {
@@ -497,7 +498,7 @@ public class ToolAttackUtil {
    * @deprecated use {@link #getToolAttribute(IToolStackView, LivingEntity, Attribute, float)}
    */
   @Deprecated(forRemoval = true)
-  public static float getSlotAttribute(IToolStackView tool, LivingEntity holder, EquipmentSlot slotType, Attribute attribute, float toolValue) {
+  public static float getSlotAttribute(IToolStackView tool, LivingEntity holder, EquipmentSlot slotType, Holder<Attribute> attribute, float toolValue) {
     if (slotType == EquipmentSlot.MAINHAND) {
       return (float) holder.getAttributeValue(attribute);
     }

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.item;
 
+import net.minecraft.core.Holder;
 import slimeknights.tconstruct.library.utils.StackNbt;
 import slimeknights.mantle.platform.client.IClientItemExtensionsProvider;
 import com.google.common.collect.ImmutableMultimap;
@@ -256,11 +257,11 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
   }
 
   @Override
-  public Multimap<Attribute,AttributeModifier> getAttributeModifiers(IToolStackView tool, EquipmentSlot slot) {
+  public Multimap<Holder<Attribute>,AttributeModifier> getAttributeModifiers(IToolStackView tool, EquipmentSlot slot) {
     return AttributesModifierHook.getHeldAttributeModifiers(tool, slot);
   }
 
-  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
+  public Multimap<Holder<Attribute>,AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
     CompoundTag nbt = StackNbt.getTag(stack);
     if (nbt == null || slot.getType() != Type.HAND) {
       return ImmutableMultimap.of();
@@ -484,7 +485,7 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
 
   @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-    Level level = context.level();
+    Level level = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     TooltipUtil.addInformation(this, stack, level, tooltip, SafeClientAccess.getTooltipKey(), flag);
   }
 
@@ -539,8 +540,8 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     }
 
     // if the attributes changed, reequip
-    Multimap<Attribute,AttributeModifier> attributesNew = newStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
-    Multimap<Attribute, AttributeModifier> attributesOld = oldStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
+    Multimap<Holder<Attribute>,AttributeModifier> attributesNew = newStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
+    Multimap<Holder<Attribute>,AttributeModifier> attributesOld = oldStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
     if (attributesNew.size() != attributesOld.size()) {
       return true;
     }

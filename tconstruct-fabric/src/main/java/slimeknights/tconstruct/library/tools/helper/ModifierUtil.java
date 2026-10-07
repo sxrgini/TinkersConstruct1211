@@ -270,9 +270,9 @@ public final class ModifierUtil {
       ItemStack stack = living.getMainHandItem();
       InteractionHand hand = InteractionHand.MAIN_HAND;
       // must be able to cast
-      if (!stack.canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
+      if (!ItemAbilities.canPerform(stack, ItemAbilities.FISHING_ROD_CAST)) {
         stack = living.getOffhandItem();
-        if (!stack.canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
+        if (!ItemAbilities.canPerform(stack, ItemAbilities.FISHING_ROD_CAST)) {
           return null;
         }
         hand = InteractionHand.OFF_HAND;

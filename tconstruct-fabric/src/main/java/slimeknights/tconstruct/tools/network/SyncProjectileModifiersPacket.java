@@ -40,7 +40,7 @@ public record SyncProjectileModifiersPacket(int entityId, ModifierNBT modifiers,
     if (level != null) {
       Entity entity = level.getEntity(entityId);
       if (entity != null) {
-        Caps.get(EntityModifierCapability, entity).setModifiers(modifiers);
+        EntityModifierCapability.getCapability(entity).setModifiers(modifiers);
         PersistentDataCapability.getOrWarn(entity).copyFrom(persistentData);
       }
     }

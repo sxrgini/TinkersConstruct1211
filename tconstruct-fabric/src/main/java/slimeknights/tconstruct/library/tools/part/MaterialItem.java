@@ -126,7 +126,7 @@ public class MaterialItem extends Item implements IMaterialItem {
 
   @Override
   public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-    Level worldIn = context.level();
+    Level worldIn = slimeknights.mantle.platform.client.ClientHooks.tooltipLevel();
     appendHoverText(this, stack, tooltip, flag);
   }
 
