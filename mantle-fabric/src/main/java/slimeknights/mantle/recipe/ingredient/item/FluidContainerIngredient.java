@@ -9,8 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.capabilities.Capabilities.FluidHandler;
+import slimeknights.mantle.platform.capability.FluidHandlers;
 import slimeknights.mantle.platform.ingredient.ICustomIngredient;
 import slimeknights.mantle.platform.ingredient.IngredientType;
 import slimeknights.mantle.platform.fluid.FluidStack;
@@ -99,7 +98,7 @@ public record FluidContainerIngredient(FluidIngredient fluid, int amount, List<I
     // need a copy of the stack with count 1 as stacked fluid containers might otherwise give wrong values
     stack = stack.copyWithCount(1);
     // must have a fluid capability with exactly 1 tank
-    IFluidHandlerItem handler = stack.getCapability(Capabilities.FluidHandler.ITEM);
+    IFluidHandlerItem handler = FluidHandlers.getItem(stack);
     if (handler == null || handler.getTanks() != 1) {
       return false;
     }

@@ -13,14 +13,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
+import slimeknights.mantle.platform.item.ItemHandlers;
+import slimeknights.mantle.platform.item.IItemHandler;
 import slimeknights.mantle.inventory.BaseContainerMenu;
 
 import javax.annotation.Nullable;
 
 /**
- * Base class for blocks with an inventory. Can be used with any block that is {@link MenuProvider} and exposes an {@link Capabilities.ItemHandler#BLOCK} capability.
+ * Base class for blocks with an inventory. Can be used with any block that is {@link MenuProvider} and exposes an item storage via the Fabric Transfer API.
  * @see slimeknights.mantle.block.entity.InventoryBlockEntity
  */
 @SuppressWarnings("WeakerAccess")
@@ -72,7 +72,7 @@ public abstract class InventoryBlock extends Block implements EntityBlock {
   @Override
   public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
     if (state.getBlock() != newState.getBlock()) {
-      IItemHandler inventory = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, null);
+      IItemHandler inventory = ItemHandlers.getBlock(level, pos, null);
       if (inventory != null) {
         dropInventoryItems(state, level, pos, inventory);
         level.updateNeighbourForOutputSignal(pos, this);

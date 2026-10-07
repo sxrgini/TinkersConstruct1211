@@ -2,7 +2,7 @@ package slimeknights.mantle.recipe.input;
 
 import lombok.AllArgsConstructor;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
+import slimeknights.mantle.platform.item.IItemHandler;
 
 /**
  * Implementation of {@link SingleItemInput} to wrap a {@link IItemHandler}

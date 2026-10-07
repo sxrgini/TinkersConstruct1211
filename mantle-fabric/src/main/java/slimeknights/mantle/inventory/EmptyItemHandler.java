@@ -3,7 +3,7 @@ package slimeknights.mantle.inventory;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
+import slimeknights.mantle.platform.item.IItemHandler;
 
 import javax.annotation.Nonnull;
 

@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.capabilities.Capabilities;
+import slimeknights.mantle.platform.capability.FluidHandlers;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.mantle.Mantle;
@@ -67,7 +67,7 @@ public class GaugeBlock extends Block {
     // display adjacent tank contents
     if (!world.isClientSide()) {
       Direction side = state.getValue(FACING);
-      IFluidHandler handler = world.getCapability(Capabilities.FluidHandler.BLOCK, pos.relative(side.getOpposite()), side);
+      IFluidHandler handler = FluidHandlers.getBlock(world, pos.relative(side.getOpposite()), side);
       if (handler != null && handler.getTanks() > 0) {
         FluidStack fluid = handler.getFluidInTank(0);
         if (fluid.isEmpty()) {
@@ -95,7 +95,7 @@ public class GaugeBlock extends Block {
   public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
     if (world instanceof Level level) {
       Direction direction = state.getValue(FACING);
-      return level.getCapability(Capabilities.FluidHandler.BLOCK, pos.relative(direction.getOpposite()), direction) != null;
+      return FluidHandlers.getBlock(level, pos.relative(direction.getOpposite()), direction) != null;
     }
     // no capability access? just say we survive
     return true;

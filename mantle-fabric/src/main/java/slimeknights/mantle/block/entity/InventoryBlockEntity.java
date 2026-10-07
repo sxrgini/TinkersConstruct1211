@@ -14,8 +14,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import slimeknights.mantle.platform.item.IItemHandlerModifiable;
+import slimeknights.mantle.platform.item.InvWrapper;
 import slimeknights.mantle.util.ItemStackList;
 
 /**

@@ -27,7 +27,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.capabilities.Capabilities;
+import slimeknights.mantle.platform.capability.FluidHandlers;
 import net.neoforged.neoforge.client.event.ModelEvent.RegisterGeometryLoaders;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
@@ -211,7 +211,7 @@ public class ClientEvents {
       return;
     }
     // block entity must have a fluid handler
-    IFluidHandler handler = minecraft.level.getCapability(Capabilities.FluidHandler.BLOCK, fluidPos, side);
+    IFluidHandler handler = FluidHandlers.getBlock(minecraft.level, fluidPos, side);
     if (handler == null || handler.getTanks() <= 0) {
       return;
     }
