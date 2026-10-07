@@ -7,10 +7,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
+import slimeknights.mantle.platform.loot.GlobalLootModifierManager;
 import slimeknights.mantle.platform.registry.DeferredHolder;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
-import net.neoforged.neoforge.registries.RegisterEvent;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.loot.condition.BlockTagLootCondition;
 import slimeknights.mantle.loot.condition.HasLootContextSetCondition;
@@ -65,21 +63,15 @@ public class MantleLoot {
   /** Entry to pull a value from a tag preference */
   public static final DeferredHolder<LootPoolEntryType, LootPoolEntryType> TAG_PREFERENCE = LOOT_ENTRIES.register("tag_preference", TagPreferenceLootEntry.CODEC);
 
-  /**
-   * Called during serializer registration to register any relevant loot logic
-   */
-  public static void registerGlobalLootModifiers(final RegisterEvent event) {
-    ResourceKey<?> key = event.getRegistryKey();
-    if (key == NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS) {
-      // global loot modifiers
-      Registry<MapCodec<? extends IGlobalLootModifier>> registry = Objects.requireNonNull(event.getRegistry(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS));
-      Registry.register(registry, Mantle.getResource("add_entry"), AddEntryLootModifier.CODEC);
-      Registry.register(registry, Mantle.getResource("replace_item"), ReplaceItemLootModifier.CODEC);
+  /** Registers global loot modifiers and their conditions */
+  public static void registerGlobalLootModifiers() {
+    GlobalLootModifierManager.register(Mantle.getResource("add_entry"), AddEntryLootModifier.CODEC);
+    GlobalLootModifierManager.register(Mantle.getResource("replace_item"), ReplaceItemLootModifier.CODEC);
+    GlobalLootModifierManager.init();
 
-      // loot modifier conditions
-      MODIFIER_CONDITIONS.registerDeserializer(InvertedModifierLootCondition.ID, (JsonDeserializer<? extends ILootModifierCondition>)InvertedModifierLootCondition::deserialize);
-      MODIFIER_CONDITIONS.registerDeserializer(EmptyModifierLootCondition.ID, EmptyModifierLootCondition.INSTANCE);
-      MODIFIER_CONDITIONS.registerDeserializer(ContainsItemModifierLootCondition.ID, (JsonDeserializer<? extends ILootModifierCondition>)ContainsItemModifierLootCondition::deserialize);
-    }
+    // loot modifier conditions
+    MODIFIER_CONDITIONS.registerDeserializer(InvertedModifierLootCondition.ID, (JsonDeserializer<? extends ILootModifierCondition>)InvertedModifierLootCondition::deserialize);
+    MODIFIER_CONDITIONS.registerDeserializer(EmptyModifierLootCondition.ID, EmptyModifierLootCondition.INSTANCE);
+    MODIFIER_CONDITIONS.registerDeserializer(ContainsItemModifierLootCondition.ID, (JsonDeserializer<? extends ILootModifierCondition>)ContainsItemModifierLootCondition::deserialize);
   }
 }

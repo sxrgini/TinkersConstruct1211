@@ -2,14 +2,13 @@ package slimeknights.mantle.loot.modifier;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
-import net.neoforged.neoforge.common.loot.LootModifier;
+import slimeknights.mantle.platform.loot.LootModifier;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-/** Base builder for a global loot modifier during datagen, intended to be used with {@link GlobalLootModifierProvider} */
+/** Base builder for a global loot modifier during datagen */
 public abstract class AbstractLootModifierBuilder<B extends AbstractLootModifierBuilder<B>> {
   private final List<LootItemCondition> conditions = new ArrayList<>();
 

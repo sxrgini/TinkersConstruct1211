@@ -4,7 +4,8 @@
   "package": "slimeknights.mantle.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "InventoryMixin"
+    "InventoryMixin",
+    "LootTableMixin"
   ],
   "client": [],
   "injectors": {

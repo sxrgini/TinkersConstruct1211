@@ -163,7 +163,7 @@ public class Mantle implements ModInitializer {
     Registry.register(BuiltInRegistries.COMMAND_ARGUMENT_TYPE, getResource("resource_or_tag_key"), info);
     ArgumentTypeInfos.registerByClass(RegistrationHelper.genericArgumentType(ResourceOrTagKeyArgument.class), info);
 
-    // global loot modifiers have no Fabric equivalent, see MantleLoot
+    MantleLoot.registerGlobalLootModifiers();
   }
 
   /**

@@ -8,10 +8,12 @@ import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.neoforged.neoforge.common.NeoForge;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
+import slimeknights.mantle.util.DataLoadedConditionContext;
 import slimeknights.mantle.platform.condition.ICondition.IContext;
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
-import net.neoforged.neoforge.event.LootTableLoadEvent;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.listener.IEarlyReloadListener;
 import slimeknights.mantle.data.loadable.field.ContextKey;
@@ -38,8 +40,12 @@ public enum LootTableInjector implements IEarlyReloadListener {
 
   /** Initializes the loot table injector */
   public static void init() {
-    NeoForge.EVENT_BUS.addListener(AddReloadListenerEvent.class, INSTANCE::addReloadListeners);
-    NeoForge.EVENT_BUS.addListener(LootTableLoadEvent.class, INSTANCE::lootTableLoad);
+    ServerLifecycleEvents.SERVER_STARTED.register(server -> INSTANCE.loadAndInject(server, server.getResourceManager()));
+    ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, manager, success) -> {
+      if (success) {
+        INSTANCE.loadAndInject(server, manager);
+      }
+    });
   }
 
   /** Registry access for loot table stuff */
@@ -80,19 +86,17 @@ public enum LootTableInjector implements IEarlyReloadListener {
     Mantle.logger.info("Loaded {} loot table injectors injecting into {} tables in {} ms", loaded, injections.size(), (System.nanoTime() - time) / 1000000f);
   }
 
-  /** Called on world load to register the reload listeners and fetch parsing contexts */
-  private void addReloadListeners(AddReloadListenerEvent event) {
-    event.addListener(this);
-    registry = event.getRegistryAccess();
-    context = event.getConditionContext();
-  }
-
-  /** Called on loot table load to handle the actual injection */
-  private void lootTableLoad(LootTableLoadEvent event) {
-    LootTableInjection injection = injections.get(event.getName());
-    if (injection != null) {
+  /** Loads the injections, then injects them into the already loaded loot tables. Loot tables are recreated on every reload, so this will not double inject. */
+  private void loadAndInject(MinecraftServer server, ResourceManager manager) {
+    this.registry = server.registryAccess();
+    this.context = DataLoadedConditionContext.INSTANCE;
+    onResourceManagerReload(manager);
+    for (LootTableInjection injection : injections.values()) {
+      LootTable table = server.reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, injection.name()));
+      if (table == LootTable.EMPTY) {
+        continue;
+      }
       Mantle.logger.debug("Injecting into {} pools in the table {}", injection.pools().size(), injection.name());
-      LootTable table = event.getTable();
       for (LootPoolInjection pool : injection.pools()) {
         pool.inject(table);
       }

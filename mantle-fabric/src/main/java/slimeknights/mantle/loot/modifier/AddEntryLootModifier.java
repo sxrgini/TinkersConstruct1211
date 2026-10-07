@@ -14,7 +14,7 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctions;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.neoforged.neoforge.common.loot.LootModifier;
+import slimeknights.mantle.platform.loot.LootModifier;
 import slimeknights.mantle.loot.modifier.condition.ILootModifierCondition;
 
 import javax.annotation.Nonnull;
