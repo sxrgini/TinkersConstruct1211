@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.recipe;
 
+import slimeknights.mantle.data.loadable.Loadables;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -42,7 +43,7 @@ public class ModifierSortingRecipe extends AbstractWorktableRecipe {
   private static final Component NOT_ENOUGH_MODIFIERS = TConstruct.makeTranslation("recipe", "modifier_sorting.not_enough_modifiers").withStyle(ChatFormatting.RED);
 
   public static final RecordLoadable<ModifierSortingRecipe> LOADER = RecordLoadable.create(
-    SizedIngredient.LOADABLE.list(ArrayLoadable.COMPACT).validate((list, error) -> {
+    Loadables.SIZED_ITEM_INGREDIENT.list(ArrayLoadable.COMPACT).validate((list, error) -> {
       if ((error == ErrorFactory.RUNTIME || error == ErrorFactory.JSON_SYNTAX_ERROR) && list.size() > 1) {
         TConstruct.LOG.warn("Using multiple ingredients for the modifier sorting recipe is deprecated. Use just a single input.");
       }

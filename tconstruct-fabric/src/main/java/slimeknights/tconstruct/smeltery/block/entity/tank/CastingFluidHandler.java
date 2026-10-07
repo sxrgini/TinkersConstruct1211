@@ -73,7 +73,7 @@ public class CastingFluidHandler implements IFluidHandler {
     if (fluid.isEmpty()) {
       int amount = Math.min(capacity, resource.getAmount());
       if (action.execute()) {
-        fluid = new FluidStack(resource, amount);
+        fluid = resource.copyWithAmount(amount);
         tile.onContentsChanged();
       }
       return amount;
@@ -124,7 +124,7 @@ public class CastingFluidHandler implements IFluidHandler {
       return FluidStack.EMPTY;
     }
 
-    FluidStack stack = new FluidStack(fluid, drained);
+    FluidStack stack = fluid.copyWithAmount(drained);
     if (action.execute()) {
       fluid.shrink(drained);
       if (fluid.isEmpty()) {
@@ -174,7 +174,7 @@ public class CastingFluidHandler implements IFluidHandler {
   public void readFromTag(CompoundTag nbt) {
     capacity = nbt.getInt(TAG_CAPACITY);
     if (nbt.contains(TAG_FLUID, Tag.TAG_COMPOUND)) {
-      setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompound(TAG_FLUID)));
+      setFluid(FluidStack.parse(nbt.getCompound(TAG_FLUID)));
     }
     if (nbt.contains(TAG_FILTER, Tag.TAG_STRING)) {
       filter = BuiltInRegistries.FLUID.get(ResourceLocation.tryParse(nbt.getString(TAG_FILTER)));
@@ -186,7 +186,7 @@ public class CastingFluidHandler implements IFluidHandler {
   public CompoundTag writeToTag(CompoundTag nbt) {
     nbt.putInt(TAG_CAPACITY, capacity);
     if (!fluid.isEmpty()) {
-      nbt.put(TAG_FLUID, fluid.writeToNBT(new CompoundTag()));
+      nbt.put(TAG_FLUID, fluid.save());
     }
     if (filter != Fluids.EMPTY) {
       nbt.putString(TAG_FILTER, BuiltInRegistries.FLUID.getKey(filter).toString());

@@ -38,7 +38,7 @@ public class TConstructCommand {
 
   /** Registers all TConstruct command related content */
   public static void init() {
-    ARGUMENT_TYPE.register(EventBus.MOD_BUS);
+    ARGUMENT_TYPE.register();
     ARGUMENT_TYPE.registerSingleton("slot_type", SlotTypeArgument.class, SlotTypeArgument::slotType);
     ARGUMENT_TYPE.registerSingleton("tool_stat", ToolStatArgument.class, ToolStatArgument::stat);
     ARGUMENT_TYPE.registerSingleton("modifier", ModifierArgument.class, ModifierArgument::modifier);
@@ -51,7 +51,7 @@ public class TConstructCommand {
     TagSourceArgument.registerCustom(MaterialRegistry.getTagSource());
 
     // add command listener
-    EventBus.BUS.addListener(TConstructCommand::registerCommand);
+    EventBus.BUS.addListener(RegisterCommandsEvent.class, TConstructCommand::registerCommand);
   }
 
   /** Registers a sub command for the root Mantle command */

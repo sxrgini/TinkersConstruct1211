@@ -42,7 +42,7 @@ public record IdParser<T extends ResourceId>(Function<String, T> constructor, St
   }
 
   @Override
-  public String getString(T object) {
+  public String getString(T object, TypedMap context) {
     return object.toString();
   }
 
@@ -52,7 +52,7 @@ public record IdParser<T extends ResourceId>(Function<String, T> constructor, St
   }
 
   @Override
-  public void encode(RegistryFriendlyByteBuf buffer, T object) throws EncoderException {
+  public void encode(RegistryFriendlyByteBuf buffer, T object, TypedMap context) throws EncoderException {
     buffer.writeResourceLocation(object.location());
   }
 

@@ -20,7 +20,7 @@ public class ReturningEffect extends TinkerEffect {
   private static final ResourceLocation KEY = TConstruct.getResource("returning");
   public ReturningEffect() {
     super(MobEffectCategory.NEUTRAL, 0xa92dff, true);
-    EventBus.BUS.addListener(this::onEffectAdded);
+    EventBus.BUS.addListener(MobEffectEvent.Added.class, this::onEffectAdded);
   }
 
   /** Called to set the return position when the effect is added */

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.model.tools;
 
+import slimeknights.mantle.util.GlobalRegistries;
 import slimeknights.tconstruct.library.utils.StackNbt;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -823,7 +824,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       ItemStack ammo;
       ModDataNBT persistentData = tool.getPersistentData();
       if (ammoKey != null && persistentData.contains(ammoKey, Tag.TAG_COMPOUND)) {
-        ammo = ItemStack.of(persistentData.getCompound(ammoKey));
+        ammo = GlobalRegistries.parseStack(persistentData.getCompound(ammoKey));
         builder.add(ammo.getItem());
         CompoundTag tag = StackNbt.getTag(ammo);
         if (tag != null) {

@@ -254,7 +254,7 @@ public final class TinkerTools extends TinkerModule {
   public static final DeferredHolder<EntityType<?>, EntityType<ThrownTool>> thrownTool = ENTITIES.registerNoEgg("thrown_tool", () -> EntityType.Builder.<ThrownTool>of(ThrownTool::new, MobCategory.MISC).sized(0.5f, 0.5f).clientTrackingRange(4).updateInterval(20));
   static {
     // used for the fishing bobber
-    DATA_SERIALIZERS.register("material_variant", () -> MaterialVariantId.DATA_ACCESSOR);
+    net.minecraft.network.syncher.EntityDataSerializers.registerSerializer(MaterialVariantId.DATA_ACCESSOR);
   }
 
 

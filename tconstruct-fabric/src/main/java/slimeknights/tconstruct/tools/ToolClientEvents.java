@@ -160,8 +160,8 @@ public class ToolClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
-    EventBus.BUS.addListener(ToolClientEvents::handleKeyBindings);
-    EventBus.BUS.addListener(ToolClientEvents::handleInput);
+    EventBus.BUS.addListener(PlayerTickEvent.class, ToolClientEvents::handleKeyBindings);
+    EventBus.BUS.addListener(MovementInputUpdateEvent.class, ToolClientEvents::handleInput);
     AbstractArmorModel.init();
 
     // keybinds

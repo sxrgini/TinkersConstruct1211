@@ -310,7 +310,7 @@ public class SmelteryTank<T extends MantleBlockEntity & ISmelteryTankHandler> im
     contained = 0;
     for (int i = 0; i < list.size(); i++) {
       CompoundTag fluidTag = list.getCompound(i);
-      FluidStack fluid = FluidStack.loadFluidStackFromNBT(fluidTag);
+      FluidStack fluid = FluidStack.parse(fluidTag);
       if (!fluid.isEmpty()) {
         fluids.add(fluid);
         contained += fluid.getAmount();

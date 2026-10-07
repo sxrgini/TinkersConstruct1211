@@ -149,8 +149,8 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
 
   /** Initializes the tool definition loader */
   public static void init() {
-    EventBus.BUS.addListener(INSTANCE::addDataPackListeners);
-    EventBus.BUS.addListener(INSTANCE::onDatapackSync);
+    EventBus.BUS.addListener(AddReloadListenerEvent.class, INSTANCE::addDataPackListeners);
+    EventBus.BUS.addListener(OnDatapackSyncEvent.class, INSTANCE::onDatapackSync);
   }
 
   /** GSON serializer for ingredients */

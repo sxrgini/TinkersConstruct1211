@@ -20,8 +20,8 @@ public class SlimeBounceHandler {
 
   /** Registers event handlers */
   public static void init() {
-    EventBus.BUS.addListener(SlimeBounceHandler::onLivingTick);
-    EventBus.BUS.addListener(SlimeBounceHandler::serverStopping);
+    EventBus.BUS.addListener(LivingTickEvent.class, SlimeBounceHandler::onLivingTick);
+    EventBus.BUS.addListener(ServerStoppingEvent.class, SlimeBounceHandler::serverStopping);
   }
 
   /**

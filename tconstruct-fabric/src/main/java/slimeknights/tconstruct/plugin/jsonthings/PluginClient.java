@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 public class PluginClient {
   public static void init() {
     ItemColorHandler.register(TConstruct.resourceString("tool"), block -> ToolModel.COLOR_HANDLER);
-    EventBus.MOD_BUS.addListener(PluginClient::clientSetup);
+    EventBus.MOD_BUS.addListener(FMLClientSetupEvent.class, PluginClient::clientSetup);
   }
 
   private static void clientSetup(FMLClientSetupEvent event) {

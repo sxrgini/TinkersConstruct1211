@@ -68,7 +68,7 @@ public class DuctItemHandler extends SingleItemHandler<DuctBlockEntity> {
   protected boolean isItemValid(ItemStack stack) {
     // the item or its container must be in the tag
     if (!stack.is(TinkerTags.Items.DUCT_CONTAINERS)) {
-      ItemStack container = stack.getCraftingRemainingItem();
+      ItemStack container = stack.getRecipeRemainder();
       if (container.isEmpty() || !container.is(TinkerTags.Items.DUCT_CONTAINERS)) {
         return false;
       }

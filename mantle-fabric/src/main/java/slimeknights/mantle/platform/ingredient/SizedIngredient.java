@@ -27,6 +27,54 @@ public record SizedIngredient(Ingredient ingredient, int count) {
     ByteBufCodecs.VAR_INT, SizedIngredient::count,
     SizedIngredient::new);
 
+  /** Empty ingredient, matches nothing */
+  public static final SizedIngredient EMPTY = new SizedIngredient(Ingredient.of(), 1);
+
+  /** Creates a sized ingredient from an ingredient with a count of 1 */
+  public static SizedIngredient of(Ingredient ingredient) {
+    return new SizedIngredient(ingredient, 1);
+  }
+
+  /** Creates a sized ingredient from the given ingredient and count */
+  public static SizedIngredient of(Ingredient ingredient, int count) {
+    return new SizedIngredient(ingredient, count);
+  }
+
+  /** Creates a sized ingredient from the given items with a count of 1 */
+  public static SizedIngredient fromItems(ItemLike... items) {
+    return new SizedIngredient(Ingredient.of(items), 1);
+  }
+
+  /** Creates a sized ingredient from the given items and count */
+  public static SizedIngredient fromItems(int count, ItemLike... items) {
+    return new SizedIngredient(Ingredient.of(items), count);
+  }
+
+  /** Creates a sized ingredient from the given tag with a count of 1 */
+  public static SizedIngredient fromTag(TagKey<Item> tag) {
+    return new SizedIngredient(Ingredient.of(tag), 1);
+  }
+
+  /** Creates a sized ingredient from the given tag and count */
+  public static SizedIngredient fromTag(TagKey<Item> tag, int count) {
+    return new SizedIngredient(Ingredient.of(tag), count);
+  }
+
+  /** @return the ingredient, 1.20 style accessor */
+  public Ingredient getIngredient() {
+    return ingredient;
+  }
+
+  /** @return the count, 1.20 style accessor */
+  public int getAmountNeeded() {
+    return count;
+  }
+
+  /** @return stacks matching this ingredient, 1.20 style accessor */
+  public ItemStack[] getMatchingStacks() {
+    return getItems();
+  }
+
   /** Creates a sized ingredient from the given item */
   public static SizedIngredient of(ItemLike item, int count) {
     return new SizedIngredient(Ingredient.of(item), count);

@@ -205,7 +205,7 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankInven
   @Override
   public void saveSynced(CompoundTag tag, HolderLookup.Provider registries) {
     super.saveSynced(tag, registries);
-    tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundTag()));
+    tag.put(NBTTags.TANK, tank.save());
     tag.put(TAG_INVENTORY, meltingInventory.writeToTag());
   }
 

@@ -183,7 +183,7 @@ public class TankItem extends BlockTooltipItem {
         // transfer the fluid
         FluidTank tank = getTank(stack);
         // if both tanks are empty, just do standard stack operations; makes it nice and easy to move just 1 item at a time
-        if (tank.isEmpty() && ItemStack.isSameItemSameTags(stack, held)) {
+        if (tank.isEmpty() && ItemStack.isSameItemSameComponents(stack, held)) {
           return false;
         }
         TransferResult result = FluidTransferHelper.interactWithStack(tank, held, TransferDirection.AUTO);
@@ -224,7 +224,7 @@ public class TankItem extends BlockTooltipItem {
     if (tank.isEmpty()) {
       removeTank(stack);
     } else {
-      StackNbt.getOrCreateTag(stack).put(NBTTags.TANK, tank.writeToNBT(new CompoundTag()));
+      StackNbt.getOrCreateTag(stack).put(NBTTags.TANK, tank.save());
     }
     return stack;
   }
@@ -239,7 +239,7 @@ public class TankItem extends BlockTooltipItem {
     if (fluid.isEmpty()) {
       removeTank(stack);
     } else {
-      StackNbt.getOrCreateTag(stack).put(NBTTags.TANK, fluid.writeToNBT(new CompoundTag()));
+      StackNbt.getOrCreateTag(stack).put(NBTTags.TANK, fluid.save());
     }
     return stack;
   }

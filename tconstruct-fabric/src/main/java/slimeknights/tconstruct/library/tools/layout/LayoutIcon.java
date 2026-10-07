@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.layout;
 
+import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.library.utils.StackNbt;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.JsonDeserializationContext;

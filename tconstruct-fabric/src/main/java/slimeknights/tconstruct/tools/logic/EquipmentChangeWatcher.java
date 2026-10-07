@@ -50,11 +50,11 @@ public class EquipmentChangeWatcher {
     EventBus.MOD_BUS.addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, event -> event.register(PlayerLastEquipment.class));
 
     // equipment change is used on both sides
-    EventBus.BUS.addListener(EquipmentChangeWatcher::onEquipmentChange);
+    EventBus.BUS.addListener(LivingEquipmentChangeEvent.class, EquipmentChangeWatcher::onEquipmentChange);
 
     // only need to use the cap and the player tick on the client
     if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-      EventBus.BUS.addListener(EquipmentChangeWatcher::onPlayerTick);
+      EventBus.BUS.addListener(PlayerTickEvent.class, EquipmentChangeWatcher::onPlayerTick);
       EventBus.BUS.addGenericListener(Entity.class, EquipmentChangeWatcher::attachCapability);
     }
   }

@@ -42,7 +42,7 @@ public interface MaterialPredicate extends IJsonPredicate<MaterialVariantId> {
     }
 
     @Override
-    public JsonElement serialize(IJsonPredicate<MaterialVariantId> object, DynamicOps<?> ops) {
+    public JsonElement serialize(IJsonPredicate<MaterialVariantId> object, DynamicOps<?> ops, TypedMap context) {
       return LOADER.serialize(object);
     }
   };

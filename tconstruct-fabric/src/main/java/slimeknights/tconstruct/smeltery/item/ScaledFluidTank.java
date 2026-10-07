@@ -86,7 +86,7 @@ public class ScaledFluidTank extends FluidTank {
   @Override
   public FluidTank readFromNBT(CompoundTag nbt) {
     // scale the fluid on reading from NBT; as each instance should store the fluid relative to stack size 1
-    FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
+    FluidStack fluid = FluidStack.parse(nbt);
     fluid.setAmount(fluid.getAmount() * scale);
     setFluid(fluid);
     return this;

@@ -95,7 +95,7 @@ public abstract class TinkerModule {
     CREATIVE_TABS.register();
     // gameplay instance
     BLOCK_ENTITIES.register();
-    ENTITIES.registerNoEgg();
+    ENTITIES.register();
     MENUS.register();
     // datapacks
     RECIPE_SERIALIZERS.register();

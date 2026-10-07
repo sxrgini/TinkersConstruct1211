@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
+import slimeknights.mantle.data.loadable.Loadables;
 import net.minecraft.core.HolderLookup;
 import com.google.common.collect.Streams;
 import net.minecraft.core.RegistryAccess;
@@ -32,7 +33,7 @@ import java.util.stream.Stream;
  */
 public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRecipe<IDisplayModifierRecipe> {
   public static final RecordLoadable<MultilevelModifierRecipe> LOADER = RecordLoadable.create(
-    SizedIngredient.LOADABLE.list(0).defaultField("inputs", List.of(), r -> r.inputs),
+    Loadables.SIZED_ITEM_INGREDIENT.list(0).defaultField("inputs", List.of(), r -> r.inputs),
     TOOLS_FIELD, MAX_TOOL_SIZE_FIELD, RESULT_FIELD, ALLOW_CRYSTAL_FIELD,
     LevelEntry.LOADABLE.list(1).requiredField("levels", r -> r.levels),
     CHECK_TRAIT_LEVEL_FIELD,

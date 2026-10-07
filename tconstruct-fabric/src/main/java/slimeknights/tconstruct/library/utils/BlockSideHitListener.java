@@ -30,8 +30,8 @@ public class BlockSideHitListener {
       return;
     }
     init = true;
-    EventBus.BUS.addListener(BlockSideHitListener::onLeftClickBlock);
-    EventBus.BUS.addListener(EventPriority.LOWEST, BlockSideHitListener::breakBlock);
+    EventBus.BUS.addListener(LeftClickBlock.class, BlockSideHitListener::onLeftClickBlock);
+    EventBus.BUS.addListener(EventPriority.LOWEST, BlockEvent.BreakEvent.class, BlockSideHitListener::breakBlock);
   }
 
   /** Called when the player left-clicks a block to store the face */

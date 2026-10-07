@@ -15,7 +15,7 @@ public record NoFieldRecordLoadable<T>(Supplier<T> constructor) implements Recor
   }
 
   @Override
-  public void serialize(T object, JsonObject json) {}
+  public void serializeInto(T object, JsonObject json, TypedMap context) {}
 
   @Override
   public T decode(RegistryFriendlyByteBuf buffer, TypedMap context) {
@@ -23,5 +23,5 @@ public record NoFieldRecordLoadable<T>(Supplier<T> constructor) implements Recor
   }
 
   @Override
-  public void encode(RegistryFriendlyByteBuf buffer, T value) {}
+  public void encode(RegistryFriendlyByteBuf buffer, T value, TypedMap context) {}
 }

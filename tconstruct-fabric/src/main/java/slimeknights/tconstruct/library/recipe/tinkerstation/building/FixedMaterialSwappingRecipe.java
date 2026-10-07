@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
+import slimeknights.mantle.data.loadable.Loadables;
 import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
@@ -42,7 +43,7 @@ import java.util.List;
 public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolTinkering> {
   public static final RecordLoadable<FixedMaterialSwappingRecipe> LOADER = RecordLoadable.create(
     TOOLS_FIELD, STACK_SIZE_FIELD,
-    SizedIngredient.LOADABLE.requiredField("ingredient", r -> r.ingredient),
+    Loadables.SIZED_ITEM_INGREDIENT.requiredField("ingredient", r -> r.ingredient),
     MaterialVariantId.LOADABLE.requiredField("material", r -> r.material),
     new IntArrayLoadable(IntLoadable.FROM_ZERO, ArrayLoadable.COMPACT, 10).requiredField("index", r -> r.indices),
     IntLoadable.FROM_ZERO.defaultField("repair_value", 0, false, r -> r.repairValue),

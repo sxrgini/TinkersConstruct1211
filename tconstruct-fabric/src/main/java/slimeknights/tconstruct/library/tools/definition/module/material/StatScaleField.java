@@ -26,7 +26,7 @@ record StatScaleField(String nestKey, String listKey) implements RecordField<flo
   }
 
   @Override
-  public void serialize(MaterialStatsModule parent, JsonObject json) {
+  public void serializeInto(MaterialStatsModule parent, JsonObject json, TypedMap context) {
     // expect the list to be serialized before us
     JsonArray list = GsonHelper.getAsJsonArray(json, listKey);
     int size = Math.min(list.size(), parent.scales.length);
@@ -58,7 +58,7 @@ record StatScaleField(String nestKey, String listKey) implements RecordField<flo
   }
 
   @Override
-  public void encode(RegistryFriendlyByteBuf buffer, MaterialStatsModule parent) {
+  public void encode(RegistryFriendlyByteBuf buffer, MaterialStatsModule parent, TypedMap context) {
     buffer.writeVarInt(parent.scales.length);
     for (float scale : parent.scales) {
       buffer.writeFloat(scale);

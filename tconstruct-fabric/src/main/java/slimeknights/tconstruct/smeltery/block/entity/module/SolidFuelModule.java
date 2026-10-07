@@ -82,7 +82,7 @@ public class SolidFuelModule extends FuelModule {
             rate = solid.getRate();
             parent.setChangedFast();
             // return the container
-            ItemStack container = extracted.getCraftingRemainingItem();
+            ItemStack container = extracted.getRecipeRemainder();
             if (!container.isEmpty()) {
               // if we cannot insert the container back, spit it on the ground
               ItemStack notInserted = ItemHandlerHelper.insertItem(handler, container, false);

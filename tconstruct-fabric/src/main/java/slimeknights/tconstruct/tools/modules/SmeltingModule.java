@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modules;
 
+import slimeknights.mantle.util.GlobalRegistries;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.core.BlockPos;
@@ -173,7 +174,7 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
         // 0 means no recipe, time for a lookup
         if (time == 0) {
           time = NO_RECIPE;
-          stack = ItemStack.of(entry);
+          stack = GlobalRegistries.parseStack(entry);
           recipe = findRecipe(recipeType, stack, level, modifier.getId());
           if (recipe != null) {
             time = recipe.getCookingTime();
@@ -202,7 +203,7 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
 
             // use the recipe we fetched earlier if present
             if (recipe == null) {
-              stack = ItemStack.of(entry);
+              stack = GlobalRegistries.parseStack(entry);
               if (!stack.isEmpty()) {
                 recipe = findRecipe(recipeType, stack, level, modifier.getId());
               }
@@ -221,7 +222,7 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
                     maxStackSize = Math.min(result.getMaxStackSize(), output.getSlotLimit(tool, modifier, slot));
                   }
                   // if not enough space for the combo or its type is wrong, just mark as almost finished and give up
-                  if (result.getCount() + currentResult.getCount() > maxStackSize || !currentResult.isEmpty() && !ItemStack.isSameItemSameTags(currentResult, result)) {
+                  if (result.getCount() + currentResult.getCount() > maxStackSize || !currentResult.isEmpty() && !ItemStack.isSameItemSameComponents(currentResult, result)) {
                     entry.putInt(TAG_TIME, 1);
                     CONTAINER.setStack(ItemStack.EMPTY);
                     continue;
@@ -357,7 +358,7 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
     }
 
     @Override
-    public void serialize(SmeltingModule module, JsonObject json) {
+    public void serializeInto(SmeltingModule module, JsonObject json, TypedMap context) {
       ResourceLocation key = module.output.key();
       if (key != null) {
         json.addProperty(key(), key.toString());
@@ -370,7 +371,7 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
     }
 
     @Override
-    public void encode(RegistryFriendlyByteBuf buffer, SmeltingModule module) {
+    public void encode(RegistryFriendlyByteBuf buffer, SmeltingModule module, TypedMap context) {
       buffer.writeResourceLocation(Objects.requireNonNull(module.output.key()));
     }
   }

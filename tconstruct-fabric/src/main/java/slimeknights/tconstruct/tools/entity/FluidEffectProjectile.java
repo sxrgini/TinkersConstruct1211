@@ -347,7 +347,7 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
     }
     FluidStack fluid = getFluid();
     if (!fluid.isEmpty()) {
-      nbt.put(KEY_FLUID, fluid.writeToNBT(new CompoundTag()));
+      nbt.put(KEY_FLUID, fluid.save());
     }
   }
 
@@ -362,6 +362,6 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
     } else {
       this.cannon = null;
     }
-    setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompound(KEY_FLUID)));
+    setFluid(FluidStack.parse(nbt.getCompound(KEY_FLUID)));
   }
 }

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared;
 
+import slimeknights.mantle.platform.event.server.AddReloadListenerEvent;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import slimeknights.mantle.platform.registry.DeferredBlock;
 import slimeknights.mantle.platform.registry.DeferredItem;
@@ -162,7 +163,7 @@ public final class TinkerCommons extends TinkerModule {
 
   public TinkerCommons() {
     TConstructCommand.init();
-    EventBus.BUS.addListener(RecipeCacheInvalidator::onReloadListenerReload);
+    EventBus.BUS.addListener(AddReloadListenerEvent.class, RecipeCacheInvalidator::onReloadListenerReload);
   }
 
   @SubscribeEvent

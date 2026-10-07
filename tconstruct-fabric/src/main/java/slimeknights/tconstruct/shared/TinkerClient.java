@@ -76,7 +76,7 @@ public class TinkerClient {
 
     // add the recipe cache invalidator to the client
     Consumer<RecipesUpdatedEvent> recipesUpdated = event -> RecipeCacheInvalidator.reload(true);
-    EventBus.BUS.addListener(recipesUpdated);
+    EventBus.BUS.addListener(RecipesUpdatedEvent.class, recipesUpdated);
 
     // register datagen serializers
     ISpriteTransformer.SERIALIZER.registerDeserializer(RecolorSpriteTransformer.NAME, RecolorSpriteTransformer.DESERIALIZER);

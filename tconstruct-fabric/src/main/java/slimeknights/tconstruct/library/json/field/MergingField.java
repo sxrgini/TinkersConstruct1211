@@ -35,7 +35,7 @@ public record MergingField<T,P>(LoadableField<T,P> field, String key, MissingMod
   }
 
   @Override
-  public void serialize(P parent, JsonObject json) {
+  public void serializeInto(P parent, JsonObject json, TypedMap context) {
     // if we have the object, write to it
     if (json.has(key)) {
       field.serialize(parent, GsonHelper.getAsJsonObject(json, key));
@@ -53,7 +53,7 @@ public record MergingField<T,P>(LoadableField<T,P> field, String key, MissingMod
   }
 
   @Override
-  public void encode(RegistryFriendlyByteBuf buffer, P parent) {
+  public void encode(RegistryFriendlyByteBuf buffer, P parent, TypedMap context) {
     field.encode(buffer, parent);
   }
 }

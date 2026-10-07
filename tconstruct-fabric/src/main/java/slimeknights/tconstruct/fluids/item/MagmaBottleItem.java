@@ -61,7 +61,7 @@ public class MagmaBottleItem extends Item {
   @Override
   public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity living) {
     living.setSecondsOnFire(fireTime);
-    ItemStack container = stack.getCraftingRemainingItem();
+    ItemStack container = stack.getRecipeRemainder();
     Player player = living instanceof Player p ? p : null;
     if (player == null || !player.getAbilities().instabuild) {
       stack.shrink(1);

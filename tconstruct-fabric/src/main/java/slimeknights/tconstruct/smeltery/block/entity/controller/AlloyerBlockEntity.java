@@ -181,7 +181,7 @@ public class AlloyerBlockEntity extends NameableBlockEntity implements ITankBloc
   @Override
   public void saveSynced(CompoundTag tag, HolderLookup.Provider registries) {
     super.saveSynced(tag, registries);
-    tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundTag()));
+    tag.put(NBTTags.TANK, tank.save());
   }
 
   @Override

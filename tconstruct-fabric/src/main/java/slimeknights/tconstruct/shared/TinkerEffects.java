@@ -73,7 +73,7 @@ public class TinkerEffects extends TinkerModule {
 
   @SuppressWarnings("removal")
   public TinkerEffects() {
-    POTIONS.register(EventBus.MOD_BUS);
+    POTIONS.register();
   }
 
   @SubscribeEvent

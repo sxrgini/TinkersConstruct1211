@@ -31,7 +31,7 @@ public record MaterialPredicateField<P>(String key, Function<P, IJsonPredicate<M
   }
 
   @Override
-  public void serialize(P parent, JsonObject json) {
+  public void serializeInto(P parent, JsonObject json, TypedMap context) {
     IJsonPredicate<MaterialVariantId> predicate = getter.apply(parent);
     if (predicate != MaterialPredicate.ANY) {
       // if compact serializing, serialize the legacy style predicate
@@ -66,7 +66,7 @@ public record MaterialPredicateField<P>(String key, Function<P, IJsonPredicate<M
   }
 
   @Override
-  public void encode(RegistryFriendlyByteBuf buffer, P parent) {
+  public void encode(RegistryFriendlyByteBuf buffer, P parent, TypedMap context) {
     MaterialPredicate.LOADER.encode(buffer, getter.apply(parent));
   }
 }

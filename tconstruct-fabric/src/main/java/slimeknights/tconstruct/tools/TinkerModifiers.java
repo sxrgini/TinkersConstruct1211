@@ -354,7 +354,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierManager.INSTANCE.init();
     DynamicModifier.init();
     FluidEffectManager.INSTANCE.init();
-    MODIFIERS.register(EventBus.MOD_BUS);
+    MODIFIERS.register();
     TinkerDataKeys.init();
   }
 

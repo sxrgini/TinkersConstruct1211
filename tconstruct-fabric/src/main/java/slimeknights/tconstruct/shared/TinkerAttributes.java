@@ -17,7 +17,7 @@ public class TinkerAttributes {
   private static final AttributeDeferredRegister ATTRIBUTES = new AttributeDeferredRegister(TConstruct.MOD_ID);
 
   public TinkerAttributes() {
-    ATTRIBUTES.register(EventBus.MOD_BUS);
+    ATTRIBUTES.register();
   }
 
   // booleans

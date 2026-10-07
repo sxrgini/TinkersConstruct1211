@@ -105,7 +105,7 @@ public record IntRange(int min, int max) implements IntPredicate, Loadable<IntRa
   }
 
   @Override
-  public JsonElement serialize(IntRange range) {
+  public JsonElement serialize(IntRange range, TypedMap context) {
     // if the range is exact, return an integer
     if (range.min == range.max) {
       validateArgument("value", range.min);
@@ -153,7 +153,7 @@ public record IntRange(int min, int max) implements IntPredicate, Loadable<IntRa
   }
 
   @Override
-  public void encode(RegistryFriendlyByteBuf buffer, IntRange object) {
+  public void encode(RegistryFriendlyByteBuf buffer, IntRange object, TypedMap context) {
     object.toNetwork(buffer);
   }
 

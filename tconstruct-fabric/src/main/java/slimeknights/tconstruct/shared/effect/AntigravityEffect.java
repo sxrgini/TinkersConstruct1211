@@ -32,7 +32,7 @@ public class AntigravityEffect extends TinkerEffect {
   public AntigravityEffect() {
     super(MobEffectCategory.HARMFUL, 0xff970d, true);
     this.addAttributeModifier(PlatformAttributes.ENTITY_GRAVITY, TConstruct.getResource("5bd6b8c8-8de9-4357-a74e-afb2a8f00c20"), -2, Operation.ADD_MULTIPLIED_TOTAL);
-    EventBus.BUS.addListener(this::onLivingJump);
+    EventBus.BUS.addListener(LivingJumpEvent.class, this::onLivingJump);
   }
 
   @Override

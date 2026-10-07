@@ -47,8 +47,8 @@ public class ModifierLootingHandler {
     }
     init = true;
     // we overwrite looting values from vanilla in a couple cases, but mod effects that globally boost looting should still boost us
-    EventBus.BUS.addListener(EventPriority.HIGH, ModifierLootingHandler::onLooting);
-    EventBus.BUS.addListener(ModifierLootingHandler::onLeaveServer);
+    EventBus.BUS.addListener(EventPriority.HIGH, LootingLevelEvent.class, ModifierLootingHandler::onLooting);
+    EventBus.BUS.addListener(PlayerLoggedOutEvent.class, ModifierLootingHandler::onLeaveServer);
   }
 
   /**

@@ -233,4 +233,24 @@ public final class FluidStack implements net.minecraft.core.component.DataCompon
   public String toString() {
     return getAmount() + " " + BuiltInRegistries.FLUID.getKey(getFluid());
   }
+
+  /** Saves this stack to a tag, 1.20 style */
+  public net.minecraft.nbt.Tag save(net.minecraft.core.HolderLookup.Provider registries) {
+    return CODEC.encodeStart(registries.createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), this).getOrThrow();
+  }
+
+  /** Saves this stack to a tag using the global registries */
+  public net.minecraft.nbt.Tag save() {
+    return save(slimeknights.mantle.util.GlobalRegistries.get());
+  }
+
+  /** Parses a stack from a tag using the global registries, returning empty if invalid */
+  public static FluidStack parse(net.minecraft.nbt.Tag tag) {
+    return parse(slimeknights.mantle.util.GlobalRegistries.get(), tag);
+  }
+
+  /** Parses a stack from a tag, returning empty if invalid */
+  public static FluidStack parse(net.minecraft.core.HolderLookup.Provider registries, net.minecraft.nbt.Tag tag) {
+    return CODEC.parse(registries.createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), tag).result().orElse(EMPTY);
+  }
 }

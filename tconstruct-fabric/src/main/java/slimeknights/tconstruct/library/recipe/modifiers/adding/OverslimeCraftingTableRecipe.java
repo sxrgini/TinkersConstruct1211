@@ -125,7 +125,7 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
         repairNeeded -= repairPerItem;
       }
       if (stack.hasCraftingRemainingItem()) {
-        list.set(i, stack.getCraftingRemainingItem());
+        list.set(i, stack.getRecipeRemainder());
       }
     }
     return list;

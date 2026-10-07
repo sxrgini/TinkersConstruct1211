@@ -41,7 +41,7 @@ public class VariableLoaderRegistry<T extends IHaveLoader> extends GenericLoader
   }
 
   @Override
-  public JsonElement serialize(T src) {
+  public JsonElement serialize(T src, TypedMap context) {
     if (src instanceof ConstantFloat constant) {
       return new JsonPrimitive(constant.value());
     }

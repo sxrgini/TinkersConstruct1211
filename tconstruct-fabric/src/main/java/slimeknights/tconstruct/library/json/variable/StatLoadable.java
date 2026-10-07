@@ -67,7 +67,7 @@ public enum StatLoadable implements Loadable<Stat<?>> {
   }
 
   @Override
-  public JsonElement serialize(Stat<?> stat) {
+  public JsonElement serialize(Stat<?> stat, TypedMap context) {
     // serialize custom stats to just a single key
     if (stat.getType() == Stats.CUSTOM) {
       return new JsonPrimitive(stat.getValue().toString());
@@ -116,7 +116,7 @@ public enum StatLoadable implements Loadable<Stat<?>> {
   }
 
   @Override
-  public void encode(RegistryFriendlyByteBuf buffer, Stat<?> value) {
+  public void encode(RegistryFriendlyByteBuf buffer, Stat<?> value, TypedMap context) {
     encodeGeneric(buffer, value);
   }
 

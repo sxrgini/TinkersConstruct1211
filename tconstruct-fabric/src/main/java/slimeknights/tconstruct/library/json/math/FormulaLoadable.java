@@ -20,7 +20,7 @@ public record FormulaLoadable(FallbackFormula fallback, String... variables) imp
   }
 
   @Override
-  public void serialize(ModifierFormula object, JsonObject json) {
+  public void serializeInto(ModifierFormula object, JsonObject json, TypedMap context) {
     object.serialize(json, variables);
   }
 
@@ -30,7 +30,7 @@ public record FormulaLoadable(FallbackFormula fallback, String... variables) imp
   }
 
   @Override
-  public void encode(RegistryFriendlyByteBuf buffer, ModifierFormula object) throws EncoderException {
+  public void encode(RegistryFriendlyByteBuf buffer, ModifierFormula object, TypedMap context) throws EncoderException {
     object.toNetwork(buffer);
   }
 
