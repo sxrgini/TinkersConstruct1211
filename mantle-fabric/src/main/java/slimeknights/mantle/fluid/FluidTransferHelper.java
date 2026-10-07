@@ -24,7 +24,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.SoundAction;
 import net.neoforged.neoforge.common.SoundActions;
 import slimeknights.mantle.platform.fluid.FluidStack;
-import net.neoforged.neoforge.fluids.FluidType;
+import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
 import slimeknights.mantle.platform.fluid.IFluidHandlerItem;

@@ -13,7 +13,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.platform.condition.ICondition;
 import slimeknights.mantle.platform.condition.NotCondition;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
+import slimeknights.mantle.platform.fluid.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.fluid.transfer.AbstractFluidContainerTransferProvider;

@@ -20,7 +20,7 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import slimeknights.mantle.platform.fluid.FluidStack;
-import net.neoforged.neoforge.fluids.FluidType;
+import slimeknights.mantle.platform.fluid.FluidType;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import slimeknights.mantle.client.render.FluidCuboid.FluidFace;

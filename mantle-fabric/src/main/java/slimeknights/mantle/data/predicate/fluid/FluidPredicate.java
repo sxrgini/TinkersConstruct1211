@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 /**
  * Size and data independent way to condition on fluids.
  * Allows for more advance combinations than standard ingredients at the cost of being unable to list values.
- * @see net.neoforged.neoforge.fluids.crafting.FluidIngredient
+ * @see slimeknights.mantle.platform.fluid.crafting.FluidIngredient
  */
 public interface FluidPredicate extends IJsonPredicate<Fluid> {
   /** Predicate that matches all fluids */

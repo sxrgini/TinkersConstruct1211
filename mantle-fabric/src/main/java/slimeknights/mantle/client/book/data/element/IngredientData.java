@@ -16,7 +16,7 @@ import net.minecraft.util.StringUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ItemLore;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
+import slimeknights.mantle.platform.ingredient.SizedIngredient;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.book.repository.BookRepository;
 import slimeknights.mantle.data.loadable.Loadables;

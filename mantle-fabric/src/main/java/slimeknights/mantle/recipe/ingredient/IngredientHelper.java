@@ -5,12 +5,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.neoforge.common.crafting.ICustomIngredient;
-import net.neoforged.neoforge.common.crafting.IngredientType;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
+import slimeknights.mantle.platform.ingredient.ICustomIngredient;
+import slimeknights.mantle.platform.ingredient.IngredientType;
+import slimeknights.mantle.platform.ingredient.SizedIngredient;
 import slimeknights.mantle.platform.fluid.FluidStack;
-import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
-import net.neoforged.neoforge.fluids.crafting.FluidIngredientType;
+import slimeknights.mantle.platform.fluid.crafting.FluidIngredient;
+import slimeknights.mantle.platform.fluid.crafting.FluidIngredientType;
 import slimeknights.mantle.data.loadable.LoadableCodec;
 import slimeknights.mantle.data.loadable.StreamableCodec;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -52,7 +52,7 @@ public class IngredientHelper {
 
   /**
    * Checks if the given fluid stack is a source (that is, not flowing).
-   * Used to filter fluids returned by {@link FluidIngredient} and {@link net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient} in focus linked recipes as JEI hides such fluids.
+   * Used to filter fluids returned by {@link FluidIngredient} and {@link slimeknights.mantle.platform.fluid.crafting.SizedFluidIngredient} in focus linked recipes as JEI hides such fluids.
    */
   public static boolean isSource(FluidStack stack) {
     return !stack.isEmpty() && isSource(stack.getFluid());

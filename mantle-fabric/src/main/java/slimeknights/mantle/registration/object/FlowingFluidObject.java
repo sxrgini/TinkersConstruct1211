@@ -7,8 +7,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import slimeknights.mantle.platform.fluid.FluidType;
+import slimeknights.mantle.platform.fluid.crafting.FluidIngredient;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

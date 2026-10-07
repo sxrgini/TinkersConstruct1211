@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.FogRenderer.FogMode;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.neoforged.neoforge.fluids.FluidType;
+import slimeknights.mantle.platform.fluid.FluidType;
 import org.joml.Vector3f;
 import slimeknights.mantle.client.render.FluidRenderer;
 

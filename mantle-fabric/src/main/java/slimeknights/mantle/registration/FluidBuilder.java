@@ -7,7 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
-import net.neoforged.neoforge.fluids.FluidType;
+import slimeknights.mantle.platform.fluid.FluidType;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;

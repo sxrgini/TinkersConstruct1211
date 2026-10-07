@@ -14,8 +14,8 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.common.crafting.ICustomIngredient;
-import net.neoforged.neoforge.common.crafting.IngredientType;
+import slimeknights.mantle.platform.ingredient.ICustomIngredient;
+import slimeknights.mantle.platform.ingredient.IngredientType;
 import slimeknights.mantle.network.MantleStreamCodecs;
 import slimeknights.mantle.recipe.MantleRecipes;
 
@@ -54,7 +54,7 @@ public record PotionIngredient(Holder<Potion> potion, IngredientItems items) imp
 
   @Override
   public IngredientType<PotionIngredient> getType() {
-    return MantleRecipes.POTION_INGREDIENT.get();
+    return MantleRecipes.POTION_INGREDIENT;
   }
 
   @Override

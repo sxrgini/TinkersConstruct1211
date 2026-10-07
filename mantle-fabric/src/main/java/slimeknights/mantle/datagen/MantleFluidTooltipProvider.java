@@ -1,7 +1,7 @@
 package slimeknights.mantle.datagen;
 
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.fluids.FluidType;
+import slimeknights.mantle.platform.fluid.FluidType;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.fluid.tooltip.AbstractFluidTooltipProvider;

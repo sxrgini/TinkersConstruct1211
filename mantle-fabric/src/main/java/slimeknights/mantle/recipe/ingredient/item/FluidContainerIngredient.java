@@ -11,13 +11,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.Capabilities.FluidHandler;
-import net.neoforged.neoforge.common.crafting.ICustomIngredient;
-import net.neoforged.neoforge.common.crafting.IngredientType;
+import slimeknights.mantle.platform.ingredient.ICustomIngredient;
+import slimeknights.mantle.platform.ingredient.IngredientType;
 import slimeknights.mantle.platform.fluid.FluidStack;
-import net.neoforged.neoforge.fluids.FluidType;
+import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
 import slimeknights.mantle.platform.fluid.IFluidHandlerItem;
-import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import slimeknights.mantle.platform.fluid.crafting.FluidIngredient;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.MantleCodecs;
 import slimeknights.mantle.recipe.MantleRecipes;
@@ -78,7 +78,7 @@ public record FluidContainerIngredient(FluidIngredient fluid, int amount, List<I
 
   @Override
   public IngredientType<FluidContainerIngredient> getType() {
-    return MantleRecipes.FLUID_CONTAINER_INGREDIENT.get();
+    return MantleRecipes.FLUID_CONTAINER_INGREDIENT;
   }
 
   @Override

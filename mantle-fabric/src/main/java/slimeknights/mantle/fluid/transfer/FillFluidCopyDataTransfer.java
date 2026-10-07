@@ -4,7 +4,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.platform.fluid.FluidStack;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
+import slimeknights.mantle.platform.fluid.crafting.SizedFluidIngredient;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.array.ArrayLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;

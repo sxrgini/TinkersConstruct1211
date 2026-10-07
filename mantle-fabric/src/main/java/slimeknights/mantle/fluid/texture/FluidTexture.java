@@ -11,7 +11,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.neoforged.neoforge.fluids.FluidType;
+import slimeknights.mantle.platform.fluid.FluidType;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.mantle.client.model.TextureColorHelper;
 import slimeknights.mantle.data.loadable.common.ColorLoadable;

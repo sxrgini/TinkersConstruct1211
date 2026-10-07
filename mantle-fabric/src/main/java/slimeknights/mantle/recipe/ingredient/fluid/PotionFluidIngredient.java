@@ -14,9 +14,9 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.platform.fluid.FluidStack;
-import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
-import net.neoforged.neoforge.fluids.crafting.FluidIngredientType;
+import slimeknights.mantle.platform.fluid.FluidType;
+import slimeknights.mantle.platform.fluid.crafting.FluidIngredient;
+import slimeknights.mantle.platform.fluid.crafting.FluidIngredientType;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.network.MantleStreamCodecs;
 import slimeknights.mantle.recipe.MantleRecipes;
@@ -65,7 +65,7 @@ public class PotionFluidIngredient extends FluidIngredient {
 
   @Override
   public FluidIngredientType<PotionFluidIngredient> getType() {
-    return MantleRecipes.POTION_FLUID_INGREDIENT.get();
+    return MantleRecipes.POTION_FLUID_INGREDIENT;
   }
 
   @Override

@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.material.FluidState;
-import net.neoforged.neoforge.fluids.FluidType;
+import slimeknights.mantle.platform.fluid.FluidType;
 
 /** Client logic for {@link slimeknights.mantle.fluid.InvertedFluid}. Register in {@link net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent}. */
 @SuppressWarnings("unused")  // API

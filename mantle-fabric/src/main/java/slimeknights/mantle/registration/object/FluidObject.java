@@ -8,9 +8,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
+import slimeknights.mantle.platform.fluid.FluidType;
+import slimeknights.mantle.platform.fluid.crafting.FluidIngredient;
+import slimeknights.mantle.platform.fluid.crafting.SizedFluidIngredient;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.recipe.helper.FluidOutput;
 

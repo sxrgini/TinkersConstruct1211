@@ -31,7 +31,7 @@ import java.util.stream.Stream;
 
 /**
  * Data object for ingredients wishing to match standard vanilla-style fluids and tags.
- * Not meant to be used directly in recipes. Just use a traditional {@link net.neoforged.neoforge.fluids.crafting.FluidIngredient} for more flexibility.
+ * Not meant to be used directly in recipes. Just use a traditional {@link slimeknights.mantle.platform.fluid.crafting.FluidIngredient} for more flexibility.
  */
 @EqualsAndHashCode(exclude = "allFluids")
 @RequiredArgsConstructor

@@ -3,7 +3,7 @@ package slimeknights.mantle.fluid.texture;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
-import net.neoforged.neoforge.fluids.FluidType;
+import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.mantle.data.GenericDataProvider;

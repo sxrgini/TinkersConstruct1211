@@ -17,7 +17,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid.Properties;
-import net.neoforged.neoforge.fluids.FluidType;
+import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import slimeknights.mantle.platform.registry.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;

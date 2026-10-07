@@ -11,7 +11,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.platform.condition.ICondition;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
+import slimeknights.mantle.platform.fluid.crafting.SizedFluidIngredient;
 import slimeknights.mantle.data.GenericRegistryDataProvider;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.recipe.helper.FluidOutput;

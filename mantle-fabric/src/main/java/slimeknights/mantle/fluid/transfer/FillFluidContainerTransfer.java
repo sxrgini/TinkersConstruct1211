@@ -8,7 +8,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
+import slimeknights.mantle.platform.fluid.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.loadable.Loadables;

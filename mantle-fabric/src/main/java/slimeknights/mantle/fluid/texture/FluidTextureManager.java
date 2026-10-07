@@ -6,7 +6,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
-import net.neoforged.neoforge.fluids.FluidType;
+import slimeknights.mantle.platform.fluid.FluidType;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.listener.IEarlySafeManagerReloadListener;

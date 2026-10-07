@@ -12,8 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.common.crafting.ICustomIngredient;
-import net.neoforged.neoforge.common.crafting.IngredientType;
+import slimeknights.mantle.platform.ingredient.ICustomIngredient;
+import slimeknights.mantle.platform.ingredient.IngredientType;
 import slimeknights.mantle.recipe.MantleRecipes;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public record PotionDisplayIngredient(IngredientItems items) implements ICustomI
 
   @Override
   public IngredientType<PotionDisplayIngredient> getType() {
-    return MantleRecipes.POTION_DISPLAY_INGREDIENT.get();
+    return MantleRecipes.POTION_DISPLAY_INGREDIENT;
   }
 
   @Override
