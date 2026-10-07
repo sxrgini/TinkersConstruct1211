@@ -104,6 +104,14 @@ public abstract class FluidOutput implements Supplier<FluidStack> {
    * @param amount Stack amount
    * @return Output
    */
+  public static FluidOutput fromTag(TagKey<Fluid> tag, int amount, @javax.annotation.Nullable net.minecraft.nbt.CompoundTag legacyTag) {
+    if (legacyTag == null) {
+      return fromTag(tag, amount, DataComponentPatch.EMPTY);
+    }
+    return fromTag(tag, amount, new FluidStack(net.minecraft.world.level.material.Fluids.EMPTY, 1, legacyTag).getComponentsPatch());
+  }
+
+  /** Legacy overload */
   public static FluidOutput fromTag(TagKey<Fluid> tag, int amount) {
     return fromTag(tag, amount, DataComponentPatch.EMPTY);
   }

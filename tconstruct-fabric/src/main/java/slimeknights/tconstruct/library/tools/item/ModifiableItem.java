@@ -131,7 +131,7 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
   }
 
   public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-    return enchantment.isCurse() && super.canApplyAtEnchantingTable(stack, enchantment);
+    return false;
   }
 
   public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
@@ -411,12 +411,10 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
   }
 
   public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
-    if (super.canContinueUsing(oldStack, newStack)) {
-      if (oldStack != newStack) {
-        GeneralInteractionModifierHook.finishUsing(ToolStack.from(oldStack));
-      }
+    if (oldStack != newStack && ItemStack.isSameItem(oldStack, newStack)) {
+      GeneralInteractionModifierHook.finishUsing(ToolStack.from(oldStack));
     }
-    return super.canContinueUsing(oldStack, newStack);
+    return ItemStack.isSameItem(oldStack, newStack);
   }
 
   @Override
@@ -540,12 +538,12 @@ public class ModifiableItem extends TieredItem implements IClientItemExtensionsP
     }
 
     // if the attributes changed, reequip
-    Multimap<Holder<Attribute>,AttributeModifier> attributesNew = newStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
-    Multimap<Holder<Attribute>,AttributeModifier> attributesOld = oldStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
+    Multimap<Holder<Attribute>,AttributeModifier> attributesNew = ((ModifiableItem)newStack.getItem()).getAttributeModifiers(newTool, EquipmentSlot.MAINHAND);
+    Multimap<Holder<Attribute>,AttributeModifier> attributesOld = ((ModifiableItem)oldStack.getItem()).getAttributeModifiers(oldTool, EquipmentSlot.MAINHAND);
     if (attributesNew.size() != attributesOld.size()) {
       return true;
     }
-    for (Attribute attribute : attributesOld.keySet()) {
+    for (Holder<Attribute> attribute : attributesOld.keySet()) {
       if (!attributesNew.containsKey(attribute)) {
         return true;
       }

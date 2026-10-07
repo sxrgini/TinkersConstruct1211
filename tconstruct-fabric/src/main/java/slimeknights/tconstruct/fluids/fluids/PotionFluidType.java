@@ -21,16 +21,17 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public class PotionFluidType extends FluidType {
+  /** 1.20 had an explicit empty potion, 1.21 does not */
+  private static final ResourceKey<Potion> EMPTY_ID = ResourceKey.create(net.minecraft.core.registries.Registries.POTION, ResourceLocation.withDefaultNamespace("empty"));
+
   public PotionFluidType(Properties properties) {
     super(properties);
   }
 
-  @Override
   public String getDescriptionId(FluidStack stack) {
     return PotionHelper.getName(stack, "item.minecraft.potion.effect.");
   }
 
-  @Override
   public ItemStack getBucket(FluidStack fluidStack) {
     ItemStack itemStack = new ItemStack(fluidStack.getFluid().getBucket());
     itemStack.applyComponents(fluidStack.getComponentsPatch());
@@ -65,7 +66,7 @@ public class PotionFluidType extends FluidType {
   /** Creates a fluid stack for the given potion */
   public static FluidStack potionFluid(ResourceKey<Potion> potion, int size) {
     CompoundTag tag = null;
-    if (potion != Potions.EMPTY_ID) {
+    if (!EMPTY_ID.equals(potion)) {
       tag = potionTag(potion.location());
     }
     return new FluidStack(TinkerFluids.potion.get(), size, tag);
@@ -75,7 +76,7 @@ public class PotionFluidType extends FluidType {
   @SuppressWarnings("deprecation")  // forge registries have nullable keys, like why would you want that?
   public static FluidStack potionFluid(Potion potion, int size) {
     CompoundTag tag = null;
-    if (potion != Potions.EMPTY) {
+    if (!BuiltInRegistries.POTION.getKey(potion).equals(EMPTY_ID.location())) {
       tag = potionTag(BuiltInRegistries.POTION.getKey(potion));
     }
     return new FluidStack(TinkerFluids.potion.get(), size, tag);
@@ -85,7 +86,7 @@ public class PotionFluidType extends FluidType {
   @SuppressWarnings("deprecation")  // forge registries have nullable keys, like why would you want that?
   public static FluidOutput potionResult(Potion potion, int size) {
     CompoundTag tag = null;
-    if (potion != Potions.EMPTY) {
+    if (!BuiltInRegistries.POTION.getKey(potion).equals(EMPTY_ID.location())) {
       tag = potionTag(BuiltInRegistries.POTION.getKey(potion));
     }
     return FluidOutput.fromTag(Objects.requireNonNull(TinkerFluids.potion.getCommonTag()), size, tag);
@@ -94,7 +95,7 @@ public class PotionFluidType extends FluidType {
   /** Creates a potion bucket for the given potion */
   public static ItemStack potionBucket(ResourceKey<Potion> potion) {
     ItemStack stack = new ItemStack(TinkerFluids.potion);
-    if (potion != Potions.EMPTY_ID) {
+    if (!EMPTY_ID.equals(potion)) {
       StackNbt.setTag(stack, potionTag(potion.location()));
     }
     return stack;
@@ -104,7 +105,7 @@ public class PotionFluidType extends FluidType {
   @SuppressWarnings("deprecation")  // forge registries have nullable keys, like why would you want that?
   public static ItemStack potionBucket(Potion potion) {
     ItemStack stack = new ItemStack(TinkerFluids.potion);
-    if (potion != Potions.EMPTY) {
+    if (!BuiltInRegistries.POTION.getKey(potion).equals(EMPTY_ID.location())) {
       StackNbt.setTag(stack, potionTag(BuiltInRegistries.POTION.getKey(potion)));
     }
     return stack;
