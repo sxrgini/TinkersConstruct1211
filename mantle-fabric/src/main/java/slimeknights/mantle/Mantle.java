@@ -52,6 +52,7 @@ import slimeknights.mantle.recipe.helper.TagPreference;
 import slimeknights.mantle.registration.MantleData;
 import slimeknights.mantle.registration.RegistrationHelper;
 import slimeknights.mantle.platform.condition.ConditionRegistry;
+import slimeknights.mantle.platform.event.FabricEventBridge;
 import slimeknights.mantle.platform.fluid.FluidTypes;
 
 
@@ -87,6 +88,7 @@ public class Mantle implements ModInitializer {
     MantleData.init();
     MantleNetwork.registerPackets();
     MantleEvents.init();
+    FabricEventBridge.init();
 
     // setup
     MantleCommand.init();

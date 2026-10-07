@@ -4,9 +4,9 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
+import slimeknights.mantle.platform.event.EventBus;
 import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
+import slimeknights.mantle.platform.event.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import slimeknights.tconstruct.common.Sounds;
 
@@ -20,8 +20,8 @@ public class SlimeBounceHandler {
 
   /** Registers event handlers */
   public static void init() {
-    MinecraftForge.EVENT_BUS.addListener(SlimeBounceHandler::onLivingTick);
-    MinecraftForge.EVENT_BUS.addListener(SlimeBounceHandler::serverStopping);
+    EventBus.BUS.addListener(SlimeBounceHandler::onLivingTick);
+    EventBus.BUS.addListener(SlimeBounceHandler::serverStopping);
   }
 
   /**

@@ -25,10 +25,10 @@ import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.common.MinecraftForge;
+import slimeknights.mantle.platform.event.EventBus;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import slimeknights.mantle.platform.event.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -164,8 +164,8 @@ public class ToolClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
-    MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::handleKeyBindings);
-    MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::handleInput);
+    EventBus.BUS.addListener(ToolClientEvents::handleKeyBindings);
+    EventBus.BUS.addListener(ToolClientEvents::handleInput);
     AbstractArmorModel.init();
 
     // keybinds

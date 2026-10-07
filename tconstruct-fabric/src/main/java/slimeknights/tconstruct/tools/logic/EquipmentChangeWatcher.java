@@ -8,7 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.fabricmc.api.EnvType;
-import net.minecraftforge.common.MinecraftForge;
+import slimeknights.mantle.platform.event.EventBus;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
@@ -18,8 +18,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
+import slimeknights.mantle.platform.event.living.LivingEquipmentChangeEvent;
+import slimeknights.mantle.platform.event.EventPriority;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -52,12 +52,12 @@ public class EquipmentChangeWatcher {
     FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, event -> event.register(PlayerLastEquipment.class));
 
     // equipment change is used on both sides
-    MinecraftForge.EVENT_BUS.addListener(EquipmentChangeWatcher::onEquipmentChange);
+    EventBus.BUS.addListener(EquipmentChangeWatcher::onEquipmentChange);
 
     // only need to use the cap and the player tick on the client
     if (FMLEnvironment.dist == Dist.CLIENT) {
-      MinecraftForge.EVENT_BUS.addListener(EquipmentChangeWatcher::onPlayerTick);
-      MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, EquipmentChangeWatcher::attachCapability);
+      EventBus.BUS.addListener(EquipmentChangeWatcher::onPlayerTick);
+      EventBus.BUS.addGenericListener(Entity.class, EquipmentChangeWatcher::attachCapability);
     }
   }
 
@@ -122,7 +122,7 @@ public class EquipmentChangeWatcher {
       }
     }
     // fire event for modifiers that want to watch equipment when not equipped
-    MinecraftForge.EVENT_BUS.post(new ToolEquipmentChangeEvent(context));
+    EventBus.BUS.post(new ToolEquipmentChangeEvent(context));
   }
 
   /* Required methods */

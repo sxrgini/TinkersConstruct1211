@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.IForgeShearable;
 import slimeknights.mantle.platform.item.ItemAbility;
 import slimeknights.mantle.platform.item.ItemAbilities;
-import net.minecraftforge.eventbus.api.Event.Result;
+import slimeknights.mantle.platform.event.Event.Result;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolShearEvent;

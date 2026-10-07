@@ -5,7 +5,9 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "InventoryMixin",
-    "LootTableMixin"
+    "LootTableMixin",
+    "LivingEntityEventsMixin",
+    "BlockBehaviourEventsMixin"
   ],
   "client": [
     "GuiMixin"

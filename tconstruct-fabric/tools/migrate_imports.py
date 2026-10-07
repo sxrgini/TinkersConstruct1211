@@ -39,9 +39,26 @@ CLASS_MAP = {
   'net.minecraftforge.api.distmarker.Dist': 'net.fabricmc.api.EnvType',
   'net.minecraftforge.fml.ModList': 'net.fabricmc.loader.api.FabricLoader',
 }
+E = P + 'event.'
+# classes that exist in Mantle's event system: Forge package -> Mantle package
+for living in ('LivingEvent', 'LivingAttackEvent', 'LivingHurtEvent', 'LivingDamageEvent', 'LivingDeathEvent', 'LivingKnockBackEvent', 'LivingFallEvent',
+               'LivingDropsEvent', 'LivingExperienceDropEvent', 'LivingEquipmentChangeEvent', 'ShieldBlockEvent', 'LootingLevelEvent', 'LivingGetProjectileEvent'):
+    CLASS_MAP['net.minecraftforge.event.entity.living.' + living] = E + 'living.' + living
+for player in ('PlayerEvent', 'CriticalHitEvent', 'AttackEntityEvent', 'PlayerInteractEvent'):
+    CLASS_MAP['net.minecraftforge.event.entity.player.' + player] = E + 'player.' + player
+for ent in ('EntityTeleportEvent', 'ProjectileImpactEvent'):
+    CLASS_MAP['net.minecraftforge.event.entity.' + ent] = E + 'entity.' + ent
+CLASS_MAP.update({
+  'net.minecraftforge.eventbus.api.SubscribeEvent': E + 'SubscribeEvent',
+  'net.minecraftforge.eventbus.api.EventPriority': E + 'EventPriority',
+  'net.minecraftforge.eventbus.api.Event': E + 'Event',
+  'net.minecraftforge.eventbus.api.Cancelable': E + 'Event.Cancelable',
+  'net.minecraftforge.common.MinecraftForge': E + 'EventBus',
+})
 # nested imports: Forge outer.Inner -> new import (drop if None)
 NESTED = {
   'net.minecraftforge.fluids.capability.IFluidHandler.FluidAction': P+'fluid.IFluidHandler.FluidAction',
+  'net.minecraftforge.eventbus.api.Event.Result': P+'event.Event.Result',
   'net.minecraftforge.common.crafting.conditions.ICondition.IContext': P+'condition.ICondition.IContext',
 }
 # simple-name renames applied in code when the class was renamed
@@ -49,12 +66,22 @@ RENAMES = {'ForgeFlowingFluid': 'BaseFlowingFluid', 'ToolActions': 'ItemAbilitie
 
 imp = re.compile(r'^import (static )?(net\.minecraftforge\.[\w.]+);\n', re.M)
 
+def nested_event(name):
+    for k, v in list(CLASS_MAP.items()):
+        if k.startswith('net.minecraftforge.event.') and name.startswith(k + '.'):
+            return (v if isinstance(v, str) else v[0]) + name[len(k):]
+    return None
+
 def migrate(text):
     changed = False
     renames = {}
     def repl(m):
         nonlocal changed
         static, name = m.group(1) or '', m.group(2)
+        ne = nested_event(name) if name not in CLASS_MAP else None
+        if ne:
+            changed = True
+            return f'import {static}{ne};\n'
         if name in NESTED:
             changed = True
             return f'import {static}{NESTED[name]};\n'
@@ -77,6 +104,9 @@ def migrate(text):
     new = imp.sub(repl, text)
     for old, nw in renames.items():
         new = re.sub(r'\b' + old + r'\b', nw, new)
+    if 'MinecraftForge.EVENT_BUS' in new:
+        new = new.replace('MinecraftForge.EVENT_BUS', 'EventBus.BUS')
+        changed = True
     return new, changed
 
 REGISTRY_NAMES = {
