@@ -7,9 +7,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import slimeknights.mantle.Mantle;
@@ -42,10 +41,10 @@ public class MantleLoot {
   private MantleLoot() {}
 
   /** Registers this to the bus */
-  public static void init(IEventBus bus) {
-    LOOT_CONDITIONS.register(bus);
-    LOOT_FUNCTIONS.register(bus);
-    LOOT_ENTRIES.register(bus);
+  public static void init() {
+    LOOT_CONDITIONS.register();
+    LOOT_FUNCTIONS.register();
+    LOOT_ENTRIES.register();
   }
 
   /** Matches if the passed tag is empty */

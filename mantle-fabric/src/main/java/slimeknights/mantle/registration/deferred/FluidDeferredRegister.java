@@ -15,12 +15,11 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid.Properties;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import slimeknights.mantle.platform.registry.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.mantle.block.fluid.BurningLiquidBlock;
 import slimeknights.mantle.block.fluid.MobEffectLiquidBlock;
@@ -64,11 +63,11 @@ public class FluidDeferredRegister extends DeferredRegister<Fluid> {
 
   /** Registers all registers with the bus */
   @Override
-  public void register(IEventBus bus) {
-    super.register(bus);
-    fluidTypes.register(bus);
-    blocks.register(bus);
-    items.register(bus);
+  public void register() {
+    super.register();
+    fluidTypes.register();
+    blocks.register();
+    items.register();
   }
 
   /**

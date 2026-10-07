@@ -5,8 +5,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.network.IContainerFactory;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import slimeknights.mantle.platform.registry.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredRegister;
 
 /**
  * Deferred register for menu types, automatically mapping a factory argument in {@link IMenuTypeExtension}

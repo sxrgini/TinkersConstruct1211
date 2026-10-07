@@ -6,14 +6,14 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredHolder;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
- * Class that mirrors {@link net.neoforged.neoforge.registries.DeferredHolder} but wraps 1 or more holders instead of being a holder itself.
+ * Class that mirrors {@link slimeknights.mantle.platform.registry.DeferredHolder} but wraps 1 or more holders instead of being a holder itself.
  * Main notable difference is intended constructors will take multiple objects. If you only plan to use a single object it's better to extend deferred holder.
  */
 @Getter

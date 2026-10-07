@@ -8,7 +8,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.fluids.FluidStack;
+import slimeknights.mantle.platform.fluid.FluidStack;
 import org.jetbrains.annotations.Contract;
 
 import java.util.List;

@@ -4,8 +4,8 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import slimeknights.mantle.platform.registry.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredRegister;
 
 /** Deferred register extension for registering loot item condition types. */
 public class LootConditionDeferredRegister extends DeferredRegister<LootItemConditionType> {

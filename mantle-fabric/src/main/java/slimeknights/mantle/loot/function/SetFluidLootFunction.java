@@ -8,9 +8,9 @@ import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunct
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
-import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
+import slimeknights.mantle.platform.fluid.FluidStack;
+import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
+import slimeknights.mantle.platform.fluid.IFluidHandlerItem;
 import slimeknights.mantle.loot.MantleLoot;
 
 import java.util.List;

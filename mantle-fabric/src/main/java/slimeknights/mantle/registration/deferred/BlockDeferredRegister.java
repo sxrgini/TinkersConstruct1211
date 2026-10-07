@@ -39,10 +39,9 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.PushReaction;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import slimeknights.mantle.platform.registry.DeferredBlock;
+import slimeknights.mantle.platform.registry.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredRegister;
 import slimeknights.mantle.block.StrippableLogBlock;
 import slimeknights.mantle.item.burnable.BurnableBlockItem;
 import slimeknights.mantle.item.burnable.BurnableHangingSignItem;
@@ -87,9 +86,9 @@ public class BlockDeferredRegister extends EnumDeferredRegister<Block> {
   }
 
   @Override
-  public void register(IEventBus bus) {
-    super.register(bus);
-    itemRegister.register(bus);
+  public void register() {
+    super.register();
+    itemRegister.register();
   }
 
   @Override

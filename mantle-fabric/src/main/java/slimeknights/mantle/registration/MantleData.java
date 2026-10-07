@@ -6,11 +6,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import slimeknights.mantle.platform.registry.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.network.MantleStreamCodecs;
@@ -24,9 +23,9 @@ public class MantleData {
   private MantleData() {}
 
   /** Registers this to the bus */
-  public static void init(IEventBus bus) {
-    DATA_COMPONENTS.register(bus);
-    ATTACHMENTS.register(bus);
+  public static void init() {
+    DATA_COMPONENTS.register();
+    ATTACHMENTS.register();
   }
 
   /** Component used by {@link slimeknights.mantle.util.RetexturedHelper} to set the block texture. */

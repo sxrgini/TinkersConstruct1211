@@ -5,7 +5,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredHolder;
 
 import java.util.List;
 

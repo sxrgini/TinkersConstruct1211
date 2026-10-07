@@ -2,11 +2,10 @@ package slimeknights.mantle.recipe;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.crafting.IngredientType;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredientType;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import slimeknights.mantle.platform.registry.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.recipe.cooking.BlastingResultRecipe;
@@ -31,10 +30,10 @@ public class MantleRecipes {
   private MantleRecipes() {}
 
   /** Registers this to the bus */
-  public static void init(IEventBus bus) {
-    RECIPES.register(bus);
-    INGREDIENT_TYPES.register(bus);
-    FLUID_INGREDIENT_TYPES.register(bus);
+  public static void init() {
+    RECIPES.register();
+    INGREDIENT_TYPES.register();
+    FLUID_INGREDIENT_TYPES.register();
   }
 
   // crafting

@@ -4,7 +4,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.registration.object.FluidObject;

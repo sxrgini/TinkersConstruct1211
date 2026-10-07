@@ -4,13 +4,13 @@ import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredHolder;
 
 /**
  * Registry object wrapper that also implements {@link ItemLike}. Intended for use with objects that have multiple forms.
  * @param <I>  Item class
- * @see net.neoforged.neoforge.registries.DeferredBlock
- * @see net.neoforged.neoforge.registries.DeferredItem
+ * @see slimeknights.mantle.platform.registry.DeferredBlock
+ * @see slimeknights.mantle.platform.registry.DeferredItem
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class ItemObject<R extends ItemLike, I extends R> extends HolderWrapper<R,I> implements ItemLike {

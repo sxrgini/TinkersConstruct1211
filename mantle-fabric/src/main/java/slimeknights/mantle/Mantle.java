@@ -110,9 +110,9 @@ public class Mantle {
     modEventBus.addListener(RegisterEvent.class, this::register);
     modEventBus.addListener(BlockEntityTypeAddBlocksEvent.class, this::registerBlockEntityBlocks);
     modEventBus.addListener(RegisterPayloadHandlersEvent.class, MantleNetwork::registerPackets);
-    MantleRecipes.init(modEventBus);
-    MantleLoot.init(modEventBus);
-    MantleData.init(modEventBus);
+    MantleRecipes.init();
+    MantleLoot.init();
+    MantleData.init();
     NeoForge.EVENT_BUS.addListener(PlayerInteractEvent.RightClickBlock.class, LecternBookItem::interactWithBlock);
 
     if (FMLEnvironment.dist == Dist.CLIENT) {

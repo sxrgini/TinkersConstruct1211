@@ -8,7 +8,7 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.neoforged.neoforge.fluids.FluidStack;
+import slimeknights.mantle.platform.fluid.FluidStack;
 import org.apache.commons.lang3.mutable.MutableObject;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;

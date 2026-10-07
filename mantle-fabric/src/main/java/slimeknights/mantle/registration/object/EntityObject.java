@@ -5,7 +5,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredHolder;
 
 /** Object holding an entity and it's egg */
 public class EntityObject<T extends Entity> extends HolderWrapper<EntityType<?>,EntityType<T>> implements ItemLike {

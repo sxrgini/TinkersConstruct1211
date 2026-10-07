@@ -5,10 +5,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import slimeknights.mantle.platform.registry.DeferredHolder;
+import slimeknights.mantle.platform.registry.DeferredRegister;
 import slimeknights.mantle.registration.object.EntityObject;
 
 import java.util.function.Supplier;
@@ -30,9 +29,9 @@ public class EntityTypeDeferredRegister extends DeferredRegister<EntityType<?>> 
   }
 
   @Override
-  public void register(IEventBus bus) {
-    super.register(bus);
-    itemRegistry.register(bus);
+  public void register() {
+    super.register();
+    itemRegistry.register();
   }
 
   /**
