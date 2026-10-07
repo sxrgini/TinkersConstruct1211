@@ -25,7 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientMobEffectExtensions;
 import slimeknights.mantle.platform.item.ItemHandlerHelper;
-import slimeknights.mantle.item.TooltipItem;
+import slimeknights.mantle.item.tooltip.TooltipItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.common.TinkerTags;

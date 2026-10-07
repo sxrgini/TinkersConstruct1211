@@ -25,7 +25,7 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
-import slimeknights.mantle.recipe.ingredient.FluidIngredient;
+import slimeknights.mantle.platform.fluid.crafting.FluidIngredient;
 
 import java.util.ArrayList;
 import java.util.Collection;

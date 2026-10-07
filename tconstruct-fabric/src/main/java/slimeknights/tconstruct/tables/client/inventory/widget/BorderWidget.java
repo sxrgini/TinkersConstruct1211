@@ -4,7 +4,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
-import slimeknights.mantle.client.screen.Widget;
+import slimeknights.mantle.client.screen.widget.Widget;
 import slimeknights.tconstruct.tables.client.inventory.module.GenericScreen;
 
 public class BorderWidget extends Widget {

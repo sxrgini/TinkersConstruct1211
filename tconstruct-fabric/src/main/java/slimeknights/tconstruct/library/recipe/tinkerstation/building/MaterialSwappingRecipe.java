@@ -11,7 +11,7 @@ import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.RecordField;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
-import slimeknights.mantle.recipe.ingredient.SizedIngredient;
+import slimeknights.mantle.platform.ingredient.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterialUser;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;

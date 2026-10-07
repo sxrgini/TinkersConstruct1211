@@ -9,7 +9,7 @@ import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
-import slimeknights.mantle.client.screen.SliderWidget;
+import slimeknights.mantle.client.screen.widget.SliderWidget;
 
 public class DynamicContainerScreen<P extends MultiModuleScreen<?>, C extends AbstractContainerMenu> extends ModuleScreen<P,C> {
 

@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
-import slimeknights.mantle.item.TooltipItem;
+import slimeknights.mantle.item.tooltip.TooltipItem;
 
 /** Explosion immune tooltip item */
 public class DragonScaleItem extends TooltipItem {

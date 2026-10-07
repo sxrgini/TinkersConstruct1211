@@ -11,7 +11,7 @@ import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
-import slimeknights.mantle.client.screen.SliderWidget;
+import slimeknights.mantle.client.screen.widget.SliderWidget;
 import slimeknights.mantle.inventory.BaseContainerMenu;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tables.client.inventory.widget.BorderWidget;
