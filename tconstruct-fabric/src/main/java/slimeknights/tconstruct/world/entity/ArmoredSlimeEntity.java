@@ -91,8 +91,8 @@ public abstract class ArmoredSlimeEntity extends Slime {
 
   @Nullable
   @Override
-  public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance difficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-    SpawnGroupData spawnData = super.finalizeSpawn(pLevel, difficulty, pReason, pSpawnData, pDataTag);
+  public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance difficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData) {
+    SpawnGroupData spawnData = super.finalizeSpawn(pLevel, difficulty, pReason, pSpawnData);
     this.setCanPickUpLoot(this.random.nextFloat() < (0.55f * difficulty.getSpecialMultiplier()));
 
     this.populateDefaultEquipmentSlots(random, difficulty);
@@ -113,7 +113,7 @@ public abstract class ArmoredSlimeEntity extends Slime {
   protected abstract void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty);
 
   @Override
-  protected void populateDefaultEquipmentEnchantments(RandomSource random, DifficultyInstance difficulty) {
+  protected void populateDefaultEquipmentEnchantments(ServerLevelAccessor level, RandomSource random, DifficultyInstance difficulty) {
     // no-op, unused
   }
 
@@ -129,7 +129,7 @@ public abstract class ArmoredSlimeEntity extends Slime {
   }
 
   @Override
-  protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHit) {
+  protected void dropCustomDeathLoot(net.minecraft.server.level.ServerLevel level, DamageSource source, boolean recentlyHit) {
     ItemStack stack = this.getItemBySlot(EquipmentSlot.HEAD);
     float slotChance = this.getEquipmentDropChance(EquipmentSlot.HEAD);
     // items do not always drop if a large slime, increases chance of inheritance
@@ -138,8 +138,8 @@ public abstract class ArmoredSlimeEntity extends Slime {
       slotChance = 0.25f;
     }
     boolean alwaysDrop = slotChance > 1.0F;
-    if (!stack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(stack) && (recentlyHit || alwaysDrop)) {
-      if ((this.random.nextFloat() - (looting * 0.01f)) < slotChance) {
+    if (!stack.isEmpty() && !net.minecraft.world.item.enchantment.EnchantmentHelper.has(stack, net.minecraft.world.item.enchantment.EnchantmentEffectComponents.PREVENT_EQUIPMENT_DROP) && (recentlyHit || alwaysDrop)) {
+      if (this.random.nextFloat() < net.minecraft.world.item.enchantment.EnchantmentHelper.processEquipmentDropChance(level, this, source, slotChance)) {
         if (!alwaysDrop && stack.isDamageableItem()) {
           int max = stack.getMaxDamage();
           stack.setDamageValue(max - this.random.nextInt(1 + this.random.nextInt(Math.max(max - 3, 1))));
@@ -204,7 +204,6 @@ public abstract class ArmoredSlimeEntity extends Slime {
     if (reason == Entity.RemovalReason.KILLED) {
       this.gameEvent(GameEvent.ENTITY_DIE);
     }
-    this.invalidateCaps();
   }
 
   @Override

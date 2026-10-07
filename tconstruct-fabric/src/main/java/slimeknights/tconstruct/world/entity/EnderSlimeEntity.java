@@ -27,11 +27,9 @@ public class EnderSlimeEntity extends TravelersPlateSlimeEntity {
   }
 
   @Override
-  public void doEnchantDamageEffects(LivingEntity slime, Entity target) {
-    super.doEnchantDamageEffects(slime, target);
-    if (target instanceof LivingEntity) {
-      TeleportHelper.randomNearbyTeleport((LivingEntity) target, teleportPredicate);
-    }
+  protected void dealDamage(LivingEntity target) {
+    super.dealDamage(target);
+    TeleportHelper.randomNearbyTeleport(target, teleportPredicate);
   }
 
   @Override

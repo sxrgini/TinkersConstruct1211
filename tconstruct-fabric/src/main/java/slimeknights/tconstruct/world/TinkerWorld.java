@@ -149,7 +149,7 @@ public final class TinkerWorld extends TinkerModule {
   public static final EnumObject<SlimeType, SlimeBlock> slime = Util.make(() -> {
     Function<SlimeType,BlockBehaviour.Properties> slimeProps = type -> builder(type.getMapColor(), SoundType.SLIME_BLOCK).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion();
     return new EnumObject.Builder<SlimeType, SlimeBlock>(SlimeType.class)
-      .put(SlimeType.EARTH, () -> (SlimeBlock)Blocks.SLIME_BLOCK)
+      .put(SlimeType.EARTH, Blocks.SLIME_BLOCK.builtInRegistryHolder())
       // sky slime: sticks to anything, but will not pull back
       .put(SlimeType.SKY,   BLOCKS.register("sky_slime", () -> new StickySlimeBlock(slimeProps.apply(SlimeType.SKY), (state, other) -> true), TOOLTIP_BLOCK_ITEM))
       // ichor: does not stick to self, but sticks to anything else
@@ -368,7 +368,7 @@ public final class TinkerWorld extends TinkerModule {
       };
       TinkerWorld.heads.forEach(head -> DispenserBlock.registerBehavior(head, dispenseArmor));
       // heads in firework stars
-      TinkerWorld.heads.forEach(head -> FireworkStarRecipe.SHAPE_BY_ITEM.put(head.asItem(), FireworkRocketItem.Shape.CREEPER));
+      TinkerWorld.heads.forEach(head -> FireworkStarRecipe.SHAPE_BY_ITEM.put(head.asItem(), net.minecraft.world.item.component.FireworkExplosion.Shape.CREEPER));
       // inject heads into the tile entity type
       event.enqueueWork(() -> {
         ImmutableSet.Builder<Block> builder = ImmutableSet.builder();
@@ -494,7 +494,7 @@ public final class TinkerWorld extends TinkerModule {
 
   /** Creates a skull wall block for the given head type */
   private static WallSkullBlock makeWallHead(TinkerHeadType type) {
-    BlockBehaviour.Properties props = BlockBehaviour.Properties.of().strength(1.0F).lootFrom(() -> heads.get(type));
+    BlockBehaviour.Properties props = BlockBehaviour.Properties.of().strength(1.0F).overrideLootTable(java.util.Optional.of(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE, heads.getHolder(type).unwrapKey().orElseThrow().location().withPrefix("blocks/"))));
     if (type.isPiglin()) {
       return new PiglinWallHeadBlock(type, props);
     }

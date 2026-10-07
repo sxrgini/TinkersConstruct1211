@@ -40,18 +40,24 @@ public abstract class EntityRenderersEvent extends Event implements IModBusEvent
     }
   }
 
-  /** Allows registering skull models, the map is read by the skull renderer mixin */
+  /** Allows registering skull models, posted by a mixin when vanilla creates its skull model map */
   public static class CreateSkullModels extends EntityRenderersEvent {
-    private static final Map<Object,Function<net.minecraft.client.model.geom.EntityModelSet,? extends Model>> MODELS = new HashMap<>();
+    private final net.minecraft.client.model.geom.EntityModelSet modelSet;
+    private final Map<net.minecraft.world.level.block.SkullBlock.Type,net.minecraft.client.model.SkullModelBase> models;
 
-    /** Registers a skull model factory for the skull type */
-    public void registerSkullModel(Object skullType, ModelLayerLocation layer) {
-      MODELS.put(skullType, set -> new net.minecraft.client.model.SkullModel(set.bakeLayer(layer)));
+    public CreateSkullModels(net.minecraft.client.model.geom.EntityModelSet modelSet, Map<net.minecraft.world.level.block.SkullBlock.Type,net.minecraft.client.model.SkullModelBase> models) {
+      this.modelSet = modelSet;
+      this.models = models;
     }
 
-    /** Gets the registered factories */
-    public static Map<Object,Function<net.minecraft.client.model.geom.EntityModelSet,? extends Model>> getModels() {
-      return MODELS;
+    /** Gets the model set to bake layers from */
+    public net.minecraft.client.model.geom.EntityModelSet getEntityModelSet() {
+      return modelSet;
+    }
+
+    /** Registers a skull model for the skull type */
+    public void registerSkullModel(net.minecraft.world.level.block.SkullBlock.Type skullType, net.minecraft.client.model.SkullModelBase model) {
+      models.put(skullType, model);
     }
   }
 }

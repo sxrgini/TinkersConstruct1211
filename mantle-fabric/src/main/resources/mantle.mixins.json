@@ -20,7 +20,8 @@
     "MinecraftInteractionMixin",
     "ScreenEffectRendererMixin",
     "LivingEntityRendererMixin",
-    "ClientPacketListenerMixin"
+    "ClientPacketListenerMixin",
+    "SkullBlockRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

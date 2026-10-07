@@ -88,7 +88,7 @@ public final class TinkerStructures extends TinkerModule {
    * Structures
    */
   public static final DeferredHolder<StructurePieceType, StructurePieceType> islandPiece = STRUCTURE_PIECE.register("island", () -> IslandPiece::new);
-  public static final DeferredHolder<StructureType<?>, StructureType<IslandStructure>> island = STRUCTURE_TYPE.register("island", () -> () -> IslandStructure.CODEC);
+  public static final DeferredHolder<StructureType<?>, StructureType<IslandStructure>> island = STRUCTURE_TYPE.register("island", () -> (StructureType<IslandStructure>) () -> IslandStructure.CODEC);
 
 
   // island structures - TODO 1.21: rename to better match placement?

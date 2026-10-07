@@ -18,7 +18,6 @@ public final class ClientRegistrationEvents {
     bus.post(new RegisterColorHandlersEvent.Item());
     bus.post(new EntityRenderersEvent.RegisterRenderers());
     bus.post(new EntityRenderersEvent.RegisterLayerDefinitions());
-    bus.post(new EntityRenderersEvent.CreateSkullModels());
     bus.post(new RegisterParticleProvidersEvent());
     bus.post(new RegisterKeyMappingsEvent());
     bus.post(new RegisterClientReloadListenersEvent());
