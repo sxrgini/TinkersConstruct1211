@@ -12,6 +12,8 @@
   "license": "MIT",
   "icon": "Mantle.png",
   "environment": "*",
+  "accessWidener": "mantle.accesswidener",
+  "mixins": ["mantle.mixins.json"],
   "entrypoints": {
     "main": ["slimeknights.mantle.Mantle"],
     "client": []

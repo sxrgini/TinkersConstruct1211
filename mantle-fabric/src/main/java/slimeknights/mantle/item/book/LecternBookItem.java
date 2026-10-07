@@ -9,7 +9,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.BlockHitResult;
 import slimeknights.mantle.item.tooltip.TooltipItem;
 
 /**
@@ -36,20 +39,20 @@ public abstract class LecternBookItem extends TooltipItem implements ILecternBoo
   /**
    * Event handler to control the lectern GUI
    */
-  public static void interactWithBlock(PlayerInteractEvent.RightClickBlock event) {
-    Level world = event.getLevel();
+  public static InteractionResult interactWithBlock(Player player, Level world, InteractionHand hand, BlockHitResult hit) {
     // client side has no access to the book, so just skip
-    if (world.isClientSide() || event.getEntity().isShiftKeyDown()) {
-      return;
+    if (world.isClientSide() || player.isShiftKeyDown()) {
+      return InteractionResult.PASS;
     }
     // must be a lectern, and have the TE
-    BlockPos pos = event.getPos();
+    BlockPos pos = hit.getBlockPos();
     BlockState state = world.getBlockState(pos);
     if (state.is(Blocks.LECTERN) && world.getBlockEntity(pos) instanceof LecternBlockEntity te) {
       ItemStack stack = te.getBook();
-      if (!stack.isEmpty() && stack.getItem() instanceof ILecternBookItem book && book.openLecternScreen(world, pos, event.getEntity(), stack)) {
-        event.setCanceled(true);
+      if (!stack.isEmpty() && stack.getItem() instanceof ILecternBookItem book && book.openLecternScreen(world, pos, player, stack)) {
+        return InteractionResult.SUCCESS;
       }
     }
+    return InteractionResult.PASS;
   }
 }

@@ -1,36 +1,36 @@
 package slimeknights.mantle;
 
+import net.fabricmc.fabric.api.entity.FakePlayer;
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
-import net.neoforged.bus.api.EventPriority;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.util.FakePlayer;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.registration.MantleData;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 /** Handles events for any Mantle driven logic. */
-@EventBusSubscriber(modid = Mantle.modId)
 public class MantleEvents {
-  /* Soulbound */
+  private MantleEvents() {}
+
+  /** Registers all Fabric event listeners */
+  public static void init() {
+    ServerLivingEntityEvents.ALLOW_DEATH.register(MantleEvents::onLivingDeath);
+    ServerPlayerEvents.COPY_FROM.register(MantleEvents::onPlayerClone);
+  }
+
+  /* Soulbound. Items are kept out of the drops by InventoryMixin, then moved to the new player on clone */
 
   /** Called when the player dies to store the slot to return items into */
-  @SubscribeEvent
-  static void onLivingDeath(LivingDeathEvent event) {
+  private static boolean onLivingDeath(LivingEntity entity, DamageSource source, float amount) {
     // this is the latest we can add slot markers to the items so we can return them to slots
-    LivingEntity entity = event.getEntity();
     if (!entity.level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY) && entity instanceof Player player && !(player instanceof FakePlayer)) {
       Inventory inventory = player.getInventory();
 
@@ -43,58 +43,14 @@ public class MantleEvents {
         }
       }
     }
-  }
-
-  /** Called when the player dies to store the soulbound items in the original inventory */
-  @SubscribeEvent(priority = EventPriority.HIGH)
-  static void onPlayerDropItems(LivingDropsEvent event) {
-    // only care about real players with keep inventory off
-    LivingEntity entity = event.getEntity();
-    if (!entity.level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY) && entity instanceof Player player && !(entity instanceof FakePlayer)) {
-      Collection<ItemEntity> drops = event.getDrops();
-      Iterator<ItemEntity> iter = drops.iterator();
-      Inventory inventory = player.getInventory();
-      List<ItemEntity> takenSlot = new ArrayList<>();
-      while (iter.hasNext()) {
-        ItemEntity itemEntity = iter.next();
-        ItemStack stack = itemEntity.getItem();
-        // find items with our soulbound tag set and move them back into the inventory, will move them over later
-        int slot = stack.getOrDefault(MantleData.SOULBOUND_SLOT, -1);
-        if (slot != -1) {
-          // return the tool to its requested slot if possible, remove from the drops
-          if (inventory.getItem(slot).isEmpty()) {
-            inventory.setItem(slot, stack);
-          } else {
-            // hold off on handling items that did not get the requested slot for now
-            // want to make sure they don't get in the way of items that have not yet been seen
-            takenSlot.add(itemEntity);
-          }
-          iter.remove();
-          // don't clear the tag yet, we need it one last time for player clone
-        }
-      }
-      // handle items that did not get their requested slot last, to ensure they don't take someone else's slot while being added to a default
-      for (ItemEntity itemEntity : takenSlot) {
-        ItemStack stack = itemEntity.getItem();
-        if (!inventory.add(stack)) {
-          // last resort, somehow we just cannot put the stack anywhere, so drop it on the ground
-          // this should never happen, but better to be safe
-          // ditch the soulbound slot tag, to prevent item stacking issues
-          stack.remove(MantleData.SOULBOUND_SLOT);
-          drops.add(itemEntity);
-        }
-      }
-    }
+    return true;
   }
 
   /** Called when the new player is created to fetch the soulbound item from the old */
-  @SubscribeEvent(priority = EventPriority.HIGH)
-  static void onPlayerClone(PlayerEvent.Clone event) {
-    if (!event.isWasDeath()) {
+  private static void onPlayerClone(ServerPlayer original, ServerPlayer clone, boolean alive) {
+    if (alive) {
       return;
     }
-    Player original = event.getOriginal();
-    Player clone = event.getEntity();
     // inventory already copied
     if (clone.level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY) || original.isSpectator()) {
       return;

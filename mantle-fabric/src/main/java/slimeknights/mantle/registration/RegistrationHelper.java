@@ -4,6 +4,7 @@ import com.mojang.brigadier.arguments.ArgumentType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
 import java.util.ArrayList;
@@ -61,9 +62,16 @@ public class RegistrationHelper {
     }
   }
 
-  /** Builds the list of sign blocks for TE registration */
-  public static Block[] buildSignBlocks() {
-    return SIGN_BLOCKS.stream().map(Supplier::get).toArray(Block[]::new);
+  /** Adds all registered sign blocks to the sign block entity types. Safe to call multiple times, call after block registration. */
+  public static void applySignBlocks() {
+    synchronized (SIGN_BLOCKS) {
+      for (Supplier<? extends Block> sign : SIGN_BLOCKS) {
+        BlockEntityType.SIGN.addSupportedBlock(sign.get());
+      }
+      for (Supplier<? extends Block> sign : HANGING_SIGN_BLOCKS) {
+        BlockEntityType.HANGING_SIGN.addSupportedBlock(sign.get());
+      }
+    }
   }
 
   /**
@@ -76,8 +84,4 @@ public class RegistrationHelper {
     }
   }
 
-  /** Builds the list of sign blocks for TE registration */
-  public static Block[] buildHangingSignBlocks() {
-    return HANGING_SIGN_BLOCKS.stream().map(Supplier::get).toArray(Block[]::new);
-  }
 }

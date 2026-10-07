@@ -5,7 +5,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.attachment.IAttachmentHolder;
 import slimeknights.mantle.platform.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.network.packet.SwingArmPacket;
@@ -13,7 +12,7 @@ import slimeknights.mantle.registration.MantleData;
 
 /**
  * Logic to handle offhand having its own cooldown.
- * @see slimeknights.mantle.client.ClientEvents#renderOffhandAttackIndicator(net.neoforged.neoforge.client.event.RenderGuiLayerEvent.Post)
+ * @see slimeknights.mantle.client.ClientEvents
  * @see MantleData#OFFHAND_COOLDOWN
  */
 @SuppressWarnings("unused")  // API
@@ -26,10 +25,6 @@ public class OffhandCooldownTracker {
   private int lastCooldown = 0;
   /** Time in ticks when the player can next attack for full power */
   private int attackReady = 0;
-
-  public OffhandCooldownTracker(IAttachmentHolder entity) {
-    this(entity instanceof Player p ? p : null);
-  }
 
   /** Null safe way to get the player's ticks existed */
   private int getTicksExisted() {
@@ -73,7 +68,7 @@ public class OffhandCooldownTracker {
 
   /** Gets the tracker instance for the target entity */
   public static OffhandCooldownTracker get(Player player) {
-    return player.getData(MantleData.OFFHAND_COOLDOWN);
+    return player.getAttachedOrCreate(MantleData.OFFHAND_COOLDOWN, () -> new OffhandCooldownTracker(player));
   }
 
   /**

@@ -6,11 +6,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import slimeknights.mantle.platform.registry.DeferredRegister;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.network.MantleStreamCodecs;
 import slimeknights.mantle.util.OffhandCooldownTracker;
@@ -18,14 +17,12 @@ import slimeknights.mantle.util.OffhandCooldownTracker;
 /** Handles all custom data component types and attachments added by Mantle */
 public class MantleData {
   private static final DeferredRegister<DataComponentType<?>> DATA_COMPONENTS = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, Mantle.modId);
-  private static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, Mantle.modId);
 
   private MantleData() {}
 
   /** Registers this to the bus */
   public static void init() {
     DATA_COMPONENTS.register();
-    ATTACHMENTS.register();
   }
 
   /** Component used by {@link slimeknights.mantle.util.RetexturedHelper} to set the block texture. */
@@ -36,7 +33,7 @@ public class MantleData {
 
   /**
    * Component used by {@link slimeknights.mantle.MantleEvents} to temporarily store the soulbound slot on an item. Is not serialized.
-   * May be used by dependencies mods in {@link LivingDeathEvent} to make items soulbound for other reasons.
+   * May be used by dependencies mods in a death event to make items soulbound for other reasons.
    */
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SOULBOUND_SLOT = DATA_COMPONENTS.register("soulbound_slot", () -> DataComponentType.<Integer>builder()
     .networkSynchronized(ByteBufCodecs.VAR_INT)
@@ -49,5 +46,5 @@ public class MantleData {
     .build());
 
   /** Attachment used by {@link slimeknights.mantle.util.OffhandCooldownTracker} to store the cooldown amount. */
-  public static final DeferredHolder<AttachmentType<?>, AttachmentType<OffhandCooldownTracker>> OFFHAND_COOLDOWN = ATTACHMENTS.register("offhand_cooldown", () -> AttachmentType.builder(OffhandCooldownTracker::new).build());
+  public static final AttachmentType<OffhandCooldownTracker> OFFHAND_COOLDOWN = AttachmentRegistry.create(Mantle.getResource("offhand_cooldown"));
 }

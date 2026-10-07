@@ -30,8 +30,7 @@ sourceSets.main.resources {
 }
 
 loom {
-    // TODO: convert accesstransformer.neoforge.reference.cfg into this access widener
-    // accessWidenerPath = file('src/main/resources/mantle.accesswidener')
+    accessWidenerPath = file('src/main/resources/mantle.accesswidener')
 
     runs {
         datagen {
