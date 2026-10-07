@@ -6,7 +6,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.neoforged.neoforge.common.conditions.ICondition;
+import slimeknights.mantle.platform.condition.ICondition;
 
 import java.util.Collection;
 import java.util.Map;

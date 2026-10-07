@@ -2,8 +2,8 @@ package slimeknights.mantle.data.loadable.mapping;
 
 import com.google.gson.JsonObject;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.neoforged.neoforge.common.conditions.ICondition;
-import net.neoforged.neoforge.common.conditions.ICondition.IContext;
+import slimeknights.mantle.platform.condition.ICondition;
+import slimeknights.mantle.platform.condition.ICondition.IContext;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;

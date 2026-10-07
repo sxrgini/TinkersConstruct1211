@@ -9,8 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.common.conditions.ConditionalOps;
-import net.neoforged.neoforge.common.conditions.ICondition.IContext;
+import slimeknights.mantle.platform.condition.ICondition.IContext;
 import slimeknights.mantle.data.loadable.ErrorFactory;
 import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.mantle.util.typed.TypedMap.Key;
@@ -56,12 +55,8 @@ public class ContextKey<T> implements Key<T> {
 
   /** Gets dynamic ops for the given context and error factory. */
   public static DynamicOps<JsonElement> createSerializationContext(TypedMap context, ErrorFactory errorFactory) {
-    RegistryOps<JsonElement> ops = context.getOrThrow(REGISTRY_LOOKUP, errorFactory).createSerializationContext(JsonOps.INSTANCE);
-    IContext conditionContext = context.get(CONDITION_CONTEXT);
-    if (conditionContext != null) {
-      return new ConditionalOps<>(ops, conditionContext);
-    }
-    return ops;
+    // NeoForge wrapped the ops to process inline conditions; Mantle's loaders process conditions explicitly using the condition context instead
+    return context.getOrThrow(REGISTRY_LOOKUP, errorFactory).createSerializationContext(JsonOps.INSTANCE);
   }
 
 

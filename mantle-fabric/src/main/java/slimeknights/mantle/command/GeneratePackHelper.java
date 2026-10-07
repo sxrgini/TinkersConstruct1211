@@ -16,8 +16,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.storage.LevelResource;
 import net.neoforged.fml.ModList;
-import net.neoforged.neoforge.common.conditions.FalseCondition;
-import net.neoforged.neoforge.common.conditions.ICondition;
+import slimeknights.mantle.platform.condition.FalseCondition;
+import slimeknights.mantle.platform.condition.ICondition;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.util.JsonHelper;
 

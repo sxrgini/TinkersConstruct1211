@@ -11,7 +11,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import slimeknights.mantle.data.MantleCodecs;
 import slimeknights.mantle.loot.MantleLoot;
 
-/** Condition that checks when a tag is empty. Same as {@link net.neoforged.neoforge.common.conditions.TagEmptyCondition} but for any registry */
+/** Condition that checks when a tag is empty. Same as NeoForge's tag empty condition but for any registry */
 public class TagEmptyCondition<T> extends TagCondition<T> implements LootItemCondition {
   public static final MapCodec<TagEmptyCondition<?>> CODEC = MantleCodecs.TAG_KEY.xmap(TagEmptyCondition::new, c -> c.tag);
 

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.neoforged.neoforge.common.conditions.ICondition;
+import slimeknights.mantle.platform.condition.ICondition;
 import slimeknights.mantle.Mantle;
 
 import javax.annotation.Nullable;

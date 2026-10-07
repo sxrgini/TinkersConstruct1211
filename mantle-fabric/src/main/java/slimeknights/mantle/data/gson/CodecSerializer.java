@@ -7,7 +7,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.mojang.serialization.Codec;
-import net.neoforged.neoforge.common.conditions.ICondition;
+import slimeknights.mantle.platform.condition.ICondition;
 import slimeknights.mantle.util.JsonHelper;
 
 import java.lang.reflect.Type;
