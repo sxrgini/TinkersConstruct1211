@@ -35,4 +35,9 @@ public interface Streamable<T> {
   default void encode(RegistryFriendlyByteBuf buffer, T value) {
     encode(buffer, value, TypedMap.EMPTY);
   }
+
+  /** Gets a stream codec that reads and writes this streamable using the registry buffer */
+  default net.minecraft.network.codec.StreamCodec<RegistryFriendlyByteBuf,T> asStreamCodec() {
+    return new StreamableCodec<>(this);
+  }
 }

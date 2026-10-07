@@ -158,6 +158,11 @@ public interface Loadable<T> extends JsonDeserializer<T>, JsonSerializer<T>, Str
     return new NullableField<>(this, key, getter);
   }
 
+  /** Gets a codec that reads and writes this loadable as JSON */
+  default com.mojang.serialization.Codec<T> asCodec() {
+    return new LoadableCodec<>(this);
+  }
+
   /** Creates a defaulting field that uses a default value when missing */
   default <P> LoadableField<T,P> defaultField(String key, T defaultValue, boolean serializeDefault, Function<P,T> getter) {
     return new DefaultingField<>(this, key, defaultValue, serializeDefault, getter);

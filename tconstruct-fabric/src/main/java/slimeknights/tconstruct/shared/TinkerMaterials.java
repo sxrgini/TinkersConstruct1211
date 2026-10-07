@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.platform.event.SubscribeEvent;
-import net.minecraftforge.registries.RegisterEvent;
+import slimeknights.mantle.platform.event.lifecycle.RegisterEvent;
 import slimeknights.mantle.registration.object.FenceBuildingBlockObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.registration.object.MetalItemObject;
@@ -76,8 +76,8 @@ public final class TinkerMaterials extends TinkerModule {
   @SubscribeEvent
   void registerSerializers(RegisterEvent event) {
     if (event.getRegistryKey() == Registries.RECIPE_SERIALIZER) {
-      CraftingHelper.register(MaterialIngredient.Serializer.ID, MaterialIngredient.Serializer.INSTANCE);
-      CraftingHelper.register(MaterialValueIngredient.Serializer.ID, MaterialValueIngredient.Serializer.INSTANCE);
+      MaterialIngredient.TYPE.register(MaterialIngredient.ID);
+      MaterialValueIngredient.TYPE.register(MaterialValueIngredient.ID);
 
       MaterialPredicate.LOADER.register(getResource("variant"), MaterialVariantPredicate.LOADER);
       MaterialPredicate.LOADER.register(getResource("id"), MaterialIdPredicate.LOADER);

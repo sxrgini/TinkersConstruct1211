@@ -8,7 +8,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
+import slimeknights.mantle.platform.event.lifecycle.RegisterEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 
@@ -91,7 +91,7 @@ public enum Sounds {
   public static void registerSounds(RegisterEvent event) {
     if (event.getRegistryKey() == Registries.SOUND_EVENT) {
       for (Sounds sound : values()) {
-        BuiltInRegistries.SOUND_EVENT.register(sound.sound.getLocation(), sound.getSound());
+        net.minecraft.core.Registry.register(BuiltInRegistries.SOUND_EVENT, sound.sound.getLocation(), sound.getSound());
       }
     }
   }

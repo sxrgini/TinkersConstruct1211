@@ -1,5 +1,13 @@
 package slimeknights.tconstruct.library.json.predicate.material;
 
+import slimeknights.mantle.util.typed.TypedMap;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.JsonCodec;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.Codec;
+import com.google.gson.JsonElement;
 import net.minecraft.tags.TagKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
@@ -22,6 +30,24 @@ public interface MaterialPredicate extends IJsonPredicate<MaterialVariantId> {
   MaterialPredicate NONE = simple(material -> false);
   /** Loader for material predicates */
   TagPredicateRegistry<IMaterial,MaterialVariantId> LOADER = new TagPredicateRegistry<>("Material Predicate", ANY, NONE, TinkerLoadables.MATERIAL_TAGS, (tag, source) -> MaterialRegistry.getInstance().isInTag(source.getId(), tag));
+
+  /** Codec that reads a bare string as an exact material variant, and otherwise a full predicate */
+  Codec<IJsonPredicate<MaterialVariantId>> CODEC = new JsonCodec<>() {
+    @Override
+    public IJsonPredicate<MaterialVariantId> deserialize(JsonElement element, DynamicOps<?> ops) {
+      if (element.isJsonPrimitive()) {
+        return variant(MaterialVariantId.LOADABLE.convert(element, "material", TypedMap.EMPTY));
+      }
+      return LOADER.convert(element, "material", TypedMap.EMPTY);
+    }
+
+    @Override
+    public JsonElement serialize(IJsonPredicate<MaterialVariantId> object, DynamicOps<?> ops) {
+      return LOADER.serialize(object);
+    }
+  };
+  /** Stream codec for the predicate */
+  StreamCodec<RegistryFriendlyByteBuf,IJsonPredicate<MaterialVariantId>> STREAM_CODEC = LOADER.asStreamCodec();
 
   /** Gets an inverted condition */
   @Override
