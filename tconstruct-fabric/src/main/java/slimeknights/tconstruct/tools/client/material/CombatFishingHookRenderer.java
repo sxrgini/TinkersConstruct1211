@@ -195,7 +195,7 @@ public class CombatFishingHookRenderer extends EntityRenderer<CombatFishingHook>
         .setUv(pU, pV)
         .setOverlay(OverlayTexture.NO_OVERLAY)
         .setLight(lightmap)
-        .setNormal(normal, 0.0F, 1.0F, 0.0F)
+        .setNormal(normal.m10(), normal.m11(), normal.m12())
         ;
     }
   }

@@ -39,6 +39,8 @@ public interface LivingEntityPredicate extends IJsonPredicate<LivingEntity> {
   LivingEntityPredicate BLOCKING = simple(LivingEntity::isBlocking);
   /** Entities actively flying with an elytra */
   LivingEntityPredicate ELYTRA_FLYING = simple(LivingEntity::isFallFlying);
+  /** Predicate matching entities standing on the ground */
+  LivingEntityPredicate ON_GROUND = simple(LivingEntity::onGround);
 
 
   /** Creates a new predicate singleton */

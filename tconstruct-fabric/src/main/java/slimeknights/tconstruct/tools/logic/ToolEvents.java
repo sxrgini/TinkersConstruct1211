@@ -350,7 +350,7 @@ public class ToolEvents {
       // remaining logic is reducing damage like vanilla protection
       // fetch vanilla enchant level, assuming its not bypassed in vanilla
       if (DamageSourcePredicate.CAN_PROTECT.matches(source)) {
-        modifierValue = vanillaModifier = EnchantmentHelper.getDamageProtection(entity.getArmorSlots(), source);
+        modifierValue = vanillaModifier = (entity.level() instanceof net.minecraft.server.level.ServerLevel serverLevel ? EnchantmentHelper.getDamageProtection(serverLevel, entity, source) : 0);
       }
 
       // next, determine how much tinkers armor wants to change it
@@ -365,7 +365,7 @@ public class ToolEvents {
         modifierValue *= 4;
       }
     } else if (DamageSourcePredicate.CAN_PROTECT.matches(source) && entity.getType().is(TinkerTags.EntityTypes.SMALL_ARMOR)) {
-      vanillaModifier = EnchantmentHelper.getDamageProtection(entity.getArmorSlots(), source);
+      vanillaModifier = (entity.level() instanceof net.minecraft.server.level.ServerLevel serverLevel ? EnchantmentHelper.getDamageProtection(serverLevel, entity, source) : 0);
       modifierValue = vanillaModifier * 4;
     }
 
@@ -397,14 +397,14 @@ public class ToolEvents {
           for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
             // for our own armor, saves effort to damage directly with our utility
             IToolStackView tool = context.getToolInSlot(slotType);
-            if (tool != null && (!source.is(DamageTypeTags.IS_FIRE) || !tool.getItem().isFireResistant())) {
+            if (tool != null && (!source.is(DamageTypeTags.IS_FIRE) || !tool.getItem().components().has(net.minecraft.core.component.DataComponents.FIRE_RESISTANT))) {
               // mark this as protection (any valid modifier really would do) so tanned can reduce it to not count it as separate damage
               ToolDamageUtil.damageAnimated(tool, damageMissed, entity, slotType, ARMOR_DAMAGE);
             } else {
               // if not our armor, damage using vanilla like logic
               ItemStack armorStack = entity.getItemBySlot(slotType);
-              if (!armorStack.isEmpty() && (!source.is(DamageTypeTags.IS_FIRE) || !armorStack.getItem().isFireResistant()) && armorStack.getItem() instanceof ArmorItem) {
-                armorStack.hurtAndBreak(damageMissed, entity, e -> e.broadcastBreakEvent(slotType));
+              if (!armorStack.isEmpty() && (!source.is(DamageTypeTags.IS_FIRE) || !armorStack.has(net.minecraft.core.component.DataComponents.FIRE_RESISTANT)) && armorStack.getItem() instanceof ArmorItem) {
+                armorStack.hurtAndBreak(damageMissed, entity, slotType);
               }
             }
           }

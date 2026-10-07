@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits.ranged;
 
+import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import net.minecraft.tags.EntityTypeTags;
 import slimeknights.mantle.data.predicate.entity.EntityPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -12,6 +13,6 @@ public class HolyModifier extends Modifier {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addModule(ConditionalPowerModule.builder().target(EntityPredicate.tag(EntityTypeTags.UNDEAD)).eachLevel(0.75f));
+    hookBuilder.addModule(ConditionalPowerModule.builder().target(LivingEntityPredicate.tag(EntityTypeTags.UNDEAD)).eachLevel(0.75f));
   }
 }
