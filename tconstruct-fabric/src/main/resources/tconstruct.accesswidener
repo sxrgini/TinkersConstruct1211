@@ -157,3 +157,9 @@ accessible field net/minecraft/client/renderer/RenderStateShard name Ljava/lang/
 accessible method net/minecraft/world/inventory/CraftingMenu slotChangedCraftingGrid (Lnet/minecraft/world/inventory/AbstractContainerMenu;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/inventory/CraftingContainer;Lnet/minecraft/world/inventory/ResultContainer;Lnet/minecraft/world/item/crafting/RecipeHolder;)V
 accessible method net/minecraft/client/gui/Gui renderSlot (Lnet/minecraft/client/gui/GuiGraphics;IILnet/minecraft/client/DeltaTracker;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;I)V
 accessible method net/minecraft/client/renderer/texture/atlas/SpriteSources register (Ljava/lang/String;Lcom/mojang/serialization/MapCodec;)Lnet/minecraft/client/renderer/texture/atlas/SpriteSourceType;
+accessible class net/minecraft/data/tags/IntrinsicHolderTagsProvider$IntrinsicTagAppender
+accessible method net/minecraft/data/tags/IntrinsicHolderTagsProvider$IntrinsicTagAppender <init> (Lnet/minecraft/tags/TagBuilder;Ljava/util/function/Function;)V
+accessible field net/minecraft/core/MappedRegistry frozen Z
+mutable field net/minecraft/core/MappedRegistry frozen Z
+accessible field net/minecraft/core/MappedRegistry unregisteredIntrusiveHolders Ljava/util/Map;
+mutable field net/minecraft/core/MappedRegistry unregisteredIntrusiveHolders Ljava/util/Map;

@@ -57,6 +57,19 @@ def keepData = [
 sourceSets.main.java {
     exclude 'slimeknights/tconstruct/plugin/**'
     exclude 'slimeknights/tconstruct/shared/command/subcommand/GenerateMeltingRecipesCommand.java'
+    // model and sprite providers depend on NeoForge's model generators, the resulting assets are copied from the generated 1.20 resources instead
+    exclude 'slimeknights/tconstruct/common/data/model/**'
+    exclude 'slimeknights/tconstruct/common/data/render/**'
+    exclude 'slimeknights/tconstruct/tools/data/ToolItemModelProvider.java'
+    exclude 'slimeknights/tconstruct/tools/data/client/**'
+    exclude 'slimeknights/tconstruct/library/data/AbstractToolItemModelProvider.java'
+    // providers still to be ported to Fabric, see docs/porting-gaps.md
+    exclude 'slimeknights/tconstruct/common/data/loot/GlobalLootModifiersProvider.java'
+    exclude 'slimeknights/tconstruct/world/data/WorldgenProvider.java'
+    exclude 'slimeknights/tconstruct/common/data/AdvancementsProvider.java'
+    exclude 'slimeknights/tconstruct/common/data/CountRequirementsStrategy.java'
+    exclude 'slimeknights/tconstruct/common/data/ConfigurationDataProvider.java'
+    exclude 'slimeknights/tconstruct/tools/data/sprite/**'
 }
 
 java { withSourcesJar() }

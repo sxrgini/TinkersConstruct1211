@@ -53,7 +53,7 @@ public class ShapedMaterialsRecipe extends ShapedRecipe implements MaterialsCraf
   }
 
   /** Creates a recipe from JSON, mapping the part pattern to ingredients using the key */
-  private static ShapedMaterialsRecipe fromPattern(ShapedRecipe base, String partPattern, List<MaterialVariantId> extraMaterials) {
+  public static ShapedMaterialsRecipe fromPattern(ShapedRecipe base, String partPattern, List<MaterialVariantId> extraMaterials) {
     var data = base.pattern.data.orElseThrow(() -> new IllegalArgumentException("Shaped materials recipe must have a key"));
     List<Ingredient> parts = new ArrayList<>(partPattern.length());
     for (int i = 0; i < partPattern.length(); i++) {

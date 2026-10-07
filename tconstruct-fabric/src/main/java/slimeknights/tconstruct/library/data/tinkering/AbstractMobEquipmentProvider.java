@@ -8,7 +8,6 @@ import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.platform.condition.ICondition;
 import slimeknights.mantle.platform.condition.ModLoadedCondition;
 import slimeknights.mantle.data.GenericDataProvider;
@@ -116,7 +115,7 @@ public abstract class AbstractMobEquipmentProvider extends GenericDataProvider {
       json.add("equip", MobEquipment.LIST_LOADABLE.serialize(equipment.build()));
       // serialize conditions
       if (conditions.length > 0) {
-        json.add("conditions", CraftingHelper.serialize(conditions));
+        json.add("conditions", ICondition.toJson(conditions));
       }
       return json;
     }

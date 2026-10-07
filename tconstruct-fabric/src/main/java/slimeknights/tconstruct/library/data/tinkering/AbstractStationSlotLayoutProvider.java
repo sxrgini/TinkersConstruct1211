@@ -7,7 +7,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.platform.condition.ICondition;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
@@ -102,7 +101,7 @@ public abstract class AbstractStationSlotLayoutProvider extends GenericDataProvi
     public JsonObject serialize() {
       JsonObject json = StationSlotLayoutLoader.GSON.toJsonTree(builder.build()).getAsJsonObject();
       if (!conditions.isEmpty()) {
-        json.add("conditions", CraftingHelper.serialize(conditions.toArray(ICondition[]::new)));
+        json.add("conditions", ICondition.toJson(conditions.toArray(ICondition[]::new)));
       }
       return json;
     }

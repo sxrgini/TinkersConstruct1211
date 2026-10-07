@@ -49,20 +49,4 @@ public class SpecialSeveringRecipeBuilder extends AbstractRecipeBuilder<SpecialS
   }
 
   /** Finished recipe instance */
-  private class Finished extends AbstractFinishedRecipe {
-    public Finished(ResourceLocation id, @Nullable ResourceLocation advancementId) {
-      super(advancementId);
-    }
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      json.addProperty("per_level_chance", baseChance);
-      json.addProperty("looting_bonus", lootingBonus);
-    }
-
-    @Override
-    public RecipeSerializer<?> getType() {
-      return serializer;
-    }
-  }
 }

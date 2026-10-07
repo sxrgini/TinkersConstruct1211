@@ -17,9 +17,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.platform.tags.Tags;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.DifferenceIngredient;
-import net.minecraftforge.common.crafting.IntersectionIngredient;
+import slimeknights.mantle.recipe.data.ConditionalRecipeBuilder;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import slimeknights.mantle.platform.condition.ICondition;
 import slimeknights.mantle.platform.condition.ItemExistsCondition;
 import slimeknights.mantle.platform.condition.TrueCondition;
@@ -295,11 +294,11 @@ public class SmelteryRecipeBuilder {
     Ingredient ingredient;
     // not everyone sets size, so treat singular as the fallback, means we want anything in the tag that is not sparse or dense
     if (size == Tags.Items.ORE_RATES_SINGULAR) {
-      ingredient = DifferenceIngredient.of(baseIngredient, Ingredient.of(TinkerTags.Items.NON_SINGULAR_ORE_RATES));
+      ingredient = DefaultCustomIngredients.difference(baseIngredient, Ingredient.of(TinkerTags.Items.NON_SINGULAR_ORE_RATES));
       wrapped = withCondition(TagCombinationCondition.difference(itemTag(tagName), TinkerTags.Items.NON_SINGULAR_ORE_RATES));
       // size tag means we want an intersection between the tag and that size
     } else if (size != null) {
-      ingredient = IntersectionIngredient.of(baseIngredient, Ingredient.of(size));
+      ingredient = DefaultCustomIngredients.all(baseIngredient, Ingredient.of(size));
       wrapped = withCondition(TagCombinationCondition.intersection(itemTag(tagName), size));
       // default only need it to be in the tag
     } else {
@@ -320,7 +319,7 @@ public class SmelteryRecipeBuilder {
               .save(wrapped, location);
     } else {
       // multiple options, will need a conditonal recipe
-      ConditionalRecipe.Builder builder = ConditionalRecipe.builder();
+      ConditionalRecipeBuilder builder = ConditionalRecipeBuilder.builder();
       boolean alwaysPresent = false;
       for (IByproduct byproduct : oreByproducts) {
         // found an always present byproduct? no need to tag and we are done

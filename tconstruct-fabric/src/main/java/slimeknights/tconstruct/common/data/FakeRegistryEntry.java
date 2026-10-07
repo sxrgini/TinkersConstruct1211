@@ -10,8 +10,8 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraftforge.registries.ForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraft.core.MappedRegistry;
+import net.minecraft.core.Registry;
 import slimeknights.tconstruct.common.TinkerEffect;
 
 import java.util.Objects;
@@ -19,16 +19,25 @@ import java.util.function.Supplier;
 
 /** Handles creating fake registry entries to datagen entries based on other mods */
 public class FakeRegistryEntry {
-  /** Creates a dummy registry entry */
-  @SuppressWarnings("UnstableApiUsage")
-  private static <T> T getOrCreate(IForgeRegistry<T> registry, ResourceLocation id, Supplier<T> constructor) {
+  /** Creates a dummy registry entry, temporarily unfreezing the registry. Only intended for data generation. */
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  private static <T> T getOrCreate(Registry<T> registry, ResourceLocation id, Supplier<T> constructor) {
     if (!registry.containsKey(id)) {
-      ((ForgeRegistry<T>)registry).unfreeze();
-      T value = constructor.get();
-      registry.register(id, value);
-      return value;
+      MappedRegistry<T> mapped = (MappedRegistry<T>) registry;
+      boolean wasFrozen = mapped.frozen;
+      java.util.Map previousHolders = mapped.unregisteredIntrusiveHolders;
+      mapped.frozen = false;
+      mapped.unregisteredIntrusiveHolders = new java.util.IdentityHashMap<>();
+      try {
+        T value = constructor.get();
+        Registry.register(registry, id, value);
+        return value;
+      } finally {
+        mapped.unregisteredIntrusiveHolders = previousHolders;
+        mapped.frozen = wasFrozen;
+      }
     }
-    return Objects.requireNonNull(registry.getValue(id));
+    return Objects.requireNonNull(registry.get(id));
   }
 
   /** Gets or creates a fake block with the given ID */

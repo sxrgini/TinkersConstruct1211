@@ -1,49 +1,43 @@
 package slimeknights.tconstruct.library.data.recipe;
 
-import com.google.gson.JsonObject;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import slimeknights.mantle.data.loadable.common.NBTLoadable;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
+import slimeknights.mantle.platform.condition.ICondition;
+import slimeknights.mantle.recipe.data.ConditionalRecipeOutput;
 
 import javax.annotation.Nullable;
-import java.util.function.Consumer;
 
-/** Helper to add NBT to vanilla recipes. Forge adds support but not the builders */
-public record CraftingNBTWrapper(FinishedRecipe recipe, CompoundTag nbt) implements FinishedRecipe {
-  @Override
-  public void serializeRecipeData(JsonObject json) {
-    recipe.serializeRecipeData(json);
-    JsonObject result = GsonHelper.getAsJsonObject(json, "result");
-    result.add("nbt", NBTLoadable.DISALLOW_STRING.serialize(nbt));
-  }
+/** Helper to add data components to the result of vanilla recipes, as the builders do not support them. */
+public class CraftingNBTWrapper {
+  private CraftingNBTWrapper() {}
 
-  @Override
-  public ResourceLocation getId() {
-    return recipe.getId();
-  }
+  /** Creates a wrapped output, applying the given components to the result of shaped and shapeless recipes */
+  public static RecipeOutput wrap(RecipeOutput base, DataComponentPatch components) {
+    return new ConditionalRecipeOutput() {
+      @Override
+      public void accept(ResourceLocation id, Recipe<?> recipe, @Nullable AdvancementHolder advancement, ICondition... conditions) {
+        if (recipe instanceof ShapedRecipe shaped) {
+          shaped.result.applyComponents(components);
+        } else if (recipe instanceof ShapelessRecipe shapeless) {
+          shapeless.result.applyComponents(components);
+        }
+        if (base instanceof ConditionalRecipeOutput conditional) {
+          conditional.accept(id, recipe, advancement, conditions);
+        } else {
+          base.accept(id, recipe, advancement);
+        }
+      }
 
-  @Override
-  public RecipeSerializer<?> getType() {
-    return recipe.getType();
-  }
-
-  @Nullable
-  @Override
-  public JsonObject serializeAdvancement() {
-    return recipe.serializeAdvancement();
-  }
-
-  @Nullable
-  @Override
-  public ResourceLocation getAdvancementId() {
-    return recipe.getAdvancementId();
-  }
-
-  /** Creates a wrapped consumer, adding the given NBT */
-  public static RecipeOutput wrap(RecipeOutput base, CompoundTag nbt) {
-    return recipe -> base.accept(new CraftingNBTWrapper(recipe, nbt));
+      @Override
+      public Advancement.Builder advancement() {
+        return base.advancement();
+      }
+    };
   }
 }

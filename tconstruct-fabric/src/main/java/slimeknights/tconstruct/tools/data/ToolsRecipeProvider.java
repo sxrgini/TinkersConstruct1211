@@ -12,8 +12,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.platform.tags.Tags;
-import net.minecraftforge.common.crafting.CompoundIngredient;
-import net.minecraftforge.common.crafting.DifferenceIngredient;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import slimeknights.mantle.platform.condition.ModLoadedCondition;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
@@ -186,7 +185,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     String travelersFolder = armorFolder + "travelers/";
     RecipeOutput shapedMaterial = MaterialsConsumerBuilder.shaped("cl").build(consumer);
     // fake ingot allows things like bronze and pewter to craft it even if their ingot form is not registered
-    Function<MaterialStatsId,Ingredient> travelersMaterial = type -> CompoundIngredient.of(
+    Function<MaterialStatsId,Ingredient> travelersMaterial = type -> DefaultCustomIngredients.any(
       MaterialValueIngredient.of(MaterialPredicate.and(MaterialPredicate.or(MaterialPredicate.CASTABLE, MaterialPredicate.COMPOSITE), new MaterialStatTypePredicate(type)), 1),
       MaterialIngredient.of(TinkerToolParts.fakeIngot, new MaterialStatTypePredicate(type))
     );
@@ -348,7 +347,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     String folder = "tools/recycling/";
 
     // main recycling recipe - uses tool definition for parts list
-    PartBuilderToolRecycleBuilder.tools(SizedIngredient.of(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNRECYCLABLE))))
+    PartBuilderToolRecycleBuilder.tools(SizedIngredient.of(DefaultCustomIngredients.difference(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNRECYCLABLE))))
         .save(consumer, location(folder + "general"));
     // daggers want to enforce stack size 2 when recycling to prevent dupes
     PartBuilderToolRecycleBuilder.tools(SizedIngredient.fromItems(2, TinkerTools.dagger))
@@ -515,7 +514,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     uncastablePart(consumer, TinkerToolParts.shell.get(), 4, null, partFolder);
     uncastablePart(consumer, TinkerToolParts.laces.get(), 2, null, partFolder);
     // arrow parts are just part builder, no composite currently
-    Ingredient arrowPattern = CompoundIngredient.of(Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS), Ingredient.of(TinkerSmeltery.arrowCast));
+    Ingredient arrowPattern = DefaultCustomIngredients.any(Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS), Ingredient.of(TinkerSmeltery.arrowCast));
     PartRecipeBuilder.partRecipe(TinkerToolParts.arrowHead.get())
       .setPattern(TinkerToolParts.arrowHead)
       .setPatternItem(arrowPattern)

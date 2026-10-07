@@ -14,9 +14,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import slimeknights.mantle.platform.tags.Tags;
 import net.minecraftforge.common.Tags.Fluids;
-import net.minecraftforge.common.crafting.CompoundIngredient;
-import net.minecraftforge.common.crafting.DifferenceIngredient;
-import net.minecraftforge.common.crafting.IntersectionIngredient;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.datagen.MantleTags;
@@ -208,7 +206,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.UPGRADE, 1)
                          .saveSalvage(consumer, prefix(ModifierIds.diamond, upgradeSalvage))
                          .save(consumer, prefix(ModifierIds.diamond, upgradeFolder));
-    Ingredient multiuse = DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MODIFIABLE), Ingredient.of(TinkerTags.Items.SINGLE_USE));
+    Ingredient multiuse = DefaultCustomIngredients.difference(Ingredient.of(TinkerTags.Items.MODIFIABLE), Ingredient.of(TinkerTags.Items.SINGLE_USE));
     ModifierRecipeBuilder.modifier(ModifierIds.worldbound)
       .setTools(multiuse)
       .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
@@ -619,7 +617,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.BOWS)
                          .saveSalvage(consumer, prefix(ModifierIds.trickQuiver, abilitySalvage))
-                         .setTools(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.BOWS), Ingredient.of(TinkerTags.Items.INTERACTABLE)))
+                         .setTools(DefaultCustomIngredients.all(Ingredient.of(TinkerTags.Items.BOWS), Ingredient.of(TinkerTags.Items.INTERACTABLE)))
                          .save(consumer, prefix(ModifierIds.trickQuiver, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.sliver)
       .addInput(TinkerModifiers.silkyCloth)
@@ -694,7 +692,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerMaterials.slimesteel.getIngotTag())
                          .setMaxLevel(1).checkTraitLevel()
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.CROSSBOWS), Ingredient.of(TinkerTags.Items.INTERACTABLE_LEFT))) // this is the same recipes as dual wielding, but crossbows do not interact on left
+                         .setTools(DefaultCustomIngredients.all(Ingredient.of(TinkerTags.Items.CROSSBOWS), Ingredient.of(TinkerTags.Items.INTERACTABLE_LEFT))) // this is the same recipes as dual wielding, but crossbows do not interact on left
                          .saveSalvage(consumer, prefix(TinkerModifiers.sinistral, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.sinistral, upgradeFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.scope)
@@ -747,7 +745,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // throwing
     Ingredient bowLimb = MaterialIngredient.of(TinkerToolParts.bowLimb.get());
     ModifierRecipeBuilder.modifier(ModifierIds.throwing)
-      .setTools(IntersectionIngredient.of(
+      .setTools(DefaultCustomIngredients.all(
         Ingredient.of(TinkerTags.Items.DURABILITY),
         Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE),
         ingredientFromTags(TinkerTags.Items.MELEE_WEAPON, TinkerTags.Items.HARVEST)
@@ -820,7 +818,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.blockade)
       .setInput(TinkerCommons.obsidianPane, 1, 10)
       .setSlots(SlotType.UPGRADE, 1)
-      .setTools(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE), Ingredient.of(TinkerTags.Items.DURABILITY)))
+      .setTools(DefaultCustomIngredients.all(Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE), Ingredient.of(TinkerTags.Items.DURABILITY)))
       .setMaxLevel(3)
       .saveSalvage(consumer, prefix(ModifierIds.blockade, upgradeSalvage))
       .save(consumer, prefix(ModifierIds.blockade, upgradeFolder));
@@ -1210,7 +1208,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(ModifierIds.snowdrift, abilityFolder));
 
     // transform ingredients
-    Ingredient bootsWithDuraibility = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.BOOTS), Ingredient.of(TinkerTags.Items.DURABILITY));
+    Ingredient bootsWithDuraibility = DefaultCustomIngredients.all(Ingredient.of(TinkerTags.Items.BOOTS), Ingredient.of(TinkerTags.Items.DURABILITY));
     ModifierRecipeBuilder.modifier(ModifierIds.flamewake)
                          .setTools(bootsWithDuraibility)
                          .addInput(Items.FLINT)
@@ -1379,7 +1377,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE)))
+                         .setTools(DefaultCustomIngredients.all(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE)))
                          .saveSalvage(consumer, prefix(ModifierIds.splashing, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.splashing, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.bursting)
@@ -1399,7 +1397,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .setSlots(SlotType.ABILITY, 1)
       .setMaxLevel(3).checkTraitLevel()
       // swasher gets spitting to get multishot, rest get to spit with their non-spit. No spitting with arrows
-      .setTools(IntersectionIngredient.of(
+      .setTools(DefaultCustomIngredients.all(
         Ingredient.of(TinkerTags.Items.DURABILITY),
         Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE_MODIFIER)
       ))
@@ -1447,8 +1445,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.reach, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.reach, abilityFolder));
     // block transformers
-    Ingredient interactableWithDurability = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE));
-    Ingredient interactableBootsWithDurability = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.BOOTS));
+    Ingredient interactableWithDurability = DefaultCustomIngredients.all(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE));
+    Ingredient interactableBootsWithDurability = DefaultCustomIngredients.all(Ingredient.of(TinkerTags.Items.DURABILITY), ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.BOOTS));
     SizedIngredient roundPlate = SizedIngredient.of(MaterialIngredient.of(TinkerToolParts.adzeHead.get()));
     SizedIngredient smallBlade = SizedIngredient.of(MaterialIngredient.of(TinkerToolParts.smallBlade.get()));
     SizedIngredient toolBinding = SizedIngredient.of(MaterialIngredient.of(TinkerToolParts.toolBinding.get()));
@@ -1480,7 +1478,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.tilling, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.tilling, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.brushing)
-      .setTools(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE_RIGHT)))
+      .setTools(DefaultCustomIngredients.all(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE_RIGHT)))
       .addInput(Tags.Items.FEATHERS)
       .addInput(Tags.Items.INGOTS_COPPER)
       .setMaxLevel(1).checkTraitLevel()
@@ -1515,7 +1513,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.fireprimer, upgradeSalvage))
                          .save(consumer, prefix(ModifierIds.fireprimer, upgradeFolder));
     // slings
-    Ingredient blockWhileCharging = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE));
+    Ingredient blockWhileCharging = DefaultCustomIngredients.all(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE));
     ModifierRecipeBuilder.modifier(ModifierIds.flinging)
                          .setTools(blockWhileCharging)
                          .addInput(Blocks.VINE)
@@ -1580,12 +1578,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerMaterials.slimesteel.getIngotTag())
                          .setMaxLevel(1).checkTraitLevel()
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(DifferenceIngredient.of(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.MELEE_WEAPON), Ingredient.of(TinkerTags.Items.INTERACTABLE_RIGHT)), Ingredient.of(TinkerTools.dagger)))
+                         .setTools(DefaultCustomIngredients.difference(DefaultCustomIngredients.all(Ingredient.of(TinkerTags.Items.MELEE_WEAPON), Ingredient.of(TinkerTags.Items.INTERACTABLE_RIGHT)), Ingredient.of(TinkerTools.dagger)))
                          .saveSalvage(consumer, prefix(TinkerModifiers.dualWielding, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.dualWielding, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.blocking)
-                         .setTools(DifferenceIngredient.of(
-                           IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE), Ingredient.of(TinkerTags.Items.DURABILITY)),
+                         .setTools(DefaultCustomIngredients.difference(
+                           DefaultCustomIngredients.all(Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE), Ingredient.of(TinkerTags.Items.DURABILITY)),
                            ingredientFromTags(TinkerTags.Items.PARRY, TinkerTags.Items.SHIELDS)))
                          .addInput(ItemTags.PLANKS)
                          .addInput(TinkerMaterials.steel.getIngotTag())
@@ -1630,14 +1628,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(ItemTags.MUSIC_DISCS)
                          .setMaxLevel(1)
                          .save(consumer, prefix(ModifierIds.harmonious, slotlessFolder));
-    Ingredient bonusNoSkull = DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.BONUS_SLOTS), Ingredient.of(TinkerTags.Items.SKULLS));
-    SizedIngredient standardSkulls = SizedIngredient.of(DifferenceIngredient.of(Ingredient.of(Tags.Items.HEADS), Ingredient.of(Items.DRAGON_HEAD)));
+    Ingredient bonusNoSkull = DefaultCustomIngredients.difference(Ingredient.of(TinkerTags.Items.BONUS_SLOTS), Ingredient.of(TinkerTags.Items.SKULLS));
+    SizedIngredient standardSkulls = SizedIngredient.of(DefaultCustomIngredients.difference(Ingredient.of(Tags.Items.HEADS), Ingredient.of(Items.DRAGON_HEAD)));
     ModifierRecipeBuilder.modifier(ModifierIds.recapitated)
       .setTools(bonusNoSkull)
       .addInput(standardSkulls)
       .setMaxLevel(1)
       .save(consumer, prefix(ModifierIds.recapitated, slotlessFolder));
-    Ingredient bonusSkulls = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.BONUS_SLOTS), Ingredient.of(TinkerTags.Items.SKULLS));
+    Ingredient bonusSkulls = DefaultCustomIngredients.all(Ingredient.of(TinkerTags.Items.BONUS_SLOTS), Ingredient.of(TinkerTags.Items.SKULLS));
     ModifierRecipeBuilder.modifier(ModifierIds.recapitated)
       .setTools(bonusSkulls)
       .addInput(standardSkulls).addInput(Tags.Items.SLIMEBALLS)
@@ -1684,7 +1682,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .disallowCrystal()
       .save(consumer, wrap(ModifierIds.rebalanced, slotlessFolder, "_" + SlotType.UPGRADE.getName()));
     SwappableModifierRecipeBuilder.modifier(ModifierIds.rebalanced, SlotType.DEFENSE.getName())
-      .setTools(IntersectionIngredient.of(ingredientFromTags(TinkerTags.Items.ARMOR, TinkerTags.Items.HELD), Ingredient.of(TinkerTags.Items.BONUS_SLOTS)))
+      .setTools(DefaultCustomIngredients.all(ingredientFromTags(TinkerTags.Items.ARMOR, TinkerTags.Items.HELD), Ingredient.of(TinkerTags.Items.BONUS_SLOTS)))
       .addInput(TinkerMaterials.cobalt.getNuggetTag())
       .addInput(Items.END_CRYSTAL)
       .addInput(TinkerMaterials.cobalt.getNuggetTag())
@@ -1745,7 +1743,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .modifierPredicate(removable)
       .save(consumer, location(worktableFolder + "remove_modifier_sponge"));
     ModifierRemovalRecipeBuilder.removal()
-      .addInput(CompoundIngredient.of(
+      .addInput(DefaultCustomIngredients.any(
         FluidContainerIngredient.fromFluid(TinkerFluids.venom),
         FluidContainerIngredient.fromIngredient(TinkerFluids.venom.ingredient(FluidValues.BOTTLE), Ingredient.of(TinkerFluids.venomBottle)))
       )
@@ -1755,7 +1753,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     IJsonPredicate<ModifierId> extractBlacklist = ModifierPredicate.tag(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted();
     for (boolean dagger : new boolean[]{false, true}) {
       String suffix = dagger ? "_dagger" : "";
-      SizedIngredient tools = dagger ? SizedIngredient.fromItems(2, TinkerTools.dagger) : SizedIngredient.of(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MODIFIABLE), Ingredient.of(TinkerTags.Items.UNSALVAGABLE)));
+      SizedIngredient tools = dagger ? SizedIngredient.fromItems(2, TinkerTools.dagger) : SizedIngredient.of(DefaultCustomIngredients.difference(Ingredient.of(TinkerTags.Items.MODIFIABLE), Ingredient.of(TinkerTags.Items.UNSALVAGABLE)));
       ModifierRemovalRecipeBuilder.extract()
                                   .setTools(tools)
                                   .setName("slotless")
@@ -2107,6 +2105,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     for (int i = 0; i < tags.length; i++) {
       tagIngredients[i] = Ingredient.of(tags[i]);
     }
-    return CompoundIngredient.of(tagIngredients);
+    return DefaultCustomIngredients.any(tagIngredients);
   }
 }

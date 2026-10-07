@@ -26,9 +26,8 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import slimeknights.mantle.platform.PlatformAttributes;
 import slimeknights.mantle.platform.tags.Tags;
-import net.minecraftforge.common.crafting.CompoundIngredient;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.DifferenceIngredient;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
+import slimeknights.mantle.recipe.data.ConditionalRecipeBuilder;
 import slimeknights.mantle.platform.condition.AndCondition;
 import slimeknights.mantle.platform.condition.ICondition;
 import slimeknights.mantle.platform.condition.ItemExistsCondition;
@@ -194,7 +193,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     Consumer<RecipeOutput> fastGrout = c ->
       SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerSmeltery.grout), RecipeCategory.BUILDING_BLOCKS, TinkerSmeltery.searedBrick, 0.3f, 100)
                           .unlockedBy("has_item", has(TinkerSmeltery.grout)).save(c);
-    ConditionalRecipe.builder()
+    ConditionalRecipeBuilder.builder()
                      .addCondition(new ModLoadedCondition("ceramics"))
                      .addRecipe(c -> fastGrout.accept(ConsumerWrapperBuilder.wrap(ResourceLocation.fromNamespaceAndPath("ceramics", "kiln")).build(c)))
                      .addCondition(TrueCondition.INSTANCE)
@@ -518,7 +517,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCast(Items.FLINT, true) // if gravel works, flint makes sense to use
                             .save(consumer, location(castingFolder + "brick_composite"));
     // cobble
-    searedCasting(consumer, TinkerSmeltery.searedCobble, CompoundIngredient.of(Ingredient.of(Tags.Items.COBBLESTONE), Ingredient.of(Blocks.GRAVEL)), castingFolder + "cobble/block");
+    searedCasting(consumer, TinkerSmeltery.searedCobble, DefaultCustomIngredients.any(Ingredient.of(Tags.Items.COBBLESTONE), Ingredient.of(Blocks.GRAVEL)), castingFolder + "cobble/block");
     searedSlabCasting(consumer, TinkerSmeltery.searedCobble.getSlab(), Ingredient.of(Blocks.COBBLESTONE_SLAB), castingFolder + "cobble/slab");
     searedCasting(consumer, TinkerSmeltery.searedCobble.getStairs(), Ingredient.of(Blocks.COBBLESTONE_STAIRS), castingFolder + "cobble/stairs");
     searedCasting(consumer, TinkerSmeltery.searedCobble.getWall(), Ingredient.of(Blocks.COBBLESTONE_WALL), castingFolder + "cobble/wall");
@@ -544,7 +543,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, location(meltingFolder + "grout"));
     // seared stone
     // stairs are here since the cheapest stair recipe is stone cutter, 1 to 1
-    MeltingRecipeBuilder.melting(CompoundIngredient.of(Ingredient.of(TinkerTags.Items.SEARED_BLOCKS),
+    MeltingRecipeBuilder.melting(DefaultCustomIngredients.any(Ingredient.of(TinkerTags.Items.SEARED_BLOCKS),
                                                        Ingredient.of(TinkerSmeltery.searedLadder, TinkerSmeltery.searedLamp,
                                                          TinkerSmeltery.searedCobble.getWall(), TinkerSmeltery.searedBricks.getWall(),
                                                          TinkerSmeltery.searedCobble.getStairs(), TinkerSmeltery.searedStone.getStairs(), TinkerSmeltery.searedBricks.getStairs(), TinkerSmeltery.searedPaver.getStairs())),
@@ -645,7 +644,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     Consumer<RecipeOutput> fastGrout = c ->
       SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerSmeltery.netherGrout), RecipeCategory.BUILDING_BLOCKS, TinkerSmeltery.scorchedBrick, 0.3f, 100)
                                 .unlockedBy("has_item", has(TinkerSmeltery.netherGrout)).save(c);
-    ConditionalRecipe.builder()
+    ConditionalRecipeBuilder.builder()
                      .addCondition(new ModLoadedCondition("ceramics"))
                      .addRecipe(c -> fastGrout.accept(ConsumerWrapperBuilder.wrap(ResourceLocation.fromNamespaceAndPath("ceramics", "kiln")).build(c)))
                      .addCondition(TrueCondition.INSTANCE)
@@ -977,7 +976,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // scorched stone
     // stairs are here since the cheapest stair recipe is stone cutter, 1 to 1
-    MeltingRecipeBuilder.melting(CompoundIngredient.of(Ingredient.of(TinkerTags.Items.SCORCHED_BLOCKS),
+    MeltingRecipeBuilder.melting(DefaultCustomIngredients.any(Ingredient.of(TinkerTags.Items.SCORCHED_BLOCKS),
                                                        Ingredient.of(TinkerSmeltery.scorchedLadder, TinkerSmeltery.scorchedLamp,
                                                          TinkerSmeltery.scorchedBricks.getStairs(), TinkerSmeltery.scorchedRoad.getStairs())),
 																 TinkerFluids.scorchedStone, FluidValues.BRICK_BLOCK, 2.0f)
@@ -1164,7 +1163,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // diamond
     ItemCastingRecipeBuilder.tableDuplication()
-                            .setCast(CompoundIngredient.of(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(ItemTags.TRIM_TEMPLATES)), false)
+                            .setCast(DefaultCustomIngredients.any(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(ItemTags.TRIM_TEMPLATES)), false)
                             .setFluidAndTime(TinkerFluids.moltenDiamond, FluidValues.GEM * 5)
                             .save(consumer, location(folder + "diamond/smithing_template"));
 
@@ -1338,10 +1337,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
 
     String castFolder = "smeltery/casts/";
-    this.castCreation(consumer, CompoundIngredient.of(
+    this.castCreation(consumer, DefaultCustomIngredients.any(
       // fake ingots are in the ingot tag, but you get the default "missing" ingot from that
       // so subtract it out and replace with the material version for nicer display
-      DifferenceIngredient.of(Ingredient.of(Tags.Items.INGOTS), Ingredient.of(TinkerToolParts.fakeIngot)),
+      DefaultCustomIngredients.difference(Ingredient.of(Tags.Items.INGOTS), Ingredient.of(TinkerToolParts.fakeIngot)),
       MaterialIngredient.of(TinkerToolParts.fakeIngot)
     ), TinkerSmeltery.ingotCast, castFolder, "ingots");
     this.castCreation(consumer, Tags.Items.NUGGETS, TinkerSmeltery.nuggetCast, castFolder);
@@ -1467,7 +1466,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, location(folder + "glass/block"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerTags.Items.GLASS_PANES_SILICA), TinkerFluids.moltenGlass, FluidValues.GLASS_PANE, 0.5f)
                         .save(consumer, location(folder + "glass/pane"));
-    MeltingRecipeBuilder.melting(CompoundIngredient.of(Ingredient.of(Items.GLASS_BOTTLE), Ingredient.of(MantleTags.Items.SPLASH_BOTTLE), Ingredient.of(MantleTags.Items.LINGERING_BOTTLE)),
+    MeltingRecipeBuilder.melting(DefaultCustomIngredients.any(Ingredient.of(Items.GLASS_BOTTLE), Ingredient.of(MantleTags.Items.SPLASH_BOTTLE), Ingredient.of(MantleTags.Items.LINGERING_BOTTLE)),
       TinkerFluids.moltenGlass, FluidValues.GLASS_BLOCK, 1.25f).save(consumer, location(folder + "glass/bottle"));
     // melt extra sand casts back
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.blankSandCast, TinkerSmeltery.blankRedSandCast),
@@ -1503,7 +1502,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
       Blocks.BROWN_GLAZED_TERRACOTTA, Blocks.GREEN_GLAZED_TERRACOTTA, Blocks.RED_GLAZED_TERRACOTTA, Blocks.BLACK_GLAZED_TERRACOTTA, Blocks.DECORATED_POT);
     MeltingRecipeBuilder.melting(terracottaBlock, TinkerFluids.moltenClay, FluidValues.BRICK_BLOCK, 2.0f)
                         .save(consumer, location(folder + "clay/terracotta"));
-    MeltingRecipeBuilder.melting(CompoundIngredient.of(Ingredient.of(Items.BRICK), Ingredient.of(ItemTags.DECORATED_POT_SHERDS)), TinkerFluids.moltenClay, FluidValues.BRICK, 1.0f)
+    MeltingRecipeBuilder.melting(DefaultCustomIngredients.any(Ingredient.of(Items.BRICK), Ingredient.of(ItemTags.DECORATED_POT_SHERDS)), TinkerFluids.moltenClay, FluidValues.BRICK, 1.0f)
                         .save(consumer, location(folder + "clay/brick"));
     MeltingRecipeBuilder.melting(Ingredient.of(Blocks.BRICK_SLAB),
                                  TinkerFluids.moltenClay, FluidValues.BRICK_BLOCK / 2, 1.5f)
@@ -1536,7 +1535,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, location(metalFolder + "copper/can"));
     // ender
     MeltingRecipeBuilder.melting(
-      CompoundIngredient.of(Ingredient.of(Tags.Items.ENDER_PEARLS), Ingredient.of(Items.ENDER_EYE)),
+      DefaultCustomIngredients.any(Ingredient.of(Tags.Items.ENDER_PEARLS), Ingredient.of(Items.ENDER_EYE)),
       TinkerFluids.moltenEnder, FluidValues.SLIMEBALL, 1.0f)
                         .save(consumer, location(folder + "ender/pearl"));
 
@@ -1714,7 +1713,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .addByproduct(TinkerFluids.moltenObsidian.result(FluidValues.GLASS_BLOCK * 4))
                         .save(consumer, location(folder + "diamond/enchanting_table"));
     // not the full copy cost as we have a discount recipe
-    MeltingRecipeBuilder.melting(CompoundIngredient.of(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(ItemTags.TRIM_TEMPLATES)), TinkerFluids.moltenDiamond, FluidValues.GEM * 5)
+    MeltingRecipeBuilder.melting(DefaultCustomIngredients.any(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(ItemTags.TRIM_TEMPLATES)), TinkerFluids.moltenDiamond, FluidValues.GEM * 5)
                         .save(consumer, location(folder + "diamond/smithing_template"));
     // unique melting
     MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_HORSE_ARMOR), TinkerFluids.moltenDiamond, FluidValues.GEM * 7)
@@ -1926,7 +1925,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .save(consumer, prefix(TinkerFluids.moltenHepatizon, folder));
 
     // netherite: 4 debris + 4 gold = 1 (why is this so dense vanilla?)
-    ConditionalRecipe.builder()
+    ConditionalRecipeBuilder.builder()
                      .addCondition(ConfigEnabledCondition.CHEAPER_NETHERITE_ALLOY)
                      .addRecipe(
                        AlloyRecipeBuilder.alloy(TinkerFluids.moltenNetherite, FluidValues.NUGGET)
@@ -1988,7 +1987,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // pewter
     ICondition lead = tagCondition("ingots/lead");
     ICondition tin = tagCondition("ingots/tin");
-    ConditionalRecipe.builder()
+    ConditionalRecipeBuilder.builder()
       // if we have both tin and lead, do the combined recipe. Ratio is from Metalborn/Allomancy
       .addCondition(new AndCondition(lead, tin))
       // ratio from Metalborn/Allomancy
@@ -2047,7 +2046,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .save(wrapped, prefix(TinkerFluids.moltenRefinedObsidian, folder));
 
     // nicrosil
-    ConditionalRecipe.builder()
+    ConditionalRecipeBuilder.builder()
       // if we have both chromium and nickel, can do the proper recipe
       .addCondition(new AndCondition(tagCondition("ingots/chromium"), tagCondition("ingots/nickel")))
       .addRecipe(AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 4)
@@ -2425,7 +2424,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
       ), TinkerFluids.moltenClay, FluidValues.BRICK * 2, 1.33f)
       .save(ceramicsConsumer, location(clayFolder + "bricks_2"));
     // 3 bricks
-    MeltingRecipeBuilder.melting(CompoundIngredient.of(
+    MeltingRecipeBuilder.melting(DefaultCustomIngredients.any(
       ceramicsTag.apply("terracotta_cisterns"),
       ceramicsItem.apply("empty_clay_bucket"),
       // can't ue no container for cracked bucket as the bucket breaks on emptying
@@ -2496,7 +2495,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(ceramicsTag.apply("porcelain_cisterns"), TinkerFluids.moltenPorcelain, FluidValues.BRICK * 3, 1.67f)
       .save(ceramicsConsumer, location(porcelainFolder + "bricks_3"));
     // 4 bricks
-    MeltingRecipeBuilder.melting(CompoundIngredient.of(
+    MeltingRecipeBuilder.melting(DefaultCustomIngredients.any(
       ceramicsTag.apply("porcelain_block"),
       ceramicsTag.apply("rainbow_porcelain"),
       ItemNameIngredient.from(
@@ -2600,9 +2599,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
    */
   private void searedStonecutter(RecipeOutput consumer, ItemLike output, String folder) {
     SingleItemRecipeBuilder.stonecutting(
-      CompoundIngredient.of(
+      DefaultCustomIngredients.any(
         Ingredient.of(TinkerSmeltery.searedStone),
-        DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.SEARED_BRICKS), Ingredient.of(output))), RecipeCategory.BUILDING_BLOCKS, output, 1)
+        DefaultCustomIngredients.difference(Ingredient.of(TinkerTags.Items.SEARED_BRICKS), Ingredient.of(output))), RecipeCategory.BUILDING_BLOCKS, output, 1)
                            .unlockedBy("has_stone", has(TinkerSmeltery.searedStone))
                            .unlockedBy("has_bricks", has(TinkerTags.Items.SEARED_BRICKS))
                            .save(consumer, wrap(id(output), folder, "_stonecutting"));
@@ -2655,7 +2654,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
    * @param folder    Recipe folder path
    */
   private void scorchedStonecutter(RecipeOutput consumer, ItemLike output, String folder) {
-    SingleItemRecipeBuilder.stonecutting(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.SCORCHED_BLOCKS), Ingredient.of(output)), RecipeCategory.BUILDING_BLOCKS, output, 1)
+    SingleItemRecipeBuilder.stonecutting(DefaultCustomIngredients.difference(Ingredient.of(TinkerTags.Items.SCORCHED_BLOCKS), Ingredient.of(output)), RecipeCategory.BUILDING_BLOCKS, output, 1)
                            .unlockedBy("has_block", has(TinkerTags.Items.SCORCHED_BLOCKS))
                            .save(consumer, wrap(id(output), folder, "_stonecutting"));
   }

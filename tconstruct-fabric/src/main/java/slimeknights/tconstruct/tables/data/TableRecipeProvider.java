@@ -16,13 +16,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.platform.tags.Tags;
-import net.minecraftforge.common.crafting.DifferenceIngredient;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import slimeknights.mantle.platform.condition.ModLoadedCondition;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.recipe.crafting.ShapedRetexturedRecipeBuilder;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
 import slimeknights.mantle.recipe.data.ItemNameOutput;
-import slimeknights.mantle.recipe.helper.SimpleFinishedRecipe;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
@@ -86,7 +85,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     // crafting station -> crafting table upgrade
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerTables.craftingStation)
       .define('p', TinkerTables.pattern)
-      .define('w', DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.WORKBENCHES), Ingredient.of(TinkerTables.craftingStation.get())))
+      .define('w', DefaultCustomIngredients.difference(Ingredient.of(TinkerTags.Items.WORKBENCHES), Ingredient.of(TinkerTables.craftingStation.get())))
       .pattern("p")
       .pattern("w")
       .unlockedBy("has_item", has(TinkerTables.pattern))
@@ -104,7 +103,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerTables.craftingStation)
         .define('p', TinkerTables.pattern)
-        .define('w', DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.TABLES), Ingredient.of(TinkerTables.craftingStation.get())))
+        .define('w', DefaultCustomIngredients.difference(Ingredient.of(TinkerTags.Items.TABLES), Ingredient.of(TinkerTables.craftingStation.get())))
         .pattern("p")
         .pattern("w")
         .unlockedBy("has_item", has(TinkerTables.pattern)))
@@ -210,11 +209,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     // tool forge - just a humor recipe
     RecipeOutput toolForge;
     {
-      CompoundTag nbt = new CompoundTag();
-      CompoundTag display = new CompoundTag();
-      display.putString("Name", Serializer.toJson(Component.translatable("block.tconstruct.tool_forge")));
-      nbt.put("display", display);
-      toolForge = CraftingNBTWrapper.wrap(consumer, nbt);
+      toolForge = CraftingNBTWrapper.wrap(consumer, net.minecraft.core.component.DataComponentPatch.builder().set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, Component.translatable("block.tconstruct.tool_forge")).build());
     }
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerTables.tinkersAnvil)
@@ -281,9 +276,9 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       .save(materialConsumer, location(folder + "scorched_forge_material"));
 
     // part swapping
-    TinkerStationPartSwappingBuilder.tools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNSWAPPABLE_PARTS)))
+    TinkerStationPartSwappingBuilder.tools(DefaultCustomIngredients.difference(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNSWAPPABLE_PARTS)))
       .save(consumer, location(folder + "tinker_station_part_swapping"));
-    TinkerStationPartSwappingBuilder.tools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNSWAPPABLE_TOOLS)))
+    TinkerStationPartSwappingBuilder.tools(DefaultCustomIngredients.difference(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNSWAPPABLE_TOOLS)))
       .fromTool().save(consumer, location(folder + "tool_material_swapping"));
     TinkerStationPartSwappingBuilder.tools(Ingredient.of(TinkerTools.arrow.get(), TinkerTools.shuriken.get()))
       .maxStackSize(4)
@@ -293,8 +288,8 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       .save(consumer, location(folder + "throwing_axe_part_swapping"));
 
     // tool repair recipe
-    consumer.accept(new SimpleFinishedRecipe(location(folder + "tinker_station_repair"), TinkerTables.tinkerStationRepairSerializer.get()));
-    consumer.accept(new SimpleFinishedRecipe(location(folder + "crafting_table_repair"), TinkerTables.craftingTableRepairSerializer.get()));
+    consumer.accept(location(folder + "tinker_station_repair"), new slimeknights.tconstruct.tables.recipe.TinkerStationRepairRecipe(), null);
+    consumer.accept(location(folder + "crafting_table_repair"), new slimeknights.tconstruct.tables.recipe.CraftingTableRepairKitRecipe(), null);
   }
 
   private void damageRecipes(RecipeOutput consumer) {

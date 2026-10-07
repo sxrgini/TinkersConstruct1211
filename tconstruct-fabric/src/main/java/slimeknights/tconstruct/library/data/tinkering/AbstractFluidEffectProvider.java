@@ -18,7 +18,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.platform.condition.ICondition;
 import slimeknights.mantle.platform.condition.ModLoadedCondition;
 import slimeknights.mantle.platform.condition.OrCondition;
@@ -337,7 +336,7 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
     private JsonObject build(ResourceLocation id) {
       JsonObject json = new JsonObject();
       if (!conditions.isEmpty()) {
-        json.add("conditions", CraftingHelper.serialize(conditions.toArray(new ICondition[0])));
+        json.add("conditions", ICondition.toJson(conditions.toArray(new ICondition[0])));
       }
       if (blockEffects.isEmpty() && entityEffects.isEmpty()) {
         throw new IllegalStateException("Must have at least 1 effect");

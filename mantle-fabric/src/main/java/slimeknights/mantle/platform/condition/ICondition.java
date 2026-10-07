@@ -16,6 +16,20 @@ public interface ICondition {
   /** Codec dispatching on the {@code type} field using {@link ConditionRegistry} */
   Codec<ICondition> CODEC = ConditionRegistry.CODEC;
 
+  /** Serializes a single condition to JSON */
+  static com.google.gson.JsonElement toJson(ICondition condition) {
+    return slimeknights.mantle.util.JsonHelper.serialize(CODEC, condition);
+  }
+
+  /** Serializes an array of conditions to a JSON array */
+  static com.google.gson.JsonArray toJson(ICondition... conditions) {
+    com.google.gson.JsonArray array = new com.google.gson.JsonArray();
+    for (ICondition condition : conditions) {
+      array.add(toJson(condition));
+    }
+    return array;
+  }
+
   /** Gets the codec used to serialize this condition */
   MapCodec<? extends ICondition> codec();
 

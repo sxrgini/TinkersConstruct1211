@@ -87,24 +87,4 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
     consumerIn.accept(new ContainerFillingRecipeBuilder.Result(id, advancementId));
   }
 
-  private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-      super(ID, advancementID);
-    }
-
-    @Override
-    public RecipeSerializer<?> getType() {
-      return recipeSerializer;
-    }
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      if (!group.isEmpty()) {
-        json.addProperty("group", group);
-      }
-      json.addProperty("fluid_amount", fluidAmount);
-      // TODO: consider another way to spoof this for datagen?
-      json.addProperty("container", result.toString());
-    }
-  }
 }

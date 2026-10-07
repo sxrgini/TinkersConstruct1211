@@ -30,6 +30,7 @@ public class MantleRecipes {
   public static void init() {
     RECIPES.register();
     POTION_INGREDIENT.register(Mantle.getResource("potion"));
+    ITEM_NAME_INGREDIENT.register(Mantle.getResource("item_name"));
     POTION_DISPLAY_INGREDIENT.register(Mantle.getResource("potion_display"));
     FLUID_CONTAINER_INGREDIENT.register(Mantle.getResource("fluid_container"));
     POTION_FLUID_INGREDIENT.register(Mantle.getResource("potion"));
@@ -45,6 +46,7 @@ public class MantleRecipes {
   public static final DeferredHolder<RecipeSerializer<?>,RecipeSerializer<CampfireResultRecipe>> CAMPFIRE = RECIPES.register("campfire", () -> LoadableRecipeSerializer.of(CampfireResultRecipe.LOADABLE));
 
   // ingredients
+  public static final IngredientType<slimeknights.mantle.recipe.data.ItemNameIngredient> ITEM_NAME_INGREDIENT = new IngredientType<>(slimeknights.mantle.recipe.data.ItemNameIngredient.CODEC, slimeknights.mantle.recipe.data.ItemNameIngredient.STREAM_CODEC);
   public static final IngredientType<PotionIngredient> POTION_INGREDIENT = new IngredientType<>(PotionIngredient.CODEC, PotionIngredient.STREAM_CODEC);
   public static final IngredientType<PotionDisplayIngredient> POTION_DISPLAY_INGREDIENT = new IngredientType<>(PotionDisplayIngredient.CODEC, PotionDisplayIngredient.STREAM_CODEC);
   public static final IngredientType<FluidContainerIngredient> FLUID_CONTAINER_INGREDIENT = new IngredientType<>(FluidContainerIngredient.CODEC, FluidContainerIngredient.STREAM_CODEC);
