@@ -16,8 +16,7 @@ import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.platform.event.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.registration.deferred.PotionDeferredRegister;
 import slimeknights.mantle.registration.deferred.PotionDeferredRegister.PotionType;
@@ -71,7 +70,7 @@ public class TinkerEffects extends TinkerModule {
 
   @SuppressWarnings("removal")
   public TinkerEffects() {
-    POTIONS.register(FMLJavaModLoadingContext.get().getModEventBus());
+    POTIONS.register(EventBus.MOD_BUS);
   }
 
   @SubscribeEvent

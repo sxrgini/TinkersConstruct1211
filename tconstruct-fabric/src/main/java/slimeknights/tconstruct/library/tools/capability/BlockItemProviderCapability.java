@@ -14,7 +14,6 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
 import slimeknights.mantle.platform.event.EventPriority;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.jetbrains.annotations.ApiStatus;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.util.LogicHelper;
@@ -36,7 +35,7 @@ public interface BlockItemProviderCapability {
   /** Registers this capability */
   @ApiStatus.Internal
   static void register() {
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, BlockItemProviderCapability::register);
+    EventBus.MOD_BUS.addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, BlockItemProviderCapability::register);
     // receive the attach event on low priority, so that our default implementations do not override other mods.
     EventBus.BUS.addGenericListener(ItemStack.class, EventPriority.LOW, BlockItemProviderCapability::attachCapability);
   }

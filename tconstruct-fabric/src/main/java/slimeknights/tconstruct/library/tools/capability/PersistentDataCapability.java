@@ -16,7 +16,6 @@ import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
 import slimeknights.mantle.platform.event.player.PlayerEvent;
 import slimeknights.mantle.platform.event.EventPriority;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.SyncPersistentDataPacket;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -50,7 +49,7 @@ public class PersistentDataCapability {
 
   /** Registers this capability */
   public static void register() {
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, PersistentDataCapability::register);
+    EventBus.MOD_BUS.addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, PersistentDataCapability::register);
     EventBus.BUS.addGenericListener(Entity.class, PersistentDataCapability::attachCapability);
     EventBus.BUS.addListener(EventPriority.NORMAL, false, PlayerEvent.Clone.class, PersistentDataCapability::playerClone);
     EventBus.BUS.addListener(EventPriority.NORMAL, false, PlayerEvent.PlayerRespawnEvent.class, PersistentDataCapability::playerRespawn);

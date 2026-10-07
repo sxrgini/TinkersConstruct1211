@@ -16,9 +16,8 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import slimeknights.mantle.platform.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
+import slimeknights.mantle.platform.event.EventBus;
 import slimeknights.mantle.platform.event.SubscribeEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.mantle.platform.registry.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -50,7 +49,7 @@ public final class TinkerStructures extends TinkerModule {
 
 
   public TinkerStructures() {
-    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    EventBus bus = EventBus.MOD_BUS;
     FEATURES.register();
     STRUCTURE_TYPE.register();
     STRUCTURE_PIECE.register();

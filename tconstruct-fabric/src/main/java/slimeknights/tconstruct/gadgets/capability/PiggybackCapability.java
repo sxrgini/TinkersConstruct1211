@@ -8,7 +8,6 @@ import slimeknights.mantle.platform.capability.Capability;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
 import slimeknights.mantle.platform.event.EventPriority;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.tconstruct.TConstruct;
 
 /** Capability logic */
@@ -20,7 +19,7 @@ public class PiggybackCapability {
 
   /** Registers this capability */
   public static void register() {
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, PiggybackCapability::register);
+    EventBus.MOD_BUS.addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, PiggybackCapability::register);
     EventBus.BUS.addGenericListener(Entity.class, PiggybackCapability::attachCapability);
   }
 

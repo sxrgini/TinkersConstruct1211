@@ -4,7 +4,7 @@ import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.eventbus.api.IEventBus;
+import slimeknights.mantle.platform.event.EventBus;
 import slimeknights.mantle.platform.registry.DeferredRegister;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
@@ -50,7 +50,7 @@ public class TinkerRecipeTypes {
   public static final DeferredHolder<RecipeType<?>, RecipeType<Recipe<?>>> DATA = register("data");
 
   /** Initializes the deferred register */
-  public static void init(IEventBus bus) {
+  public static void init(EventBus bus) {
     TYPES.register();
   }
 

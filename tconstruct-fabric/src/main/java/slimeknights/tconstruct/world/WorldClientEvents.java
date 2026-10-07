@@ -21,7 +21,7 @@ import slimeknights.mantle.platform.util.Lazy;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import slimeknights.mantle.platform.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.particle.SlimeParticle;

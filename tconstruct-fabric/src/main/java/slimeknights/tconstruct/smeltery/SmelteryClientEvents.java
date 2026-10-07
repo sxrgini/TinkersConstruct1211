@@ -9,7 +9,7 @@ import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import slimeknights.mantle.platform.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.mantle.client.render.ChannelFluids;
 import slimeknights.mantle.client.render.FaucetFluid;
 import slimeknights.tconstruct.TConstruct;

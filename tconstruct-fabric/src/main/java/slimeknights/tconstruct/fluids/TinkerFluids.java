@@ -32,7 +32,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.SoundActions;
+import slimeknights.mantle.platform.fluid.SoundActions;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -41,7 +41,7 @@ import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.platform.fluid.BaseFlowingFluid;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.fluid.InvertedFluid;
 import slimeknights.mantle.fluid.UnplaceableFluid;
@@ -84,8 +84,8 @@ import slimeknights.tconstruct.tools.network.FluidDataSerializer;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import static slimeknights.mantle.Mantle.commonResource;
-import static slimeknights.tconstruct.fluids.block.BurningLiquidBlock.createBurning;
-import static slimeknights.tconstruct.fluids.block.MobEffectLiquidBlock.createEffect;
+import static slimeknights.mantle.block.fluid.BurningLiquidBlock.createBurning;
+import static slimeknights.mantle.block.fluid.MobEffectLiquidBlock.createEffect;
 
 /**
  * Contains all fluids used throughout the mod

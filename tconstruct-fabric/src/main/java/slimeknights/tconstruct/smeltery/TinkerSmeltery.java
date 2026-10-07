@@ -30,7 +30,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.data.event.GatherDataEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import slimeknights.mantle.platform.fluid.FluidType;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.RegisterEvent;
 import slimeknights.mantle.block.GaugeBlock;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;

@@ -3,7 +3,7 @@ package slimeknights.tconstruct.plugin;
 import net.mehvahdjukaar.dummmmmmy.Dummmmmmy;
 import net.mehvahdjukaar.dummmmmmy.common.TargetDummyEntity;
 import slimeknights.mantle.platform.event.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 

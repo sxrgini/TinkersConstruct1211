@@ -21,7 +21,7 @@ import net.minecraft.world.phys.HitResult.Type;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
 import slimeknights.tconstruct.common.TinkerTags.Fluids;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;

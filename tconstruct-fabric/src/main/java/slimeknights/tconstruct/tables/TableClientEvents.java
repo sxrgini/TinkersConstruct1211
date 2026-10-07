@@ -10,7 +10,7 @@ import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import slimeknights.mantle.platform.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.mantle.client.render.InventoryBlockEntityRenderer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;

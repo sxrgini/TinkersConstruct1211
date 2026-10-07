@@ -24,7 +24,7 @@ import slimeknights.mantle.platform.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;

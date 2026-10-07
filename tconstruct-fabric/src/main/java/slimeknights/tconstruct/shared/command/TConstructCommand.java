@@ -8,7 +8,6 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import slimeknights.mantle.platform.event.EventBus;
 import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.mantle.command.argument.TagSourceArgument;
 import slimeknights.mantle.registration.deferred.ArgumentTypeDeferredRegister;
 import slimeknights.tconstruct.TConstruct;
@@ -40,7 +39,7 @@ public class TConstructCommand {
 
   /** Registers all TConstruct command related content */
   public static void init() {
-    ARGUMENT_TYPE.register(FMLJavaModLoadingContext.get().getModEventBus());
+    ARGUMENT_TYPE.register(EventBus.MOD_BUS);
     ARGUMENT_TYPE.registerSingleton("slot_type", SlotTypeArgument.class, SlotTypeArgument::slotType);
     ARGUMENT_TYPE.registerSingleton("tool_stat", ToolStatArgument.class, ToolStatArgument::stat);
     ARGUMENT_TYPE.registerSingleton("modifier", ModifierArgument.class, ModifierArgument::modifier);

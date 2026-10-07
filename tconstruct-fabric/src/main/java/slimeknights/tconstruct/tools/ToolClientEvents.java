@@ -33,7 +33,7 @@ import net.minecraftforge.fml.LogicalSide;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import slimeknights.mantle.platform.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.TooltipKey;

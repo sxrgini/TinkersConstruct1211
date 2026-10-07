@@ -14,7 +14,6 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
 import slimeknights.mantle.platform.event.EventPriority;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.tconstruct.TConstruct;
 
@@ -39,7 +38,7 @@ public class TinkerDataCapability {
 
   /** Registers this capability */
   public static void register() {
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, TinkerDataCapability::register);
+    EventBus.MOD_BUS.addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, TinkerDataCapability::register);
     EventBus.BUS.addGenericListener(Entity.class, TinkerDataCapability::attachCapability);
   }
 
