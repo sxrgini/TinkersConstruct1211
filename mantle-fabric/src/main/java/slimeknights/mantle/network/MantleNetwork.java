@@ -1,7 +1,13 @@
 package slimeknights.mantle.network;
 
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.network.registration.PayloadRegistrar;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferPacket;
 import slimeknights.mantle.network.packet.DropLecternBookPacket;
@@ -13,28 +19,37 @@ import slimeknights.mantle.network.packet.UpdateLecternPagePacket;
 
 /** Handles registering all packets used by Mantle */
 public class MantleNetwork {
-  /**
-   * Network instance
-   * 21.0: Initial 1.21.1 release
-   */
-  private static final String VERSION = "21.0";
-
-  /**
-   * Registers packets into this network
-   */
+  /** Registers packet types and server handlers, call from the common initializer */
   @Internal
-  public static void registerPackets(RegisterPayloadHandlersEvent event) {
-    PayloadRegistrar registrar = event.registrar(VERSION);
-
+  public static void registerPackets() {
     // to server
-    registrar.playToServer(UpdateHeldPagePacket.TYPE, UpdateHeldPagePacket.CODEC, ISimplePacket.handle());
-    registrar.playToServer(UpdateInventoryPagePacket.TYPE, UpdateInventoryPagePacket.CODEC, ISimplePacket.handle());
-    registrar.playToServer(UpdateLecternPagePacket.TYPE, UpdateLecternPagePacket.CODEC, ISimplePacket.handle());
-    registrar.playToServer(DropLecternBookPacket.TYPE, DropLecternBookPacket.CODEC, ISimplePacket.handle());
+    toServer(UpdateHeldPagePacket.TYPE, UpdateHeldPagePacket.CODEC);
+    toServer(UpdateInventoryPagePacket.TYPE, UpdateInventoryPagePacket.CODEC);
+    toServer(UpdateLecternPagePacket.TYPE, UpdateLecternPagePacket.CODEC);
+    toServer(DropLecternBookPacket.TYPE, DropLecternBookPacket.CODEC);
 
-    // to client
-    registrar.playToClient(OpenLecternBookPacket.TYPE, OpenLecternBookPacket.CODEC, ISimplePacket.handle());
-    registrar.playToClient(SwingArmPacket.TYPE, SwingArmPacket.CODEC, ISimplePacket.handle());
-    registrar.playToClient(FluidContainerTransferPacket.TYPE, FluidContainerTransferPacket.CODEC, ISimplePacket.handle());
+    // to client, types only, handlers are registered in registerClientHandlers
+    PayloadTypeRegistry.playS2C().register(OpenLecternBookPacket.TYPE, OpenLecternBookPacket.CODEC);
+    PayloadTypeRegistry.playS2C().register(SwingArmPacket.TYPE, SwingArmPacket.CODEC);
+    PayloadTypeRegistry.playS2C().register(FluidContainerTransferPacket.TYPE, FluidContainerTransferPacket.CODEC);
+  }
+
+  /** Registers client packet handlers, call from the client initializer */
+  @Internal
+  @Environment(EnvType.CLIENT)
+  public static void registerClientHandlers() {
+    toClient(OpenLecternBookPacket.TYPE);
+    toClient(SwingArmPacket.TYPE);
+    toClient(FluidContainerTransferPacket.TYPE);
+  }
+
+  private static <T extends ISimplePacket> void toServer(CustomPacketPayload.Type<T> type, StreamCodec<? super RegistryFriendlyByteBuf,T> codec) {
+    PayloadTypeRegistry.playC2S().register(type, codec);
+    ServerPlayNetworking.registerGlobalReceiver(type, (payload, context) -> payload.handle(context::player));
+  }
+
+  @Environment(EnvType.CLIENT)
+  private static <T extends ISimplePacket> void toClient(CustomPacketPayload.Type<T> type) {
+    ClientPlayNetworking.registerGlobalReceiver(type, (payload, context) -> payload.handle(context::player));
   }
 }

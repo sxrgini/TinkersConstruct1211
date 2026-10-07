@@ -3,7 +3,7 @@ package slimeknights.mantle.network;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
+import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.util.BlockEntityHelper;
 

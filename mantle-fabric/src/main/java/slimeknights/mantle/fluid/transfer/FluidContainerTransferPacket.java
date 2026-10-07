@@ -3,7 +3,7 @@ package slimeknights.mantle.fluid.transfer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
+import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.network.ISimplePacket;
 import slimeknights.mantle.network.MantleStreamCodecs;

@@ -6,7 +6,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.attachment.IAttachmentHolder;
-import net.neoforged.neoforge.network.PacketDistributor;
+import slimeknights.mantle.platform.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.network.packet.SwingArmPacket;
 import slimeknights.mantle.registration.MantleData;

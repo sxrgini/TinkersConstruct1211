@@ -5,10 +5,9 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.event.OnDatapackSyncEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import slimeknights.mantle.platform.network.PacketDistributor;
 
-/** Helper methods used alongside {@link net.neoforged.neoforge.network.PacketDistributor} to send packets */
+/** Helper methods used alongside {@link slimeknights.mantle.platform.network.PacketDistributor} to send packets */
 public class PacketHelper {
   /**
    * Sends a vanilla packet to the given entity
@@ -36,17 +35,4 @@ public class PacketHelper {
     }
   }
 
-  /** Send a list of packets using the event list */
-  public static void syncPackets(OnDatapackSyncEvent event, CustomPacketPayload payload, CustomPacketPayload... payloads) {
-    // send to single player
-    ServerPlayer targetedPlayer = event.getPlayer();
-    if (targetedPlayer != null) {
-      sendStaticRegistry(targetedPlayer, payload, payloads);
-    } else {
-      // send to all players
-      for (ServerPlayer player : event.getPlayerList().getPlayers()) {
-        sendStaticRegistry(player, payload, payloads);
-      }
-    }
-  }
 }

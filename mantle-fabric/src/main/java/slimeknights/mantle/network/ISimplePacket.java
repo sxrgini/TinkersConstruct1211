@@ -1,8 +1,8 @@
 package slimeknights.mantle.network;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.neoforged.neoforge.network.handling.IPayloadHandler;
+import slimeknights.mantle.platform.network.IPayloadContext;
+import slimeknights.mantle.platform.network.IPayloadHandler;
 
 /**
  * Packet interface to add common methods for registration

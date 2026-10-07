@@ -7,7 +7,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
+import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.network.ISimplePacket;
 import slimeknights.mantle.network.MantleStreamCodecs;

@@ -15,7 +15,7 @@ import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.NeoForge;
 import slimeknights.mantle.platform.condition.ICondition;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
-import net.neoforged.neoforge.event.OnDatapackSyncEvent;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.loadable.field.ContextKey;
@@ -67,7 +67,7 @@ public class FluidContainerTransferManager extends SimpleJsonResourceReloadListe
   /** For internal use only */
   public void init() {
     NeoForge.EVENT_BUS.addListener(AddReloadListenerEvent.class, e -> e.addListener(this));
-    NeoForge.EVENT_BUS.addListener(OnDatapackSyncEvent.class, e -> PacketHelper.syncPackets(e, new FluidContainerTransferPacket(this.getContainerItems())));
+    ServerLifecycleEvents.SYNC_DATA_PACK_CONTENTS.register((player, joined) -> PacketHelper.sendStaticRegistry(player, new FluidContainerTransferPacket(this.getContainerItems())));
   }
 
   @Override
