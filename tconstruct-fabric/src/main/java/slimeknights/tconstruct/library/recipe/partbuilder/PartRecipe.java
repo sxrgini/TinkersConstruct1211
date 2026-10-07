@@ -258,7 +258,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
 
     @Override
     public ResourceLocation getId() {
-      return id;
+      return getId();
     }
 
     @Override

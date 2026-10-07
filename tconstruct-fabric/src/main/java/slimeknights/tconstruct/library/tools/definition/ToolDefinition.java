@@ -20,13 +20,15 @@ public class ToolDefinition implements IdAwareObject {
   /** Empty tool definition instance to prevent the need for null for a fallback */
   public static final ToolDefinition EMPTY = new ToolDefinition(TConstruct.getResource("empty"));
 
+  @Getter
+  private final ResourceLocation id;
   /** Base data loaded from JSON, contains stats, traits, and starting slots */
   @Getter
   protected ToolDefinitionData data = ToolDefinitionData.EMPTY;
 
   /** Creates and registers a new tool definition */
   public static ToolDefinition create(ResourceLocation id) {
-    ToolDefinition definition = new ToolDefinition();
+    ToolDefinition definition = new ToolDefinition(id);
     ToolDefinitionLoader.getInstance().registerToolDefinition(definition);
     return definition;
   }

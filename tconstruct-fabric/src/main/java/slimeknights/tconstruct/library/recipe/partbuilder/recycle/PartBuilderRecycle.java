@@ -182,7 +182,7 @@ public class PartBuilderRecycle implements IPartBuilderRecipe, IMultiRecipe<IDis
   public List<IDisplayPartBuilderRecipe> getRecipes(HolderLookup.Provider access) {
     if (displayRecipes == null) {
       List<ItemStack> patternItems = List.of(pattern.getItems());
-      displayRecipes = Arrays.stream(tool.getItems()).map(tool -> DisplayPartRecipe.id(id)
+      displayRecipes = Arrays.stream(tool.getItems()).map(tool -> DisplayPartRecipe.id(getId())
         .title(RECYCLING).tooltip(INSTRUCTIONS)
         .patterns(results.keySet().stream().toList())
         .patternItems(patternItems)

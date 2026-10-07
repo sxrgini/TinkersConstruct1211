@@ -10,6 +10,15 @@ import net.minecraft.world.item.crafting.RecipeInput;
  * @param <I>  Input type
  */
 public interface ICommonRecipe<I extends RecipeInput> extends Recipe<I> {
+  /**
+   * Gets the ID of this recipe as loaded by the recipe manager, replacing the old {@code getId}.
+   * Falls back to a placeholder for recipes not loaded from a manager, such as display copies.
+   */
+  default net.minecraft.resources.ResourceLocation getId() {
+    net.minecraft.resources.ResourceLocation id = RecipeIds.get(this);
+    return id != null ? id : net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("mantle", "unknown_recipe");
+  }
+
   @Override
   default ItemStack assemble(I input, HolderLookup.Provider provider) {
     return getResultItem(provider).copy();

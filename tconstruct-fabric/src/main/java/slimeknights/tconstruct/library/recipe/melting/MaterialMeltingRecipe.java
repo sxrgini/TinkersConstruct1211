@@ -119,11 +119,11 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<IDisp
           .toList();
         // if we found nothing, do nothing. Should never happen so error
         if (entries.isEmpty()) {
-          TConstruct.LOG.warn("Failed to create display recipe for {}: found no tool parts that support {}", id, inputId);
+          TConstruct.LOG.warn("Failed to create display recipe for {}: found no tool parts that support {}", getId(), inputId);
           multiRecipes = List.of();
         } else {
           // start building the recipe
-          DisplayMeltingRecipe.Builder recipe = DisplayMeltingRecipe.id(id).temperature(temperature).timeDynamic();
+          DisplayMeltingRecipe.Builder recipe = DisplayMeltingRecipe.id(getId()).temperature(temperature).timeDynamic();
           // input items just use the material
           recipe.inputs(entries.stream().map(entry -> entry.getKey().withMaterialForDisplay(inputId)).toList());
           // fluids

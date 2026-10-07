@@ -300,7 +300,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe, IMultiRe
 
             // did we actually find anything? add a fixed recipe for those materials
             if (!inputs.isEmpty()) {
-              recipes.add(new FixedDisplayRecipe(id, modifiable.asItem(), List.copyOf(inputs), List.of(stack)));
+              recipes.add(new FixedDisplayRecipe(getId(), modifiable.asItem(), List.copyOf(inputs), List.of(stack)));
               continue;
             }
           }
@@ -311,7 +311,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe, IMultiRe
       }
       // if we have anything that needs materials, add the dynamic display recipe
       if (!dynamicTools.isEmpty()) {
-        recipes.add(new DynamicDisplayRecipe(id, Set.copyOf(dynamicTools), List.copyOf(dynamicToolStacks)));
+        recipes.add(new DynamicDisplayRecipe(getId(), Set.copyOf(dynamicTools), List.copyOf(dynamicToolStacks)));
       }
 
       // build the final recipes list

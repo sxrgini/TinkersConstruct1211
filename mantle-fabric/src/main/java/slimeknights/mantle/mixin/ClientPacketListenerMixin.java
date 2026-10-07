@@ -19,6 +19,7 @@ public abstract class ClientPacketListenerMixin {
   @Inject(method = "handleUpdateRecipes", at = @At("TAIL"))
   private void mantle$recipesUpdated(ClientboundUpdateRecipesPacket packet, CallbackInfo ci) {
     EventBus bus = EventBus.BUS;
+    slimeknights.mantle.recipe.RecipeIds.update(getRecipeManager());
     if (bus.hasListeners(RecipesUpdatedEvent.class)) {
       bus.post(new RecipesUpdatedEvent(getRecipeManager()));
     }

@@ -208,10 +208,10 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
         .map(ItemStack::new).toList();
       if (toolInputs.isEmpty()) {
         // emptying banner tag is fine, if a little weird
-        TConstruct.LOG.debug("Skipping creating banner modifier display recipes {}: No tools in tag {}", id, TinkerTags.Items.BANNER);
+        TConstruct.LOG.debug("Skipping creating banner modifier display recipes {}: No tools in tag {}", getId(), TinkerTags.Items.BANNER);
         displayRecipes = List.of();
       } else if (banners.isEmpty()) {
-        TConstruct.LOG.error("Unable to create banner modifier display recipes {}: Banner tag {} has no BannerItem", id, ItemTags.BANNERS);
+        TConstruct.LOG.error("Unable to create banner modifier display recipes {}: Banner tag {} has no BannerItem", getId(), ItemTags.BANNERS);
         displayRecipes = List.of();
       } else {
         ResourceLocation id = getId();

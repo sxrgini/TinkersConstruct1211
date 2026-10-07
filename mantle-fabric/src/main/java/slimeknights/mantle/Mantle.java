@@ -77,6 +77,7 @@ public class Mantle implements ModInitializer {
     Config.load();
     instance = this;
     slimeknights.mantle.util.GlobalRegistries.init();
+    slimeknights.mantle.recipe.RecipeIds.init();
     // create the fluid type registry before registries freeze
     FluidTypes.REGISTRY.getClass();
 

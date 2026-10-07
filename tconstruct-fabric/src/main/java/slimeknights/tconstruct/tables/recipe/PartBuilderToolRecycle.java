@@ -302,7 +302,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
 
     @Override
     public ResourceLocation getId() {
-      return id;
+      return getId();
     }
 
     @Override

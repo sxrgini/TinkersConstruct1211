@@ -139,7 +139,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
   @Override
   public List<IDisplayToolTinkering> getRecipes(HolderLookup.Provider access) {
     if (displayRecipes == null) {
-      displayRecipes = List.of(new DisplayRecipe(id, this, false));
+      displayRecipes = List.of(new DisplayRecipe(getId(), this, false));
     }
     return displayRecipes;
   }
