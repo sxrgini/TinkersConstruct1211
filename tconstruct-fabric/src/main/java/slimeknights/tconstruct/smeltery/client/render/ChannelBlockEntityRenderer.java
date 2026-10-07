@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.client.render;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -50,7 +51,7 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 		TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
 		VertexConsumer builder = buffer.getBuffer(MantleRenderTypes.FLUID);
 		int color = attributes.getTintColor(fluid);
-		light = FluidRenderer.withBlockLight(light, fluid.getFluid().getFluidType().getLightLevel(fluid));
+		light = FluidRenderer.withBlockLight(light, FluidTypes.of(fluid.getFluid()).getLightLevel(fluid));
 
 		// render sides first, while doing so we will determine center "flow"
 		FluidCuboid cube;

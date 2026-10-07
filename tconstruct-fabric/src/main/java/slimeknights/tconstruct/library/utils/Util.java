@@ -97,6 +97,16 @@ public class Util {
     return Component.translatable(makeTranslationKey(base, name), arguments);
   }
 
+  /** Makes a translation key from an ID wrapper */
+  public static String makeTranslationKey(String base, @Nullable ResourceId name) {
+    return makeTranslationKey(base, name == null ? null : name.location());
+  }
+
+  /** Makes a translatable component from an ID wrapper */
+  public static Component makeTranslation(String base, @Nullable ResourceId name, Object... arguments) {
+    return Component.translatable(makeTranslationKey(base, name), arguments);
+  }
+
   /** Same as {@link net.minecraft.Util#make(Supplier)} */
   public static <T> T make(Supplier<T> supplier) {
     return supplier.get();

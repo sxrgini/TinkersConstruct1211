@@ -2,7 +2,7 @@ package slimeknights.tconstruct.smeltery.network;
 
 import lombok.AllArgsConstructor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.network.BlockEntityPacket;
@@ -20,7 +20,7 @@ public class SmelteryTankUpdatePacket implements BlockEntityPacket<ISmelteryTank
   private final BlockPos pos;
   private final List<FluidStack> fluids;
 
-  public SmelteryTankUpdatePacket(FriendlyByteBuf buffer) {
+  public SmelteryTankUpdatePacket(RegistryFriendlyByteBuf buffer) {
     pos = buffer.readBlockPos();
     int size = buffer.readVarInt();
     fluids = new ArrayList<>(size);
@@ -30,7 +30,7 @@ public class SmelteryTankUpdatePacket implements BlockEntityPacket<ISmelteryTank
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeBlockPos(pos);
     buffer.writeVarInt(fluids.size());
     for (FluidStack fluid : fluids) {

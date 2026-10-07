@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.tconstruct.library.utils.ResourceId;
 import slimeknights.tconstruct.library.tools.SlotType;
 
 import java.util.function.BiFunction;
@@ -64,6 +65,29 @@ public interface IModDataView {
     return 0;
   }
 
+
+  /* ResourceId overloads, IDs are no longer resource locations */
+
+  /** @see #get(ResourceLocation, BiFunction) */
+  default <T> T get(ResourceId name, BiFunction<CompoundTag,String,T> function) { return get(name.location(), function); }
+  /** @see #contains(ResourceLocation) */
+  default boolean contains(ResourceId name) { return contains(name.location()); }
+  /** @see #contains(ResourceLocation, int) */
+  default boolean contains(ResourceId name, int type) { return contains(name.location(), type); }
+  /** @see #get(ResourceLocation) */
+  default Tag get(ResourceId name) { return get(name.location()); }
+  /** @see #getInt(ResourceLocation) */
+  default int getInt(ResourceId name) { return getInt(name.location()); }
+  /** @see #getBoolean(ResourceLocation) */
+  default boolean getBoolean(ResourceId name) { return getBoolean(name.location()); }
+  /** @see #getFloat(ResourceLocation) */
+  default float getFloat(ResourceId name) { return getFloat(name.location()); }
+  /** @see #getString(ResourceLocation) */
+  default String getString(ResourceId name) { return getString(name.location()); }
+  /** @see #getCompound(ResourceLocation) */
+  default CompoundTag getCompound(ResourceId name) { return getCompound(name.location()); }
+  /** @see #getList(ResourceLocation, int) */
+  default ListTag getList(ResourceId name, int type) { return getList(name.location(), type); }
 
   /* Helpers */
 

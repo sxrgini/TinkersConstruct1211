@@ -6,7 +6,7 @@ import com.google.common.collect.ImmutableMap;
 import io.netty.handler.codec.DecoderException;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -75,14 +75,14 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
     return modifier;
   }
 
-  public UpdateModifiersPacket(FriendlyByteBuf buffer) {
+  public UpdateModifiersPacket(RegistryFriendlyByteBuf buffer) {
     // read in modifiers
     int size = buffer.readVarInt();
     Map<ModifierId,Modifier> modifiers = new HashMap<>();
     for (int i = 0; i < size; i++) {
       ModifierId id = new ModifierId(buffer.readUtf(Short.MAX_VALUE));
       try {
-        Modifier modifier = ComposableModifier.LOADER.decode(buffer, ModifierManager.contextBuilder(id).build());
+        Modifier modifier = ComposableModifier.LOADER.decode(buffer, ModifierManager.contextBuilder(id.location()).build());
         modifier.setId(id);
         modifiers.put(id, modifier);
       } catch (RuntimeException e) {
@@ -119,12 +119,12 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     ensureCalculated();
     // write modifiers
     buffer.writeVarInt(modifiers.size());
     for (ComposableModifier modifier : modifiers) {
-      ResourceLocation id = modifier.getId();
+      ResourceLocation id = modifier.getId().location();
       buffer.writeResourceLocation(id);
       try {
         ComposableModifier.LOADER.encode(buffer, modifier);
@@ -137,8 +137,8 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
     // write redirects
     buffer.writeVarInt(redirects.size());
     for (Entry<ModifierId,ModifierId> entry : redirects.entrySet()) {
-      buffer.writeResourceLocation(entry.getKey());
-      buffer.writeResourceLocation(entry.getValue());
+      buffer.writeResourceLocation(entry.getKey().location());
+      buffer.writeResourceLocation(entry.getValue().location());
     }
     GenericTagUtil.encodeTags(buffer, Modifier::getId, this.tags);
 
@@ -146,12 +146,12 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
     buffer.writeVarInt(enchantmentMap.size());
     for (Entry<ResourceKey<Enchantment>,Modifier> entry : enchantmentMap.entrySet()) {
       buffer.writeResourceKey(entry.getKey());
-      buffer.writeResourceLocation(entry.getValue().getId());
+      buffer.writeResourceLocation(entry.getValue().getId().location());
     }
     buffer.writeVarInt(enchantmentTagMappings.size());
     for (Entry<TagKey<Enchantment>, Modifier> entry : enchantmentTagMappings.entrySet()) {
       buffer.writeResourceLocation(entry.getKey().location());
-      buffer.writeResourceLocation(entry.getValue().getId());
+      buffer.writeResourceLocation(entry.getValue().getId().location());
     }
   }
 

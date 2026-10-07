@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.component;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
@@ -121,7 +122,7 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
     Level level = be.getLevel();
     if (level != null && !level.isClientSide) {
       FluidStack fluid = tank.getFluid();
-      int light = fluid.isEmpty() ? 0 : fluid.getFluid().getFluidType().getLightLevel(fluid);
+      int light = fluid.isEmpty() ? 0 : FluidTypes.of(fluid.getFluid()).getLightLevel(fluid);
       BlockState state = be.getBlockState();
       if (light != state.getValue(SearedTankBlock.LIGHT)) {
         level.setBlock(be.getBlockPos(), state.setValue(SearedTankBlock.LIGHT, light), Block.UPDATE_CLIENTS);

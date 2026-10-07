@@ -469,7 +469,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
      * @param modifier  Modifier instance
      */
     public void registerStatic(ModifierId name, Modifier modifier) {
-      checkModNamespace(name);
+      checkModNamespace(name.location());
 
       // should not include under both types
       if (expectedDynamicModifiers.contains(name)) {
@@ -489,7 +489,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
      * @param name  Modifier name
      */
     public void registerExpected(ModifierId name) {
-      checkModNamespace(name);
+      checkModNamespace(name.location());
 
       // should not include under both types
       if (staticModifiers.containsKey(name)) {

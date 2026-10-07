@@ -165,7 +165,7 @@ public class SmelteryTank<T extends MantleBlockEntity & ISmelteryTankHandler> im
 
     // check if we already have the given liquid
     for (FluidStack fluid : fluids) {
-      if (fluid.isFluidEqual(resource)) {
+      if (fluid.isSameFluidSameComponents(resource)) {
         // yup. add it
         fluid.grow(usable);
         parent.notifyFluidsChanged(FluidChange.CHANGED, fluid);
@@ -234,7 +234,7 @@ public class SmelteryTank<T extends MantleBlockEntity & ISmelteryTankHandler> im
     ListIterator<FluidStack> iter = fluids.listIterator();
     while (iter.hasNext()) {
       FluidStack fluid = iter.next();
-      if (fluid.isFluidEqual(toDrain)) {
+      if (fluid.isSameFluidSameComponents(toDrain)) {
         // if found, determine how much we can drain
         int drainable = Math.min(toDrain.getAmount(), fluid.getAmount());
 
@@ -284,7 +284,7 @@ public class SmelteryTank<T extends MantleBlockEntity & ISmelteryTankHandler> im
     this.fluids.addAll(fluids);
     contained = fluids.stream().mapToInt(FluidStack::getAmount).reduce(0, Integer::sum);
     FluidStack newFirst = getFluidInTank(0);
-    if (!oldFirst.isFluidEqual(newFirst)) {
+    if (!oldFirst.isSameFluidSameComponents(newFirst)) {
       parent.notifyFluidsChanged(FluidChange.ORDER_CHANGED, newFirst);
       tankListChange.run();
     }

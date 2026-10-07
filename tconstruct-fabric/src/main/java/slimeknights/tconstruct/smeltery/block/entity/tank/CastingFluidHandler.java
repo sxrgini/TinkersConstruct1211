@@ -80,7 +80,7 @@ public class CastingFluidHandler implements IFluidHandler {
     }
 
     // safety: should never be false, but good to check
-    if (!resource.isFluidEqual(fluid)) {
+    if (!resource.isSameFluidSameComponents(fluid)) {
       return 0;
     }
 
@@ -110,7 +110,7 @@ public class CastingFluidHandler implements IFluidHandler {
   @Nonnull
   @Override
   public FluidStack drain(FluidStack resource, FluidAction action) {
-    if (resource.isEmpty() || !resource.isFluidEqual(fluid)) {
+    if (resource.isEmpty() || !resource.isSameFluidSameComponents(fluid)) {
       return FluidStack.EMPTY;
     }
     return this.drain(resource.getAmount(), action);

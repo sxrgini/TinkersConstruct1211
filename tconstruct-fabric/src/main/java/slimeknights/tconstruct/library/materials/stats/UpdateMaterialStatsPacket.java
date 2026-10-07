@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.materials.stats;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.platform.network.IPayloadContext;
 import org.apache.logging.log4j.Logger;
@@ -27,11 +27,11 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
 
   protected final Map<MaterialId, Collection<IMaterialStats>> materialToStats;
 
-  public UpdateMaterialStatsPacket(FriendlyByteBuf buffer) {
+  public UpdateMaterialStatsPacket(RegistryFriendlyByteBuf buffer) {
     this(buffer, MaterialRegistry.getInstance().getStatTypeLoader());
   }
 
-  public UpdateMaterialStatsPacket(FriendlyByteBuf buffer, Loadable<MaterialStatType<?>> statTypeLoader) {
+  public UpdateMaterialStatsPacket(RegistryFriendlyByteBuf buffer, Loadable<MaterialStatType<?>> statTypeLoader) {
     int materialCount = buffer.readInt();
     materialToStats = new HashMap<>(materialCount);
     for (int i = 0; i < materialCount; i++) {
@@ -42,7 +42,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
         ResourceLocation statId = null;
         try {
           MaterialStatType<?> statType = statTypeLoader.decode(buffer);
-          statId = statType.getId();
+          statId = statType.getId().location();
           statList.add(statType.getLoadable().decode(buffer, TypedMapBuilder.builder().put(MaterialStatType.CONTEXT_KEY, statType).build()));
         } catch (RuntimeException e) {
           log.error("Could not deserialize stat {} for material {}. Are client and server in sync?", statId, id, e);
@@ -54,10 +54,10 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeInt(materialToStats.size());
     materialToStats.forEach((materialId, stats) -> {
-      buffer.writeResourceLocation(materialId);
+      buffer.writeResourceLocation(materialId.location());
       buffer.writeInt(stats.size());
       for (IMaterialStats stat : stats) {
         encodeStat(buffer, stat, stat.getType(), materialId);
@@ -73,7 +73,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
    * @param material   Material being encoded
    */
   @SuppressWarnings("unchecked")
-  private <T extends IMaterialStats> void encodeStat(FriendlyByteBuf buffer, IMaterialStats stat, MaterialStatType<T> type, MaterialId material) {
+  private <T extends IMaterialStats> void encodeStat(RegistryFriendlyByteBuf buffer, IMaterialStats stat, MaterialStatType<T> type, MaterialId material) {
     try {
       MaterialStatsId.PARSER.encode(buffer, type.getId());
       type.getLoadable().encode(buffer, (T) stat);

@@ -19,6 +19,7 @@
 
 package slimeknights.tconstruct.library.client.model;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
@@ -125,7 +126,7 @@ public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements 
     }
 
     // if its a gas and we flipping, flip it
-    if (flipGas && !fluid.isEmpty() && fluid.getFluid().getFluidType().isLighterThanAir()) {
+    if (flipGas && !fluid.isEmpty() && FluidTypes.of(fluid.getFluid()).isLighterThanAir()) {
       modelState = new SimpleModelState(modelState.getRotation().compose(new Transformation(null, new Quaternionf(0, 0, 1, 0), null, null)));
     }
 
@@ -152,7 +153,7 @@ public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements 
 
       // apply light
       RenderTypeGroup fluidRenderTypes = renderTypes;
-      int light = fluid.getFluid().getFluidType().getLightLevel(fluid);
+      int light = FluidTypes.of(fluid.getFluid()).getLightLevel(fluid);
       if (light > 0) {
         fluidRenderTypes = DynamicFluidContainerModel.getLayerRenderTypes(true);
         QuadTransformers.settingEmissivity(light).processInPlace(quads);

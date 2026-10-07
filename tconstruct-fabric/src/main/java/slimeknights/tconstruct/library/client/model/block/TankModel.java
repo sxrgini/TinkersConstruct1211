@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.model.block;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableMap;
@@ -152,7 +153,7 @@ public class TankModel implements IUnbakedGeometry<TankModel> {
       // fetch fluid data
       FluidStack stack = key.fluid();
       IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(stack.getFluid());
-      FluidType type = stack.getFluid().getFluidType();
+      FluidType type = FluidTypes.of(stack.getFluid());
       int color = attributes.getTintColor(stack);
       int luminosity = type.getLightLevel(stack);
       Map<String,Material> textures = ImmutableMap.of(

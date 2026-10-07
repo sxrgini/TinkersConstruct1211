@@ -2,7 +2,7 @@ package slimeknights.tconstruct.smeltery.network;
 
 import lombok.AllArgsConstructor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.network.BlockEntityPacket;
 import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
@@ -20,7 +20,7 @@ public class StructureUpdatePacket implements BlockEntityPacket<HeatingStructure
   private final BlockPos maxPos;
   private final List<BlockPos> tanks;
 
-  public StructureUpdatePacket(FriendlyByteBuf buffer) {
+  public StructureUpdatePacket(RegistryFriendlyByteBuf buffer) {
     pos = buffer.readBlockPos();
     minPos = buffer.readBlockPos();
     maxPos = buffer.readBlockPos();
@@ -32,7 +32,7 @@ public class StructureUpdatePacket implements BlockEntityPacket<HeatingStructure
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeBlockPos(pos);
     buffer.writeBlockPos(minPos);
     buffer.writeBlockPos(maxPos);

@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.materials.definition;
 import com.google.common.collect.ImmutableMap;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Rarity;
 import slimeknights.mantle.platform.network.IPayloadContext;
@@ -24,7 +24,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
   private final Map<MaterialId,MaterialId> redirects;
   private final Map<TagKey<IMaterial>,List<IMaterial>> tags;
 
-  public UpdateMaterialsPacket(FriendlyByteBuf buffer) {
+  public UpdateMaterialsPacket(RegistryFriendlyByteBuf buffer) {
     int materialCount = buffer.readInt();
     ImmutableMap.Builder<MaterialId,IMaterial> materials = ImmutableMap.builder();
 
@@ -35,7 +35,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       Rarity rarity = buffer.readEnum(Rarity.class);
       boolean craftable = buffer.readBoolean();
       boolean hidden = buffer.readBoolean();
-      materials.put(id, new Material(id, tier, sortOrder, rarity, craftable, hidden));
+      materials.put(id, new Material(id.location(), tier, sortOrder, rarity, craftable, hidden));
     }
     this.materials = materials.build();
     // process redirects
@@ -52,10 +52,10 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeInt(this.materials.size());
     for (IMaterial material : this.materials.values()) {
-      buffer.writeResourceLocation(material.getIdentifier());
+      buffer.writeResourceLocation(material.getIdentifier().location());
       buffer.writeVarInt(material.getTier());
       buffer.writeVarInt(material.getSortOrder());
       buffer.writeEnum(material.getRarity());

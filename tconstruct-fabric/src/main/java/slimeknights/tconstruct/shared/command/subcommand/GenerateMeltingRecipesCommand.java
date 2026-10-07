@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared.command.subcommand;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import slimeknights.mantle.platform.capability.Caps;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -302,7 +303,7 @@ public class GenerateMeltingRecipesCommand {
 
     /** Creates a transfer from a fluid stack instance */
     public static MeltingResult from(FluidStack fluid) {
-      return new MeltingResult(fluid, null, Math.max(100, fluid.getFluid().getFluidType().getTemperature(fluid) - 300));
+      return new MeltingResult(fluid, null, Math.max(100, FluidTypes.of(fluid.getFluid()).getTemperature() - 300));
     }
 
     /** Creates a copy of this with the given amount */
@@ -340,7 +341,7 @@ public class GenerateMeltingRecipesCommand {
         return first.tag.equals(second.tag);
       }
       // if either lack a tag, do exact fluid
-      return first.fluid.isFluidEqual(second.fluid);
+      return first.fluid.isSameFluidSameComponents(second.fluid);
     }
 
     /** Combines two results into a larger result. Precondition is {@link #matches(MeltingResult, MeltingResult)} is true. */

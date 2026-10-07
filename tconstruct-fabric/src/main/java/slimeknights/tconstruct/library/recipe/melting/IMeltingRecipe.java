@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.material.Fluid;
@@ -61,12 +62,12 @@ public interface IMeltingRecipe extends ICustomOutputRecipe<IMeltingContainer> {
 
   /** Gets the temperature for a fluid */
   static int getTemperature(Fluid fluid) {
-    return fluid.getFluidType().getTemperature() - 300;
+    return FluidTypes.of(fluid).getTemperature() - 300;
   }
 
   /** Gets the temperature for a fluid */
   static int getTemperature(FluidStack fluid) {
-    return fluid.getFluid().getFluidType().getTemperature(fluid) - 300;
+    return FluidTypes.of(fluid.getFluid()).getTemperature() - 300;
   }
 
   /** Gets the temperature for a fluid */

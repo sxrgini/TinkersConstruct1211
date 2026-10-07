@@ -188,7 +188,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    */
   public ItemCastingRecipeBuilder setFluidAndTime(FluidObject<?> fluid, int amount) {
     setFluid(fluid.ingredient(amount));
-    setCoolingTime(getTemperature(fluid), amount);
+    setCoolingTime(getTemperature(), amount);
     return this;
   }
 

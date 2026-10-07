@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.gadgets.entity;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;

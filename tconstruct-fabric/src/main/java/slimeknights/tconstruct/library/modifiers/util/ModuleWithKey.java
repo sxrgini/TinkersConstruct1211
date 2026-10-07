@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.util;
 
 import com.google.gson.JsonObject;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.field.LoadableField;
@@ -24,7 +24,7 @@ public interface ModuleWithKey {
     if (key != null) {
       return key;
     }
-    return modifier.getId();
+    return modifier.getId().location();
   }
 
   /** Gets the key for the module */
@@ -33,7 +33,7 @@ public interface ModuleWithKey {
     if (key != null) {
       return key;
     }
-    return modifier.getId();
+    return modifier.getId().location();
   }
 
   /** Gets the key field from the record */
@@ -55,7 +55,7 @@ public interface ModuleWithKey {
 
   /** Reads the key from the network */
   @Nullable
-  static ResourceLocation fromNetwork(FriendlyByteBuf buffer) {
+  static ResourceLocation fromNetwork(RegistryFriendlyByteBuf buffer) {
     if (buffer.readBoolean()) {
       return buffer.readResourceLocation();
     }
@@ -63,7 +63,7 @@ public interface ModuleWithKey {
   }
 
   /** Writes the key to the network */
-  static void toNetwork(@Nullable ResourceLocation key, FriendlyByteBuf buffer) {
+  static void toNetwork(@Nullable ResourceLocation key, RegistryFriendlyByteBuf buffer) {
     if (key != null) {
       buffer.writeBoolean(true);
       buffer.writeResourceLocation(key);

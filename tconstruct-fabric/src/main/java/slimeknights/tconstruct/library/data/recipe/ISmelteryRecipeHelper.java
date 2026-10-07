@@ -68,7 +68,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
    * @param isOptional  If true, recipe is optional
    */
   default void tagMelting(Consumer<FinishedRecipe> consumer, FluidObject<?> fluid, int amount, String tagName, float factor, String recipePath, boolean isOptional) {
-    tagMelting(consumer, fluid.result(amount), getTemperature(fluid), tagName, factor, recipePath, isOptional);
+    tagMelting(consumer, fluid.result(amount), getTemperature(), tagName, factor, recipePath, isOptional);
   }
 
   /** Shared logic for metal melting */

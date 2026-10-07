@@ -148,7 +148,7 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<IDi
     @Override
     public void drawWidget(GuiGraphics graphics, double mouseX, double mouseY) {
       FluidStack fluid = fluidSlot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).orElse(FluidStack.EMPTY);
-      Component temperature = Component.translatable(KEY_TEMPERATURE, recipe.getTemperature(fluid));
+      Component temperature = Component.translatable(KEY_TEMPERATURE, recipe.getTemperature());
       graphics.drawString(font, temperature, (width - font.width(temperature)) / 2, 0, Color.GRAY.getRGB(), false);
     }
   }

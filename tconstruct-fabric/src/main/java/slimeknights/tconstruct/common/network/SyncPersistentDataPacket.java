@@ -4,7 +4,7 @@ import slimeknights.mantle.platform.capability.Caps;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
@@ -15,12 +15,12 @@ import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability
 public class SyncPersistentDataPacket implements IThreadsafePacket {
   private final CompoundTag data;
 
-  public SyncPersistentDataPacket(FriendlyByteBuf buffer) {
+  public SyncPersistentDataPacket(RegistryFriendlyByteBuf buffer) {
     data = buffer.readNbt();
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeNbt(data);
   }
 

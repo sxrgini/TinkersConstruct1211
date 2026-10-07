@@ -6,7 +6,14 @@ import net.minecraft.world.item.crafting.RecipeInput;
 /** Extension of {@link RecipeInput} with a single item. Extendable unlike {@link net.minecraft.world.item.crafting.SingleRecipeInput} */
 public interface SingleItemInput extends RecipeInput {
   /** Gets the item stack */
-  ItemStack getItem();
+  default ItemStack getItem() {
+    return getStack();
+  }
+
+  /** Alias of {@link #getItem()} matching the old container naming, implementors must override one of the two */
+  default ItemStack getStack() {
+    return getItem();
+  }
 
   @Override
   default int size() {

@@ -32,7 +32,7 @@ public class CapacityBarModule extends CapacityBarHook.PersistentDataCapacityBar
 
   /** Constructor for datagen */
   public CapacityBarModule(LevelingInt capacity, @Nullable INumericToolStat<?> multiplier) {
-    this(ModifierId.EMPTY, capacity, multiplier);
+    this(ModifierId.EMPTY.location(), capacity, multiplier);
   }
 
   @Override

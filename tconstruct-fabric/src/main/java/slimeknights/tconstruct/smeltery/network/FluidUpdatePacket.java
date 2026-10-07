@@ -3,7 +3,7 @@ package slimeknights.tconstruct.smeltery.network;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.network.BlockEntityPacket;
@@ -19,13 +19,13 @@ public class FluidUpdatePacket implements BlockEntityPacket<IFluidPacketReceiver
   protected final BlockPos pos;
   protected final FluidStack fluid;
 
-  public FluidUpdatePacket(FriendlyByteBuf buffer) {
+  public FluidUpdatePacket(RegistryFriendlyByteBuf buffer) {
     this.pos = buffer.readBlockPos();
     this.fluid = buffer.readFluidStack();
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeBlockPos(pos);
     buffer.writeFluidStack(fluid);
   }

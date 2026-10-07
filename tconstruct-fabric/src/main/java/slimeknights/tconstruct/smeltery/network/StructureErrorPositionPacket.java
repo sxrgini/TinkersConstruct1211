@@ -2,7 +2,7 @@ package slimeknights.tconstruct.smeltery.network;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.network.BlockEntityPacket;
 import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
@@ -18,7 +18,7 @@ public class StructureErrorPositionPacket implements BlockEntityPacket<HeatingSt
   @Nullable
   private final BlockPos errorPos;
 
-  public StructureErrorPositionPacket(FriendlyByteBuf buffer) {
+  public StructureErrorPositionPacket(RegistryFriendlyByteBuf buffer) {
     this.controllerPos = buffer.readBlockPos();
     if (buffer.readBoolean()) {
       this.errorPos = buffer.readBlockPos();
@@ -28,7 +28,7 @@ public class StructureErrorPositionPacket implements BlockEntityPacket<HeatingSt
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeBlockPos(controllerPos);
     if (errorPos != null) {
       buffer.writeBoolean(true);

@@ -125,7 +125,7 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
     }
     // get the result if the temperature is right
     FluidStack result = FluidStack.EMPTY;
-    if (recipe.getTemperature(this) <= temperature.compute(level)) {
+    if (recipe.getTemperature() <= temperature.compute(level)) {
       result = recipe.getOutput(this);
     }
     MeltingModule.stack = ItemStack.EMPTY;
@@ -160,7 +160,7 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
       ItemStack stack = iterator.next();
       FluidStack output = meltItem(modifier, stack, world);
       // fluid must match tank fluid
-      if (!output.isEmpty() && (current.isEmpty() || current.isFluidEqual(output))) {
+      if (!output.isEmpty() && (current.isEmpty() || current.isSameFluidSameComponents(output))) {
         int amount;
 
         // if forced to melt, melt everything regardless, fluid handler will ensure we don't overflow
@@ -215,7 +215,7 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
           damagePerOutput = 2;
         }
         FluidStack fluid = TANK_HELPER.getFluid(tool);
-        if (fluid.isEmpty() || fluid.isFluidEqual(output)) {
+        if (fluid.isEmpty() || fluid.isSameFluidSameComponents(output)) {
           // recipe amount determines how much we get per hit, up to twice the recipe damage
           int fluidAmount;
           if (damageDealt < damagePerOutput * 2) {

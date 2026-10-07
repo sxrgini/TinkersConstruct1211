@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.fluids.data;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import com.google.gson.JsonObject;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
@@ -25,7 +26,7 @@ public class FluidBucketModelProvider extends GenericDataProvider {
     json.addProperty("parent", "forge:item/bucket_drip");
     // using our own model as the forge one expects us to use item colors to handle tints, when we could just bake it in
     json.addProperty("loader", "tconstruct:fluid_container");
-    json.addProperty("flip_gas", bucket.getFluid().getFluidType().isLighterThanAir());
+    json.addProperty("flip_gas", FluidTypes.of(bucket.getFluid()).isLighterThanAir());
     json.addProperty("fluid", BuiltInRegistries.FLUID.getKey(bucket.getFluid()).toString());
     return json;
   }

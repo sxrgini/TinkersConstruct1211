@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.component;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -90,7 +91,7 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
     ItemStack stack = context.getItemInHand();
     FluidStack fluid = TankItem.getTank(stack, 1).getFluid();
     if (!fluid.isEmpty()) {
-      state = state.setValue(LIGHT, fluid.getFluid().getFluidType().getLightLevel(fluid));
+      state = state.setValue(LIGHT, FluidTypes.of(fluid.getFluid()).getLightLevel(fluid));
     }
     return state;
   }

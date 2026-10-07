@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.materials.traits;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -16,7 +16,7 @@ import java.util.Map;
 public class UpdateMaterialTraitsPacket implements IThreadsafePacket {
   protected final Map<MaterialId,MaterialTraits> materialToTraits;
 
-  public UpdateMaterialTraitsPacket(FriendlyByteBuf buffer) {
+  public UpdateMaterialTraitsPacket(RegistryFriendlyByteBuf buffer) {
     int materialCount = buffer.readInt();
     materialToTraits = new HashMap<>(materialCount);
     for (int i = 0; i < materialCount; i++) {
@@ -27,10 +27,10 @@ public class UpdateMaterialTraitsPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeInt(materialToTraits.size());
     materialToTraits.forEach((materialId, traits) -> {
-      buffer.writeResourceLocation(materialId);
+      buffer.writeResourceLocation(materialId.location());
       traits.write(buffer);
     });
   }

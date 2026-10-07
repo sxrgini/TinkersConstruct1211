@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modules.interaction;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -119,7 +120,7 @@ public record BucketModule(IJsonPredicate<Fluid> fluids) implements ModifierModu
     // if water, evaporate
     boolean placed = false;
     // start with forge vaporizing
-    FluidType fluidType = fluid.getFluidType();
+    FluidType fluidType = FluidTypes.of(fluid);
     if (fluidType.isVaporizedOnPlacement(world, target, fluidStack)) {
       fluidType.onVaporize(player, world, target, fluidStack);
       placed = true;
@@ -195,7 +196,7 @@ public record BucketModule(IJsonPredicate<Fluid> fluids) implements ModifierModu
       if (!bucket.isEmpty() && bucket.getItem() instanceof BucketItem bucketItem) {
         Fluid pickedUpFluid = bucketItem.getFluid();
         if (pickedUpFluid != Fluids.EMPTY) {
-          player.playSound(Objects.requireNonNullElse(pickedUpFluid.getFluidType().getSound(SoundActions.BUCKET_FILL), SoundEvents.BUCKET_FILL), 1.0F, 1.0F);
+          player.playSound(Objects.requireNonNullElse(FluidTypes.of(pickedUpFluid).getSound(SoundActions.BUCKET_FILL), SoundEvents.BUCKET_FILL), 1.0F, 1.0F);
           // set the fluid if empty, increase the fluid if filled
           if (!world.isClientSide) {
             if (fluidStack.isEmpty()) {

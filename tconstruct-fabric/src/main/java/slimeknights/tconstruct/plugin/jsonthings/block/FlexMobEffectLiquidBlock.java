@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.plugin.jsonthings.block;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import dev.gigaherz.jsonthings.things.blocks.FlexLiquidBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -24,7 +25,7 @@ public class FlexMobEffectLiquidBlock extends FlexLiquidBlock {
 
   @Override
   public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-    if (entity.getFluidTypeHeight(getFluid().getFluidType()) > 0 && entity instanceof LivingEntity living) {
+    if (entity.getFluidTypeHeight(FluidTypes.of(getFluid())) > 0 && entity instanceof LivingEntity living) {
       MobEffectInstance effect = this.effect.get();
       effect.setCurativeItems(new ArrayList<>());
       living.addEffect(effect);

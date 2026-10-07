@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.client.render;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -112,7 +113,7 @@ public class SmelteryTankRenderer {
     IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid.getFluid());
     TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
     int color = attributes.getTintColor(fluid);
-    FluidType fluidType = fluid.getFluid().getFluidType();
+    FluidType fluidType = FluidTypes.of(fluid.getFluid());
     brightness = FluidRenderer.withBlockLight(brightness, fluidType.getLightLevel(fluid));
     boolean upsideDown = fluidType.isLighterThanAir();
 

@@ -98,7 +98,7 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
       IMeltingRecipe recipe = findRecipe();
       if (recipe != null) {
         newTime = recipe.getTime(this) * 10;
-        newTemp = recipe.getTemperature(this);
+        newTemp = recipe.getTemperature();
       }
     }
     requiredTime = newTime;

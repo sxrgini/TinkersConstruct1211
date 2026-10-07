@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared.client;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -60,7 +61,7 @@ public class FluidParticle extends TextureSheetParticle {
 
   @Override
   public int getLightColor(float partialTick) {
-    return FluidRenderer.withBlockLight(super.getLightColor(partialTick), fluid.getFluid().getFluidType().getLightLevel(fluid));
+    return FluidRenderer.withBlockLight(super.getLightColor(partialTick), FluidTypes.of(fluid.getFluid()).getLightLevel(fluid));
   }
 
   /** Factory to create a fluid particle */

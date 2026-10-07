@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.smeltery.menu;
 
 import slimeknights.mantle.platform.capability.Caps;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import slimeknights.mantle.platform.capability.Capabilities;
@@ -24,7 +24,7 @@ public class SingleItemContainerMenu extends TriggeringBaseContainerMenu<BlockEn
     }
   }
 
-  public SingleItemContainerMenu(int id, Inventory inv, FriendlyByteBuf buf) {
+  public SingleItemContainerMenu(int id, Inventory inv, RegistryFriendlyByteBuf buf) {
     this(id, inv, getTileEntityFromBuf(buf, BlockEntity.class));
   }
 

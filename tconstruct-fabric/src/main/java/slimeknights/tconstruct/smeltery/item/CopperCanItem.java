@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.item;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -63,7 +64,7 @@ public class CopperCanItem extends Item {
         FluidStack displayFluid = new FluidStack(fluid, FluidValues.INGOT, fluidTag);
         text = displayFluid.getDisplayName().plainCopy();
       } else {
-        text = Component.translatable(fluid.getFluidType().getDescriptionId());
+        text = Component.translatable(FluidTypes.of(fluid).getDescriptionId());
       }
       tooltip.add(Component.translatable(this.getDescriptionId() + ".contents", text).withStyle(ChatFormatting.GRAY));
       if (flag.isAdvanced()) {

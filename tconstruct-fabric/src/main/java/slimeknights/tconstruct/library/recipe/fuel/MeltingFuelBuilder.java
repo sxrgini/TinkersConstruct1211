@@ -45,7 +45,7 @@ public class MeltingFuelBuilder extends AbstractRecipeBuilder<MeltingFuelBuilder
    * @return  Builder instance
    */
   public static MeltingFuelBuilder fuel(FluidStack fluid, int duration) {
-    return fuel(FluidIngredient.of(fluid), duration, getTemperature(fluid));
+    return fuel(FluidIngredient.of(fluid), duration, getTemperature());
   }
 
   /** Setups the builder for solid fuel */

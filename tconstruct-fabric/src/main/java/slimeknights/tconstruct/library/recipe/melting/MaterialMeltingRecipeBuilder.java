@@ -42,12 +42,12 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
 
   /** Creates a recipe using the fluids temperature */
   public static MaterialMeltingRecipeBuilder material(MaterialVariantId materialId, FluidObject<?> fluid, int amount) {
-    return material(materialId, getTemperature(fluid), fluid.result(amount));
+    return material(materialId, getTemperature(), fluid.result(amount));
   }
 
   /** Creates a recipe using the fluids temperature */
   public static MaterialMeltingRecipeBuilder material(MaterialVariantId materialId, FluidStack result) {
-    return material(materialId, getTemperature(result), result);
+    return material(materialId, getTemperature(), result);
   }
 
   /** Creates a recipe using the fluids temperature */

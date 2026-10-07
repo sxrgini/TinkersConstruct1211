@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.tconstruct.library.utils.ResourceId;
 
 import java.util.function.BiFunction;
 
@@ -104,6 +105,14 @@ public class ModDataNBT implements IModDataView {
     data.remove(name.toString());
   }
 
+
+  /* ResourceId overloads */
+  public void put(ResourceId name, Tag nbt) { put(name.location(), nbt); }
+  public void putInt(ResourceId name, int value) { putInt(name.location(), value); }
+  public void putBoolean(ResourceId name, boolean value) { putBoolean(name.location(), value); }
+  public void putFloat(ResourceId name, float value) { putFloat(name.location(), value); }
+  public void putString(ResourceId name, String value) { putString(name.location(), value); }
+  public void remove(ResourceId name) { remove(name.location()); }
 
   /* Networking */
 

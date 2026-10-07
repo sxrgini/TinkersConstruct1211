@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
@@ -132,12 +132,12 @@ public enum ModifierTooltip {
     }
 
     @Override
-    public ShowInTooltips decode(FriendlyByteBuf buffer, TypedMap context) {
+    public ShowInTooltips decode(RegistryFriendlyByteBuf buffer, TypedMap context) {
       return deduplicate(ShowInTooltips.LOADABLE.decode(buffer, context));
     }
 
     @Override
-    public void encode(FriendlyByteBuf buffer, ShowInTooltips value) {
+    public void encode(RegistryFriendlyByteBuf buffer, ShowInTooltips value) {
       ShowInTooltips.LOADABLE.encode(buffer, value);
     }
   }

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.entity;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import slimeknights.mantle.platform.capability.Caps;
 import lombok.Getter;
 import lombok.Setter;
@@ -207,7 +208,7 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
       // TODO: reduce when underwater without fins
       if (!this.isNoGravity()) {
         FluidStack fluid = getFluid();
-        velocity = velocity.add(0, fluid.getFluid().getFluidType().isLighterThanAir() ? 0.06 : -0.06, 0);
+        velocity = velocity.add(0, FluidTypes.of(fluid.getFluid()).isLighterThanAir() ? 0.06 : -0.06, 0);
       }
       this.setDeltaMovement(velocity);
       this.setPos(newLocation);

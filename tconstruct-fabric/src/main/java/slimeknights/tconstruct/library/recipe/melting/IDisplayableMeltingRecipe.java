@@ -45,7 +45,7 @@ public interface IDisplayableMeltingRecipe {
   /** Gets the minimum temperature needed to perform this recipe. */
   int getTemperature();
 
-  /** If true, the temperature is animated and will be computed using {@link #getTemperature(FluidStack)}. */
+  /** If true, the temperature is animated and will be computed using {@link #getTemperature()}. */
   default boolean isTemperatureDynamic() {
     return false;
   }

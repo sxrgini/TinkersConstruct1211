@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.model.block;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
@@ -158,7 +159,7 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
         if (color != -1) {
           fluidTransformer = ColoredBlockModel.applyColorQuadTransformer(color).andThen(quadTransformer);
         }
-        luminosity = key.fluid.getFluid().getFluidType().getLightLevel(key.fluid);
+        luminosity = FluidTypes.of(key.fluid.getFluid()).getLightLevel(key.fluid);
         textured = new RetexturedContext(textured, this.fluids, attributes.getStillTexture(key.fluid));
       }
 

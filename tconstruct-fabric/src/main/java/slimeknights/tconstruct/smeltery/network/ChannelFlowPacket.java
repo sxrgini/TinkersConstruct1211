@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import slimeknights.mantle.platform.network.IPayloadContext;
 import slimeknights.mantle.network.BlockEntityPacket;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
@@ -20,14 +20,14 @@ public class ChannelFlowPacket implements BlockEntityPacket<ChannelBlockEntity> 
 	private final Direction side;
 	private final boolean flow;
 
-	public ChannelFlowPacket(FriendlyByteBuf buffer) {
+	public ChannelFlowPacket(RegistryFriendlyByteBuf buffer) {
 		pos = buffer.readBlockPos();
 		side = buffer.readEnum(Direction.class);
 		flow = buffer.readBoolean();
 	}
 
 	@Override
-	public void encode(FriendlyByteBuf buffer) {
+	public void encode(RegistryFriendlyByteBuf buffer) {
 		buffer.writeBlockPos(pos);
 		buffer.writeEnum(side);
 		buffer.writeBoolean(flow);

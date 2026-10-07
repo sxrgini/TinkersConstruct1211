@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.modifiers.model;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import com.mojang.math.Transformation;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockElement;
@@ -95,7 +96,7 @@ public record FluidModifierModel(@Nullable Material small, @Nullable Material la
     List<BakedQuad> fluidQuads = UnbakedGeometryHelper.bakeElements(unbaked, mat -> fluidSprite, new SimpleModelState(transforms.applyOrigin(ORIGIN).compose(FluidContainerModel.FLUID_TRANSFORM), false), BAKE_LOCATION); // Bake with fluid texture
 
     // apply brightness and color
-    int luminosity = fluid.getFluid().getFluidType().getLightLevel(fluid);
+    int luminosity = FluidTypes.of(fluid.getFluid()).getLightLevel(fluid);
     if (luminosity > 0) {
       QuadTransformers.settingEmissivity(luminosity).processInPlace(fluidQuads);
     }

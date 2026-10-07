@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tables.network;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.level.Level;
@@ -23,13 +23,13 @@ public class UpdateCraftingRecipePacket implements BlockEntityPacket<CraftingSta
     this.recipe = recipe.getId();
   }
 
-  public UpdateCraftingRecipePacket(FriendlyByteBuf buffer) {
+  public UpdateCraftingRecipePacket(RegistryFriendlyByteBuf buffer) {
     this.pos = buffer.readBlockPos();
     this.recipe = buffer.readResourceLocation();
   }
 
   @Override
-  public void encode(FriendlyByteBuf buffer) {
+  public void encode(RegistryFriendlyByteBuf buffer) {
     buffer.writeBlockPos(pos);
     buffer.writeResourceLocation(recipe);
   }

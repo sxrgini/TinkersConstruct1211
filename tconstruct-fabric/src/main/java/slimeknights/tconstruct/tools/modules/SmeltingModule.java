@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -365,12 +365,12 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
     }
 
     @Override
-    public ResourceLocation decode(FriendlyByteBuf buffer, TypedMap context) {
+    public ResourceLocation decode(RegistryFriendlyByteBuf buffer, TypedMap context) {
       return buffer.readResourceLocation();
     }
 
     @Override
-    public void encode(FriendlyByteBuf buffer, SmeltingModule module) {
+    public void encode(RegistryFriendlyByteBuf buffer, SmeltingModule module) {
       buffer.writeResourceLocation(Objects.requireNonNull(module.output.key()));
     }
   }

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client;
 
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.AccessLevel;
@@ -66,7 +67,7 @@ public final class RenderUtils {
     IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid.getFluid());
     TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
     TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
-    FluidType fluidType = fluid.getFluid().getFluidType();
+    FluidType fluidType = FluidTypes.of(fluid.getFluid());
     boolean isGas = fluidType.isLighterThanAir();
     light = FluidRenderer.withBlockLight(light, fluidType.getLightLevel(fluid));
 

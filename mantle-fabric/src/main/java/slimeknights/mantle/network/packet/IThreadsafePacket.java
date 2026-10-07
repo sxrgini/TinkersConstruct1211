@@ -1,6 +1,6 @@
 package slimeknights.mantle.network.packet;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import slimeknights.mantle.network.ISimplePacket;
 import slimeknights.mantle.network.NetworkWrapper;
@@ -12,7 +12,7 @@ import slimeknights.mantle.platform.network.IPayloadContext;
  */
 public interface IThreadsafePacket extends ISimplePacket {
   /** Writes the packet to the buffer */
-  void encode(FriendlyByteBuf buf);
+  void encode(RegistryFriendlyByteBuf buf);
 
   /** Handles receiving the packet on the correct thread */
   void handleThreadsafe(IPayloadContext context);

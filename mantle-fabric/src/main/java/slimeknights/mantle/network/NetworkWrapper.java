@@ -63,7 +63,7 @@ public class NetworkWrapper {
 
   /** Registers a packet with a buffer constructor */
   @SuppressWarnings("unchecked")
-  public <T extends IThreadsafePacket> void registerPacket(Class<T> clazz, Function<FriendlyByteBuf,T> decoder, @Nullable NetworkDirection direction) {
+  public <T extends IThreadsafePacket> void registerPacket(Class<T> clazz, Function<RegistryFriendlyByteBuf,T> decoder, @Nullable NetworkDirection direction) {
     String path = clazz.getSimpleName().replaceAll("([a-z0-9])([A-Z])", "$1_$2").toLowerCase(Locale.ROOT);
     Type<T> type = new Type<>(ResourceLocation.fromNamespaceAndPath(namespace, path));
     TYPES.put(clazz, type);
