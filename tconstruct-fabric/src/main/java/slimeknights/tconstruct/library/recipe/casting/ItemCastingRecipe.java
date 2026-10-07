@@ -36,8 +36,8 @@ public class ItemCastingRecipe extends AbstractCastingRecipe implements IDisplay
   protected final FluidIngredient fluid;
   protected final ItemOutput result;
   protected final int coolingTime;
-  public ItemCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
-    super(serializer.getType(), id, group, cast, consumed, switchSlots);
+  public ItemCastingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
+    super(serializer.getType(), group, cast, consumed, switchSlots);
     this.serializer = serializer;
     this.fluid = fluid;
     this.result = result;

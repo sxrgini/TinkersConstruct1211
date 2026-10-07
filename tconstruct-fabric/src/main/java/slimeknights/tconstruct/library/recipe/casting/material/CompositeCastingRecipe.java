@@ -40,15 +40,15 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe implements IMu
   @Nullable
   private final MaterialStatsId castingStatConflict;
 
-  public CompositeCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, int itemCost, IMaterialItem result, IJsonPredicate<MaterialVariantId> materials, @Nullable MaterialStatsId castingStatConflict) {
-    super(serializer, id, group, Ingredient.of(result), itemCost, result, materials, true, false);
+  public CompositeCastingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, int itemCost, IMaterialItem result, IJsonPredicate<MaterialVariantId> materials, @Nullable MaterialStatsId castingStatConflict) {
+    super(serializer, group, Ingredient.of(result), itemCost, result, materials, true, false);
     this.castingStatConflict = castingStatConflict;
   }
 
   /** @deprecated use {@link #CompositeCastingRecipe(TypeAwareRecipeSerializer, ResourceLocation, String, int, IMaterialItem, IJsonPredicate, MaterialStatsId)} */
   @Deprecated(forRemoval = true)
-  public CompositeCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, IMaterialItem result, int itemCost, @Nullable MaterialStatsId castingStatConflict) {
-    this(serializer, id, group, itemCost, result, MaterialPredicate.ANY, castingStatConflict);
+  public CompositeCastingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, IMaterialItem result, int itemCost, @Nullable MaterialStatsId castingStatConflict) {
+    this(serializer, group, itemCost, result, MaterialPredicate.ANY, castingStatConflict);
   }
 
   @Override

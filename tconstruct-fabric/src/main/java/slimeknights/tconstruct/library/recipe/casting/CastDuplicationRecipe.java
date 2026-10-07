@@ -24,8 +24,8 @@ public class CastDuplicationRecipe extends ItemCastingRecipe implements IMultiRe
     FLUID_FIELD, COOLING_TIME_FIELD,
     CastDuplicationRecipe::new);
 
-  public CastDuplicationRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, int coolingTime) {
-    super(serializer, id, group, cast, fluid, ItemOutput.EMPTY, coolingTime, false, false);
+  public CastDuplicationRecipe(TypeAwareRecipeSerializer<?> serializer, String group, Ingredient cast, FluidIngredient fluid, int coolingTime) {
+    super(serializer, group, cast, fluid, ItemOutput.EMPTY, coolingTime, false, false);
   }
 
   @Override

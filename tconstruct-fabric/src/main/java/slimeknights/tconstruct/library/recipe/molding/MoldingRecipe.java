@@ -42,7 +42,7 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingContainer> {
   private final boolean patternConsumed;
   private final ItemOutput recipeOutput;
 
-  public MoldingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, Ingredient material, Ingredient pattern, boolean patternConsumed, ItemOutput recipeOutput) {
+  public MoldingRecipe(TypeAwareRecipeSerializer<?> serializer, Ingredient material, Ingredient pattern, boolean patternConsumed, ItemOutput recipeOutput) {
     this.type = serializer.getType();
     this.serializer = serializer;
     this.material = material;

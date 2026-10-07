@@ -35,7 +35,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
     BooleanLoadable.INSTANCE.defaultField("hide_in_book", false, false, r -> r.hideInBook),
     MaterialFluidRecipe::new);
   /** Empty recipe instance, used as a fallback */
-  public static final MaterialFluidRecipe EMPTY = new MaterialFluidRecipe(TConstruct.getResource("missingno"), FluidIngredient.EMPTY, 0, null, MaterialId.UNKNOWN);
+  public static final MaterialFluidRecipe EMPTY = new MaterialFluidRecipe(FluidIngredient.EMPTY, 0, null, MaterialId.UNKNOWN);
 
   private final FluidIngredient fluid;
   @Getter

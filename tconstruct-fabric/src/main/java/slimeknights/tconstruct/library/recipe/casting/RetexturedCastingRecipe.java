@@ -21,8 +21,8 @@ public class RetexturedCastingRecipe extends ItemCastingRecipe {
     LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP, CAST_FIELD, FLUID_FIELD, RESULT_FIELD, COOLING_TIME_FIELD, CAST_CONSUMED_FIELD, SWITCH_SLOTS_FIELD,
     RetexturedCastingRecipe::new);
 
-  public RetexturedCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
-    super(serializer, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
+  public RetexturedCastingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
+    super(serializer, group, cast, fluid, result, coolingTime, consumed, switchSlots);
   }
 
   @Override

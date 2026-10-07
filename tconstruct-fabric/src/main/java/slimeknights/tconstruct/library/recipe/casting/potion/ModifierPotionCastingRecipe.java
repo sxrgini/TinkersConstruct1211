@@ -26,8 +26,8 @@ public abstract class ModifierPotionCastingRecipe extends PotionCastingRecipe {
   protected static final LoadableField<ModifierId, ModifierPotionCastingRecipe> MODIFIER_FIELD = ModifierId.PARSER.requiredField("modifier", r -> r.modifier);
 
   protected final ModifierId modifier;
-  public ModifierPotionCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient bottle, FluidIngredient fluid, Item result, int coolingTime, ModifierId modifier) {
-    super(serializer, id, group, bottle, fluid, result, coolingTime);
+  public ModifierPotionCastingRecipe(TypeAwareRecipeSerializer<?> serializer, String group, Ingredient bottle, FluidIngredient fluid, Item result, int coolingTime, ModifierId modifier) {
+    super(serializer, group, bottle, fluid, result, coolingTime);
     this.modifier = modifier;
   }
 
