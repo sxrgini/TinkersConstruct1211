@@ -12,10 +12,6 @@ import java.util.function.Supplier;
 public record AttributeEntityVariable(Holder<Attribute> attribute) implements EntityVariable {
   public static final RecordLoadable<AttributeEntityVariable> LOADER = RecordLoadable.create(Loadables.ATTRIBUTE.requiredField("attribute", AttributeEntityVariable::attribute), AttributeEntityVariable::new);
 
-  public AttributeEntityVariable(Supplier<Attribute> attribute) {
-    this(attribute.get());
-  }
-
   @Override
   public float getValue(LivingEntity entity) {
     return (float)entity.getAttributeValue(attribute);

@@ -13,17 +13,26 @@ import java.util.Map;
  * Generic registry of a {@link IdAwareObject}.
  * @param <T> Type of the component being registered.
  */
-public class IdAwareComponentRegistry<T extends IdAwareObject> extends AbstractNamedComponentRegistry<T> {
+public class IdAwareComponentRegistry<T> extends AbstractNamedComponentRegistry<T> {
   /** Registered box expansion types */
   private final Map<ResourceLocation,T> values = new HashMap<>();
 
+  private final java.util.function.Function<T,ResourceLocation> idGetter;
+
+  /** Creates a registry for objects that know their own ID. The type must implement {@link IdAwareObject} */
   public IdAwareComponentRegistry(String errorText) {
+    this(errorText, object -> ((IdAwareObject) object).getId());
+  }
+
+  /** Creates a registry for objects that have an ID through another means */
+  public IdAwareComponentRegistry(String errorText, java.util.function.Function<T,ResourceLocation> idGetter) {
     super(errorText);
+    this.idGetter = idGetter;
   }
 
   /** Registers the value with the given name */
   public synchronized <V extends T> V register(V value) {
-    ResourceLocation name = value.getId();
+    ResourceLocation name = idGetter.apply(value);
     if (values.putIfAbsent(name, value) != null) {
       throw new IllegalArgumentException("Duplicate registration " + name);
     }
@@ -39,7 +48,7 @@ public class IdAwareComponentRegistry<T extends IdAwareObject> extends AbstractN
 
   @Override
   public ResourceLocation getKey(T object, TypedMap context) {
-    return object.getId();
+    return idGetter.apply(object);
   }
 
   @Override

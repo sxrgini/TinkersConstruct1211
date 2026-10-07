@@ -142,7 +142,7 @@ public class MaterialTraits {
       Map<ResourceLocation,List<ModifierEntry>> newMap = null;
       if (!traitsPerStats.isEmpty()) {
         newMap = new HashMap<>(traitsPerStats.size());
-        newMap.putAll(traitsPerStats);
+        traitsPerStats.forEach((key, value) -> newMap.put(key.location(), value));
       }
       return new MaterialTraitsJson(defaultTraits, newMap);
     }

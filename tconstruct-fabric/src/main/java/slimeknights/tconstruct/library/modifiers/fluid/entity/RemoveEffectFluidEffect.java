@@ -37,6 +37,6 @@ public record RemoveEffectFluidEffect(Holder<MobEffect> effect) implements Fluid
 
   @Override
   public Component getDescription(RegistryAccess registryAccess) {
-    return FluidEffect.makeTranslation(getLoader(), effect.getDisplayName());
+    return FluidEffect.makeTranslation(getLoader(), effect.value().getDisplayName());
   }
 }

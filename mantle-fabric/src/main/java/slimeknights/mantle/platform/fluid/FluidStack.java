@@ -254,6 +254,11 @@ public final class FluidStack implements net.minecraft.core.component.DataCompon
     return CODEC.parse(registries.createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE), tag).result().orElse(EMPTY);
   }
 
+  /** Gets the display name of this fluid */
+  public Component getDisplayName() {
+    return Component.translatable(FluidTypes.of(fluid).getDescriptionId());
+  }
+
   /* Legacy NBT API, backed by the custom data component, used by code ported from 1.20 */
 
   /** Creates a stack with the given legacy tag stored in custom data */

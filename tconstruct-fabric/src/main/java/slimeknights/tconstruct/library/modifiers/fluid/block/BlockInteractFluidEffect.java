@@ -45,7 +45,7 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
     // our tools we know work so ignore them
     if (!level.isClientSide && context.getPlayer() == null && stack.isDamageableItem() && !stack.is(TinkerTags.Items.MODIFIABLE)) {
       // unable to call Forge damageItem as that needs entity access, but its just vanilla broken anyways, right?
-      stack.hurt(1, level.getRandom(), null);
+      stack.setDamageValue(stack.getDamageValue() + 1);
       // calling methods again instead of using return as return may be incorrect for custom broken stacks
       if (stack.getDamageValue() >= stack.getMaxDamage()) {
         // but that won't happen, right? will need to consider another workaround in that case.
@@ -81,7 +81,7 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
     Player player = context.getPlayer();
     boolean skipBlock = false;
     if (player != null) {
-      skipBlock = player.isSecondaryUseActive() && (!player.getMainHandItem().doesSneakBypassUse(world, pos, player) || !player.getOffhandItem().doesSneakBypassUse(player.level(), pos, player));
+      skipBlock = player.isSecondaryUseActive() && (!player.getMainHandItem().isEmpty() || !player.getOffhandItem().isEmpty());
     } else if (entity != null) {
       skipBlock = entity.isShiftKeyDown() && (!entity.getMainHandItem().isEmpty() || !entity.getOffhandItem().isEmpty());
     }
@@ -122,7 +122,7 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
       // use the item
       UseOnContext useContext = new UseOnContext(world, player, hand, heldItem, hitResult);
       if (useItem != Result.DENY && !heldItem.isEmpty()) {
-        InteractionResult result = heldItem.onItemUseFirst(useContext);
+        InteractionResult result = InteractionResult.PASS;
         if (result != InteractionResult.PASS) {
           if (result.consumesAction()) {
             if (entity != null) {

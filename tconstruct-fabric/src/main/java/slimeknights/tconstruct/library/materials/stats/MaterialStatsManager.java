@@ -55,7 +55,7 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
    * It is not cleared on reload, since it does not represent loaded data. Think of it as a GSON type adapter.
    */
   @Getter
-  private final IdAwareComponentRegistry<MaterialStatType<?>> statTypes = new IdAwareComponentRegistry<>("Unknown Material Stat Type");
+  private final IdAwareComponentRegistry<MaterialStatType<?>> statTypes = new IdAwareComponentRegistry<>("Unknown Material Stat Type", type -> type.getId().location());
 
   /** Final map of material ID to material stat ID to material stats */
   private Map<MaterialId, Map<MaterialStatsId, IMaterialStats>> materialToStatsPerType = Collections.emptyMap();

@@ -1,5 +1,6 @@
 package slimeknights.mantle.platform.event.player;
 
+import slimeknights.mantle.platform.event.Event.Result;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -69,6 +70,25 @@ public class PlayerInteractEvent extends PlayerEvent {
 
     public BlockHitResult getHitVec() {
       return hitVec;
+    }
+
+    private Result useItem = Result.DEFAULT;
+    private Result useBlock = Result.DEFAULT;
+
+    public Result getUseItem() {
+      return useItem;
+    }
+
+    public void setUseItem(Result useItem) {
+      this.useItem = useItem;
+    }
+
+    public Result getUseBlock() {
+      return useBlock;
+    }
+
+    public void setUseBlock(Result useBlock) {
+      this.useBlock = useBlock;
     }
   }
 
