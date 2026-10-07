@@ -34,8 +34,8 @@ import java.util.Locale;
 import java.util.function.Consumer;
 
 public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonRecipeHelper {
-  public CommonRecipeProvider(PackOutput output) {
-    super(output);
+  public CommonRecipeProvider(PackOutput output, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> registries) {
+    super(output, registries);
   }
 
   @Override
@@ -44,7 +44,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
   }
 
   @Override
-  protected void buildRecipes(RecipeOutput consumer) {
+  public void buildRecipes(RecipeOutput consumer) {
     this.addCommonRecipes(consumer);
     this.addMaterialRecipes(consumer);
   }

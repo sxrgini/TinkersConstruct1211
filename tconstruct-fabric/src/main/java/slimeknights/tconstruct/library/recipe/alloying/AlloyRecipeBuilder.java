@@ -34,7 +34,7 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
    * @return  Builder instance
    */
   public static AlloyRecipeBuilder alloy(FluidObject<?> fluid, int amount) {
-    return alloy(fluid.result(amount), getTemperature());
+    return alloy(fluid.result(amount), getTemperature(fluid));
   }
 
   /**
@@ -43,7 +43,7 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
    * @return  Builder instance
    */
   public static AlloyRecipeBuilder alloy(FluidStack fluid) {
-    return alloy(FluidOutput.fromStack(fluid), getTemperature());
+    return alloy(FluidOutput.fromStack(fluid), getTemperature(fluid));
   }
 
   /**

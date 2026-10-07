@@ -47,7 +47,7 @@ public class MaterialFluidRecipeBuilder extends AbstractRecipeBuilder<MaterialFl
   public MaterialFluidRecipeBuilder setFluidAndTemp(FluidStack fluidStack) {
     this.fluid = FluidIngredient.of(fluidStack);
     if (this.temperature == -1) {
-      this.temperature = getTemperature();
+      this.temperature = getTemperature(fluidStack);
     }
     return this;
   }
@@ -64,7 +64,7 @@ public class MaterialFluidRecipeBuilder extends AbstractRecipeBuilder<MaterialFl
 
   @Override
   public void save(RecipeOutput consumer) {
-    save(consumer, outputId.getId());
+    save(consumer, outputId.getId().location());
   }
 
   @Override

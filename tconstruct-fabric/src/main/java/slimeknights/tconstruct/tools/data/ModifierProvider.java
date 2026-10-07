@@ -12,7 +12,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ArmorItem;
@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.LiquidBlock;
 import slimeknights.mantle.platform.PlatformAttributes;
 import slimeknights.mantle.platform.item.ItemAbilities;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import slimeknights.mantle.platform.condition.IConditionBuilder;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
@@ -43,7 +43,6 @@ import slimeknights.mantle.data.predicate.damage.SourceAttackerPredicate;
 import slimeknights.mantle.data.predicate.entity.HasEnchantmentEntityPredicate;
 import slimeknights.mantle.data.predicate.entity.HasMobEffectPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
-import slimeknights.mantle.data.predicate.entity.MobTypePredicate;
 import slimeknights.mantle.data.predicate.fluid.FluidPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
 import slimeknights.mantle.recipe.condition.TagFilledCondition;
@@ -573,15 +572,15 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // we instead do +0.75, +1.5, +2.25, +3, +3.75
     buildModifier(ModifierIds.sharpness).addModule(StatBoostModule.add(ToolStats.ATTACK_DAMAGE).eachLevel(0.75f)).levelDisplay(new UniqueForLevels(5, true));
     buildModifier(ModifierIds.swiftstrike).addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_SPEED).eachLevel(0.05f)).levelDisplay(new UniqueForLevels(5));
-    buildModifier(ModifierIds.smite).addModule(ConditionalMeleeDamageModule.builder().target(new MobTypePredicate(MobType.UNDEAD)).eachLevel(2.0f));
-    buildModifier(ModifierIds.antiaquatic).addModule(ConditionalMeleeDamageModule.builder().target(new MobTypePredicate(MobType.WATER)).eachLevel(2.0f));
+    buildModifier(ModifierIds.smite).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.tag(EntityTypeTags.UNDEAD)).eachLevel(2.0f));
+    buildModifier(ModifierIds.antiaquatic).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.tag(EntityTypeTags.AQUATIC)).eachLevel(2.0f));
     buildModifier(ModifierIds.cooling).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.FIRE_IMMUNE).eachLevel(1.6f));
-    IJsonPredicate<LivingEntity> baneSssssPredicate = LivingEntityPredicate.or(new MobTypePredicate(MobType.ARTHROPOD), LivingEntityPredicate.tag(TinkerTags.EntityTypes.CREEPERS));
+    IJsonPredicate<LivingEntity> baneSssssPredicate = LivingEntityPredicate.or(LivingEntityPredicate.tag(EntityTypeTags.ARTHROPOD), LivingEntityPredicate.tag(TinkerTags.EntityTypes.CREEPERS));
     buildModifier(ModifierIds.baneOfSssss)
       .addModule(ConditionalMeleeDamageModule.builder().target(baneSssssPredicate).eachLevel(2.0f))
       .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(RandomLevelingValue.flat(4)).time(RandomLevelingValue.random(20, 10)).target(baneSssssPredicate).buildWeapon(), ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT);
     buildModifier(ModifierIds.killager).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.or(
-      new MobTypePredicate(MobType.ILLAGER),
+      LivingEntityPredicate.tag(EntityTypeTags.ILLAGER),
       LivingEntityPredicate.LOADER.tag(TinkerTags.EntityTypes.KILLAGERS))).eachLevel(2.0f));
     MobEffectModule.Builder pierceBuilder = MobEffectModule.builder(TinkerEffects.pierce).applyBeforeMelee(true)
       // apply effect for 4 seconds, canceling 1 armor per level
@@ -615,7 +614,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.dragonshot).addModule(ConditionalStatModule.stat(ToolStats.PROJECTILE_DAMAGE).holder(TinkerPredicate.AIRBORNE).eachLevel(1));
     buildModifier(ModifierIds.rebound).addModule(ConditionalPowerModule.builder()
       .formula()
-      .customVariable("bounces", new PersistentDataPowerVariable(ModifierIds.bounce, 1))
+      .customVariable("bounces", new PersistentDataPowerVariable(ModifierIds.bounce.location(), 1))
       .constant(0.5f).multiply()
       .variable(LEVEL).multiply()
       .variable(MULTIPLIER).multiply()
@@ -652,7 +651,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       // boost velocity from charge
       .addModule(ConditionalStatModule.stat(ToolStats.VELOCITY)
         .formula()
-        .customVariable("charge", new ModDataVariable(ModifierIds.warCharge, ModDataSource.PERSISTENT))
+        .customVariable("charge", new ModDataVariable(ModifierIds.warCharge.location(), ModDataSource.PERSISTENT))
         // gain 0.01 velocity per block mined, up to 25% velocity from 25 blocks
         .constant(0.01f).multiply()
         .variable(MULTIPLIER).multiply()
@@ -774,7 +773,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // leggings
     // pocket is an internal modifier to keep the NBT structure for inventory modifiers the smae
     buildModifier(ModifierIds.pocket).showInTooltips(ShowInTooltips.NEVER)
-      .addModule(InventoryModule.builder().key(ModifierIds.pockets).slotsPerLevel(3))
+      .addModule(InventoryModule.builder().key(ModifierIds.pockets.location()).slotsPerLevel(3))
       .addModule(InventoryMenuModule.ANY);
     // 18 slots per level
     buildModifier(ModifierIds.pockets).addModule(new ModifierTraitModule(ModifierIds.pocket, 6, false));
@@ -1234,9 +1233,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
             .constant(1.5f).variable(LEVEL).power()
           .divide()
         .subtract().build());
-    buildModifier(ModifierIds.consecrated).addModule(ProtectionModule.builder().attacker(new MobTypePredicate(MobType.UNDEAD)).eachLevel(1.25f));
+    buildModifier(ModifierIds.consecrated).addModule(ProtectionModule.builder().attacker(LivingEntityPredicate.tag(EntityTypeTags.UNDEAD)).eachLevel(1.25f));
     buildModifier(ModifierIds.preserved).addModules(StatBoostModule.multiplyBase(ToolStats.DURABILITY).eachLevel(0.15f), RepairModule.builder().eachLevel(0.15f));
-    buildModifier(ModifierIds.holy).addModule(ConditionalPowerModule.builder().target(new MobTypePredicate(MobType.UNDEAD)).eachLevel(0.75f));
+    buildModifier(ModifierIds.holy).addModule(ConditionalPowerModule.builder().target(LivingEntityPredicate.tag(EntityTypeTags.UNDEAD)).eachLevel(0.75f));
 
     // traits - tier 3
     buildModifier(ModifierIds.overcast)
@@ -1299,7 +1298,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       // small tools consume 1 per mining operation
       .addModule(ConditionalMiningSpeedModule.builder().percent().toolItem(ItemPredicate.tag(TinkerTags.Items.BROAD_TOOLS).inverted())
         .formula()
-        .customVariable("overslime", new ModDataVariable(overslime, ModDataSource.PERSISTENT))
+        .customVariable("overslime", new ModDataVariable(overslime.location(), ModDataSource.PERSISTENT))
         .variable(LEVEL).min() // must have 1 overslime per level
         .constant(0.2f).multiply() // +20% per level, effectively grants +6 mining speed when base is 30
         .constant(1).add() // want 120%, not 20% when we apply it
@@ -1311,7 +1310,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       // broad tools consume 5 per mining operation, same amount consumed with AOE
       .addModule(ConditionalMiningSpeedModule.builder().percent().toolTag(TinkerTags.Items.BROAD_TOOLS)
         .formula()
-        .customVariable("overslime", new ModDataVariable(overslime, ModDataSource.PERSISTENT))
+        .customVariable("overslime", new ModDataVariable(overslime.location(), ModDataSource.PERSISTENT))
         .constant(5).variable(LEVEL).multiply().min() // must have 5 overslime per level
         .constant(5).divide() // scale between 0 and 5
         .constant(0.2f).multiply()
@@ -1323,7 +1322,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.ADD_MULTIPLIED_TOTAL)
         .slots(EquipmentSlot.MAINHAND)
         .formula()
-        .customVariable("overslime", new ModDataVariable(overslime, ModDataSource.PERSISTENT))
+        .customVariable("overslime", new ModDataVariable(overslime.location(), ModDataSource.PERSISTENT))
         .variable(LEVEL).min() // must have 1 overslime per level
         .constant(0.15f).multiply()
         .build()
@@ -1332,7 +1331,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       // ranged: +6% velocity and drawspeed
       .addModule(ConditionalStatModule.stat(ToolStats.VELOCITY)
         .formula()
-        .customVariable("overslime", new ModDataVariable(overslime, ModDataSource.PERSISTENT))
+        .customVariable("overslime", new ModDataVariable(overslime.location(), ModDataSource.PERSISTENT))
         .variable(LEVEL).min() // must have 1 overslime per level
         .constant(0.06f).multiply()
         .variable(MULTIPLIER).multiply()
@@ -1340,7 +1339,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         .build())
       .addModule(ConditionalStatModule.stat(ToolStats.DRAW_SPEED)
         .formula()
-        .customVariable("overslime", new ModDataVariable(overslime, ModDataSource.PERSISTENT))
+        .customVariable("overslime", new ModDataVariable(overslime.location(), ModDataSource.PERSISTENT))
         .variable(LEVEL).min() // must have 1 overslime per level
         .constant(0.06f).multiply()
         .variable(MULTIPLIER).multiply()

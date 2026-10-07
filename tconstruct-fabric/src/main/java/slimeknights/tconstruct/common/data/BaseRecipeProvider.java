@@ -10,14 +10,14 @@ import java.util.function.Consumer;
 /**
  * Shared logic for each module's recipe provider
  */
-public abstract class BaseRecipeProvider extends slimeknights.mantle.recipe.data.MantleRecipeProvider implements IRecipeHelper {
+public abstract class BaseRecipeProvider extends slimeknights.mantle.recipe.data.MantleRecipeProvider implements IRecipeHelper, slimeknights.mantle.platform.condition.IConditionBuilder {
   public BaseRecipeProvider(PackOutput generator, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> registries) {
     super(generator, registries);
     TConstruct.sealTinkersClass(this, "BaseRecipeProvider", "BaseRecipeProvider is trivial to recreate and directly extending can lead to addon recipes polluting our namespace.");
   }
 
   @Override
-  protected abstract void buildRecipes(RecipeOutput consumer);
+  public abstract void buildRecipes(RecipeOutput consumer);
 
   @Override
   public abstract String getName();

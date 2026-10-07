@@ -186,7 +186,7 @@ public class SmelteryRecipeBuilder {
   @CheckReturnValue
   private FluidIngredient ingredient(int amount) {
     if (fluidObject != null) {
-      return fluidObject.ingredient(amount);
+      return fluidObject.legacyIngredient(amount);
     }
     if (fluidTag != null) {
       return FluidIngredient.of(fluidTag, amount);

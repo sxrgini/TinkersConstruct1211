@@ -113,6 +113,45 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
     }
   }
 
+  /** Creates an ingredient matching a fluid by registry name, which loads even if the fluid does not exist. Used for compat with other mods. */
+  public static FluidIngredient ofName(ResourceLocation name, int amount) {
+    return BuiltInRegistries.FLUID.getOptional(name).map(fluid -> of(fluid, amount)).orElseGet(() -> new NameMatch(name, amount));
+  }
+
+  /** Ingredient for a fluid that is not registered, never matches anything */
+  private static class NameMatch extends FluidIngredient {
+    private final ResourceLocation name;
+    private final int amount;
+
+    private NameMatch(ResourceLocation name, int amount) {
+      this.name = name;
+      this.amount = amount;
+    }
+
+    @Override
+    public boolean test(Fluid fluid) {
+      return false;
+    }
+
+    @Override
+    public int getAmount(Fluid fluid) {
+      return amount;
+    }
+
+    @Override
+    public List<FluidStack> getFluids() {
+      return Collections.emptyList();
+    }
+
+    @Override
+    public JsonElement serialize() {
+      JsonObject json = new JsonObject();
+      json.addProperty("name", name.toString());
+      json.addProperty("amount", amount);
+      return json;
+    }
+  }
+
   private static class FluidMatch extends FluidIngredient {
     private final Fluid fluid;
     private final int amount;
@@ -258,8 +297,7 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
       int amount = GsonHelper.getAsInt(json, "amount");
       if (json.has("name")) {
         ResourceLocation name = ResourceLocation.parse(GsonHelper.getAsString(json, "name"));
-        Fluid fluid = BuiltInRegistries.FLUID.getOptional(name).orElseThrow(() -> new JsonSyntaxException("Unknown fluid '" + name + "'"));
-        return of(fluid, amount);
+        return ofName(name, amount);
       }
       if (json.has("tag")) {
         return of(TagKey.create(Registries.FLUID, ResourceLocation.parse(GsonHelper.getAsString(json, "tag"))), amount);
@@ -308,7 +346,7 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
     private static void flatten(FluidIngredient ingredient, List<FluidIngredient> out) {
       if (ingredient instanceof Compound compound) {
         compound.children.forEach(child -> flatten(child, out));
-      } else if (!(ingredient instanceof Empty)) {
+      } else if (!(ingredient instanceof Empty) && !(ingredient instanceof NameMatch)) {
         out.add(ingredient);
       }
     }

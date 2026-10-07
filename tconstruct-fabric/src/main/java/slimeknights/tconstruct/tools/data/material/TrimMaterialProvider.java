@@ -58,7 +58,7 @@ public class TrimMaterialProvider {
     context.register(
       ResourceKey.create(Registries.TRIM_MATERIAL, material),
       TrimMaterial.create(material.getSuffix(), ingredient.asItem(), modelIndex,
-        Component.translatable(TRIM_FORMAT, Component.translatable(Util.makeDescriptionId("material", material))).withStyle(style -> style.withColor(color)),
+        Component.translatable(TRIM_FORMAT, Component.translatable(Util.makeDescriptionId("material", material.location()))).withStyle(style -> style.withColor(color)),
         Map.of())
     );
   }

@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.common.data.tags;
 
+import net.minecraft.data.tags.TagsProvider.TagAppender;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider.IntrinsicTagAppender;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
@@ -12,7 +14,7 @@ import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import slimeknights.mantle.platform.tags.Tags;
-import net.minecraftforge.common.data.BlockTagsProvider;
+import slimeknights.mantle.platform.data.BlockTagsProvider;
 import slimeknights.mantle.platform.data.ExistingFileHelper;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.registration.object.BuildingBlockObject;

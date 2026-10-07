@@ -34,8 +34,8 @@ import slimeknights.tconstruct.world.block.FoliageType;
 import java.util.function.Consumer;
 
 public class GadgetRecipeProvider extends BaseRecipeProvider {
-  public GadgetRecipeProvider(PackOutput packOutput) {
-    super(packOutput);
+  public GadgetRecipeProvider(PackOutput packOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> registries) {
+    super(packOutput, registries);
   }
 
   @Override
@@ -44,7 +44,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
   }
 
   @Override
-  protected void buildRecipes(RecipeOutput consumer) {
+  public void buildRecipes(RecipeOutput consumer) {
     // piggybackpack
     String folder = "gadgets/";
     ItemCastingRecipeBuilder.tableRecipe(TinkerGadgets.piggyBackpack)

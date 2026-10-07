@@ -95,6 +95,18 @@ public class FluidObject<F extends Fluid> implements Supplier<F>, ItemLike, IdAw
   }
 
   /**
+   * Creates an ingredient with an amount in the format used by Mantle recipes
+   * @param amount  Ingredient amount
+   * @return  Ingredient instance
+   */
+  public slimeknights.mantle.recipe.ingredient.FluidIngredient legacyIngredient(int amount) {
+    if (commonTag != null) {
+      return slimeknights.mantle.recipe.ingredient.FluidIngredient.of(commonTag, amount);
+    }
+    return slimeknights.mantle.recipe.ingredient.FluidIngredient.of(get(), amount);
+  }
+
+  /**
    * Creates a sized ingredient from this object
    * @param amount     Ingredient amount
    * @return  Ingredient instance

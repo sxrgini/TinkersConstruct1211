@@ -94,8 +94,8 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
   /** Adds recipes to melt and cast a material */
   default void materialMeltingCasting(RecipeOutput consumer, MaterialVariantId material, FluidObject<?> fluid, int fluidAmount, String folder) {
     MaterialFluidRecipeBuilder.material(material)
-                              .setFluid(fluid.ingredient(fluidAmount))
-                              .setTemperature(getTemperature())
+                              .setFluid(fluid.legacyIngredient(fluidAmount))
+                              .setTemperature(getTemperature(fluid))
                               .save(consumer, location(folder + "casting/" + material.getLocation('_').getPath()));
     materialMelting(consumer, material, fluid, fluidAmount, folder);
   }
@@ -125,8 +125,8 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
   default void materialComposite(RecipeOutput consumer, MaterialVariantId input, MaterialVariantId output, FluidObject<?> fluid, int amount, String folder, String name) {
     MaterialFluidRecipeBuilder.material(output)
                               .setInputId(input)
-                              .setFluid(fluid.ingredient(amount))
-                              .setTemperature(getTemperature())
+                              .setFluid(fluid.legacyIngredient(amount))
+                              .setTemperature(getTemperature(fluid))
                               .save(consumer, location(folder + "composite/" + name));
   }
 
