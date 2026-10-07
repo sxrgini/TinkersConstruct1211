@@ -13,7 +13,6 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.platform.condition.ICondition.IContext;
 import slimeknights.mantle.platform.event.server.AddReloadListenerEvent;
 import slimeknights.mantle.platform.event.living.MobSpawnEvent.FinalizeSpawn;
@@ -71,7 +70,7 @@ public class MobEquipmentManager extends SimpleJsonResourceReloadListener {
       try {
         JsonObject json = GsonHelper.convertToJsonObject(entry.getValue(), key.toString());
         // skip if conditions fail
-        if (!CraftingHelper.processConditions(json, "conditions", context)) {
+        if (!JsonHelper.processConditions(json, "conditions", context)) {
           continue;
         }
         // parse the object

@@ -11,7 +11,6 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.platform.condition.ICondition.IContext;
 import slimeknights.mantle.platform.event.server.AddReloadListenerEvent;
 import slimeknights.mantle.platform.event.server.OnDatapackSyncEvent;
@@ -84,7 +83,7 @@ public class FluidEffectManager extends SimpleJsonResourceReloadListener {
         JsonObject json = GsonHelper.convertToJsonObject(entry.getValue(), "fluid_effect");
 
         // want to parse condition without parsing effects, as the effect serializer may be missing
-        if (!CraftingHelper.processConditions(json, "conditions", conditionContext)) {
+        if (!JsonHelper.processConditions(json, "conditions", conditionContext)) {
           continue;
         }
         fluids.add(new FluidEffects.Entry(key, FluidEffects.LOADABLE.deserialize(json, contextBuilder(key).put(ContextKey.CONDITION_CONTEXT, conditionContext).build())));

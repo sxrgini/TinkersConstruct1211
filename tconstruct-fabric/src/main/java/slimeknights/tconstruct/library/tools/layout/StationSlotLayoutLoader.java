@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.layout;
 
+import slimeknights.mantle.util.JsonHelper;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,7 +20,6 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.platform.condition.ICondition.IContext;
 import slimeknights.mantle.platform.event.server.AddReloadListenerEvent;
 import slimeknights.mantle.platform.event.server.OnDatapackSyncEvent;
@@ -92,7 +92,7 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
       try {
         // skip empty objects, allows disabling a slot at a lower datapack
         JsonObject object = GsonHelper.convertToJsonObject(value, "station_layout");
-        if (!object.entrySet().isEmpty() && CraftingHelper.processConditions(object, "conditions", conditionContext)) {
+        if (!object.entrySet().isEmpty() && JsonHelper.processConditions(object, "conditions", conditionContext)) {
           // just need a valid slot information
           StationSlotLayout layout = GSON.fromJson(object, StationSlotLayout.class);
           int size = layout.getInputSlots().size() + (layout.getToolSlot().isHidden() ? 0 : 1);

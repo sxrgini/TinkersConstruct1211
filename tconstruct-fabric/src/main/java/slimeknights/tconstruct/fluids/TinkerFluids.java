@@ -250,6 +250,8 @@ public final class TinkerFluids extends TinkerModule {
 
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
+    // 150% efficiency compared to lava bucket, compare to casting blaze rods, which cast into 120%
+    net.fabricmc.fabric.api.registry.FuelRegistry.INSTANCE.add(blazingBlood.asItem(), 30000);
     event.enqueueWork(() -> {
       CauldronInteraction.WATER.put(splashBottle.get(), new FillBottle(Items.SPLASH_POTION));
       CauldronInteraction.WATER.put(lingeringBottle.get(), new FillBottle(Items.LINGERING_POTION));

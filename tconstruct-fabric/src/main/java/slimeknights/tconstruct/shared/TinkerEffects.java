@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared;
 
+import net.minecraft.world.effect.MobEffect;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;

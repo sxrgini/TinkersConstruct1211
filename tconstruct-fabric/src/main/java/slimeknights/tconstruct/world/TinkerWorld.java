@@ -358,6 +358,7 @@ public final class TinkerWorld extends TinkerModule {
 
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
+    WorldEvents.registerTrades();
     // compostables
     event.enqueueWork(() -> {
       slimeLeaves.forEach((type, block) -> ComposterBlock.add(type.isNether() ? 0.85f : 0.35f, block));

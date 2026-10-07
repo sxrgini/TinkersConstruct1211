@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common.config;
 
+import slimeknights.tconstruct.TConstruct;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -9,8 +10,6 @@ import slimeknights.mantle.platform.config.ConfigSpec.ConfigValue;
 import slimeknights.mantle.platform.config.ConfigSpec.DoubleValue;
 import slimeknights.mantle.platform.config.ConfigSpec.EnumValue;
 import slimeknights.mantle.platform.config.ConfigSpec.IntValue;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.IOreRate;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
@@ -419,8 +418,8 @@ public class Config {
 
   /** Registers any relevant listeners for config */
   public static void init() {
-    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
-    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+    Config.commonSpec.register(TConstruct.MOD_ID, ConfigSpec.Type.COMMON);
+    Config.clientSpec.register(TConstruct.MOD_ID, ConfigSpec.Type.CLIENT);
   }
 
   /** Method of syncing the tool inventory on open to prevent desyncs down the line. */

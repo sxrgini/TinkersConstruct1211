@@ -22,6 +22,8 @@ public final class FabricEventBridge {
 
     net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((dispatcher, context, selection) ->
       bus.post(new slimeknights.mantle.platform.event.server.RegisterCommandsEvent(dispatcher, selection, context)));
+    net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents.TAGS_LOADED.register((access, client) ->
+      bus.post(new slimeknights.mantle.platform.event.server.TagsUpdatedEvent(access, client)));
     net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPING.register(server ->
       bus.post(new slimeknights.mantle.platform.event.server.ServerStoppingEvent(server)));
 

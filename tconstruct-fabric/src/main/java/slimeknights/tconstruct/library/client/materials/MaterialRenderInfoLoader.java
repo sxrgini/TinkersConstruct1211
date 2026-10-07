@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
-import net.minecraftforge.client.event.ModelEvent;
+import slimeknights.mantle.platform.event.client.ModelEvent;
 import slimeknights.mantle.platform.event.EventPriority;
 import slimeknights.mantle.platform.event.lifecycle.ModLoader;
 import slimeknights.mantle.data.datamap.RegistryDataMapLoader;

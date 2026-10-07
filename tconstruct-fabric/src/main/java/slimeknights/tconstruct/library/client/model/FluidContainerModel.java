@@ -52,7 +52,6 @@ import slimeknights.mantle.platform.client.model.IGeometryLoader;
 import slimeknights.mantle.platform.client.model.IUnbakedGeometry;
 import net.minecraftforge.client.model.geometry.StandaloneGeometryBakingContext;
 import slimeknights.mantle.platform.client.model.UnbakedGeometryHelper;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.platform.fluid.FluidUtil;
@@ -90,7 +89,7 @@ public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements 
         JsonObject fluidObject = fluidElement.getAsJsonObject();
         fluid = Loadables.FLUID.getIfPresent(fluidObject, "name");
         if (fluidObject.has("nbt")) {
-          tag = CraftingHelper.getNBT(fluidObject.get("nbt"));
+          tag = CompoundTag.CODEC.parse(com.mojang.serialization.JsonOps.INSTANCE, fluidObject.get("nbt")).getOrThrow(com.google.gson.JsonParseException::new);
         }
       } else {
         fluid = Loadables.FLUID.convert(fluidElement, "fluid");

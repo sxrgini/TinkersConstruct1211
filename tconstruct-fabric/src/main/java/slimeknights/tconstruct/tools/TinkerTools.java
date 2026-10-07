@@ -208,7 +208,7 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<Item, ModifiableItem> minotaurAxe;
   static {
     // conditionally register minotaur axe as it's the easiest way to keep it out of JEI display
-    if (ModList.get().isLoaded("twilightforest")) {
+    if (FabricLoader.getInstance().isModLoaded("twilightforest")) {
       minotaurAxe = ITEMS.register("minotaur_axe", () -> new ModifiableItem(UNSTACKABLE_PROPS, ToolDefinitions.MINOTAUR_AXE));
     } else {
       minotaurAxe = new ItemObject<>(DeferredHolder.create(Registries.ITEM, getResource("minotaur_axe")));
@@ -412,7 +412,7 @@ public final class TinkerTools extends TinkerModule {
     acceptTool(output, warPick);
     acceptTool(output, battlesign);
     acceptTool(output, swasher);
-    if (ModList.get().isLoaded("twilightforest")) {
+    if (FabricLoader.getInstance().isModLoaded("twilightforest")) {
       acceptTool(output, minotaurAxe);
     }
 

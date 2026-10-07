@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets;
 
+import net.minecraft.world.level.block.Block;
 import slimeknights.mantle.platform.registry.DeferredBlock;
 import slimeknights.mantle.platform.registry.DeferredItem;
 import net.minecraft.world.effect.MobEffect;

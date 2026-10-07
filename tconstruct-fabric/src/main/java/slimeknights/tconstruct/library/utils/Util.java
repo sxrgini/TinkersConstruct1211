@@ -21,7 +21,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.locale.Language;
 import slimeknights.mantle.platform.condition.ICondition;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraftforge.fml.ModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
@@ -64,8 +63,8 @@ public class Util {
    * @return  Currently active mod ID
    */
   public static Optional<String> getCurrentlyActiveExternalMod() {
-    return Optional.ofNullable(ModLoadingContext.get().getActiveContainer().getModId())
-      .filter(activeModId -> !TConstruct.MOD_ID.equals(activeModId));
+    // Fabric has no concept of the mod currently loading
+    return Optional.empty();
   }
 
   /**
@@ -260,7 +259,7 @@ public class Util {
   /** Checks if we are currently running on NeoForge as opposed to Forge. Allows branching solutions for each loader if needed */
   public static boolean isNeo() {
     if (IS_NEO_FORGE == null) {
-      IS_NEO_FORGE = ModList.get().getModContainerById("forge").filter(mod -> mod.getModInfo().getDisplayName().equals("NeoForge")).isPresent();
+      IS_NEO_FORGE = false;
     }
     return IS_NEO_FORGE;
   }

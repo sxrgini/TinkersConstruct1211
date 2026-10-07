@@ -109,7 +109,7 @@ public class TConstruct implements ModInitializer {
     TinkerEventSubscribers.registerCommon();
     if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
       TinkerEventSubscribers.registerClient();
-      bus.post(new slimeknights.mantle.platform.event.client.RegisterClientReloadListenersEvent());
+      slimeknights.mantle.platform.event.client.ClientRegistrationEvents.fireAll(MOD_ID);
     }
     registerAliases();
     bus.post(new FMLCommonSetupEvent());

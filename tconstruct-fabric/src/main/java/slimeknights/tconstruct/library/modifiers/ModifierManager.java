@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers;
 
+import net.fabricmc.loader.api.FabricLoader;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,18 +25,15 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.enchantment.Enchantment;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.platform.condition.ICondition;
 import slimeknights.mantle.platform.condition.ICondition.IContext;
 import slimeknights.mantle.platform.event.server.AddReloadListenerEvent;
 import slimeknights.mantle.platform.event.server.OnDatapackSyncEvent;
 import slimeknights.mantle.platform.event.Event;
 import slimeknights.mantle.platform.event.EventPriority;
-import net.minecraftforge.fml.ModContainer;
 import slimeknights.mantle.platform.event.lifecycle.ModLoader;
 import slimeknights.mantle.platform.event.lifecycle.IModBusEvent;
 import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.loading.FMLLoader;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.RegistryHelper;
@@ -177,7 +175,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     }
     for (ModifierId id : staticModifiers.keySet()) {
       if (dynamicModifiers.containsKey(id)) {
-        if (FMLLoader.isProduction()) {
+        if (!FabricLoader.getInstance().isDevelopmentEnvironment()) {
           log.warn("Dynamic modifier {} is replacing static modifier with the same ID. The ability to do this may be removed in a future version, so if this is intentional please open an issue report with reasoning..", id);
         } else {
           log.error("Dynamic modifier {} is replacing static modifier with the same ID. This is likely a bug with your mod, but on the chance its intentional this error does become just a warning at runtime.", id);
@@ -299,7 +297,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
       }
 
       // conditions
-      if (json.has("condition") && !CraftingHelper.getCondition(GsonHelper.getAsJsonObject(json, "condition")).test(conditionContext)) {
+      if (json.has("condition") && !JsonHelper.parse(ICondition.CODEC, json.get("condition")).test(conditionContext)) {
         return null;
       }
 
@@ -459,18 +457,14 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /* Events */
 
   /** Event for registering modifiers */
-  @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
   public class ModifierRegistrationEvent extends Event implements IModBusEvent {
-    /** Container receiving this event */
-    private final ModContainer container;
 
     /** Validates the namespace of the container registering */
     private void checkModNamespace(ResourceLocation name) {
       // check mod container, should be the active mod
       // don't want mods registering stuff in Tinkers namespace, or Minecraft
-      String activeMod = container.getNamespace();
-      if (!name.getNamespace().equals(activeMod)) {
-        TConstruct.LOG.warn("Potentially Dangerous alternative prefix for name `{}`, expected `{}`. This could be a intended override, but in most cases indicates a broken mod.", name, activeMod);
+      if (name.getNamespace().equals("minecraft")) {
+        TConstruct.LOG.warn("Potentially Dangerous alternative prefix for name `{}`. This could be a intended override, but in most cases indicates a broken mod.", name);
       }
     }
 

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools;
 
+import net.minecraft.world.effect.MobEffect;
 import slimeknights.mantle.platform.registry.DeferredItem;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import com.mojang.serialization.Codec;

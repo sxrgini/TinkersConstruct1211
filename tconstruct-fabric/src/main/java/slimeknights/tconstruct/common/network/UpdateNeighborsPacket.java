@@ -8,7 +8,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.platform.network.IPayloadContext;
-import net.minecraftforge.registries.GameData;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 
 /**
@@ -20,7 +19,7 @@ public class UpdateNeighborsPacket implements IThreadsafePacket {
   private final BlockPos pos;
 
   public UpdateNeighborsPacket(FriendlyByteBuf buffer) {
-    this.state = GameData.getBlockStateIDMap().byId(buffer.readVarInt());
+    this.state = Block.BLOCK_STATE_REGISTRY.byId(buffer.readVarInt());
     this.pos = buffer.readBlockPos();
   }
 

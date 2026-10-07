@@ -1,21 +1,13 @@
 package slimeknights.tconstruct.library;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
-import slimeknights.mantle.platform.event.lifecycle.RegisterEvent;
-import slimeknights.tconstruct.TConstruct;
 
-import java.util.Locale;
 
 /** Custom transform types used for tinkers item rendering */
 public class TinkerItemDisplays {
   private TinkerItemDisplays() {}
 
-  public static void init() {
-    EventBus.MOD_BUS.addListener(TinkerItemDisplays::registerDisplay);
-  }
+  public static void init() {}
 
   /** Used by the melter and smeltery for display of items its melting */
   public static ItemDisplayContext MELTER = create("melter", ItemDisplayContext.NONE);
@@ -30,31 +22,11 @@ public class TinkerItemDisplays {
   /** Used by throwing to allow adjusting the tool position */
   public static ItemDisplayContext THROWN = create("thrown", ItemDisplayContext.FIXED);
 
-  /** Creates a transform type */
+  /**
+   * Creates a transform type. Fabric cannot extend the vanilla display context enum, so for now these fall back to the nearest vanilla context.
+   * TODO: add an enum extension through a mixin plugin so models can use the custom transform keys
+   */
   private static ItemDisplayContext create(String name, ItemDisplayContext fallback) {
-    String key = "TCONSTRUCT_" + name.toUpperCase(Locale.ROOT);
-    if (fallback == ItemDisplayContext.NONE) {
-      return ItemDisplayContext.create(key, TConstruct.getResource(name), null);
-    }
-    return ItemDisplayContext.create(key, TConstruct.getResource(name), fallback);
-  }
-
-  /** Registers all item display types */
-  private static void registerDisplay(RegisterEvent event) {
-    if (event.getRegistryKey() == ForgeRegistries.Keys.DISPLAY_CONTEXTS) {
-      IForgeRegistry<ItemDisplayContext> registry = ForgeRegistries.DISPLAY_CONTEXTS.get();
-      register(registry, MELTER);
-      register(registry, TABLE);
-      register(registry, CASTING_TABLE);
-      register(registry, CASTING_BASIN);
-      register(registry, FLUID_CANNON);
-      register(registry, THROWN);
-    }
-  }
-
-  /** Registers a display type */
-  @SuppressWarnings("removal")
-  private static void register(IForgeRegistry<ItemDisplayContext> registry, ItemDisplayContext context) {
-    registry.register(ResourceLocation.parse(context.getSerializedName()), context);
+    return fallback;
   }
 }

@@ -17,13 +17,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.fabricmc.api.EnvType;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.ModelEvent.RegisterGeometryLoaders;
-import net.minecraftforge.client.event.MovementInputUpdateEvent;
+import slimeknights.mantle.platform.event.client.EntityRenderersEvent;
+import slimeknights.mantle.platform.event.client.ModelEvent.RegisterGeometryLoaders;
+import slimeknights.mantle.platform.event.client.MovementInputUpdateEvent;
 import slimeknights.mantle.platform.event.client.RegisterClientReloadListenersEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import slimeknights.mantle.platform.event.client.RegisterColorHandlersEvent;
+import slimeknights.mantle.platform.event.client.RegisterKeyMappingsEvent;
+import slimeknights.mantle.platform.event.client.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import slimeknights.mantle.platform.event.EventBus;
 import slimeknights.mantle.platform.event.TickEvent.Phase;
@@ -208,7 +208,7 @@ public class ToolClientEvents extends ClientEventBase {
       TinkerItemProperties.registerCrossbowProperties(TinkerTools.warPick);
       TinkerItemProperties.registerToolProperties(TinkerTools.battlesign);
       TinkerItemProperties.registerToolProperties(TinkerTools.swasher);
-      if (ModList.get().isLoaded("twilightforest")) {
+      if (FabricLoader.getInstance().isModLoaded("twilightforest")) {
         TinkerItemProperties.registerToolProperties(TinkerTools.minotaurAxe);
       }
       // armor
@@ -266,7 +266,7 @@ public class ToolClientEvents extends ClientEventBase {
     registerItemColors(colors, TinkerTools.warPick);
     registerItemColors(colors, TinkerTools.battlesign);
     registerItemColors(colors, TinkerTools.swasher);
-    if (ModList.get().isLoaded("twilightforest")) {
+    if (FabricLoader.getInstance().isModLoaded("twilightforest")) {
       registerItemColors(colors, TinkerTools.minotaurAxe);
     }
     // armor

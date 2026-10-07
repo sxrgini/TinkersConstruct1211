@@ -12,7 +12,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.SkullBlock;
 import slimeknights.mantle.platform.event.living.LivingDropsEvent;
 import slimeknights.mantle.platform.event.living.LivingEvent.LivingVisibilityEvent;
-import net.minecraftforge.event.village.WandererTradesEvent;
+import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.world.logic.AncientToolItemListing;
@@ -56,12 +56,11 @@ public class WorldEvents {
     }
   }
 
-  @SubscribeEvent
-  static void wanderingTrades(WandererTradesEvent event) {
-    // add ancient tools to the wandering trader table
+  /** Adds ancient tools to the wandering trader table, called from common setup */
+  static void registerTrades() {
     int weight = Config.COMMON.wandererAncientToolWeight.get();
     if (weight > 0) {
-      event.getRareTrades().addAll(Collections.nCopies(weight, AncientToolItemListing.INSTANCE));
+      TradeOfferHelper.registerWanderingTraderOffers(2, trades -> trades.addAll(Collections.nCopies(weight, AncientToolItemListing.INSTANCE)));
     }
   }
 }

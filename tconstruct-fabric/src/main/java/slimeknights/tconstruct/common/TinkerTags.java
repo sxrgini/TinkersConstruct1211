@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.event.TagsUpdatedEvent;
+import slimeknights.mantle.platform.event.server.TagsUpdatedEvent;
 import slimeknights.mantle.platform.event.EventPriority;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;

@@ -7,7 +7,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.fabricmc.api.EnvType;
-import net.minecraftforge.client.event.InputEvent;
+import slimeknights.mantle.platform.event.client.InputEvent;
 import slimeknights.mantle.platform.event.player.PlayerInteractEvent;
 import slimeknights.mantle.platform.event.player.PlayerInteractEvent.LeftClickEmpty;
 import slimeknights.mantle.platform.event.EventPriority;

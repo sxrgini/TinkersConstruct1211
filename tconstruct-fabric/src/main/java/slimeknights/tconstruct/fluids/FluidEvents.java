@@ -3,7 +3,6 @@ package slimeknights.tconstruct.fluids;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
@@ -16,14 +15,6 @@ import slimeknights.tconstruct.fluids.util.ConstantFluidContainerWrapper;
  */
 @SuppressWarnings("unused")
 public class FluidEvents {
-  @SubscribeEvent
-  static void onFurnaceFuel(FurnaceFuelBurnTimeEvent event) {
-    if (event.getItemStack().getItem() == TinkerFluids.blazingBlood.asItem()) {
-      // 150% efficiency compared to lava bucket, compare to casting blaze rods, which cast into 120%
-      event.setBurnTime(30000);
-    }
-  }
-
   @SubscribeEvent
   static void attachCapabilities(AttachCapabilitiesEvent<ItemStack> event) {
     ItemStack stack = event.getObject();

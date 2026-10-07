@@ -42,8 +42,8 @@ public class DomainDisplayName {
     }
 
     // that failed? try a mod container lookup
-    return ModList.get().getModContainerById(domain)
-                  .map(container -> container.getModInfo().getDisplayName())
+    return FabricLoader.getInstance().getModContainer(domain)
+                  .map(container -> container.getMetadata().getName())
                   .orElseGet(() -> formatDomainName(domain));
   }
 

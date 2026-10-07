@@ -13,7 +13,14 @@
     "BlockBehaviourEventsMixin"
   ],
   "client": [
-    "GuiMixin"
+    "GuiMixin",
+    "ItemInHandRendererMixin",
+    "AbstractClientPlayerMixin",
+    "KeyboardInputMixin",
+    "MinecraftInteractionMixin",
+    "ScreenEffectRendererMixin",
+    "LivingEntityRendererMixin",
+    "ClientPacketListenerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
