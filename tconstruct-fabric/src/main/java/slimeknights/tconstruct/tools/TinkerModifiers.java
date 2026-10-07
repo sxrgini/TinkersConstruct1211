@@ -354,7 +354,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierManager.INSTANCE.init();
     DynamicModifier.init();
     FluidEffectManager.INSTANCE.init();
-    MODIFIERS.register();
+    MODIFIERS.register(slimeknights.mantle.platform.event.EventBus.MOD_BUS);
     TinkerDataKeys.init();
   }
 
@@ -378,7 +378,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   // entity
   public static final DeferredHolder<EntityType<?>, EntityType<FluidEffectProjectile>> fluidSpitEntity = ENTITIES.registerNoEgg("fluid_spit", () ->
-    EntityType.Builder.<FluidEffectProjectile>of(FluidEffectProjectile::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).setShouldReceiveVelocityUpdates(false));
+    EntityType.Builder.<FluidEffectProjectile>of(FluidEffectProjectile::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10));
   public static final DeferredHolder<EntityType<?>, EntityType<CustomFireball>> fireball = ENTITIES.registerNoEgg("fireball", () -> EntityType.Builder.<CustomFireball>of(CustomFireball::new, MobCategory.MISC).sized(0.3125F, 0.3125F).clientTrackingRange(4).updateInterval(10));
 
   /*

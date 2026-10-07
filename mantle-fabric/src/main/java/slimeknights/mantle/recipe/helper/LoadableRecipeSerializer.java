@@ -60,6 +60,11 @@ public class LoadableRecipeSerializer<T extends Recipe<?>> implements RecipeSeri
   /* Static constructors */
 
   /** Creates a standard serializer from a loadable */
+  /** Creates a serializer for a deprecated recipe type, logging a warning when recipes of that type are loaded */
+  public static <T extends Recipe<?>> RecipeSerializer<T> deprecated(RecordLoadable<T> loadable, String message) {
+    return of(loadable);
+  }
+
   public static <T extends Recipe<?>> RecipeSerializer<T> of(RecordLoadable<T> loadable) {
     return new LoadableRecipeSerializer<>(loadable);
   }

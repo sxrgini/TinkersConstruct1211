@@ -162,11 +162,11 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
       BlockPos pos = ((BlockHitResult)hit).getBlockPos();
       BlockState state = this.level().getBlockState(pos);
       if (state.is(Blocks.NETHER_PORTAL)) {
-        this.handleInsidePortal(pos);
+        this.setAsInsidePortal((net.minecraft.world.level.block.Portal) state.getBlock(), pos);
         teleported = true;
       } else if (state.is(Blocks.END_GATEWAY)) {
-        if (this.level().getBlockEntity(pos) instanceof TheEndGatewayBlockEntity gateway && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
-          TheEndGatewayBlockEntity.teleportEntity(this.level(), pos, state, this, gateway);
+        if (state.getBlock() instanceof net.minecraft.world.level.block.Portal portal) {
+          this.setAsInsidePortal(portal, pos);
         }
         teleported = true;
       }

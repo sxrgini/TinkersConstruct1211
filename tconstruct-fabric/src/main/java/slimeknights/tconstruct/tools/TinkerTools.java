@@ -210,7 +210,7 @@ public final class TinkerTools extends TinkerModule {
     if (FabricLoader.getInstance().isModLoaded("twilightforest")) {
       minotaurAxe = ITEMS.register("minotaur_axe", () -> new ModifiableItem(UNSTACKABLE_PROPS, ToolDefinitions.MINOTAUR_AXE));
     } else {
-      minotaurAxe = new ItemObject<>(DeferredHolder.create(Registries.ITEM, getResource("minotaur_axe")));
+      minotaurAxe = DeferredItem.createItem(net.minecraft.resources.ResourceKey.create(Registries.ITEM, getResource("minotaur_axe")));
     }
   }
 

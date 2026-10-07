@@ -102,7 +102,7 @@ public enum PlaceFireModule implements ModifierModule, EntityInteractionModifier
 
     // ignite the TNT
     if (state.getBlock() instanceof TntBlock tnt) {
-      TntBlock.explode(world, pos, player);
+      TntBlock.explode(world, pos);
       world.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
       return true;
     }

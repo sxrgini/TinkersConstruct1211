@@ -29,6 +29,10 @@ public class MultilayerArmorItem extends ModifiableArmorItem implements IClientI
     this.name = name;
   }
 
+  public MultilayerArmorItem(ModifiableArmorMaterial material, ArmorItem.Type slot, Properties properties, ToolDefinition toolDefinition, ResourceLocation name) {
+    this(material.getHolder(), slot, properties, toolDefinition, name);
+  }
+
   public MultilayerArmorItem(Holder<ArmorMaterial> material, ArmorItem.Type slot, Properties properties, ToolDefinition toolDefinition, ResourceLocation name) {
     super(material, slot, properties, toolDefinition);
     this.name = name;
