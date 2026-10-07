@@ -181,6 +181,18 @@ public class EnumObject<T extends Enum<T>, R> implements MultiObject.Holders<R> 
     }
 
     /**
+     * Adds the given fluid object, using a lazy holder to its still fluid
+     * @param key    Key
+     * @param value  Fluid object
+     * @return  Builder instance
+     */
+    @SuppressWarnings("unchecked")
+    public Builder<T,R> put(T key, slimeknights.mantle.registration.object.FluidObject<?> value) {
+      this.map.put(key, (Holder<R>) (Holder<?>) slimeknights.mantle.platform.registry.DeferredHolder.create(net.minecraft.core.registries.Registries.FLUID, value.getId()));
+      return this;
+    }
+
+    /**
      * Adds all values from the given map
      * @param map  Map
      * @return  Builder instance

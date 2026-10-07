@@ -25,6 +25,16 @@ public class SlimeTallGrassBlock extends BushBlock implements IShearable {
 
   @Getter
   private final FoliageType foliageType;
+  public static final com.mojang.serialization.MapCodec<SlimeTallGrassBlock> CODEC = com.mojang.serialization.codecs.RecordCodecBuilder.mapCodec(inst -> inst.group(
+    propertiesCodec(),
+    net.minecraft.util.StringRepresentable.fromEnum(FoliageType::values).fieldOf("foliage_type").forGetter(SlimeTallGrassBlock::getFoliageType)
+  ).apply(inst, SlimeTallGrassBlock::new));
+
+  @Override
+  protected com.mojang.serialization.MapCodec<? extends BushBlock> codec() {
+    return CODEC;
+  }
+
   public SlimeTallGrassBlock(Properties properties, FoliageType foliageType) {
     super(properties);
     this.foliageType = foliageType;

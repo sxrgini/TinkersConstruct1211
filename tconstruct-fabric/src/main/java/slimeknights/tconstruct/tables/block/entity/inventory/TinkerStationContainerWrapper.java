@@ -57,7 +57,12 @@ public class TinkerStationContainerWrapper implements IMutableTinkerStationConta
       return null;
     }
     // try last recipe
-    net.minecraft.world.item.crafting.SingleRecipeInput inv = new net.minecraft.world.item.crafting.SingleRecipeInput(stack);
+    slimeknights.mantle.recipe.input.SingleItemInput inv = new slimeknights.mantle.recipe.input.SingleItemInput() {
+      @Override
+      public ItemStack getItem() {
+        return stack;
+      }
+    };
     if (lastMaterialRecipe != null && lastMaterialRecipe.matches(inv, world)) {
       return lastMaterialRecipe;
     }

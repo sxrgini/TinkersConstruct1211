@@ -149,6 +149,11 @@ public class FluidDeferredRegister extends DeferredRegister<Fluid> {
       return type(() -> new FluidType(properties));
     }
 
+    /** Registers an inverted fluid type, a fluid type with a negative density such that it flows upwards */
+    public Builder invertedType(FluidType.Properties properties) {
+      return type(properties);
+    }
+
     /** Registers a fluid with the given properties, using the texture fluid type */
     public Builder type() {
       return type(FluidType.Properties.create());

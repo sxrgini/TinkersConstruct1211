@@ -94,11 +94,7 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
         // skull block rendering
         if (item instanceof BlockItem block && block.getBlock() instanceof AbstractSkullBlock skullBlock) {
           matrices.scale(1.1875F, -1.1875F, -1.1875F);
-          GameProfile gameprofile = null;
-          CompoundTag tag = StackNbt.getTag(helmet);
-          if (tag != null && tag.contains("SkullOwner", Tag.TAG_COMPOUND)) {
-            gameprofile = NbtUtils.readGameProfile(tag.getCompound("SkullOwner"));
-          }
+          net.minecraft.world.item.component.ResolvableProfile gameprofile = helmet.get(net.minecraft.core.component.DataComponents.PROFILE);
           matrices.translate(-0.5, 0.0, -0.5);
           SkullBlock.Type type = skullBlock.getType();
           SkullModelBase skullModel = this.skullModels.get(type);
@@ -130,21 +126,8 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
    */
   @SuppressWarnings("removal")
   public static ResourceLocation getArmorResource(Entity entity, ItemStack stack, ArmorItem armor, String type) {
-    String texture = armor.getMaterial().value().getName();
-    String domain = "minecraft";
-    int idx = texture.indexOf(':');
-    if (idx != -1) {
-      domain = texture.substring(0, idx);
-      texture = texture.substring(idx + 1);
-    }
-    String path = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_1%s.png", domain, texture, type);
-    path = ClientHooks.getArmorTexture(entity, stack, path, EquipmentSlot.HEAD, type);
-    ResourceLocation location = HumanoidArmorLayer.ARMOR_LOCATION_CACHE.get(path);
-    if (location == null) {
-      location = ResourceLocation.parse(path);
-      HumanoidArmorLayer.ARMOR_LOCATION_CACHE.put(path, location);
-    }
-
-    return location;
+    // 1.21 armor materials list their layers directly
+    java.util.List<net.minecraft.world.item.ArmorMaterial.Layer> layers = armor.getMaterial().value().layers();
+    return layers.get(0).texture("overlay".equals(type));
   }
 }

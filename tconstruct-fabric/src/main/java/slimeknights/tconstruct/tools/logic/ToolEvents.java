@@ -350,7 +350,7 @@ public class ToolEvents {
       // remaining logic is reducing damage like vanilla protection
       // fetch vanilla enchant level, assuming its not bypassed in vanilla
       if (DamageSourcePredicate.CAN_PROTECT.matches(source)) {
-        modifierValue = vanillaModifier = (entity.level() instanceof net.minecraft.server.level.ServerLevel serverLevel ? EnchantmentHelper.getDamageProtection(serverLevel, entity, source) : 0);
+        modifierValue = vanillaModifier = (int) (entity.level() instanceof net.minecraft.server.level.ServerLevel serverLevel ? EnchantmentHelper.getDamageProtection(serverLevel, entity, source) : 0);
       }
 
       // next, determine how much tinkers armor wants to change it
@@ -365,7 +365,7 @@ public class ToolEvents {
         modifierValue *= 4;
       }
     } else if (DamageSourcePredicate.CAN_PROTECT.matches(source) && entity.getType().is(TinkerTags.EntityTypes.SMALL_ARMOR)) {
-      vanillaModifier = (entity.level() instanceof net.minecraft.server.level.ServerLevel serverLevel ? EnchantmentHelper.getDamageProtection(serverLevel, entity, source) : 0);
+      vanillaModifier = (int) (entity.level() instanceof net.minecraft.server.level.ServerLevel serverLevel ? EnchantmentHelper.getDamageProtection(serverLevel, entity, source) : 0);
       modifierValue = vanillaModifier * 4;
     }
 

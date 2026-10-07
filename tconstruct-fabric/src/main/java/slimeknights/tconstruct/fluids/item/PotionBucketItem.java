@@ -119,7 +119,13 @@ public class PotionBucketItem extends PotionItem {
 
   
   public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-    return new PotionBucketWrapper(stack);
+    slimeknights.mantle.platform.capability.LazyOptional<slimeknights.mantle.platform.fluid.IFluidHandlerItem> handler = slimeknights.mantle.platform.capability.LazyOptional.of(() -> new PotionBucketWrapper(stack));
+    return new ICapabilityProvider() {
+      @Override
+      public <T> slimeknights.mantle.platform.capability.LazyOptional<T> getCapability(slimeknights.mantle.platform.capability.Capability<T> cap, @Nullable net.minecraft.core.Direction side) {
+        return cap == slimeknights.mantle.platform.capability.Capabilities.FLUID_HANDLER_ITEM ? handler.cast() : slimeknights.mantle.platform.capability.LazyOptional.empty();
+      }
+    };
   }
 
   public static class PotionBucketWrapper extends FluidBucketWrapper {

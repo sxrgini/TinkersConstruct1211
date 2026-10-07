@@ -53,7 +53,7 @@ public class ModifierLootModifier extends LootModifier {
     if (stack == null) {
       // if this loot is due to a projectile fired by one of our tools, then use that projectile as the loot source
       // prevents weirdness when held tool switches after firing a projectile
-      if (context.getParamOrNull(LootContextParams.DIRECT_KILLER_ENTITY) instanceof Projectile projectile) {
+      if (context.getParamOrNull(LootContextParams.DIRECT_ATTACKING_ENTITY) instanceof Projectile projectile) {
         ModifierNBT modifiers = EntityModifierCapability.getOrEmpty(projectile);
 
         // no need to build the dummy tool if we lack modifiers
@@ -71,7 +71,7 @@ public class ModifierLootModifier extends LootModifier {
       // not a projectile causing it, fetch the killer entity directly from loot context
       // requires a melee damage source, the held tool is not responsible for kills it did not make such as explosions
       DamageSource damageSource = context.getParamOrNull(LootContextParams.DAMAGE_SOURCE);
-      if (damageSource != null && damageSource.is(TinkerTags.DamageTypes.LOOT_MODIFIER_WHITELIST) && context.getParamOrNull(LootContextParams.KILLER_ENTITY) instanceof LivingEntity living) {
+      if (damageSource != null && damageSource.is(TinkerTags.DamageTypes.LOOT_MODIFIER_WHITELIST) && context.getParamOrNull(LootContextParams.ATTACKING_ENTITY) instanceof LivingEntity living) {
         stack = living.getItemBySlot(ModifierLootingHandler.getLootingSlot(living));
       }
     }
