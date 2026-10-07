@@ -37,7 +37,13 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
   /** Resource type for the existing file helper */
   private final ExistingFileHelper.IResourceType resourceType;
 
-  protected final Map<ResourceLocation, TagBuilder> builders = Maps.newLinkedHashMap();
+  /** Data about a tag being generated, vanilla's builder has no replace flag */
+  protected static class TagData {
+    protected final TagBuilder builder = TagBuilder.create();
+    protected boolean replace = false;
+  }
+
+  protected final Map<ResourceLocation, TagData> builders = Maps.newLinkedHashMap();
 
   protected AbstractTagProvider(PackOutput packOutput, String modId, String folder, Function<T,ResourceLocation> keyGetter, Predicate<ResourceLocation> staticValuePredicate, ExistingFileHelper existingFileHelper) {
     super(packOutput, Target.DATA_PACK, folder);
@@ -56,7 +62,7 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
     this.builders.clear();
     this.addTags();
     return allOf(this.builders.entrySet().stream().map(entry -> {
-      List<TagEntry> tagEntries = entry.getValue().build();
+      List<TagEntry> tagEntries = entry.getValue().builder.build();
       List<TagEntry> invalidEntries = tagEntries.stream()
                                                 .filter((value) -> !value.verifyIfPresent(staticValuePredicate, this.builders::containsKey))
                                                 .filter(this::missing)
@@ -65,18 +71,23 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
       if (!invalidEntries.isEmpty()) {
         return CompletableFuture.failedFuture(new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", id, invalidEntries.stream().map(Objects::toString).collect(Collectors.joining(",")))));
       } else {
-        return saveJson(cache, id, TagFile.CODEC, new TagFile(tagEntries, entry.getValue().isReplace()));
+        return saveJson(cache, id, TagFile.CODEC, new TagFile(tagEntries, entry.getValue().replace));
       }
     }));
   }
 
   /** Checks if a given reference exists in another data pack */
   private boolean missing(TagEntry reference) {
-    if (reference.isRequired()) {
-      // forge has a separate element resource type here to allow generating tags to non-static values. We don't currently handle non-static tag value validation but its worth considering
-      return existingFileHelper == null || !existingFileHelper.exists(reference.getId(), resourceType);
+    if (existingFileHelper == null) {
+      return false;
     }
-    return false;
+    boolean[] missing = {false};
+    reference.visitRequiredDependencies(id -> {
+      if (!existingFileHelper.exists(id, resourceType)) {
+        missing[0] = true;
+      }
+    });
+    return missing[0];
   }
 
 
@@ -88,33 +99,53 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
   }
 
   /** Raw method to make a builder */
-  protected TagBuilder getOrCreateRawBuilder(TagKey<T> pTag) {
+  protected TagData getOrCreateRawBuilder(TagKey<T> pTag) {
     return this.builders.computeIfAbsent(pTag.location(), location -> {
       existingFileHelper.trackGenerated(location, resourceType);
-      return TagBuilder.create();
+      return new TagData();
     });
   }
 
   /** Vanillas tag appender does not let us easily replace the key getter, so replace it */
   @SuppressWarnings({"UnusedReturnValue", "unused"})  // API
-  public record TagAppender<T>(String modID, TagBuilder internalBuilder, Function<T,ResourceLocation> keyGetter) {
+  public record TagAppender<T>(String modID, TagData data, Function<T,ResourceLocation> keyGetter) {
+    private TagBuilder internalBuilder() {
+      return data.builder;
+    }
+
     /** Adds a value to the tag */
     public TagAppender<T> add(T value) {
-      this.internalBuilder.addElement(keyGetter.apply(value));
+      this.internalBuilder().addElement(keyGetter.apply(value));
       return this;
     }
 
     /** Adds a list of values to the tag */
     @SafeVarargs
     public final TagAppender<T> add(T... values) {
-      Stream.of(values).map(keyGetter).forEach(this.internalBuilder::addElement);
+      Stream.of(values).map(keyGetter).forEach(this.internalBuilder()::addElement);
       return this;
     }
 
     /** Adds a resource location to the tag */
     public TagAppender<T> add(ResourceLocation... ids) {
       for (ResourceLocation id : ids) {
-        this.internalBuilder.addElement(id);
+        this.internalBuilder().addElement(id);
+      }
+      return this;
+    }
+
+    /** Adds a resource ID wrapper to the tag */
+    public TagAppender<T> add(slimeknights.tconstruct.library.utils.ResourceId... ids) {
+      for (slimeknights.tconstruct.library.utils.ResourceId id : ids) {
+        this.internalBuilder().addElement(id.location());
+      }
+      return this;
+    }
+
+    /** Adds an optional resource ID wrapper to the tag */
+    public TagAppender<T> addOptional(slimeknights.tconstruct.library.utils.ResourceId... ids) {
+      for (slimeknights.tconstruct.library.utils.ResourceId id : ids) {
+        this.internalBuilder().addOptionalElement(id.location());
       }
       return this;
     }
@@ -122,7 +153,7 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
     /** Adds an optional ID to the tag */
     public TagAppender<T> addOptional(ResourceLocation... ids) {
       for (ResourceLocation id : ids) {
-        this.internalBuilder.addOptionalElement(id);
+        this.internalBuilder().addOptionalElement(id);
       }
       return this;
     }
@@ -131,7 +162,7 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
     @SafeVarargs
     public final TagAppender<T> addTag(TagKey<T>... tags) {
       for (TagKey<T> tag : tags) {
-        this.internalBuilder.addTag(tag.location());
+        this.internalBuilder().addTag(tag.location());
       }
       return this;
     }
@@ -139,7 +170,7 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
     /** Adds an optional tag to the tag */
     public TagAppender<T> addOptionalTag(ResourceLocation... tags) {
       for (ResourceLocation tag : tags) {
-        this.internalBuilder.addOptionalTag(tag);
+        this.internalBuilder().addOptionalTag(tag);
       }
       return this;
     }
@@ -154,7 +185,7 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
 
     /** Sets the tag to replace */
     public TagAppender<T> replace(boolean value) {
-      internalBuilder.replace(value);
+      data.replace = value;
       return this;
     }
 
@@ -187,7 +218,8 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
      * @return The builder for chaining
      */
     public TagAppender<T> remove(ResourceLocation location) {
-      internalBuilder.removeElement(location, modID);
+      // removal is not supported by vanilla tag files, ignored
+      return this;
       return this;
     }
 
@@ -210,7 +242,7 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
      * @return The builder for chaining
      */
     public TagAppender<T> remove(TagKey<T> tag) {
-      internalBuilder.removeTag(tag.location(), modID);
+      // removal is not supported by vanilla tag files, ignored
       return this;
     }
 

@@ -107,7 +107,7 @@ public class SmelteryRecipeBuilder {
   /** Creates a builder for the given fluid object */
   @CheckReturnValue
   public static SmelteryRecipeBuilder fluid(RecipeOutput consumer, ResourceLocation name, FluidObject<?> fluid) {
-    return new SmelteryRecipeBuilder(consumer, name, fluid, null, null).temperature(getTemperature());
+    return new SmelteryRecipeBuilder(consumer, name, fluid, null, null).temperature(getTemperature(fluid));
   }
 
   /** Creates a builder for the given fluid and tags. Tag will be used for inputs and fluid for outputs */
@@ -116,7 +116,7 @@ public class SmelteryRecipeBuilder {
     assert fluid != null || fluidTag != null;
     SmelteryRecipeBuilder builder = new SmelteryRecipeBuilder(consumer, name, null, fluid, fluidTag);
     if (fluid != null) {
-      builder.temperature(getTemperature());
+      builder.temperature(getTemperature(fluid));
     }
     return builder;
   }

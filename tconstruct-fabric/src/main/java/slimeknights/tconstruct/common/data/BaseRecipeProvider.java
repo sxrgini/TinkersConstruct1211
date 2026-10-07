@@ -26,4 +26,14 @@ public abstract class BaseRecipeProvider extends slimeknights.mantle.recipe.data
   public String getModId() {
     return TConstruct.MOD_ID;
   }
+
+  /** Prefixes the ID of the passed resource ID wrapper */
+  public net.minecraft.resources.ResourceLocation prefix(slimeknights.tconstruct.library.utils.ResourceId id, String prefix) {
+    return prefix(id.location(), prefix);
+  }
+
+  /** Wraps the ID of the passed resource ID wrapper */
+  public net.minecraft.resources.ResourceLocation wrap(slimeknights.tconstruct.library.utils.ResourceId id, String prefix, String suffix) {
+    return wrap(id.location(), prefix, suffix);
+  }
 }

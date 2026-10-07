@@ -31,11 +31,6 @@ public abstract class AbstractMultilevelModifierRecipeBuilder<T extends Abstract
   protected int maxToolSize = ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE;
   protected boolean checkTraitLevel = false;
 
-  /** Gets the casted builder */
-  @SuppressWarnings("unchecked")
-  private T self() {
-    return (T) this;
-  }
 
 
   /* Tool */
@@ -155,7 +150,7 @@ public abstract class AbstractMultilevelModifierRecipeBuilder<T extends Abstract
     }
     for (LevelEntry levelEntry : levels) {
       if (levelEntry.slots() != null) {
-        consumer.accept(id, new ModifierSalvage(id.withSuffix("_level_" + levelEntry.level().min()), tools, maxToolSize, result, levelEntry.level(), levelEntry.slots()), null);
+        consumer.accept(id, new ModifierSalvage(tools, maxToolSize, result, levelEntry.level(), levelEntry.slots()), null);
       }
     }
     return self();

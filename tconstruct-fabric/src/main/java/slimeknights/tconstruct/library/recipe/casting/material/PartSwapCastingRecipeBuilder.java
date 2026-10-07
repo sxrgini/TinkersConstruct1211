@@ -56,6 +56,6 @@ public class PartSwapCastingRecipeBuilder extends AbstractRecipeBuilder<PartSwap
 
   @Override
   public void save(RecipeOutput consumer, ResourceLocation id) {
-    consumer.accept(id, new PartSwapCastingRecipe(recipeSerializer, group, tools, itemCost, index, allowedMaterials), this.buildOptionalAdvancement(id, "materials"));
+    consumer.accept(id, new PartSwapCastingRecipe(recipeSerializer, group, tools, itemCost, index, allowedMaterials), this.buildOptionalAdvancement(consumer, id, "materials"));
   }
 }

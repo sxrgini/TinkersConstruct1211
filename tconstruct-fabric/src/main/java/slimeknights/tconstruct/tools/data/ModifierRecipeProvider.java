@@ -120,7 +120,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                             .setCast(TinkerTables.pattern, true)
                             .save(consumer, prefix(TinkerModifiers.ironReinforcement, folder));
     ItemCastingRecipeBuilder.tableRecipe(TinkerModifiers.searedReinforcement)
-                            .setFluid(FluidIngredient.of(TinkerFluids.searedStone.ingredient(FluidValues.BRICK), TinkerFluids.scorchedStone.ingredient(FluidValues.BRICK)))
+                            .setFluid(FluidIngredient.of(TinkerFluids.searedStone.legacyIngredient(FluidValues.BRICK), TinkerFluids.scorchedStone.legacyIngredient(FluidValues.BRICK)))
                             .setCoolingTime(getTemperature(TinkerFluids.searedStone), FluidValues.BRICK)
                             .setCast(TinkerTables.pattern, true)
                             .save(consumer, prefix(TinkerModifiers.searedReinforcement, folder));

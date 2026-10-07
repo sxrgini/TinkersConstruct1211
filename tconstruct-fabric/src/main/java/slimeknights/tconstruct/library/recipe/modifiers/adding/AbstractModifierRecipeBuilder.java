@@ -187,6 +187,6 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
 
   /** Makes the salvage recipe to save in {@link #saveSalvage(Consumer, ResourceLocation)} */
   protected ModifierSalvage makeSalvage(ResourceLocation id) {
-    return new ModifierSalvage(id, tools, maxToolSize, result, VALID_LEVEL.range(minLevel, useSalvageMax ? maxLevel : VALID_LEVEL.max()), Objects.requireNonNull(slots));
+    return new ModifierSalvage(tools, maxToolSize, result, VALID_LEVEL.range(minLevel, useSalvageMax ? maxLevel : VALID_LEVEL.max()), Objects.requireNonNull(slots));
   }
 }

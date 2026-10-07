@@ -25,7 +25,7 @@ import static slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe.getT
 /**
  * Recipe helper for methods related to melting and casting
  */
-public interface ISmelteryRecipeHelper extends ICastCreationHelper {
+public interface ISmelteryRecipeHelper extends ICastCreationHelper, slimeknights.mantle.platform.condition.IConditionBuilder {
   /* Builders for casting and melting from tags */
 
   /** Creates a smeltery builder for a standard fluid */
@@ -68,7 +68,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
    * @param isOptional  If true, recipe is optional
    */
   default void tagMelting(RecipeOutput consumer, FluidObject<?> fluid, int amount, String tagName, float factor, String recipePath, boolean isOptional) {
-    tagMelting(consumer, fluid.result(amount), getTemperature(), tagName, factor, recipePath, isOptional);
+    tagMelting(consumer, fluid.result(amount), getTemperature(fluid), tagName, factor, recipePath, isOptional);
   }
 
   /** Shared logic for metal melting */

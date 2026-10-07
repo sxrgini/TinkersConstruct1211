@@ -42,13 +42,13 @@ public abstract class AbstractEnchantmentToModifierProvider extends GenericDataP
   }
 
   /** Adds the given enchantment */
-  protected void add(Enchantment enchantment, ModifierId modifierId) {
+  protected void add(net.minecraft.resources.ResourceKey<Enchantment> enchantment, ModifierId modifierId) {
     add(enchantment, modifierId, false);
   }
 
   /** Adds the given enchantment, allowing making the modifier optional */
-  protected void add(Enchantment enchantment, ModifierId modifierId, boolean optionalModifier) {
-    String key = Loadables.ENCHANTMENT.getString(enchantment);
+  protected void add(net.minecraft.resources.ResourceKey<Enchantment> enchantment, ModifierId modifierId, boolean optionalModifier) {
+    String key = enchantment.location().toString();
     if (enchantmentMap.has(key) || enchantmentMap.has(key + '?')) {
       throw new IllegalArgumentException("Duplicate enchantment " + key);
     }

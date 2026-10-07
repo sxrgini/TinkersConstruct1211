@@ -39,8 +39,10 @@ public interface LivingEntityPredicate extends IJsonPredicate<LivingEntity> {
   LivingEntityPredicate BLOCKING = simple(LivingEntity::isBlocking);
   /** Entities actively flying with an elytra */
   LivingEntityPredicate ELYTRA_FLYING = simple(LivingEntity::isFallFlying);
-  /** Predicate matching entities standing on the ground */
-  LivingEntityPredicate ON_GROUND = simple(LivingEntity::onGround);
+  /** Living entity variants of the entity predicates, so they can be used with other living predicates */
+  IJsonPredicate<LivingEntity> FIRE_IMMUNE = LOADER.fallback(EntityPredicate.FIRE_IMMUNE);
+  IJsonPredicate<LivingEntity> CAN_FREEZE = LOADER.fallback(EntityPredicate.CAN_FREEZE);
+  IJsonPredicate<LivingEntity> ON_GROUND = LOADER.fallback(EntityPredicate.ON_GROUND);
 
 
   /** Creates a new predicate singleton */

@@ -84,7 +84,7 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
   @Override
   public void save(RecipeOutput consumerIn, ResourceLocation id) {
     AdvancementHolder advancementId = this.buildOptionalAdvancement(consumerIn, id, "casting");
-    consumerIn.accept(new ContainerFillingRecipeBuilder.Result(id, advancementId));
+    consumerIn.accept(id, new ContainerFillingRecipe(recipeSerializer, group, fluidAmount, net.minecraft.core.registries.BuiltInRegistries.ITEM.get(result)), advancementId);
   }
 
 }

@@ -25,7 +25,7 @@ import static slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe.getT
 /**
  * Interface for adding recipes for tool materials
  */
-public interface IMaterialRecipeHelper extends IRecipeHelper {
+public interface IMaterialRecipeHelper extends IRecipeHelper, slimeknights.mantle.platform.condition.IConditionBuilder {
   /**
    * Registers a material recipe
    * @param consumer  Recipe consumer
