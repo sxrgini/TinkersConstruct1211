@@ -59,7 +59,7 @@ public class ScalingChestScreen<T extends BlockEntity> extends DynamicContainerS
 
   @Override
   public boolean shouldDrawSlot(Slot slot) {
-    if (slot.getSlotIndex() >= this.scaling.getVisualSize()) {
+    if (slot.getContainerSlot() >= this.scaling.getVisualSize()) {
       return false;
     }
     return super.shouldDrawSlot(slot);

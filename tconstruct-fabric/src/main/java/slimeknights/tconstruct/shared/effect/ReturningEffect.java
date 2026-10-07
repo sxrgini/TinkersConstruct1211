@@ -29,7 +29,10 @@ public class ReturningEffect extends TinkerEffect {
     LivingEntity entity = event.getEntity();
     if (!entity.level().isClientSide() && event.getOldEffectInstance() == null && event.getEffectInstance().getEffect() == this) {
       ModDataNBT data = PersistentDataCapability.getOrWarn(entity);
-      CompoundTag pos = NbtUtils.writeBlockPos(entity.blockPosition());
+      CompoundTag pos = new CompoundTag();
+      pos.putInt("X", entity.getBlockX());
+      pos.putInt("Y", entity.getBlockY());
+      pos.putInt("Z", entity.getBlockZ());
       pos.putString("dimension", entity.level().dimension().location().toString());
       data.put(KEY, pos);
     }
@@ -49,7 +52,7 @@ public class ReturningEffect extends TinkerEffect {
       // no teleporting if you switched dimensions
       // TODO: look into cross dimensional teleport, its doable with entity#teleportTo
       if (dimension != null && dimension.equals(living.level().dimension().location())) {
-        BlockPos pos = NbtUtils.readBlockPos(tag);
+        BlockPos pos = new BlockPos(tag.getInt("X"), tag.getInt("Y"), tag.getInt("Z"));
         TeleportHelper.tryTeleport(new ReturningTeleportEvent(living, pos.getX(), pos.getY(), pos.getZ()));
       }
     }

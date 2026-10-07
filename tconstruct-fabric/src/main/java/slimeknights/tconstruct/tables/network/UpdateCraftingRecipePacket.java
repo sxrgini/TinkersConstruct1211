@@ -18,9 +18,9 @@ import slimeknights.tconstruct.tables.block.entity.table.CraftingStationBlockEnt
 public class UpdateCraftingRecipePacket implements IBlockEntityPacket<CraftingStationBlockEntity> {
   private final BlockPos pos;
   private final ResourceLocation recipe;
-  public UpdateCraftingRecipePacket(BlockPos pos, CraftingRecipe recipe) {
+  public UpdateCraftingRecipePacket(BlockPos pos, net.minecraft.world.item.crafting.RecipeHolder<CraftingRecipe> recipe) {
     this.pos = pos;
-    this.recipe = recipe.getId();
+    this.recipe = recipe.id();
   }
 
   public UpdateCraftingRecipePacket(RegistryFriendlyByteBuf buffer) {
@@ -48,7 +48,7 @@ public class UpdateCraftingRecipePacket implements IBlockEntityPacket<CraftingSt
   public void handleBlockEntity(IPayloadContext context, CraftingStationBlockEntity be) {
     Level level = be.getLevel();
     assert level != null;
-    CraftingRecipe recipe = RecipeHelper.getRecipe(level.getRecipeManager(), this.recipe, CraftingRecipe.class).orElse(null);
+    net.minecraft.world.item.crafting.RecipeHolder<CraftingRecipe> recipe = level.getRecipeManager().byKey(this.recipe).filter(h -> h.value() instanceof CraftingRecipe).map(h -> (net.minecraft.world.item.crafting.RecipeHolder<CraftingRecipe>) h).orElse(null);
     if (recipe != null) {
       be.updateRecipe(recipe);
     } else {

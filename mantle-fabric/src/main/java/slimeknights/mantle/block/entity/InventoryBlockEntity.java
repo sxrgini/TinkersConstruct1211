@@ -34,6 +34,8 @@ public abstract class InventoryBlockEntity extends NameableBlockEntity implement
   protected int stackSizeLimit;
   @Getter
   protected IItemHandlerModifiable itemHandler;
+  /** Capability form of the item handler, subclasses that replace the handler should replace this too */
+  protected slimeknights.mantle.platform.capability.LazyOptional<slimeknights.mantle.platform.item.IItemHandler> itemHandlerCap;
 
   /**
    * @param name Localization String for the inventory title. Can be overridden through setCustomName
@@ -51,6 +53,27 @@ public abstract class InventoryBlockEntity extends NameableBlockEntity implement
     this.inventory = NonNullList.withSize(inventorySize, ItemStack.EMPTY);
     this.stackSizeLimit = maxStackSize;
     this.itemHandler = new InvWrapper(this);
+    this.itemHandlerCap = slimeknights.mantle.platform.capability.LazyOptional.of(() -> this.itemHandler);
+  }
+
+  @Override
+  public <T> slimeknights.mantle.platform.capability.LazyOptional<T> getCapability(slimeknights.mantle.platform.capability.Capability<T> cap, @javax.annotation.Nullable net.minecraft.core.Direction side) {
+    if (cap == slimeknights.mantle.platform.capability.Capabilities.ITEM_HANDLER) {
+      return itemHandlerCap.cast();
+    }
+    return super.getCapability(cap, side);
+  }
+
+  @Override
+  public void invalidateCaps() {
+    super.invalidateCaps();
+    itemHandlerCap.invalidate();
+  }
+
+  @Override
+  public void reviveCaps() {
+    super.reviveCaps();
+    itemHandlerCap = slimeknights.mantle.platform.capability.LazyOptional.of(() -> this.itemHandler);
   }
 
 

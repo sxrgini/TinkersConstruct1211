@@ -45,4 +45,10 @@ public class LogicHelper {
     }
     return false;
   }
+
+  /** Unwraps the optional or returns null if absent */
+  @javax.annotation.Nullable
+  public static <T> T orElseNull(slimeknights.mantle.platform.capability.LazyOptional<T> optional) {
+    return optional.orElse(null);
+  }
 }

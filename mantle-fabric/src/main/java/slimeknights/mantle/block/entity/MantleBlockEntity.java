@@ -26,6 +26,18 @@ public class MantleBlockEntity extends BlockEntity implements slimeknights.mantl
   public void reviveCaps() {}
 
 
+  /** Extra data stored on the block entity, replacing NeoForge's persistent data */
+  @Nullable
+  private CompoundTag persistentData;
+
+  /** Gets the persistent data, creating it if missing */
+  public CompoundTag getPersistentData() {
+    if (persistentData == null) {
+      persistentData = new CompoundTag();
+    }
+    return persistentData;
+  }
+
   public MantleBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state);
   }
@@ -87,5 +99,16 @@ public class MantleBlockEntity extends BlockEntity implements slimeknights.mantl
   public void saveAdditional(CompoundTag nbt, Provider registries) {
     super.saveAdditional(nbt, registries);
     saveSynced(nbt, registries);
+    if (persistentData != null && !persistentData.isEmpty()) {
+      nbt.put("PersistentData", persistentData.copy());
+    }
+  }
+
+  @Override
+  protected void loadAdditional(CompoundTag nbt, Provider registries) {
+    super.loadAdditional(nbt, registries);
+    if (nbt.contains("PersistentData", net.minecraft.nbt.Tag.TAG_COMPOUND)) {
+      persistentData = nbt.getCompound("PersistentData").copy();
+    }
   }
 }

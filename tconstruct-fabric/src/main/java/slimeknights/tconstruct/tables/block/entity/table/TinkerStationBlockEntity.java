@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -57,7 +58,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
 
   /** Last crafted crafting recipe */
   @Nullable @Getter
-  private ITinkerStationRecipe lastRecipe;
+  private RecipeHolder<ITinkerStationRecipe> lastRecipe;
   /** Result inventory, lazy loads results */
   @Getter
   private final LazyResultContainer craftingResult;
@@ -158,9 +159,9 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
       RecipeManager manager = this.level.getServer().getRecipeManager();
 
       // first, try the cached recipe
-      ITinkerStationRecipe recipe = lastRecipe;
+      RecipeHolder<ITinkerStationRecipe> recipe = lastRecipe;
       // if it does not match, find a new recipe
-      if (recipe == null || !recipe.matches(this.inventoryWrapper, this.level)) {
+      if (recipe == null || !recipe.value().matches(this.inventoryWrapper, this.level)) {
         recipe = manager.getRecipeFor(TinkerRecipeTypes.TINKER_STATION.get(), this.inventoryWrapper, this.level).orElse(null);
       }
 
@@ -175,7 +176,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
         }
 
         // try for UI errors
-        RecipeResult<LazyToolStack> validatedResult = recipe.getValidatedResult(this.inventoryWrapper, level.registryAccess());
+        RecipeResult<LazyToolStack> validatedResult = recipe.value().getValidatedResult(this.inventoryWrapper, level.registryAccess());
         if (validatedResult.isSuccess()) {
           result = validatedResult.getResult();
         } else if (validatedResult.hasError()) {
@@ -188,8 +189,8 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
       }
     }
     // client side only needs to update result, server syncs message elsewhere
-    else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, level)) {
-      RecipeResult<LazyToolStack> validatedResult = this.lastRecipe.getValidatedResult(this.inventoryWrapper, level.registryAccess());
+    else if (this.lastRecipe != null && this.lastRecipe.value().matches(this.inventoryWrapper, level)) {
+      RecipeResult<LazyToolStack> validatedResult = this.lastRecipe.value().getValidatedResult(this.inventoryWrapper, level.registryAccess());
       if (validatedResult.isSuccess()) {
         result = validatedResult.getResult();
       } else if (validatedResult.hasError()) {
@@ -224,12 +225,12 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
 
     // fetch this before updating inputs so they can do input sensitive shrinking
     ItemStack tinkerable = this.getItem(TINKER_SLOT);
-    int shrinkToolSlot = tinkerable.isEmpty() ? 0 : lastRecipe.shrinkToolSlotBy(result, inventoryWrapper);
+    int shrinkToolSlot = tinkerable.isEmpty() ? 0 : lastRecipe.value().shrinkToolSlotBy(result, inventoryWrapper);
 
     // run the recipe, will shrink inputs
     // run both sides for the sake of shift clicking
     this.inventoryWrapper.setPlayer(player);
-    this.lastRecipe.updateInputs(result, inventoryWrapper, !level.isClientSide);
+    this.lastRecipe.value().updateInputs(result, inventoryWrapper, !level.isClientSide);
     this.inventoryWrapper.setPlayer(null);
 
     // remove the center slot item, just clear it entirely (if you want shrinking you should use the outer slots or ask nicely for a shrink amount hook)
@@ -303,7 +304,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
    * Updates the recipe from the server
    * @param recipe  New recipe
    */
-  public void updateRecipe(ITinkerStationRecipe recipe) {
+  public void updateRecipe(RecipeHolder<ITinkerStationRecipe> recipe) {
     this.lastRecipe = recipe;
     this.craftingResult.clearContent();
   }

@@ -21,9 +21,9 @@ import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
 public class UpdateTinkerStationRecipePacket implements IThreadsafePacket {
   private final BlockPos pos;
   private final ResourceLocation recipe;
-  public UpdateTinkerStationRecipePacket(BlockPos pos, ITinkerStationRecipe recipe) {
+  public UpdateTinkerStationRecipePacket(BlockPos pos, net.minecraft.world.item.crafting.RecipeHolder<ITinkerStationRecipe> recipe) {
     this.pos = pos;
-    this.recipe = recipe.getId();
+    this.recipe = recipe.id();
   }
 
   public UpdateTinkerStationRecipePacket(RegistryFriendlyByteBuf buffer) {
@@ -49,7 +49,8 @@ public class UpdateTinkerStationRecipePacket implements IThreadsafePacket {
       Level world = mc.level;
       if (world != null) {
         // start by fetching the recipe, no further work if it's missing
-        ITinkerStationRecipe recipe = RecipeHelper.getRecipe(world.getRecipeManager(), packet.recipe, ITinkerStationRecipe.class).orElse(null);
+        @SuppressWarnings("unchecked")
+        net.minecraft.world.item.crafting.RecipeHolder<ITinkerStationRecipe> recipe = world.getRecipeManager().byKey(packet.recipe).filter(h -> h.value() instanceof ITinkerStationRecipe).map(h -> (net.minecraft.world.item.crafting.RecipeHolder<ITinkerStationRecipe>) h).orElse(null);
         if (recipe == null) {
           TConstruct.LOG.error("Failed to update Tinker Station Recipe at {}: unknown recipe {}", packet.pos, packet.recipe);
           return;

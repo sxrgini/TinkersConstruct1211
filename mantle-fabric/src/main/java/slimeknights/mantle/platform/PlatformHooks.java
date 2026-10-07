@@ -118,7 +118,7 @@ public final class PlatformHooks {
   }
 
   /** Fabric has no crafting event, kept as a hook for future bridging */
-  public static void firePlayerCraftingEvent(Player player, ItemStack crafted, Container inventory) {}
+  public static void firePlayerCraftingEvent(Player player, ItemStack crafted, Object inventory) {}
 
   /** Fabric has no item destroy event, kept as a hook for future bridging */
   public static void onPlayerDestroyItem(Player player, ItemStack stack, @Nullable InteractionHand hand) {}

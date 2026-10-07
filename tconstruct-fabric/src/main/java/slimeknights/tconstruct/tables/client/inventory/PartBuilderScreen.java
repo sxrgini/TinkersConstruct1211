@@ -380,7 +380,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     //if (this.infoPanelScreen.handleMouseScrolled(mouseX, mouseY, delta)) {
     //  return false;
     //}
-    if (super.mouseScrolled(mouseX, mouseY, delta)) {
+    if (super.mouseScrolled(mouseX, mouseY, scrollX, delta)) {
       return true;
     }
 

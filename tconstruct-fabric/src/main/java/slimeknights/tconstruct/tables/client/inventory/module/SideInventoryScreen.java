@@ -93,7 +93,7 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Abstr
 
   @Override
   public boolean shouldDrawSlot(Slot slot) {
-    if (slot.getSlotIndex() >= this.slotCount) {
+    if (slot.getContainerSlot() >= this.slotCount) {
       return false;
     }
 
@@ -102,11 +102,11 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Abstr
       return true;
     }
 
-    return this.firstSlotId <= slot.getSlotIndex() && this.lastSlotId > slot.getSlotIndex();
+    return this.firstSlotId <= slot.getContainerSlot() && this.lastSlotId > slot.getContainerSlot();
   }
 
   @Override
-  public boolean isHovering(Slot slotIn, double mouseX, double mouseY) {
+  protected boolean isHovering(Slot slotIn, double mouseX, double mouseY) {
     return super.isHovering(slotIn, mouseX, mouseY) && this.shouldDrawSlot(slotIn);
   }
 
@@ -224,7 +224,7 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Abstr
     for (Slot slot : this.menu.slots) {
       if (this.shouldDrawSlot(slot)) {
         // calc position of the slot
-        int offset = slot.getSlotIndex() - this.firstSlotId;
+        int offset = slot.getContainerSlot() - this.firstSlotId;
         int x = (offset % this.columns) * this.slot.w;
         int y = (offset / this.columns) * this.slot.h;
 

@@ -28,6 +28,11 @@ public class CraftingContainerWrapper implements CraftingContainer {
     this.height = height;
   }
 
+  /** Creates a recipe input snapshot of the current contents */
+  public net.minecraft.world.item.crafting.CraftingInput asInput() {
+    return net.minecraft.world.item.crafting.CraftingInput.of(width, height, getItems());
+  }
+
   /** Inventory redirection */
 
   @Override

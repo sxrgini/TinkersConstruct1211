@@ -50,7 +50,7 @@ public class TinkerTabsWidget implements Renderable, GuiEventListener, Narratabl
   public TinkerTabsWidget(BaseTabbedScreen<?, ?> parent) {
     this.parent = parent;
 
-    var tabs = collectTabs(this.parent.getMinecraft(), this.parent.getMenu());
+    var tabs = collectTabs(this.Minecraft.getInstance(), this.parent.getMenu());
 
     this.tabs = new TabsWidget(parent, TAB_ELEMENT, TAB_ELEMENT, TAB_ELEMENT, ACTIVE_TAB_L_ELEMENT, ACTIVE_TAB_C_ELEMENT, ACTIVE_TAB_R_ELEMENT);
 
@@ -97,7 +97,7 @@ public class TinkerTabsWidget implements Renderable, GuiEventListener, Narratabl
   }
 
   private void onNewTabSelection(BlockPos pos) {
-    Level level = this.parent.getMinecraft().level;
+    Level level = this.Minecraft.getInstance().level;
 
     if (level != null) {
       BlockState state = level.getBlockState(pos);
@@ -105,7 +105,7 @@ public class TinkerTabsWidget implements Renderable, GuiEventListener, Narratabl
         TinkerNetwork.getInstance().sendToServer(new StationTabPacket(pos));
 
         // sound!
-        this.parent.getMinecraft().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        this.Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
       }
     }
   }
@@ -172,7 +172,7 @@ public class TinkerTabsWidget implements Renderable, GuiEventListener, Narratabl
 
   protected void renterTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
     // highlighted tooltip
-    Level world = parent.getMinecraft().level;
+    Level world = Minecraft.getInstance().level;
     if (this.tabs.highlighted > -1 && world != null) {
       BlockPos pos = this.tabData.get(this.tabs.highlighted);
       Component title;

@@ -479,7 +479,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
       return false;
     }
 
-    return super.mouseScrolled(mouseX, mouseY, delta);
+    return super.mouseScrolled(mouseX, mouseY, scrollX, delta);
   }
 
   @Override
@@ -544,7 +544,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
   }
 
   @Override
-  public boolean isHovering(Slot slotIn, double mouseX, double mouseY) {
+  protected boolean isHovering(Slot slotIn, double mouseX, double mouseY) {
     if (slotIn instanceof TinkerStationSlot && ((TinkerStationSlot) slotIn).isDormant() && !slotIn.hasItem()) {
       return false;
     }
@@ -635,8 +635,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
   @Override
   public void containerTick() {
     super.containerTick();
-    this.textField.tick();
-  }
+      }
 
   @Override
   public void resize(Minecraft pMinecraft, int pWidth, int pHeight) {

@@ -67,7 +67,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       buffer.writeUtf(entry.getKey().toString());
       buffer.writeUtf(entry.getValue().toString());
     }
-    GenericTagUtil.encodeTags(buffer, IMaterial::getIdentifier, this.tags);
+    GenericTagUtil.encodeTags(buffer, m -> m.getIdentifier().location(), this.tags);
   }
 
   @Override

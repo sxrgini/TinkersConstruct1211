@@ -73,7 +73,7 @@ public class TinkerChestScreen extends BaseTabbedScreen<AbstractChestBlockEntity
       return false;
     }
 
-    return super.mouseScrolled(mouseX, mouseY, delta);
+    return super.mouseScrolled(mouseX, mouseY, scrollX, delta);
   }
 
   @Override

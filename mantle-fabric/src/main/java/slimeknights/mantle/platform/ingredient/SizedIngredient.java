@@ -71,8 +71,8 @@ public record SizedIngredient(Ingredient ingredient, int count) {
   }
 
   /** @return stacks matching this ingredient, 1.20 style accessor */
-  public ItemStack[] getMatchingStacks() {
-    return getItems();
+  public java.util.List<ItemStack> getMatchingStacks() {
+    return java.util.Arrays.asList(getItems());
   }
 
   /** Creates a sized ingredient from the given item */

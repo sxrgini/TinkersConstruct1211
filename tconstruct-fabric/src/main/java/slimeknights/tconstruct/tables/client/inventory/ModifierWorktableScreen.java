@@ -326,7 +326,7 @@ public class ModifierWorktableScreen extends ToolTableScreen<ModifierWorktableBl
         || this.modifierInfo.handleMouseScrolled(mouseX, mouseY, delta)) {
       return false;
     }
-    if (super.mouseScrolled(mouseX, mouseY, delta)) {
+    if (super.mouseScrolled(mouseX, mouseY, scrollX, delta)) {
       return true;
     }
 

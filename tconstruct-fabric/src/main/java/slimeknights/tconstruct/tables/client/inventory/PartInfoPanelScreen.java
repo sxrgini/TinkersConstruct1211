@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory;
 
+import net.minecraft.network.chat.contents.PlainTextContents;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -48,7 +49,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen<PartBuilderScreen,PartB
 
   /** If true, has pattern cost text */
   private boolean hasPatternCost() {
-    return this.patternCost != null && this.patternCost.getContents() != ComponentContents.EMPTY;
+    return this.patternCost != null && this.patternCost.getContents() != PlainTextContents.EMPTY;
   }
 
   /* Material value */
@@ -72,7 +73,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen<PartBuilderScreen,PartB
 
   /** If true, has material value text */
   private boolean hasMaterialValue() {
-    return this.materialValue != null && this.materialValue.getContents() != ComponentContents.EMPTY;
+    return this.materialValue != null && this.materialValue.getContents() != PlainTextContents.EMPTY;
   }
 
   @Override
