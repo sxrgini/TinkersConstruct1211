@@ -7,8 +7,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.GameRules;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import slimeknights.mantle.command.argument.RegistryArgument;
 import slimeknights.mantle.command.argument.TagSourceArgument;
 import slimeknights.mantle.command.tags.DumpAllTagsCommand;
@@ -43,7 +42,7 @@ public class MantleCommand {
       -> SharedSuggestionProvider.suggestResource(context.getSource().getRecipeNames(), builder));
 
     // add command listener
-    NeoForge.EVENT_BUS.addListener(MantleCommand::registerCommand);
+    CommandRegistrationCallback.EVENT.register((dispatcher, context, environment) -> registerCommand(dispatcher, context));
   }
 
   /** Registers a sub command for the root Mantle command */
@@ -54,9 +53,8 @@ public class MantleCommand {
   }
 
   /** Event listener to register the Mantle command */
-  private static void registerCommand(RegisterCommandsEvent event) {
+  private static void registerCommand(com.mojang.brigadier.CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext context) {
     LiteralArgumentBuilder<CommandSourceStack> builder = Commands.literal("mantle");
-    CommandBuildContext context = event.getBuildContext();
 
     // sub commands
     register(builder, "tags", b -> {
@@ -80,7 +78,7 @@ public class MantleCommand {
     register(builder, "hunger", HungerCommand::register);
 
     // register final command
-    event.getDispatcher().register(builder);
+    dispatcher.register(builder);
   }
 
   /* Helpers */

@@ -15,7 +15,7 @@ import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.neoforged.fml.ModList;
+import net.fabricmc.loader.api.FabricLoader;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
@@ -56,7 +56,7 @@ public enum FallbackModelLoader implements IGeometryLoader<FallbackModelLoader.B
       }
 
       // if the mod is loaded, try loading the given model
-      if (modId == null || ModList.get().isLoaded(modId)) {
+      if (modId == null || FabricLoader.getInstance().isModLoaded(modId)) {
         try {
           // use a model wrapper to ensure the child model gets the proper context
           // this means its not possible to extend the fallback model, but that is not normally possible with loaders

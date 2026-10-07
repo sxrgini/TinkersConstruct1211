@@ -15,7 +15,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.storage.LevelResource;
-import net.neoforged.fml.ModList;
+import net.fabricmc.loader.api.FabricLoader;
 import slimeknights.mantle.platform.condition.FalseCondition;
 import slimeknights.mantle.platform.condition.ICondition;
 import slimeknights.mantle.Mantle;
@@ -52,7 +52,7 @@ public class GeneratePackHelper {
   /** Gets the path to the datapack */
   public static Path getDatapackPath(MinecraftServer server, String packName) {
     // if we have JSON Things, do a global datapack
-    if (ModList.get().isLoaded("jsonthings")) {
+    if (FabricLoader.getInstance().isModLoaded("jsonthings")) {
       return server.getServerDirectory().resolve("thingpacks/" + packName);
     }
     // TODO: consider option to put in the standard datapacks folder via config property

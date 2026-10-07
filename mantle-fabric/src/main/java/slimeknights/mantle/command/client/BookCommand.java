@@ -26,8 +26,8 @@ import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModList;
+import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.FabricLoader;
 import org.apache.commons.lang3.text.WordUtils;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
@@ -243,8 +243,8 @@ public class BookCommand {
         }
 
         // fetch mod display name if possible
-        ModContainer mod = ModList.get().getModContainerById(book.getNamespace()).orElse(null);
-        String modName = mod == null ? book.getNamespace() : mod.getModInfo().getDisplayName();
+        ModContainer mod = FabricLoader.getInstance().getModContainer(book.getNamespace()).orElse(null);
+        String modName = mod == null ? book.getNamespace() : mod.getMetadata().getName();
 
         do {
           RenderSystem.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT, Minecraft.ON_OSX);

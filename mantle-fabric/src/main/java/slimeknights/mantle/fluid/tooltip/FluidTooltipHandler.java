@@ -12,8 +12,8 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModList;
+import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.TagsUpdatedEvent;
@@ -176,9 +176,9 @@ public class FluidTooltipHandler extends SimpleJsonResourceReloadListener {
   /** Gets the mod name for display in the tooltip */
   public static <T> Component formatModName(ResourceLocation key) {
     String name = key.getNamespace();
-    Optional<? extends ModContainer> mod = ModList.get().getModContainerById(name);
+    Optional<ModContainer> mod = FabricLoader.getInstance().getModContainer(name);
     if (mod.isPresent()) {
-      name = mod.get().getModInfo().getDisplayName();
+      name = mod.get().getMetadata().getName();
     }
     return Component.literal(name).withStyle(ChatFormatting.BLUE, ChatFormatting.ITALIC);
   }

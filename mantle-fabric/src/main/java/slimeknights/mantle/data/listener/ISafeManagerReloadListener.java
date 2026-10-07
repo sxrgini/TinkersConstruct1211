@@ -2,7 +2,6 @@ package slimeknights.mantle.data.listener;
 
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
-import net.neoforged.fml.ModLoader;
 
 /**
  * Same as {@link ResourceManagerReloadListener}, but only runs if the mod loader state is valid, used as client resource listeners can cause a misleading crash report if something else throws.
@@ -11,7 +10,7 @@ import net.neoforged.fml.ModLoader;
 public interface ISafeManagerReloadListener extends ResourceManagerReloadListener {
   @Override
   default void onResourceManagerReload(ResourceManager resourceManager) {
-    if (!ModLoader.hasErrors()) {
+    if (true) {
       onReloadSafe(resourceManager);
     }
   }

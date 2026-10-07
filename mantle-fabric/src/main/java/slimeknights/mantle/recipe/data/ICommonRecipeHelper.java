@@ -14,7 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.common.Tags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.MetalItemObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
@@ -220,7 +220,7 @@ public interface ICommonRecipeHelper extends IRecipeHelper {
                        .save(output, location(folder + "stripped_log_to_wood"));
     // doors
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, wood.getFence(), 3)
-                       .define('#', Tags.Items.RODS_WOODEN).define('W', wood)
+                       .define('#', ConventionalItemTags.WOODEN_RODS).define('W', wood)
                        .pattern("W#W").pattern("W#W")
                        .group("wooden_fence")
                        .unlockedBy("has_planks", hasPlanks)
@@ -258,7 +258,7 @@ public interface ICommonRecipeHelper extends IRecipeHelper {
     // signs
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, wood.getSign(), 3)
                        .group("sign")
-                       .define('#', wood).define('X', Tags.Items.RODS_WOODEN)
+                       .define('#', wood).define('X', ConventionalItemTags.WOODEN_RODS)
                        .pattern("###").pattern("###").pattern(" X ")
                        .unlockedBy("has_planks", RecipeProvider.has(wood))
                        .save(output, location(folder + "sign"));

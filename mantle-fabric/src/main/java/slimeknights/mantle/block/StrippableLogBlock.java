@@ -1,16 +1,12 @@
 package slimeknights.mantle.block;
 
-import net.minecraft.world.item.context.UseOnContext;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.ItemAbilities;
-import net.neoforged.neoforge.common.ItemAbility;
 
-import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-/** Log block that can be stripped */
+/** Log block that can be stripped. Stripping is registered with Fabric once the block is registered, see {@link slimeknights.mantle.Mantle}. */
 public class StrippableLogBlock extends RotatedPillarBlock {
   private final Supplier<? extends Block> stripped;
   public StrippableLogBlock(Supplier<? extends Block> stripped, Properties properties) {
@@ -18,12 +14,8 @@ public class StrippableLogBlock extends RotatedPillarBlock {
     this.stripped = stripped;
   }
 
-  @Nullable
-  @Override
-  public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility toolAction, boolean simulate) {
-    if (toolAction == ItemAbilities.AXE_STRIP) {
-      return stripped.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
-    }
-    return null;
+  /** Registers the stripping behavior, called after this block is registered */
+  public void registerStripping() {
+    StrippableBlockRegistry.register(this, stripped.get());
   }
 }

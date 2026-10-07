@@ -7,9 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.bus.api.EventPriority;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.TagsUpdatedEvent;
+import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
 import slimeknights.mantle.config.Config;
 import slimeknights.mantle.util.LogicHelper;
 import slimeknights.mantle.util.RegistryHelper;
@@ -39,7 +37,7 @@ public class TagPreference {
 
   /** Registers the listener with the event bus */
   public static void init() {
-    NeoForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, e -> PREFERENCE_CACHE.clear());
+    CommonLifecycleEvents.TAGS_LOADED.register((registries, client) -> PREFERENCE_CACHE.clear());
   }
 
   /** Gets the comparator for the given registry */

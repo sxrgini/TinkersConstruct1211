@@ -2,6 +2,8 @@ package slimeknights.mantle;
 
 import net.minecraft.Util;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
+import slimeknights.mantle.block.StrippableLogBlock;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.commands.synchronization.ArgumentTypeInfos;
 import net.minecraft.core.Registry;
@@ -88,6 +90,11 @@ public class Mantle implements ModInitializer {
     LootTableInjector.init();
     UseBlockCallback.EVENT.register(LecternBookItem::interactWithBlock);
     RegistrationHelper.applySignBlocks();
+    RegistryEntryAddedCallback.event(BuiltInRegistries.BLOCK).register((rawId, id, block) -> {
+      if (block instanceof StrippableLogBlock log) {
+        log.registerStripping();
+      }
+    });
   }
 
   /** Registers Mantle's custom loaders, conditions and argument types */

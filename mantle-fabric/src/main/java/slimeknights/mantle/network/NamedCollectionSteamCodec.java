@@ -4,7 +4,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.fml.loading.FMLEnvironment;
+import net.fabricmc.loader.api.FabricLoader;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.loadable.Streamable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
@@ -69,7 +69,7 @@ public interface NamedCollectionSteamCodec<T extends IdAwareObject> extends Stre
       } catch (RuntimeException e) {
         Mantle.logger.error("Failed to decode {} with ID {}", debugName(), id, e);
         // if in production, attempt to recover by returning what worked
-        if (FMLEnvironment.production) {
+        if (!FabricLoader.getInstance().isDevelopmentEnvironment()) {
           break;
         } else {
           // in dev throw as people should notice to fix their mods
