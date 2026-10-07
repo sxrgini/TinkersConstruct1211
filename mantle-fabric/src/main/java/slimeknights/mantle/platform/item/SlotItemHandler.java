@@ -39,7 +39,6 @@ public class SlotItemHandler extends Slot {
     setChanged();
   }
 
-  @Override
   public void initialize(ItemStack stack) {
     set(stack);
   }
@@ -52,7 +51,6 @@ public class SlotItemHandler extends Slot {
     return itemHandler.getSlotLimit(index);
   }
 
-  @Override
   public int getMaxStackSize(ItemStack stack) {
     ItemStack maxAdd = stack.copyWithCount(stack.getMaxStackSize());
     ItemStack remainder = itemHandler.insertItem(index, maxAdd, true);

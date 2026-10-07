@@ -41,16 +41,8 @@ public abstract class GenericDataProvider implements DataProvider {
     this(output.createPathProvider(type, folder), gson);
   }
 
-  public GenericDataProvider(DataGenerator generator, Target type, String folder, Gson gson) {
-    this(generator.getPackOutput(), type, folder, gson);
-  }
-
   public GenericDataProvider(PackOutput output, Target type, String folder) {
     this(output, type, folder, JsonHelper.DEFAULT_GSON);
-  }
-
-  public GenericDataProvider(DataGenerator generator, Target type, String folder) {
-    this(generator, type, folder, JsonHelper.DEFAULT_GSON);
   }
 
   /**

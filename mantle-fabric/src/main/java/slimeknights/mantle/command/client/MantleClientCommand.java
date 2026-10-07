@@ -3,7 +3,7 @@ package slimeknights.mantle.command.client;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.client.Minecraft;
-import net.minecraft.commands.CommandSourceStack;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.synchronization.SuggestionProviders;
@@ -21,9 +21,9 @@ import java.util.function.Consumer;
  */
 public class MantleClientCommand {
   /** Suggestion provider that lists registered book ids */
-  public static SuggestionProvider<CommandSourceStack> REGISTERED_BOOKS;
+  public static SuggestionProvider<FabricClientCommandSource> REGISTERED_BOOKS;
   /** Suggestion provider that lists registered book domains */
-  public static SuggestionProvider<CommandSourceStack> REGISTERED_BOOK_DOMAINS;
+  public static SuggestionProvider<FabricClientCommandSource> REGISTERED_BOOK_DOMAINS;
 
 
   /** Registers all Mantle client command related content */
@@ -48,15 +48,15 @@ public class MantleClientCommand {
   }
 
   /** Registers a sub command for the root Mantle client command */
-  private static void register(LiteralArgumentBuilder<CommandSourceStack> root, String name, Consumer<LiteralArgumentBuilder<CommandSourceStack>> consumer) {
-    LiteralArgumentBuilder<CommandSourceStack> subCommand = Commands.literal(name);
+  private static void register(LiteralArgumentBuilder<FabricClientCommandSource> root, String name, Consumer<LiteralArgumentBuilder<FabricClientCommandSource>> consumer) {
+    LiteralArgumentBuilder<FabricClientCommandSource> subCommand = net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal(name);
     consumer.accept(subCommand);
     root.then(subCommand);
   }
 
   /** Event listener to register the Mantle client command */
   private static void registerCommand(com.mojang.brigadier.CommandDispatcher<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource> dispatcher) {
-    LiteralArgumentBuilder<CommandSourceStack> builder = Commands.literal("mantle");
+    LiteralArgumentBuilder<FabricClientCommandSource> builder = net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal("mantle");
 
     // sub commands
     register(builder, "book", BookCommand::register);

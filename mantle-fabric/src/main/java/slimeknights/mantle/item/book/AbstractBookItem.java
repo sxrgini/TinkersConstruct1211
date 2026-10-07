@@ -55,8 +55,7 @@ public abstract class AbstractBookItem extends LecternBookItem {
   @Override
   public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
     // if the stack is in the player inventory, show the right click to open tooltip
-    Level level = context.level();
-    if (level != null && level.isClientSide) {
+    if (net.fabricmc.loader.api.FabricLoader.getInstance().getEnvironmentType() == net.fabricmc.api.EnvType.CLIENT) {
       Player player = SafeClientAccess.getPlayer();
       if (player != null && isValidContainer(player.containerMenu)) {
         Inventory inventory = player.getInventory();
@@ -94,7 +93,7 @@ public abstract class AbstractBookItem extends LecternBookItem {
       if (player.level().isClientSide) {
         player.containerMenu.resumeRemoteUpdates();
         player.closeContainer();
-        openScreen(player, slot.getSlotIndex(), stack);
+        openScreen(player, slot.getContainerSlot(), stack);
       }
       return true;
     }

@@ -26,7 +26,6 @@ public class MobEffectLiquidBlock extends LiquidBlock {
   public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
     if (entity.level().getFluidState(entity.blockPosition()).is(fluid) && entity instanceof LivingEntity living) {
       MobEffectInstance effect = this.effect.get();
-      effect.getCures().clear();;
       living.addEffect(effect);
     }
   }

@@ -1,5 +1,6 @@
 package slimeknights.mantle.fluid;
 
+import slimeknights.mantle.platform.item.ItemHelpers;
 import slimeknights.mantle.platform.fluid.FluidTypes;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -159,7 +160,7 @@ public class FluidTransferHelper {
             world.playSound(null, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
             player.displayClientMessage(Component.translatable(KEY_FILLED, COMMA_FORMAT.format(FluidType.BUCKET_VOLUME), fluidStack.getHoverName()), true);
             if (!player.isCreative()) {
-              player.setItemInHand(hand, held.getCraftingRemainingItem());
+              player.setItemInHand(hand, ItemHelpers.getCraftingRemainingItem(held));
             }
             return FluidInteractionResult.DRAINED_STACK;
           }

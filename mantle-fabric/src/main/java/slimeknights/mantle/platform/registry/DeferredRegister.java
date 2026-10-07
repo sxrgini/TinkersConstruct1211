@@ -21,6 +21,7 @@ public class DeferredRegister<T> {
   protected final String namespace;
   private final Map<DeferredHolder<T,? extends T>,Supplier<? extends T>> entries = new LinkedHashMap<>();
   private boolean registered = false;
+  private final Map<ResourceLocation,ResourceLocation> aliases = new LinkedHashMap<>();
 
   public DeferredRegister(ResourceKey<? extends Registry<T>> registryKey, String namespace) {
     this.registryKey = registryKey;
@@ -70,6 +71,11 @@ public class DeferredRegister<T> {
     return register(name, () -> func.apply(ResourceLocation.fromNamespaceAndPath(namespace, name)));
   }
 
+  /** Adds an alias so the old name resolves to the new one, applied when registering */
+  public void addAlias(ResourceLocation from, ResourceLocation to) {
+    aliases.put(from, to);
+  }
+
   /** Writes all queued entries to the registry. Call during mod initialization */
   @SuppressWarnings("unchecked")
   public void register() {
@@ -82,5 +88,6 @@ public class DeferredRegister<T> {
       throw new IllegalStateException("Unknown registry " + registryKey.location());
     }
     entries.forEach((holder, supplier) -> Registry.register(registry, holder.getKey().location(), supplier.get()));
+    // TODO: Fabric has no registry alias support in this version, aliases are only recorded
   }
 }

@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.SpriteContents;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import slimeknights.mantle.platform.client.SpriteHelper;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
@@ -28,6 +29,7 @@ import slimeknights.mantle.platform.client.model.UnbakedGeometryHelper;
 import slimeknights.mantle.platform.client.model.QuadBakingVertexConsumer;
 import slimeknights.mantle.platform.client.model.TransformingVertexPipeline;
 import slimeknights.mantle.Mantle;
+import slimeknights.mantle.platform.client.model.QuadTransformers;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.ColorLoadable;
@@ -96,7 +98,7 @@ public class MantleItemLayerModel implements IUnbakedGeometry<MantleItemLayerMod
    * Applies the transformation to the model state for an item layer model.
    */
   public static ModelState applyTransform(ModelState modelState, Transformation transformation) {
-    if (transformation.isIdentity()) {
+    if (QuadTransformers.isIdentity(transformation)) {
       return modelState;
     } else {
       return UnbakedGeometryHelper.composeRootTransformIntoModelState(modelState, transformation);
@@ -177,7 +179,7 @@ public class MantleItemLayerModel implements IUnbakedGeometry<MantleItemLayerMod
       for(int v = 0; v < vMax; v++) {
         ptu = true;
         for(int u = 0; u < uMax; u++) {
-          int alpha = sprite.getPixelRGBA(f, u, vMax - v - 1) >> 24 & 0xFF;
+          int alpha = SpriteHelper.getPixelRGBA(sprite, f, u, vMax - v - 1) >> 24 & 0xFF;
           boolean t = alpha / 255f <= 0.1f;
 
           if (!t && alpha < 255) {
@@ -222,7 +224,7 @@ public class MantleItemLayerModel implements IUnbakedGeometry<MantleItemLayerMod
     quadBuilder.setHasAmbientOcclusion(true);
     // only need to set up transforms once, isn't that nice?
     VertexConsumer vertexConsumer = quadBuilder;
-    if (!transform.isIdentity()) {
+    if (!QuadTransformers.isIdentity(transform)) {
       vertexConsumer = new TransformingVertexPipeline(quadBuilder, transform);
     }
 
@@ -319,7 +321,7 @@ public class MantleItemLayerModel implements IUnbakedGeometry<MantleItemLayerMod
       if (hasFrames) {
         for(int v = 0; v < vMax; v++) {
           for(int u = 0; u < uMax; u++) {
-            int alpha = sprite.getPixelRGBA(0, u, vMax - v - 1) >> 24 & 0xFF;
+            int alpha = SpriteHelper.getPixelRGBA(sprite, 0, u, vMax - v - 1) >> 24 & 0xFF;
             if (alpha / 255f > 0.1f) {
               pixels.set(u, v, uMax, vMax);
             }
@@ -354,7 +356,7 @@ public class MantleItemLayerModel implements IUnbakedGeometry<MantleItemLayerMod
     quadBuilder.setHasAmbientOcclusion(true);
     // only need to set up transforms once, isn't that nice?
     VertexConsumer quadConsumer = quadBuilder;
-    if (!transform.isIdentity()) {
+    if (!QuadTransformers.isIdentity(transform)) {
       quadConsumer = new TransformingVertexPipeline(quadBuilder, transform);
     }
     // only need south

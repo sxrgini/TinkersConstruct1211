@@ -107,7 +107,6 @@ public class ModifyTagCommand {
       try (BufferedReader reader = Files.newBufferedReader(tagPath)) {
         TagFile tagfile = JsonHelper.parse(TagFile.CODEC, reader);
         add.addAll(tagfile.entries());
-        remove.addAll(tagfile.remove());
         replace = tagfile.replace();
       } catch (Exception e) {
         Mantle.logger.error("Failed to load {} tag {} from {}", regName, tag, tagPath, e);
@@ -139,7 +138,7 @@ public class ModifyTagCommand {
 
     // save the new tag
     if (changed > 0) {
-      saveTag(regName, tag, tagPath, new TagFile(add, replace, remove));
+      saveTag(regName, tag, tagPath, new TagFile(add, replace));
     }
 
     // success
@@ -163,7 +162,7 @@ public class ModifyTagCommand {
     Path tagPath = getPath(pack, registry, tag);
 
     // add an empty tag at the target
-    saveTag(regName, tag, tagPath, new TagFile(List.of(), true, List.of()));
+    saveTag(regName, tag, tagPath, new TagFile(List.of(), true));
 
     // success
     source.sendSuccess(() -> Component.translatableEscape("command.mantle.modify_tag.success.clear", regName, tagComponent(tag, tagPath), GeneratePackHelper.getOutputComponent(pack)), true);
@@ -175,7 +174,7 @@ public class ModifyTagCommand {
 
   /** Checks if two entries are equal */
   private static boolean equals(TagEntry left, TagEntry right) {
-    return left.isTag() == right.isTag() && left.isRequired() == right.isRequired() && left.getId().equals(right.getId());
+    return left.tag == right.tag && left.required == right.required && left.id.equals(right.id);
   }
 
   /** Removes the entry from the list */

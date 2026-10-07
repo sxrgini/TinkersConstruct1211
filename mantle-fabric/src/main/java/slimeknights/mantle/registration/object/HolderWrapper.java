@@ -28,7 +28,7 @@ public abstract class HolderWrapper<R,T extends R> implements Supplier<T>, IdAwa
    * Creates a new item object from a holder returned by {@link net.minecraft.core.Registry#registerForHolder(Registry, ResourceLocation, Object)}.
    */
   public HolderWrapper(Holder<R> holder) {
-    this.key = Objects.requireNonNull(holder.getKey());
+    this.key = holder.unwrapKey().orElseThrow();
     this.holder = holder;
   }
 

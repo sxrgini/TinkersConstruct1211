@@ -4,9 +4,9 @@ import com.google.gson.JsonObject;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.client.model.generators.CustomLoaderBuilder;
-import net.neoforged.neoforge.client.model.generators.ModelBuilder;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import slimeknights.mantle.platform.client.model.generators.CustomLoaderBuilder;
+import slimeknights.mantle.platform.client.model.generators.ModelBuilder;
+import slimeknights.mantle.platform.data.ExistingFileHelper;
 import slimeknights.mantle.client.model.ItemKey;
 import slimeknights.mantle.client.model.ItemKeyModel;
 

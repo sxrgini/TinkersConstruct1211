@@ -16,10 +16,7 @@ public class BurnableTallBlockItem extends DoubleHighBlockItem {
   public BurnableTallBlockItem(Block block, Properties builder, int burnTime) {
     super(block, builder);
     this.burnTime = burnTime;
+    net.fabricmc.fabric.api.registry.FuelRegistry.INSTANCE.add(this, burnTime);
   }
 
-  @Override
-  public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
-    return burnTime;
-  }
 }

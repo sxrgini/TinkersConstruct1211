@@ -1,5 +1,6 @@
 package slimeknights.mantle.item;
 
+import slimeknights.mantle.platform.item.ItemHelpers;
 import lombok.Getter;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.platform.fluid.FluidStack;
@@ -28,7 +29,7 @@ public class ConstantItemFluidHandler implements IFluidHandlerItem {
   }
 
   public ConstantItemFluidHandler(FluidStack fluid, ItemStack container) {
-    this(fluid, container, container.getCraftingRemainingItem());
+    this(fluid, container, ItemHelpers.getCraftingRemainingItem(container));
   }
 
   @Override

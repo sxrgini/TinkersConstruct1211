@@ -223,7 +223,7 @@ public class SimpleBlockModel implements IUnbakedGeometry<SimpleBlockModel> {
    * Applies the transformation to the model state for an item layer model.
    */
   public static IQuadTransformer applyTransform(ModelState modelState, Transformation transformation) {
-    if (transformation.isIdentity()) {
+    if (QuadTransformers.isIdentity(transformation)) {
       return QuadTransformers.empty();
     } else {
       return UnbakedGeometryHelper.applyRootTransform(modelState, transformation);
@@ -247,7 +247,7 @@ public class SimpleBlockModel implements IUnbakedGeometry<SimpleBlockModel> {
     for(BlockElement part : elements) {
       bakePart(builder, owner, part, spriteGetter, transform, quadTransformer);
     }
-    return builder.build(getRenderTypeGroup(owner));
+    return builder.build();
   }
 
   @Override

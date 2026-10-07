@@ -11,8 +11,6 @@ import net.minecraft.util.StringUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions.FontContext;
 import slimeknights.mantle.client.book.action.StringActionProcessor;
 
 import javax.annotation.Nullable;
@@ -108,8 +106,7 @@ public class ItemElement extends SizedBookElement {
 
       ItemStack stack = this.itemCycle.get(this.currentItem);
       graphics.renderItem(stack, 0, 0);
-      Font font = IClientItemExtensions.of(stack).getFont(stack, FontContext.TOOLTIP);
-      if (font == null) font = mc.font;
+      Font font = mc.font;
       graphics.renderItemDecorations(font, stack, 0, 0);
 
       matrices.popPose();

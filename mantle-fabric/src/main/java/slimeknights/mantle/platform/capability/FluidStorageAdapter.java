@@ -76,7 +76,7 @@ public class FluidStorageAdapter implements IFluidHandler {
       return false;
     }
     try (Transaction tx = Transaction.openOuter()) {
-      return storage.simulateInsert(toVariant(stack), DROPLETS_PER_MB, tx) > 0;
+      return net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil.simulateInsert(storage, toVariant(stack), DROPLETS_PER_MB, tx) > 0;
     }
   }
 

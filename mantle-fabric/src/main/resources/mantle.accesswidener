@@ -76,23 +76,14 @@ accessible field net/minecraft/client/gui/font/FontManager fontSets Ljava/util/M
 accessible field net/minecraft/client/resources/model/ModelManager atlases Lnet/minecraft/client/resources/model/AtlasSet;
 accessible field net/minecraft/client/resources/model/AtlasSet atlases Ljava/util/Map;
 # Inverted fluid
-accessible method net/minecraft/world/level/material/FlowingFluid sourceNeighborCount (Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)I
 extendable method net/minecraft/world/level/material/FlowingFluid sourceNeighborCount (Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)I
-accessible method net/minecraft/world/level/material/FlowingFluid spreadToSides (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/block/state/BlockState;)V
 extendable method net/minecraft/world/level/material/FlowingFluid spreadToSides (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/world/level/block/state/BlockState;)V
-accessible method net/minecraft/world/level/material/FlowingFluid isWaterHole (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/world/level/material/Fluid;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z
 extendable method net/minecraft/world/level/material/FlowingFluid isWaterHole (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/world/level/material/Fluid;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z
-accessible method net/minecraft/world/level/material/FlowingFluid canPassThrough (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/world/level/material/Fluid;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)Z
 extendable method net/minecraft/world/level/material/FlowingFluid canPassThrough (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/world/level/material/Fluid;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)Z
-accessible method net/minecraft/world/level/material/FlowingFluid canPassThroughWall (Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z
 extendable method net/minecraft/world/level/material/FlowingFluid canPassThroughWall (Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z
-accessible method net/minecraft/world/level/material/FlowingFluid canHoldFluid (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/Fluid;)Z
 extendable method net/minecraft/world/level/material/FlowingFluid canHoldFluid (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/Fluid;)Z
-accessible method net/minecraft/world/level/material/FlowingFluid isSourceBlockOfThisType (Lnet/minecraft/world/level/material/FluidState;)Z
 extendable method net/minecraft/world/level/material/FlowingFluid isSourceBlockOfThisType (Lnet/minecraft/world/level/material/FluidState;)Z
-accessible method net/minecraft/world/level/material/FlowingFluid affectsFlow (Lnet/minecraft/world/level/material/FluidState;)Z
 extendable method net/minecraft/world/level/material/FlowingFluid affectsFlow (Lnet/minecraft/world/level/material/FluidState;)Z
-accessible method net/minecraft/world/level/material/FlowingFluid getCacheKey (Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)S
 extendable method net/minecraft/world/level/material/FlowingFluid getCacheKey (Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)S
 # Hunger command
 accessible field net/minecraft/world/food/FoodData foodLevel I
@@ -106,3 +97,38 @@ accessible field net/minecraft/client/gui/Gui HOTBAR_ATTACK_INDICATOR_PROGRESS_S
 # Wood type sheets
 accessible field net/minecraft/client/renderer/Sheets SIGN_MATERIALS Ljava/util/Map;
 accessible field net/minecraft/client/renderer/Sheets HANGING_SIGN_MATERIALS Ljava/util/Map;
+
+# Sheets wood types
+accessible method net/minecraft/client/renderer/Sheets createSignMaterial (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/client/resources/model/Material;
+accessible method net/minecraft/client/renderer/Sheets createHangingSignMaterial (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/client/resources/model/Material;
+
+# Item overrides subclassing
+accessible method net/minecraft/client/renderer/block/model/ItemOverrides <init> ()V
+
+# Block model texture iteration
+accessible field net/minecraft/client/renderer/block/model/BlockModel textureMap Ljava/util/Map;
+accessible field net/minecraft/client/renderer/block/model/BlockModel parent Lnet/minecraft/client/renderer/block/model/BlockModel;
+
+# Sprite pixel access
+accessible field net/minecraft/client/renderer/texture/SpriteContents originalImage Lcom/mojang/blaze3d/platform/NativeImage;
+accessible field net/minecraft/client/renderer/texture/SpriteContents animatedTexture Lnet/minecraft/client/renderer/texture/SpriteContents$AnimatedTexture;
+accessible class net/minecraft/client/renderer/texture/SpriteContents$AnimatedTexture
+accessible method net/minecraft/client/renderer/texture/SpriteContents$AnimatedTexture getFrameX (I)I
+accessible method net/minecraft/client/renderer/texture/SpriteContents$AnimatedTexture getFrameY (I)I
+
+# Vanilla builders and fields Mantle needs
+accessible method net/minecraft/client/resources/model/SimpleBakedModel$Builder <init> (ZZZLnet/minecraft/client/renderer/block/model/ItemTransforms;Lnet/minecraft/client/renderer/block/model/ItemOverrides;)V
+accessible field net/minecraft/world/level/storage/loot/LootTable pools Ljava/util/List;
+accessible field net/minecraft/tags/TagEntry id Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/tags/TagEntry tag Z
+accessible field net/minecraft/tags/TagEntry required Z
+accessible field net/minecraft/world/item/crafting/ShapedRecipe pattern Lnet/minecraft/world/item/crafting/ShapedRecipePattern;
+accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
+accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
+extendable method net/minecraft/world/entity/player/Player closeContainer ()V
+accessible method net/minecraft/world/entity/player/Player closeContainer ()V
+extendable method net/minecraft/client/gui/screens/inventory/AbstractContainerScreen isHovering (Lnet/minecraft/world/inventory/Slot;DD)Z
+accessible field net/minecraft/server/network/ServerCommonPacketListenerImpl connection Lnet/minecraft/network/Connection;
+
+accessible field net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid;
+accessible field net/minecraft/client/renderer/block/model/BlockModel GSON Lcom/google/gson/Gson;

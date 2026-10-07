@@ -131,7 +131,7 @@ public class ColoredBlockModel extends SimpleBlockModel {
       IQuadTransformer partTransformer = colors.color == -1 ? quadTransformer : quadTransformer.andThen(applyColorQuadTransformer(colors.color));
       bakePart(builder, owner, part, colors.luminosity, spriteGetter, transformation, partTransformer, colors.isUvLock(uvlock));
     }
-    return builder.build(getRenderTypeGroup(owner));
+    return builder.build();
   }
 
   @Override

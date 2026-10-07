@@ -38,15 +38,11 @@ public class EdibleItem extends Item {
 
   /** Adds effects to the tooltip */
   public static void addEffectTooltip(ItemStack stack, TooltipContext context, List<Component> tooltip) {
-    FoodProperties food = stack.getFoodProperties(null);
+    FoodProperties food = stack.get(net.minecraft.core.component.DataComponents.FOOD);
     if (food == null) {
       return;
     }
-    float ticksPerSecond = 20;
-    Level level = context.level();
-    if (level != null) {
-      ticksPerSecond = level.tickRateManager().tickrate();
-    }
+    float ticksPerSecond = context.tickRate();
 
     // add effects to the tooltip, code based on potion items
     for (PossibleEffect possibleEffect : food.effects()) {

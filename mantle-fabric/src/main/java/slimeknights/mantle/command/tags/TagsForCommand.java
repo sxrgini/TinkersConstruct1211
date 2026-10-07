@@ -151,7 +151,7 @@ public class TagsForCommand {
       output.append("\n* ").append(NO_TAGS);
     } else {
       tags.stream()
-        .sorted(ResourceLocation::compareNamespaced)
+        .sorted(slimeknights.mantle.platform.ResourceLocations::compareNamespaced)
         .forEach(tag -> output.append("\n* " + tag));
     }
     context.getSource().sendSuccess(() -> output, true);

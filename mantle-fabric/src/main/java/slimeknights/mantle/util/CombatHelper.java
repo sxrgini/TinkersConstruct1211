@@ -300,7 +300,7 @@ public class CombatHelper {
           if (canSweep) {
             // scales base damage
             float sweepDamage = 1 + getAttribute(stack, player, Attributes.SWEEPING_DAMAGE_RATIO, hand) * damage;
-            for (LivingEntity living : player.level().getEntitiesOfClass(LivingEntity.class, stack.getSweepHitBox(player, target))) {
+            for (LivingEntity living : player.level().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(1.0, 0.25, 1.0))) {
               double entityReachSq = Mth.square(player.entityInteractionRange());
               // hits anything that is not yourself, the target, a marker armor stand, and is within range
               if (living != player && living != target && !player.isAlliedTo(living) && (!(living instanceof ArmorStand armorStand) || !armorStand.isMarker()) && player.distanceToSqr(living) < entityReachSq) {

@@ -2,9 +2,9 @@ package slimeknights.mantle.client.model.builder;
 
 import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.client.model.generators.CustomLoaderBuilder;
-import net.neoforged.neoforge.client.model.generators.ModelBuilder;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import slimeknights.mantle.platform.client.model.generators.CustomLoaderBuilder;
+import slimeknights.mantle.platform.client.model.generators.ModelBuilder;
+import slimeknights.mantle.platform.data.ExistingFileHelper;
 import slimeknights.mantle.client.model.util.ColoredBlockModel;
 import slimeknights.mantle.client.model.util.ColoredBlockModel.ColorData;
 

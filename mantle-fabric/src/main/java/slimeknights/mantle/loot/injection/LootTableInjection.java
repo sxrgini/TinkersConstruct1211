@@ -34,9 +34,21 @@ public record LootTableInjection(ResourceLocation name, List<LootPoolInjection> 
       Loadables.LOOT_ENTRY.list(1).requiredField("entries", pool -> pool.entries),
       LootPoolInjection::new);
 
+    /** Finds a pool by name. Vanilla pools have no names, so pools are matched by index using the names {@code pool0}, {@code pool1}, ... and {@code main} for the first pool. */
+    @javax.annotation.Nullable
+    private static LootPool findPool(LootTable table, String name) {
+      int index = -1;
+      if (name.equals("main")) {
+        index = 0;
+      } else if (name.matches("pool\\d+")) {
+        index = Integer.parseInt(name.substring(4));
+      }
+      return index >= 0 && index < table.pools.size() ? table.pools.get(index) : null;
+    }
+
     /** Injects this into the given loot pool */
     public void inject(LootTable table) {
-      LootPool pool = table.getPool(name);
+      LootPool pool = findPool(table, name);
       //noinspection ConstantConditions method is annotated wrongly
       if (pool != null) {
         List<LootPoolEntryContainer> entries = new ArrayList<>(pool.entries.size() + this.entries.size());
@@ -44,7 +56,7 @@ public record LootTableInjection(ResourceLocation name, List<LootPoolInjection> 
         entries.addAll(this.entries);
         pool.entries = List.copyOf(entries);
       } else {
-        Mantle.logger.warn("Failed to inject loot into {} pool {}", table.getLootTableId(), name);
+        Mantle.logger.warn("Failed to inject loot into pool {}", name);
       }
     }
   }

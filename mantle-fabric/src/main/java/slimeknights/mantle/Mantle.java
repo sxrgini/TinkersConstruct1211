@@ -5,7 +5,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import slimeknights.mantle.block.StrippableLogBlock;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraft.commands.synchronization.ArgumentTypeInfos;
+import net.fabricmc.fabric.api.command.v2.ArgumentTypeRegistry;
+import net.minecraft.commands.synchronization.ArgumentTypeInfo;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -97,6 +98,11 @@ public class Mantle implements ModInitializer {
     });
   }
 
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  private static void registerArgument(ResourceLocation id, Class type, ArgumentTypeInfo info) {
+    ArgumentTypeRegistry.registerArgumentType(id, type, info);
+  }
+
   /** Registers Mantle's custom loaders, conditions and argument types */
   private void registerRegistries() {
     // conditions
@@ -167,8 +173,7 @@ public class Mantle implements ModInitializer {
 
     // command argument types
     ResourceOrTagKeyArgument.Info<?> info = new ResourceOrTagKeyArgument.Info<>();
-    Registry.register(BuiltInRegistries.COMMAND_ARGUMENT_TYPE, getResource("resource_or_tag_key"), info);
-    ArgumentTypeInfos.registerByClass(RegistrationHelper.genericArgumentType(ResourceOrTagKeyArgument.class), info);
+    registerArgument(getResource("resource_or_tag_key"), RegistrationHelper.genericArgumentType(ResourceOrTagKeyArgument.class), info);
 
     MantleLoot.registerGlobalLootModifiers();
   }

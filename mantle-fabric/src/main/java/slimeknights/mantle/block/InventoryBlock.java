@@ -45,7 +45,9 @@ public abstract class InventoryBlock extends Block implements EntityBlock {
     if (!world.isClientSide()) {
       MenuProvider container = this.getMenuProvider(state, world, pos);
       if (container != null) {
-        player.openMenu(container, pos);
+        if (player instanceof ServerPlayer serverPlayer) {
+          slimeknights.mantle.platform.menu.MenuTypes.openMenu(serverPlayer, container, buf -> buf.writeBlockPos(pos));
+        }
         if (player.containerMenu instanceof BaseContainerMenu<?> menu && player instanceof ServerPlayer serverPlayer) {
           menu.syncOnOpen(serverPlayer);
         }

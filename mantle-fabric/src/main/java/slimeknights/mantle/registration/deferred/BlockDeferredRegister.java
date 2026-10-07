@@ -275,9 +275,9 @@ public class BlockDeferredRegister extends EnumDeferredRegister<Block> {
     DeferredBlock<ButtonBlock> button = register(name + "_button", () -> new ButtonBlock(setType, 30, redstoneProps), burnableItem.apply(100));
     // signs
     DeferredHolder<Block,StandingSignBlock> standingSign = registerNoItem(name + "_sign", () -> new StandingSignBlock(woodType, behaviorCreator.apply(WoodBlockObject.WoodVariant.PLANKS).instrument(NoteBlockInstrument.BASS).forceSolidOn().noCollission().strength(1.0F)));
-    DeferredHolder<Block,WallSignBlock> wallSign = registerNoItem(name + "_wall_sign", () -> new WallSignBlock(woodType, behaviorCreator.apply(WoodBlockObject.WoodVariant.PLANKS).instrument(NoteBlockInstrument.BASS).forceSolidOn().noCollission().strength(1.0F).lootFrom(standingSign)));
+    DeferredHolder<Block,WallSignBlock> wallSign = registerNoItem(name + "_wall_sign", () -> new WallSignBlock(woodType, behaviorCreator.apply(WoodBlockObject.WoodVariant.PLANKS).instrument(NoteBlockInstrument.BASS).forceSolidOn().noCollission().strength(1.0F).dropsLike(standingSign.get())));
     DeferredHolder<Block,CeilingHangingSignBlock> hangingSign = registerNoItem(name + "_hanging_sign", () -> new CeilingHangingSignBlock(woodType, behaviorCreator.apply(WoodBlockObject.WoodVariant.PLANKS).instrument(NoteBlockInstrument.BASS).forceSolidOn().noCollission().strength(1.0F)));
-    DeferredHolder<Block,WallHangingSignBlock> wallHangingSign = registerNoItem(name + "_wall_hanging_sign", () -> new WallHangingSignBlock(woodType, behaviorCreator.apply(WoodBlockObject.WoodVariant.PLANKS).instrument(NoteBlockInstrument.BASS).forceSolidOn().noCollission().strength(1.0F).lootFrom(hangingSign)));
+    DeferredHolder<Block,WallHangingSignBlock> wallHangingSign = registerNoItem(name + "_wall_hanging_sign", () -> new WallHangingSignBlock(woodType, behaviorCreator.apply(WoodBlockObject.WoodVariant.PLANKS).instrument(NoteBlockInstrument.BASS).forceSolidOn().noCollission().strength(1.0F).dropsLike(hangingSign.get())));
     // tell mantle to inject these into the TE
     RegistrationHelper.registerSignBlock(standingSign);
     RegistrationHelper.registerSignBlock(wallSign);
@@ -386,9 +386,7 @@ public class BlockDeferredRegister extends EnumDeferredRegister<Block> {
    * @return  Potted block instance
    */
   public DeferredHolder<Block,FlowerPotBlock> registerPotted(String name, Supplier<? extends Block> block) {
-    FlowerPotBlock flowerPot = (FlowerPotBlock) net.minecraft.world.level.block.Blocks.FLOWER_POT;
-    DeferredHolder<Block,FlowerPotBlock> potted = registerNoItem("potted_" + name, () -> new FlowerPotBlock(() -> flowerPot, block, POTTED_PROPS));
-    flowerPot.addPlant(resource(name), potted);
+    DeferredHolder<Block,FlowerPotBlock> potted = registerNoItem("potted_" + name, () -> new FlowerPotBlock(block.get(), POTTED_PROPS));
     return potted;
   }
 

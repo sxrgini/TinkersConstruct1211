@@ -1,6 +1,6 @@
 package slimeknights.mantle.platform.client.model;
 
-import net.fabricmc.fabric.api.renderer.v1.Renderer;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
@@ -28,7 +28,7 @@ public class BakedModelWrapper<T extends BakedModel> extends ForwardingBakedMode
   protected final T originalModel;
 
   public BakedModelWrapper(T originalModel) {
-    super(originalModel);
+    this.wrapped = originalModel;
     this.originalModel = originalModel;
   }
 
@@ -70,7 +70,7 @@ public class BakedModelWrapper<T extends BakedModel> extends ForwardingBakedMode
 
   private void emitQuads(@Nullable BlockState state, Supplier<RandomSource> randomSupplier, ModelData data, RenderContext context) {
     QuadEmitter emitter = context.getEmitter();
-    RenderMaterial material = Renderer.get().materialFinder().find();
+    RenderMaterial material = RendererAccess.INSTANCE.getRenderer().materialFinder().find();
     RandomSource random = randomSupplier.get();
     for (int i = 0; i <= Direction.values().length; i++) {
       Direction side = i == Direction.values().length ? null : Direction.values()[i];

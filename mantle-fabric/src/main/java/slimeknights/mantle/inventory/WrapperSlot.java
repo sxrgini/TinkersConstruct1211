@@ -16,7 +16,7 @@ public class WrapperSlot extends Slot {
   public final Slot parent;
 
   public WrapperSlot(Slot slot) {
-    super(slot.container, slot.getSlotIndex(), slot.x, slot.y);
+    super(slot.container, slot.getContainerSlot(), slot.x, slot.y);
     this.parent = slot;
   }
 
@@ -90,10 +90,6 @@ public class WrapperSlot extends Slot {
     return this.parent.isActive();
   }
 
-  @Override
-  public Slot setBackground(ResourceLocation atlas, ResourceLocation sprite) {
-    return this.parent.setBackground(atlas, sprite);
-  }
 
   @Override
   public Optional<ItemStack> tryRemove(int pCount, int pDecrement, Player pPlayer) {

@@ -74,7 +74,6 @@ public class TagEntriesCommand {
           list.clear();
         }
         tagfile.entries().forEach(tag -> list.add(new TagLoader.EntryWithSource(tag, packId)));
-        tagfile.remove().forEach(tag -> list.add(new TagLoader.EntryWithSource(tag, packId, true)));
       } catch (RuntimeException | IOException ex) {
         // failed to parse
         Mantle.logger.error("Couldn't read {} tag list {} from {} in data pack {}", regName, tagName, path, packId, ex);
@@ -86,9 +85,8 @@ public class TagEntriesCommand {
   public static String tagToJson(List<TagLoader.EntryWithSource> entries) {
     return GeneratePackHelper.GSON.toJson(JsonHelper.serialize(TagFile.CODEC, new TagFile(
       // TODO: cancel out matching entries?
-      entries.stream().filter(e -> !e.remove()).map(EntryWithSource::entry).toList(),
-      true,
-      entries.stream().filter(EntryWithSource::remove).map(EntryWithSource::entry).toList()
+      entries.stream().map(EntryWithSource::entry).toList(),
+      true
     )));
   }
 
@@ -152,11 +150,7 @@ public class TagEntriesCommand {
         StringBuilder builder = new StringBuilder();
         builder.append("Tag list dump of ").append(regName).append(" tag ").append(name).append(" with sources:");
         for (TagLoader.EntryWithSource entry : list) {
-          if (entry.remove()) {
-            builder.append("\n- '");
-          } else {
-            builder.append("\n+ '");
-          }
+          builder.append("\n+ '");
           builder.append(entry.entry()).append("' from '").append(entry.source()).append('\'');
         }
         Mantle.logger.info(builder.toString());

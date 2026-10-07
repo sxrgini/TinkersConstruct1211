@@ -93,7 +93,7 @@ public final class ItemHandlers {
     @Override
     public boolean isItemValid(int slot, ItemStack stack) {
       try (var tx = net.fabricmc.fabric.api.transfer.v1.transaction.Transaction.openOuter()) {
-        return storage.simulateInsert(ItemVariant.of(stack), 1, tx) > 0;
+        return net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil.simulateInsert(storage, ItemVariant.of(stack), 1, tx) > 0;
       }
     }
   }

@@ -30,7 +30,7 @@ public class PacketHelper {
 
   /** Sends packets for a static registry, which is skipped on an integrated server */
   public static void sendStaticRegistry(ServerPlayer player, CustomPacketPayload payload, CustomPacketPayload... payloads) {
-    if (!player.connection.getConnection().isMemoryConnection()) {
+    if (!player.connection.connection.isMemoryConnection()) {
       PacketDistributor.sendToPlayer(player, payload, payloads);
     }
   }

@@ -61,14 +61,14 @@ public interface IRetexturedBlockEntity {
    * For some implementations it may be easier to manually implement that method and bypass the block updates.
    */
   static void applyImplicitComponents(IRetexturedBlockEntity blockEntity, BlockEntity.DataComponentInput input) {
-    blockEntity.updateTexture(input.getOrDefault(MantleData.BLOCK_TEXTURE, Blocks.AIR));
+    blockEntity.updateTexture(input.getOrDefault(MantleData.BLOCK_TEXTURE.get(), Blocks.AIR));
   }
 
   /** Implementation of {@link BlockEntity#collectImplicitComponents(Builder)} using {@link #getTexture()}. */
   static void collectImplicitComponents(IRetexturedBlockEntity blockEntity, DataComponentMap.Builder builder) {
     Block texture = blockEntity.getTexture();
     if (texture != Blocks.AIR) {
-      builder.set(MantleData.BLOCK_TEXTURE, texture);
+      builder.set(MantleData.BLOCK_TEXTURE.get(), texture);
     }
   }
 

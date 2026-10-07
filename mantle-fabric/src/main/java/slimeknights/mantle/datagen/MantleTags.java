@@ -55,7 +55,7 @@ public class MantleTags {
     /** Tag of empty glass bottles that would contain a lingering potion */
     public static final TagKey<Item> LINGERING_BOTTLE = common("bottles/lingering");
     /** Items in this tag remain on the player after death */
-    public static final TagKey<Item> SOULBOUND = ItemTags.create(Mantle.getResource("soulbound"));
+    public static final TagKey<Item> SOULBOUND = TagKey.create(Registries.ITEM, Mantle.getResource("soulbound"));
 
     /** Adds a common domain tag */
     private static TagKey<Item> common(String name) {

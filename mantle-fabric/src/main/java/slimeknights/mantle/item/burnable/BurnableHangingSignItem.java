@@ -17,10 +17,7 @@ public class BurnableHangingSignItem extends HangingSignItem {
   public BurnableHangingSignItem(Properties properties, Block hangingBlock, Block wallBlock, int burnTime) {
     super(hangingBlock, wallBlock, properties);
     this.burnTime = burnTime;
+    net.fabricmc.fabric.api.registry.FuelRegistry.INSTANCE.add(this, burnTime);
   }
 
-  @Override
-  public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
-    return burnTime;
-  }
 }

@@ -4,7 +4,7 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import slimeknights.mantle.platform.data.ExistingFileHelper;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.Mantle;
 
@@ -21,7 +21,7 @@ import static slimeknights.mantle.datagen.MantleTags.Fluids.WATER;
 @Internal
 public class MantleFluidTagProvider extends FluidTagsProvider {
   public MantleFluidTagProvider(PackOutput output, CompletableFuture<Provider> holders, ExistingFileHelper existingFileHelper) {
-    super(output, holders,  Mantle.modId, existingFileHelper);
+    super(output, holders);
   }
 
   @Override

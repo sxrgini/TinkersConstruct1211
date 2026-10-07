@@ -19,7 +19,7 @@ public interface HolderLoadable<T> extends ResourceLocationLoadable<Holder<T>> {
 
   @Override
   default ResourceLocation getKey(Holder<T> holder, TypedMap context) {
-    ResourceKey<T> key = holder.getKey();
+    ResourceKey<T> key = holder.unwrapKey().orElseThrow();
     if (key != null) {
       return key.location();
     }

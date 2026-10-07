@@ -20,7 +20,7 @@ import net.minecraft.client.Screenshot;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.commands.CommandSourceStack;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.network.chat.Component;
@@ -67,33 +67,33 @@ public class BookCommand {
    * Registers this sub command with the root command
    * @param subCommand  Command builder
    */
-  public static void register(LiteralArgumentBuilder<CommandSourceStack> subCommand) {
+  public static void register(LiteralArgumentBuilder<FabricClientCommandSource> subCommand) {
     subCommand.requires(source -> source.hasPermission(MantleCommand.PERMISSION_GAME_COMMANDS) && source.getEntity() instanceof AbstractClientPlayer)
-      .then(Commands.literal("open")
-        .then(Commands.argument("id", ResourceLocationArgument.id()).suggests(MantleClientCommand.REGISTERED_BOOKS)
+      .then(net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal("open")
+        .then(net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument("id", ResourceLocationArgument.id()).suggests(MantleClientCommand.REGISTERED_BOOKS)
           .executes(BookCommand::openBook)))
 
-      .then(Commands.literal("export_images")
+      .then(net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal("export_images")
         // mantle book export_images <domain> [version]
-        .then(Commands.argument("domain", StringArgumentType.word()).suggests(MantleClientCommand.REGISTERED_BOOK_DOMAINS)
-          .then(Commands.argument("scale", IntegerArgumentType.integer(1, 16))
+        .then(net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument("domain", StringArgumentType.word()).suggests(MantleClientCommand.REGISTERED_BOOK_DOMAINS)
+          .then(net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument("scale", IntegerArgumentType.integer(1, 16))
             .executes(context -> exportDomainImages(context, IntegerArgumentType.getInteger(context, "scale"))))
           .executes(context -> exportDomainImages(context, DEFAULT_SCALE)))
         // mantle book export_images <domain> [version]
-        .then(Commands.argument("id", ResourceLocationArgument.id()).suggests(MantleClientCommand.REGISTERED_BOOKS)
-          .then(Commands.argument("scale", IntegerArgumentType.integer(1, 16))
+        .then(net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument("id", ResourceLocationArgument.id()).suggests(MantleClientCommand.REGISTERED_BOOKS)
+          .then(net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument("scale", IntegerArgumentType.integer(1, 16))
             .executes(context -> exportImages(context, IntegerArgumentType.getInteger(context, "scale"))))
           .executes(context -> exportImages(context, DEFAULT_SCALE))))
 
-      .then(Commands.literal("export_html")
+      .then(net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal("export_html")
         // mantle book export_html <domain> [version]
-        .then(Commands.argument("domain", StringArgumentType.word()).suggests(MantleClientCommand.REGISTERED_BOOK_DOMAINS)
-          .then(Commands.argument("version", StringArgumentType.word())
+        .then(net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument("domain", StringArgumentType.word()).suggests(MantleClientCommand.REGISTERED_BOOK_DOMAINS)
+          .then(net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument("version", StringArgumentType.word())
             .executes(context -> exportDomainHtml(context, StringArgumentType.getString(context, "version"))))
           .executes(context -> exportDomainHtml(context, DEFAULT_BOOK_VERSION)))
         // mantle book export_html <id> [version]
-        .then(Commands.argument("id", ResourceLocationArgument.id()).suggests(MantleClientCommand.REGISTERED_BOOKS)
-          .then(Commands.argument("book_key", StringArgumentType.word())
+        .then(net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument("id", ResourceLocationArgument.id()).suggests(MantleClientCommand.REGISTERED_BOOKS)
+          .then(net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument("book_key", StringArgumentType.word())
             .executes(context -> exportHTML(context, StringArgumentType.getString(context, "book_key"))))
           .executes(context -> exportHTML(context, ""))));
   }
@@ -103,8 +103,8 @@ public class BookCommand {
    * @param context  Command context
    * @return  Integer return
    */
-  private static int openBook(CommandContext<CommandSourceStack> context) {
-    ResourceLocation book = ResourceLocationArgument.getId(context, "id");
+  private static int openBook(CommandContext<FabricClientCommandSource> context) {
+    ResourceLocation book = context.getArgument("id", ResourceLocation.class);
 
     BookData bookData = BookLoader.getBook(book);
     if(bookData != null) {
@@ -125,8 +125,8 @@ public class BookCommand {
    * @param context  Command context
    * @return  Integer return
    */
-  private static int exportImages(CommandContext<CommandSourceStack> context, int scale) throws CommandSyntaxException {
-    ResourceLocation book = ResourceLocationArgument.getId(context, "id");
+  private static int exportImages(CommandContext<FabricClientCommandSource> context, int scale) throws CommandSyntaxException {
+    ResourceLocation book = context.getArgument("id", ResourceLocation.class);
     return doExport(book, scale, false, DEFAULT_BOOK_VERSION);
   }
 
@@ -135,7 +135,7 @@ public class BookCommand {
    * @param context  Command context
    * @return  Integer return
    */
-  private static int exportDomainImages(CommandContext<CommandSourceStack> context, int scale) throws CommandSyntaxException {
+  private static int exportDomainImages(CommandContext<FabricClientCommandSource> context, int scale) throws CommandSyntaxException {
     String domain = StringArgumentType.getString(context, "domain");
     for (ResourceLocation book : BookLoader.getAllBooks()) {
       if (domain.equals(book.getNamespace())) {
@@ -151,8 +151,8 @@ public class BookCommand {
    * @param context Command context
    * @return Integer return
    */
-  private static int exportHTML(CommandContext<CommandSourceStack> context, String bookKey) throws CommandSyntaxException {
-    ResourceLocation book = ResourceLocationArgument.getId(context, "id");
+  private static int exportHTML(CommandContext<FabricClientCommandSource> context, String bookKey) throws CommandSyntaxException {
+    ResourceLocation book = context.getArgument("id", ResourceLocation.class);
     // if not specified, use book ID as the book key
     if (bookKey.isEmpty()) {
       bookKey = book.getPath() + '_' + DEFAULT_BOOK_VERSION;
@@ -165,7 +165,7 @@ public class BookCommand {
    * @param context Command context
    * @return Integer return
    */
-  private static int exportDomainHtml(CommandContext<CommandSourceStack> context, String version) throws CommandSyntaxException {
+  private static int exportDomainHtml(CommandContext<FabricClientCommandSource> context, String version) throws CommandSyntaxException {
     String domain = StringArgumentType.getString(context, "domain");
     for (ResourceLocation book : BookLoader.getAllBooks()) {
       if (domain.equals(book.getNamespace())) {
@@ -225,7 +225,7 @@ public class BookCommand {
       Lighting.setupFor3DItems();
 
       RenderTarget target = new TextureTarget(width, height, true, Minecraft.ON_OSX);
-      target.enableStencil();
+      // TODO: NeoForge enabled the stencil buffer here, Fabric needs a mixin to RenderTarget
 
       try {
         MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();

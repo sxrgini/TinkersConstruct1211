@@ -1,6 +1,7 @@
 package slimeknights.mantle.block.entity;
 
 import lombok.Getter;
+import net.fabricmc.fabric.api.blockview.v2.RenderDataBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.component.DataComponentMap;
@@ -22,7 +23,7 @@ import static slimeknights.mantle.util.RetexturedHelper.TAG_TEXTURE;
 /**
  * Standard implementation for {@link IRetexturedBlockEntity}, use alongside {@link RetexturedBlock} and {@link RetexturedHelper}
  */
-public class DefaultRetexturedBlockEntity extends MantleBlockEntity implements IRetexturedBlockEntity {
+public class DefaultRetexturedBlockEntity extends MantleBlockEntity implements IRetexturedBlockEntity, RenderDataBlockEntity {
   @Nonnull
   @Getter
   private Block texture = Blocks.AIR;
@@ -32,8 +33,13 @@ public class DefaultRetexturedBlockEntity extends MantleBlockEntity implements I
 
   @Nonnull
   @Override
-  public ModelData getModelData() {
+  public ModelData getRenderData() {
     return RetexturedHelper.getModelData(texture);
+  }
+
+  @Override
+  public net.minecraft.nbt.CompoundTag getPersistentData() {
+    throw new UnsupportedOperationException("Default retextured block entity stores the texture directly");
   }
 
   @Override
@@ -57,7 +63,7 @@ public class DefaultRetexturedBlockEntity extends MantleBlockEntity implements I
   @Override
   protected void applyImplicitComponents(DataComponentInput componentInput) {
     super.applyImplicitComponents(componentInput);
-    this.texture = componentInput.getOrDefault(MantleData.BLOCK_TEXTURE, Blocks.AIR);
+    this.texture = componentInput.getOrDefault(MantleData.BLOCK_TEXTURE.get(), Blocks.AIR);
   }
 
   @Override

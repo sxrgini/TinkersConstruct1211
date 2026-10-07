@@ -104,20 +104,20 @@ public class TemplateLevel extends Level {
 
   /* Time */
 
-  @Override
+  // NeoForge extension method
   public float getDayTimeFraction() {
     return 0;
   }
 
-  @Override
+  // NeoForge extension method
   public void setDayTimeFraction(float v) {}
 
-  @Override
+  // NeoForge extension method
   public float getDayTimePerTick() {
     return 0;
   }
 
-  @Override
+  // NeoForge extension method
   public void setDayTimePerTick(float v) {}
 
 

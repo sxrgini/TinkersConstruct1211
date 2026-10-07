@@ -87,7 +87,7 @@ public class TagPreference {
         return Integer.compare(indexA, indexB);
       }
       // for stability, fallback to registry name compare
-      return idA.compareNamespaced(idB);
+      return slimeknights.mantle.platform.ResourceLocations.compareNamespaced(idA, idB);
     }
   }
 

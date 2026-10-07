@@ -23,7 +23,8 @@ public final class ConditionRegistry {
       return id != null ? DataResult.success(id) : DataResult.error(() -> "Unregistered condition codec " + codec);
     });
 
-  static final Codec<ICondition> CODEC = TYPE_CODEC.dispatch("type", ICondition::codec, codec -> codec.cast());
+  @SuppressWarnings("unchecked")
+  static final Codec<ICondition> CODEC = TYPE_CODEC.dispatch("type", ICondition::codec, codec -> (MapCodec<ICondition>) codec);
 
   private ConditionRegistry() {}
 

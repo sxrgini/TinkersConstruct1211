@@ -38,6 +38,11 @@ public class FluidType {
     return properties.lightLevel;
   }
 
+  /** Gets the light level for the given stack */
+  public int getLightLevel(FluidStack stack) {
+    return properties.lightLevel;
+  }
+
   public boolean isLighterThanAir() {
     return properties.density <= 0;
   }

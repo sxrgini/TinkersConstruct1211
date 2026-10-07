@@ -39,7 +39,7 @@ public class MantleEvents {
       for (int i = 0; i < totalSize; i++) {
         ItemStack stack = inventory.getItem(i);
         if (!stack.isEmpty() && stack.is(MantleTags.Items.SOULBOUND)) {
-          stack.set(MantleData.SOULBOUND_SLOT, i);
+          stack.set(MantleData.SOULBOUND_SLOT.get(), i);
         }
       }
     }
@@ -63,7 +63,7 @@ public class MantleEvents {
     for(int i = 0; i < size; i++) {
       ItemStack stack = originalInv.getItem(i);
       if (!stack.isEmpty()) {
-        int slot = stack.getOrDefault(MantleData.SOULBOUND_SLOT, -1);
+        int slot = stack.getOrDefault(MantleData.SOULBOUND_SLOT.get(), -1);
         if (slot != -1) {
           if (cloneInv.getItem(i).isEmpty()) {
             cloneInv.setItem(i, stack);
@@ -71,7 +71,7 @@ public class MantleEvents {
             takenSlot.add(stack);
           }
           // remove the slot component
-          stack.remove(MantleData.SOULBOUND_SLOT);
+          stack.remove(MantleData.SOULBOUND_SLOT.get());
         }
       }
     }

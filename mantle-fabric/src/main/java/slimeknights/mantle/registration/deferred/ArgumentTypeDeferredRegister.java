@@ -5,6 +5,7 @@ import net.minecraft.commands.synchronization.ArgumentTypeInfo;
 import net.minecraft.commands.synchronization.ArgumentTypeInfos;
 import net.minecraft.commands.synchronization.SingletonArgumentInfo;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import slimeknights.mantle.platform.registry.DeferredRegister;
 import slimeknights.mantle.registration.RegistrationHelper;
@@ -28,12 +29,13 @@ public class ArgumentTypeDeferredRegister extends DeferredRegister<ArgumentTypeI
    * @param <I>  Argument info type
    * @return  Registry object
    */
+  @SuppressWarnings({"unchecked", "rawtypes"})
   public <A extends ArgumentType<?>,T extends ArgumentTypeInfo.Template<A>,I extends ArgumentTypeInfo<A,T>> DeferredHolder<ArgumentTypeInfo<?,?>,I> register(String name, Class<? super A> argumentClass, Supplier<I> supplier) {
-    return register(name, () -> {
-      I info = supplier.get();
-      ArgumentTypeInfos.registerByClass(RegistrationHelper.genericArgumentType(argumentClass), info);
-      return info;
-    });
+    // Fabric registers the type in the registry and the class map in one call, so this registers immediately rather than queueing
+    ResourceLocation id = ResourceLocation.fromNamespaceAndPath(getNamespace(), name);
+    I info = supplier.get();
+    net.fabricmc.fabric.api.command.v2.ArgumentTypeRegistry.registerArgumentType(id, RegistrationHelper.genericArgumentType(argumentClass), (ArgumentTypeInfo) info);
+    return DeferredHolder.create(Registries.COMMAND_ARGUMENT_TYPE, id);
   }
 
   /**

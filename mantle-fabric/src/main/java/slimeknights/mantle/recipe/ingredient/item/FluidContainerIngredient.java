@@ -1,5 +1,6 @@
 package slimeknights.mantle.recipe.ingredient.item;
 
+import slimeknights.mantle.platform.item.ItemHelpers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -91,7 +92,7 @@ public record FluidContainerIngredient(FluidIngredient fluid, int amount, List<I
       return false;
     }
     // check that we have a craft remainder item. if we don't, we don't know how to properly drain this item
-    ItemStack container = stack.getCraftingRemainingItem();
+    ItemStack container = ItemHelpers.getCraftingRemainingItem(stack);
     if (container.isEmpty()) {
       return false;
     }
@@ -122,9 +123,9 @@ public record FluidContainerIngredient(FluidIngredient fluid, int amount, List<I
     // combine display items (might be empty) with filled container item
     return Stream.concat(
       display,
-      Arrays.stream(fluid.getStacks()).map(fluid -> {
+      fluid.getStacks().stream().map(fluid -> {
         ItemStack container = this.container.copy();
-        IFluidHandlerItem handler = container.getCapability(FluidHandler.ITEM);
+        IFluidHandlerItem handler = FluidHandlers.getItem(container);
         if (handler != null && handler.fill(fluid.copy(), FluidAction.EXECUTE) == fluid.getAmount()) {
           return handler.getContainer();
         }

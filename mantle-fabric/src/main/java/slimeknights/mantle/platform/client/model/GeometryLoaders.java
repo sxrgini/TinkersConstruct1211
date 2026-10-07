@@ -1,7 +1,6 @@
 package slimeknights.mantle.platform.client.model;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -9,7 +8,6 @@ import com.mojang.math.Transformation;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelResolver;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.BlockElement;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransform;
@@ -17,7 +15,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
@@ -41,7 +38,7 @@ import java.util.function.Function;
  */
 public final class GeometryLoaders {
   private static final Map<ResourceLocation,IGeometryLoader<?>> LOADERS = new HashMap<>();
-  private static final Gson GSON = new GsonBuilder().registerTypeAdapter(BlockElement.class, new BlockElement.Deserializer()).create();
+  private static final Gson GSON = BlockModel.GSON;
   private static final JsonDeserializationContext CONTEXT = new JsonDeserializationContext() {
     @Override
     public <T> T deserialize(JsonElement json, java.lang.reflect.Type type) {
@@ -67,7 +64,7 @@ public final class GeometryLoaders {
   private static UnbakedModel resolve(ModelResolver.Context context) {
     ResourceLocation id = context.id();
     // skip blockstate variants and vanilla models
-    if (id instanceof ModelResourceLocation || id.getNamespace().equals("minecraft")) {
+    if (id.getNamespace().equals("minecraft")) {
       return null;
     }
     Optional<Resource> resource = Minecraft.getInstance().getResourceManager().getResource(id.withPrefix("models/").withSuffix(".json"));

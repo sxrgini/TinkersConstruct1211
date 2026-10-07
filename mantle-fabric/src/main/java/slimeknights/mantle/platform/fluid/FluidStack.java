@@ -25,7 +25,7 @@ import java.util.Objects;
  * Fabric replacement for NeoForge's {@code FluidStack}. Amounts are in millibuckets (1000 per bucket) like NeoForge;
  * conversion to Fabric droplets (81 per mB) happens at the Transfer API boundary.
  */
-public final class FluidStack {
+public final class FluidStack implements net.minecraft.core.component.DataComponentHolder {
   public static final FluidStack EMPTY = new FluidStack(Fluids.EMPTY, 0);
 
   public static final Codec<Fluid> FLUID_NON_EMPTY_CODEC = BuiltInRegistries.FLUID.byNameCodec().validate(
@@ -179,8 +179,19 @@ public final class FluidStack {
     return components.remove(type);
   }
 
+  @Override
   public DataComponentMap getComponents() {
     return components;
+  }
+
+  /** Checks if this stack has no component changes */
+  public boolean isComponentsPatchEmpty() {
+    return components.asPatch().isEmpty();
+  }
+
+  /** Applies component changes to this stack */
+  public void applyComponents(DataComponentPatch patch) {
+    components.applyPatch(patch);
   }
 
   public DataComponentPatch getComponentsPatch() {

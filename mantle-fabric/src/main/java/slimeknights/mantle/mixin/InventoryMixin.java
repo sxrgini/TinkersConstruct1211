@@ -37,7 +37,7 @@ public abstract class InventoryMixin {
     int size = getContainerSize();
     for (int i = 0; i < size; i++) {
       ItemStack stack = getItem(i);
-      if (!stack.isEmpty() && stack.has(MantleData.SOULBOUND_SLOT)) {
+      if (!stack.isEmpty() && stack.has(MantleData.SOULBOUND_SLOT.get())) {
         mantle$soulbound.put(i, stack);
         setItem(i, ItemStack.EMPTY);
       }

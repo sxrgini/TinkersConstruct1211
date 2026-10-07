@@ -2,8 +2,8 @@ package slimeknights.mantle.datagen;
 
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import slimeknights.mantle.platform.data.BlockTagsProvider;
+import slimeknights.mantle.platform.data.ExistingFileHelper;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.Mantle;
 
@@ -27,7 +27,7 @@ public class MantleBlockTagProvider extends BlockTagsProvider {
   protected void addTags(Provider pProvider) {
     this.tag(GAUGE_TANKS);
     this.tag(ATTACHED_GAUGES);
-    this.tag(GAUGES).addTags(ATTACHED_GAUGES, GAUGE_TANKS);
+    this.tag(GAUGES).addTag(ATTACHED_GAUGES).addTag(GAUGE_TANKS);
     this.tag(GAUGE_BLACKLIST);
     this.tag(HIDES_GAUGE_AMOUNT);
   }

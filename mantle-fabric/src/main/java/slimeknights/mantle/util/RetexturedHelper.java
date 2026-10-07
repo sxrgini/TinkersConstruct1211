@@ -95,7 +95,7 @@ public final class RetexturedHelper {
    * @return  Texture, or {@link Blocks#AIR} if none
    */
   public static Block getTexture(ItemStack stack) {
-    return stack.getOrDefault(MantleData.BLOCK_TEXTURE, Blocks.AIR);
+    return stack.getOrDefault(MantleData.BLOCK_TEXTURE.get(), Blocks.AIR);
   }
 
 
@@ -124,9 +124,9 @@ public final class RetexturedHelper {
    */
   public static ItemStack setTexture(ItemStack stack, @Nullable Block block) {
     if (block == null || block == Blocks.AIR) {
-      stack.remove(MantleData.BLOCK_TEXTURE);
+      stack.remove(MantleData.BLOCK_TEXTURE.get());
     } else {
-      stack.set(MantleData.BLOCK_TEXTURE, block);
+      stack.set(MantleData.BLOCK_TEXTURE.get(), block);
     }
     return stack;
   }
@@ -139,7 +139,6 @@ public final class RetexturedHelper {
     // update the texture in BE data
     Level level = self.getLevel();
     if (level != null && level.isClientSide) {
-      self.requestModelDataUpdate();
       BlockState state = self.getBlockState();
       level.sendBlockUpdated(self.getBlockPos(), state, state, 0);
     }

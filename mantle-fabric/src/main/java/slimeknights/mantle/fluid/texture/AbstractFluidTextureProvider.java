@@ -5,7 +5,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.platform.registry.DeferredHolder;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.mantle.util.JsonHelper;
@@ -40,13 +40,13 @@ public abstract class AbstractFluidTextureProvider extends GenericDataProvider {
 
     // ensure we added textures for all our fluid types
     if (modId != null) {
-      List<String> missing = NeoForgeRegistries.FLUID_TYPES.entrySet().stream().filter(entry -> entry.getKey().location().getNamespace().equals(modId) && !allTextures.containsKey(entry.getValue()) && !ignore.contains(entry.getValue())).map(e -> e.getKey().location().toString()).toList();
+      List<String> missing = FluidTypes.REGISTRY.entrySet().stream().filter(entry -> entry.getKey().location().getNamespace().equals(modId) && !allTextures.containsKey(entry.getValue()) && !ignore.contains(entry.getValue())).map(e -> e.getKey().location().toString()).toList();
       if (!missing.isEmpty()) {
         throw new IllegalStateException("Missing fluid textures for: " + String.join(", ", missing));
       }
     }
     // save files
-    return allOf(allTextures.entrySet().stream().map(entry -> saveJson(cache, Objects.requireNonNull(NeoForgeRegistries.FLUID_TYPES.getKey(entry.getKey())), entry.getValue().build().serialize())));
+    return allOf(allTextures.entrySet().stream().map(entry -> saveJson(cache, Objects.requireNonNull(FluidTypes.REGISTRY.getKey(entry.getKey())), entry.getValue().build().serialize())));
   }
 
   /** Adds the textures if not already added */

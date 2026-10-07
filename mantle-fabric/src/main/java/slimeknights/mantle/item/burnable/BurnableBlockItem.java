@@ -18,10 +18,7 @@ public class BurnableBlockItem extends BlockItem {
   public BurnableBlockItem(Block block, Properties properties, int burnTime) {
     super(block, properties);
     this.burnTime = burnTime;
+    net.fabricmc.fabric.api.registry.FuelRegistry.INSTANCE.add(this, burnTime);
   }
 
-  @Override
-  public int getBurnTime(ItemStack stack, @Nullable RecipeType<?> recipeType) {
-    return burnTime;
-  }
 }

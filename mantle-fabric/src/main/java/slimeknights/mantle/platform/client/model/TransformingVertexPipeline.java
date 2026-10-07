@@ -16,7 +16,7 @@ public class TransformingVertexPipeline implements VertexConsumer {
   public TransformingVertexPipeline(VertexConsumer parent, Transformation transformation) {
     this.parent = parent;
     this.matrix = transformation.getMatrix();
-    this.normalMatrix = transformation.getNormalMatrix();
+    this.normalMatrix = Transformations.normalMatrix(transformation);
   }
 
   @Override

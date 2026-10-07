@@ -13,6 +13,11 @@ public final class QuadTransformers {
 
   private QuadTransformers() {}
 
+  /** Checks if the transformation does nothing */
+  public static boolean isIdentity(Transformation transformation) {
+    return transformation.equals(Transformation.identity());
+  }
+
   /** Transformer that does nothing */
   public static IQuadTransformer empty() {
     return EMPTY;
@@ -41,10 +46,10 @@ public final class QuadTransformers {
    * Applies a transformation to positions and normals. The transformation is applied around the center of the block (0.5, 0.5, 0.5).
    */
   public static IQuadTransformer applying(Transformation transformation) {
-    if (transformation.isIdentity()) {
+    if (QuadTransformers.isIdentity(transformation)) {
       return EMPTY;
     }
-    Matrix3f normalMatrix = transformation.getNormalMatrix();
+    Matrix3f normalMatrix = Transformations.normalMatrix(transformation);
     return quad -> {
       int[] data = quad.getVertices();
       Vector4f position = new Vector4f();

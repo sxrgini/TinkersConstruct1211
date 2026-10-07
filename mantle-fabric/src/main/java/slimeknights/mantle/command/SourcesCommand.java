@@ -25,7 +25,7 @@ import java.util.List;
 /** Command to list all sources for a file in a datapack */
 public class SourcesCommand {
   /** Error on invalid item or tag ID */
-  private static final DynamicCommandExceptionType NOT_FOUND = new DynamicCommandExceptionType(id -> Mantle.makeComponent("command", "sources.not_found", id));
+  public static final DynamicCommandExceptionType NOT_FOUND = new DynamicCommandExceptionType(id -> Mantle.makeComponent("command", "sources.not_found", id));
   /** List of subcommands to add */
   private static final List<SourceFolder> FOLDERS = new ArrayList<>();
 

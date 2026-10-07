@@ -1,5 +1,6 @@
 package slimeknights.mantle.registration.object;
 
+import net.minecraft.core.registries.Registries;
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
@@ -39,7 +40,7 @@ public class FluidObject<F extends Fluid> implements Supplier<F>, ItemLike, IdAw
   /** Main constructor */
   public FluidObject(ResourceLocation id, @Nullable String tagName, Supplier<? extends FluidType> type, Supplier<? extends F> still) {
     this.id = id;
-    this.commonTag = tagName == null ? null : FluidTags.create(Mantle.commonResource(tagName));
+    this.commonTag = tagName == null ? null : TagKey.create(Registries.FLUID, Mantle.commonResource(tagName));
     this.type = type;
     this.still = still;
   }

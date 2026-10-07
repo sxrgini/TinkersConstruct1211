@@ -15,11 +15,11 @@ public final class UnbakedGeometryHelper {
    * The state rotation is conjugated out so the root transform acts in the unrotated model space.
    */
   public static IQuadTransformer applyRootTransform(ModelState state, Transformation rootTransform) {
-    if (rootTransform.isIdentity()) {
+    if (QuadTransformers.isIdentity(rootTransform)) {
       return QuadTransformers.empty();
     }
     Transformation stateRotation = state.getRotation();
-    if (stateRotation.isIdentity()) {
+    if (QuadTransformers.isIdentity(stateRotation)) {
       return QuadTransformers.applying(rootTransform);
     }
     Transformation inverse = stateRotation.inverse();
@@ -28,7 +28,7 @@ public final class UnbakedGeometryHelper {
 
   /** Composes the root transform into the model state, for geometry built directly in model space such as item layers. */
   public static ModelState composeRootTransformIntoModelState(ModelState state, Transformation rootTransform) {
-    Transformation composed = state.getRotation().applyOrigin(CENTER).compose(rootTransform.applyOrigin(CENTER));
+    Transformation composed = Transformations.applyOrigin(state.getRotation(), CENTER).compose(Transformations.applyOrigin(rootTransform, CENTER));
     return new SimpleModelState(composed, state.isUvLocked());
   }
 }

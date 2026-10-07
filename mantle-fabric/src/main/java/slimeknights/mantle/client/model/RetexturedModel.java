@@ -30,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import slimeknights.mantle.platform.client.model.BakedModels;
 import slimeknights.mantle.platform.client.model.ModelData;
 import slimeknights.mantle.platform.client.model.IGeometryBakingContext;
 import slimeknights.mantle.platform.client.model.IGeometryLoader;
@@ -183,10 +184,10 @@ public class RetexturedModel implements IUnbakedGeometry<RetexturedModel> {
       if (retextured.contains("particle")) {
         Block block = data.get(RetexturedHelper.BLOCK_PROPERTY);
         if (block != null) {
-          return getCachedModel(block).getParticleIcon(data);
+          return BakedModels.getParticleIcon(getCachedModel(block), data);
         }
       }
-      return originalModel.getParticleIcon(data);
+      return BakedModels.getParticleIcon(originalModel, data);
     }
 
     @Nonnull
@@ -194,9 +195,9 @@ public class RetexturedModel implements IUnbakedGeometry<RetexturedModel> {
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction direction, RandomSource random, ModelData data, @Nullable RenderType renderType) {
       Block block = data.get(RetexturedHelper.BLOCK_PROPERTY);
       if (block == null) {
-        return originalModel.getQuads(state, direction, random, data, null);
+        return BakedModels.getQuads(originalModel, state, direction, random, data);
       }
-      return getCachedModel(block).getQuads(state, direction, random, data, null);
+      return BakedModels.getQuads(getCachedModel(block), state, direction, random, data);
     }
 
     @Override

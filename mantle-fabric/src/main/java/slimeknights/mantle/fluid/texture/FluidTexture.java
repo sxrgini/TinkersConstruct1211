@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.platform.fluid.FluidType;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import slimeknights.mantle.client.model.TextureColorHelper;
 import slimeknights.mantle.data.loadable.common.ColorLoadable;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
@@ -160,7 +160,7 @@ public final class FluidTexture {
      * @return Builder instance
      */
     public Builder wrapId(String prefix, String suffix) {
-      return root(JsonHelper.wrap(Objects.requireNonNull(NeoForgeRegistries.FLUID_TYPES.getKey(fluid)), prefix, suffix));
+      return root(JsonHelper.wrap(Objects.requireNonNull(FluidTypes.REGISTRY.getKey(fluid)), prefix, suffix));
     }
 
     /**

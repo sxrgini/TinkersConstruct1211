@@ -3,7 +3,7 @@ package slimeknights.mantle.command.client;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.commands.CommandSourceStack;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.resources.ResourceLocation;
@@ -18,9 +18,9 @@ public class ClearBookCacheCommand {
    * Registers this sub command with the root command
    * @param subCommand  Command builder
    */
-  public static void register(LiteralArgumentBuilder<CommandSourceStack> subCommand) {
+  public static void register(LiteralArgumentBuilder<FabricClientCommandSource> subCommand) {
     subCommand.requires(source -> source.getEntity() instanceof AbstractClientPlayer)
-              .then(Commands.argument("id", ResourceLocationArgument.id()).suggests(MantleClientCommand.REGISTERED_BOOKS)
+              .then(net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument("id", ResourceLocationArgument.id()).suggests(MantleClientCommand.REGISTERED_BOOKS)
                             .executes(ClearBookCacheCommand::runBook))
               .executes(ClearBookCacheCommand::runAll);
   }
@@ -30,8 +30,8 @@ public class ClearBookCacheCommand {
    * @param context  Command context
    * @return  Integer return
    */
-  private static int runBook(CommandContext<CommandSourceStack> context) {
-    ResourceLocation book = ResourceLocationArgument.getId(context, "id");
+  private static int runBook(CommandContext<FabricClientCommandSource> context) {
+    ResourceLocation book = context.getArgument("id", ResourceLocation.class);
     clearBookCache(book);
     return 0;
   }
@@ -41,7 +41,7 @@ public class ClearBookCacheCommand {
    * @param context  Command context
    * @return  Integer return
    */
-  private static int runAll(CommandContext<CommandSourceStack> context) {
+  private static int runAll(CommandContext<FabricClientCommandSource> context) {
     clearBookCache(null);
     return 0;
   }

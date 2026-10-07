@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.SpriteContents;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import slimeknights.mantle.platform.client.SpriteHelper;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import slimeknights.mantle.platform.client.model.BakedModels;
 import slimeknights.mantle.platform.client.model.ModelData;
 import org.apache.commons.lang3.math.NumberUtils;
 import slimeknights.mantle.Mantle;
@@ -46,7 +48,7 @@ public class TextureColorHelper {
       SpriteContents contents = sprite.contents();
       for (int x = 0; x < contents.width(); x++) {
         for (int y = 0; y < contents.height(); y++) {
-          int argb = sprite.getPixelRGBA(0, x, y);
+          int argb = SpriteHelper.getPixelRGBA(sprite, 0, x, y);
           // integer is in format of 0xAABBGGRR
           int cr = argb & 0xFF;
           int cg = argb >> 8 & 0xFF;
@@ -113,7 +115,7 @@ public class TextureColorHelper {
     if (model == mc.getModelManager().getMissingModel()) {
       return -1;
     }
-    return getAverageColor(model.getParticleIcon(ModelData.EMPTY));
+    return getAverageColor(BakedModels.getParticleIcon(model, ModelData.EMPTY));
   };
 
   /** Gets the average color of an item's default particle icon */
@@ -128,7 +130,7 @@ public class TextureColorHelper {
     if (model == mc.getModelManager().getMissingModel()) {
       return -1;
     }
-    return getAverageColor(model.getParticleIcon(ModelData.EMPTY));
+    return getAverageColor(BakedModels.getParticleIcon(model, ModelData.EMPTY));
   };
 
   /** Gets the average color of an blocks default particle icon */

@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  * @param <R>  Registry type
  * @param <T>  Value type
  */
-public class DeferredHolder<R, T extends R> implements Holder<T>, Supplier<T> {
+public class DeferredHolder<R, T extends R> implements Holder<R>, Supplier<T> {
   private final ResourceKey<R> key;
   @Nullable
   private Holder<R> holder;
@@ -53,18 +53,18 @@ public class DeferredHolder<R, T extends R> implements Holder<T>, Supplier<T> {
   /** Tries to resolve the real holder, returning null if not yet registered */
   @Nullable
   @SuppressWarnings("unchecked")
-  private Holder<T> resolve() {
+  private Holder<R> resolve() {
     if (holder == null) {
       Registry<R> registry = (Registry<R>) BuiltInRegistries.REGISTRY.get(key.registry());
       if (registry != null) {
         holder = registry.getHolder(key).orElse(null);
       }
     }
-    return (Holder<T>) holder;
+    return holder;
   }
 
-  private Holder<T> requireHolder() {
-    Holder<T> resolved = resolve();
+  private Holder<R> requireHolder() {
+    Holder<R> resolved = resolve();
     if (resolved == null) {
       throw new NullPointerException("Trying to access unbound value: " + key);
     }
@@ -76,14 +76,15 @@ public class DeferredHolder<R, T extends R> implements Holder<T>, Supplier<T> {
     return value();
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public T value() {
-    return requireHolder().value();
+    return (T) requireHolder().value();
   }
 
   @Override
   public boolean isBound() {
-    Holder<T> resolved = resolve();
+    Holder<R> resolved = resolve();
     return resolved != null && resolved.isBound();
   }
 
@@ -93,46 +94,41 @@ public class DeferredHolder<R, T extends R> implements Holder<T>, Supplier<T> {
   }
 
   @Override
-  public boolean is(ResourceKey<T> otherKey) {
+  public boolean is(ResourceKey<R> otherKey) {
     return key == otherKey || key.equals(otherKey);
   }
 
   @Override
-  public boolean is(Predicate<ResourceKey<T>> predicate) {
-    return predicate.test(getKeyAsT());
-  }
-
-  @SuppressWarnings("unchecked")
-  private ResourceKey<T> getKeyAsT() {
-    return (ResourceKey<T>) key;
+  public boolean is(Predicate<ResourceKey<R>> predicate) {
+    return predicate.test(key);
   }
 
   @Override
-  public boolean is(TagKey<T> tag) {
-    Holder<T> resolved = resolve();
+  public boolean is(TagKey<R> tag) {
+    Holder<R> resolved = resolve();
     return resolved != null && resolved.is(tag);
   }
 
   @SuppressWarnings("deprecation")
   @Override
-  public boolean is(Holder<T> other) {
-    return other.is(getKeyAsT());
+  public boolean is(Holder<R> other) {
+    return other.is(key);
   }
 
   @Override
-  public Stream<TagKey<T>> tags() {
-    Holder<T> resolved = resolve();
+  public Stream<TagKey<R>> tags() {
+    Holder<R> resolved = resolve();
     return resolved == null ? Stream.empty() : resolved.tags();
   }
 
   @Override
-  public Either<ResourceKey<T>,T> unwrap() {
-    return Either.left(getKeyAsT());
+  public Either<ResourceKey<R>,R> unwrap() {
+    return Either.left(key);
   }
 
   @Override
-  public Optional<ResourceKey<T>> unwrapKey() {
-    return Optional.of(getKeyAsT());
+  public Optional<ResourceKey<R>> unwrapKey() {
+    return Optional.of(key);
   }
 
   @Override
@@ -141,8 +137,8 @@ public class DeferredHolder<R, T extends R> implements Holder<T>, Supplier<T> {
   }
 
   @Override
-  public boolean canSerializeIn(HolderOwner<T> owner) {
-    Holder<T> resolved = resolve();
+  public boolean canSerializeIn(HolderOwner<R> owner) {
+    Holder<R> resolved = resolve();
     return resolved != null && resolved.canSerializeIn(owner);
   }
 

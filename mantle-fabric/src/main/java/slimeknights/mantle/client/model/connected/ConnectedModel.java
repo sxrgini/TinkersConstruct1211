@@ -33,6 +33,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import slimeknights.mantle.platform.client.model.BakedModels;
 import slimeknights.mantle.platform.client.model.ModelData;
 import slimeknights.mantle.platform.client.model.ModelProperty;
 import slimeknights.mantle.platform.client.model.IGeometryBakingContext;
@@ -355,7 +356,7 @@ public class ConnectedModel implements IUnbakedGeometry<ConnectedModel> {
       // gather connections data
       Transformation rotation = transforms.getRotation();
       return tileData.derive()
-                     .with(CONNECTIONS, getConnections(dir -> parent.sides.contains(dir) && parent.connectionPredicate.test(state, world.getBlockState(pos.relative(rotation.rotateTransform(dir))))))
+                     .with(CONNECTIONS, getConnections(dir -> parent.sides.contains(dir) && parent.connectionPredicate.test(state, world.getBlockState(pos.relative(Direction.rotate(rotation.getMatrix(), dir))))))
                      .build();
     }
 
@@ -375,7 +376,7 @@ public class ConnectedModel implements IUnbakedGeometry<ConnectedModel> {
       }
 
       // get the model for the given orientation
-      return cache[connections].getQuads(state, side, rand, data, renderType);
+      return BakedModels.getQuads(cache[connections], state, side, rand, data);
     }
 
     @Nonnull
@@ -388,7 +389,7 @@ public class ConnectedModel implements IUnbakedGeometry<ConnectedModel> {
       if (connections == null) {
         // no state? return original
         if (state == null) {
-          return originalModel.getQuads(null, side, rand, data, renderType);
+          return BakedModels.getQuads(originalModel, null, side, rand, data);
         }
         // this will return original if the state is missing all properties
         Transformation rotation = transforms.getRotation();
@@ -396,7 +397,7 @@ public class ConnectedModel implements IUnbakedGeometry<ConnectedModel> {
           if (!parent.sides.contains(dir)) {
             return false;
           }
-          BooleanProperty prop = IMultipartConnectedBlock.CONNECTED_DIRECTIONS.get(rotation.rotateTransform(dir));
+          BooleanProperty prop = IMultipartConnectedBlock.CONNECTED_DIRECTIONS.get(Direction.rotate(rotation.getMatrix(), dir));
           return state.hasProperty(prop) && state.getValue(prop);
         });
       }

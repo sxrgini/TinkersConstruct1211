@@ -188,6 +188,6 @@ public interface IRecipeHelper {
    * @return  Condition for tag existing
    */
   default ICondition tagCondition(String name) {
-    return new TagFilledCondition<>(ItemTags.create(Mantle.commonResource(name)));
+    return new TagFilledCondition<>(TagKey.create(Registries.ITEM, Mantle.commonResource(name)));
   }
 }

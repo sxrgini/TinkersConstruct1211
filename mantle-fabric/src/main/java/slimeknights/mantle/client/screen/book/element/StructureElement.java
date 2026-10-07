@@ -95,7 +95,8 @@ public class StructureElement extends SizedBookElement {
 
       transform.translate(this.transX, this.transY, Math.max(structureHeight, Math.max(structureWidth, structureLength)));
       transform.scale(this.scale, -this.scale, 1);
-      transform.pushTransformation(this.additionalTransform);
+      transform.pushPose();
+      transform.mulPose(this.additionalTransform.getMatrix());
       transform.mulPose(new Quaternionf().rotateYXZ(0, 0, 0));
 
       transform.translate(structureLength / -2f, structureHeight / -2f, structureWidth / -2f);
@@ -117,21 +118,11 @@ public class StructureElement extends SizedBookElement {
               else
                 overlay = OverlayTexture.NO_OVERLAY;
 
-              ModelData modelData = ModelData.EMPTY;
-              BlockEntity te = structureWorld.getBlockEntity(pos);
-
-              if (te != null) {
-                modelData = te.getModelData();
-              }
-
-              // TODO: verify that we should be using all types here
               BakedModel model = blockRender.getBlockModel(state);
-              for (RenderType renderType : model.getRenderTypes(state, structureWorld.random, modelData)) {
-                blockRender.getModelRenderer().tesselateBlock(
-                  structureWorld, blockRender.getBlockModel(state), state, pos, transform,
-                  buffer.getBuffer(MantleRenderTypes.TRANSLUCENT_FULLBRIGHT), false, structureWorld.random, state.getSeed(pos),
-                  overlay, modelData, renderType);
-              }
+              blockRender.getModelRenderer().tesselateBlock(
+                structureWorld, model, state, pos, transform,
+                buffer.getBuffer(MantleRenderTypes.TRANSLUCENT_FULLBRIGHT), false, structureWorld.random, state.getSeed(pos),
+                overlay);
 
               transform.popPose();
             }

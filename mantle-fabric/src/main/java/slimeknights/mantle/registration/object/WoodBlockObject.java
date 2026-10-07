@@ -1,5 +1,6 @@
 package slimeknights.mantle.registration.object;
 
+import net.minecraft.core.registries.Registries;
 import lombok.Getter;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
@@ -68,8 +69,8 @@ public class WoodBlockObject extends FenceBuildingBlockObject {
     this.hangingSignHolder = hangingSign;
     this.wallHangingSignHolder = wallHangingSign;
     ResourceLocation tagName = name.withSuffix("_logs");
-    this.logBlockTag = BlockTags.create(tagName);
-    this.logItemTag = ItemTags.create(tagName);
+    this.logBlockTag = TagKey.create(Registries.BLOCK, tagName);
+    this.logItemTag = TagKey.create(Registries.ITEM, tagName);
   }
 
   /** Gets the log for this wood type */
