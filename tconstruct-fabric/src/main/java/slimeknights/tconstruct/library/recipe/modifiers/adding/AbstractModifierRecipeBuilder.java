@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
+import net.minecraft.advancements.AdvancementHolder;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -163,7 +164,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer) {
+  public void save(RecipeOutput consumer) {
     save(consumer, result);
   }
 
@@ -172,15 +173,15 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
    * @param consumer  Consumer instance
    * @param id        Recipe ID
    */
-  public T saveSalvage(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public T saveSalvage(RecipeOutput consumer, ResourceLocation id) {
     if (maxLevel < minLevel) {
       throw new IllegalStateException("Max level must be greater than min level");
     }
     if (slots == null) {
       throw new IllegalStateException("Must set modifier slots to apply modifier salvage.");
     }
-    ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
-    consumer.accept(new LoadableFinishedRecipe<>(makeSalvage(id), ModifierSalvage.LOADER, advancementId));
+    AdvancementHolder advancementId = buildOptionalAdvancement(consumer, id, "modifiers");
+    consumer.accept(id, makeSalvage(id), advancementId);
     return (T) this;
   }
 

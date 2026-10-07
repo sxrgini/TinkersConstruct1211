@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.data.material;
 
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.InstrumentTags;
@@ -62,12 +62,12 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
   }
 
   @Override
-  protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+  protected void buildRecipes(RecipeOutput consumer) {
     addMaterialItems(consumer);
     addMaterialSmeltery(consumer);
   }
 
-  private void addMaterialItems(Consumer<FinishedRecipe> consumer) {
+  private void addMaterialItems(RecipeOutput consumer) {
     String folder = "tools/materials/";
     // tier 1
     materialRecipe(consumer, MaterialIds.wood,   Ingredient.of(Tags.Items.RODS_WOODEN), 1, 2, folder + "wood/sticks");
@@ -266,7 +266,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     hornMaterial(consumer, Instruments.DREAM_GOAT_HORN,  folder);
   }
 
-  private void addMaterialSmeltery(Consumer<FinishedRecipe> consumer) {
+  private void addMaterialSmeltery(RecipeOutput consumer) {
     String folder = "tools/materials/";
 
     // melting and casting
@@ -367,7 +367,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingComposite(withCondition(consumer, new OrCondition(tagCondition("ingots/brass"), tagCondition("ingots/zinc"))),
                              MaterialIds.slimewood, MaterialIds.platedSlimewood, TinkerFluids.moltenBrass, FluidValues.INGOT, folder);
     // tier 4 compat
-    Consumer<FinishedRecipe> fieryConsumer = withCondition(consumer, tagCondition("ingots/fiery"));
+    RecipeOutput fieryConsumer = withCondition(consumer, tagCondition("ingots/fiery"));
     materialComposite(fieryConsumer, MaterialIds.iron, MaterialIds.fiery, TinkerFluids.fieryLiquid, FluidValues.BOTTLE, folder);
     MaterialMeltingRecipeBuilder.material(MaterialIds.fiery, TinkerFluids.fieryLiquid, FluidValues.BOTTLE)
       .addByproduct(TinkerFluids.moltenIron.result(FluidValues.INGOT))
@@ -394,13 +394,13 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
   }
 
   /** Adds a recipe casting whitestone from the given fluid */
-  private void whitestoneCasting(Consumer<FinishedRecipe> consumer, FluidObject<?> fluid, String folder) {
+  private void whitestoneCasting(RecipeOutput consumer, FluidObject<?> fluid, String folder) {
     String name = TinkerFluids.withoutMolten(fluid);
     materialComposite(withCondition(consumer, tagCondition("ingots/" + name)), MaterialIds.rock, MaterialIds.whitestoneComposite, fluid, FluidValues.INGOT, folder, "whitestone_from_" + name);
   }
 
   /** Adds recipes to clean leather with venom */
-  private void venomCleaning(Consumer<FinishedRecipe> consumer, MaterialVariantId input, String folder, String name) {
+  private void venomCleaning(RecipeOutput consumer, MaterialVariantId input, String folder, String name) {
     MaterialFluidRecipeBuilder.material(MaterialIds.leather)
       .setInputId(input)
       .setFluid(TinkerFluids.venom.ingredient(FluidValues.SIP))
@@ -410,7 +410,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
   }
 
   /** Adds a recipe for crafting a goat horn material */
-  private void hornMaterial(Consumer<FinishedRecipe> consumer, ResourceKey<Instrument> instrument, String folder) {
+  private void hornMaterial(RecipeOutput consumer, ResourceKey<Instrument> instrument, String folder) {
     ResourceLocation key = instrument.location();
     materialRecipe(consumer, MaterialVariantId.create(MaterialIds.horn, key.toLanguageKey()), InstrumentIngredient.of(Items.GOAT_HORN, instrument), 4, 1, folder + "horn/" + key.getPath());
   }

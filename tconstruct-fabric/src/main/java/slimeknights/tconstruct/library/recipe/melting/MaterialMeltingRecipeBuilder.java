@@ -1,8 +1,9 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
+import net.minecraft.advancements.AdvancementHolder;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.platform.fluid.FluidStack;
@@ -75,13 +76,13 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer) {
+  public void save(RecipeOutput consumer) {
     save(consumer, inputId.getId());
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
-    ResourceLocation advancementID = this.buildOptionalAdvancement(id, "melting");
-    consumer.accept(new LoadableFinishedRecipe<>(new MaterialMeltingRecipe(id, inputId, temperature, result, byproducts), MaterialMeltingRecipe.LOADER, advancementID));
+  public void save(RecipeOutput consumer, ResourceLocation id) {
+    AdvancementHolder advancementID = this.buildOptionalAdvancement(consumer, id, "melting");
+    consumer.accept(id, new MaterialMeltingRecipe(inputId, temperature, result, byproducts), advancementID);
   }
 }

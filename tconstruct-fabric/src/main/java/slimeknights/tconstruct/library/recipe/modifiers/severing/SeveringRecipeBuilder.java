@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.library.recipe.modifiers.severing;
 
+import net.minecraft.advancements.AdvancementHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.data.loadable.Loadables;
@@ -47,17 +48,17 @@ public class SeveringRecipeBuilder extends AbstractRecipeBuilder<SeveringRecipeB
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer) {
+  public void save(RecipeOutput consumer) {
     save(consumer, Loadables.ITEM.getKey(output.get().getItem()));
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "severing");
+  public void save(RecipeOutput consumer, ResourceLocation id) {
+    AdvancementHolder advancementId = this.buildOptionalAdvancement(consumer, id, "severing");
     if (childOutput != null) {
-      consumer.accept(new LoadableFinishedRecipe<>(new AgeableSeveringRecipe(id, ingredient, output, childOutput, baseChance, lootingBonus), AgeableSeveringRecipe.LOADER, advancementId));
+      consumer.accept(id, new AgeableSeveringRecipe(ingredient, output, childOutput, baseChance, lootingBonus), advancementId);
     } else {
-      consumer.accept(new LoadableFinishedRecipe<>(new SeveringRecipe(id, ingredient, output, baseChance, lootingBonus), SeveringRecipe.LOADER, advancementId));
+      consumer.accept(id, new SeveringRecipe(ingredient, output, baseChance, lootingBonus), advancementId);
     }
   }
 }

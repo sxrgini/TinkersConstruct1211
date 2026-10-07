@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
+import net.minecraft.advancements.AdvancementHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.data.loadable.Loadables;
@@ -72,13 +73,13 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumerIn) {
+  public void save(RecipeOutput consumerIn) {
     this.save(consumerIn, Loadables.ITEM.getKey(this.output.asItem()));
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "parts");
+  public void save(RecipeOutput consumerIn, ResourceLocation id) {
+    AdvancementHolder advancementId = this.buildOptionalAdvancement(consumerIn, id, "parts");
     if (tippedModifier != null) {
       if (extraMaterials.isEmpty()) {
         throw new IllegalArgumentException("Must have at least 1 material for modifier transform");
@@ -86,9 +87,9 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
       if (extraRequirements.size() != 1) {
         throw new IllegalArgumentException("Must have exactly one ingredient for modifier transform");
       }
-      consumerIn.accept(new LoadableFinishedRecipe<>(new TippedToolTransformRecipe(id, group, output, layoutSlot, extraRequirements.get(0), extraMaterials, tippedModifier), TippedToolTransformRecipe.LOADER, advancementId));
+      consumerIn.accept(id, new TippedToolTransformRecipe(group, output, layoutSlot, extraRequirements.get(0), extraMaterials, tippedModifier), advancementId);
     } else {
-      consumerIn.accept(new LoadableFinishedRecipe<>(new ToolBuildingRecipe(id, group, output, outputSize, layoutSlot, extraRequirements, partsOverride, extraMaterials), ToolBuildingRecipe.LOADER, advancementId));
+      consumerIn.accept(id, new ToolBuildingRecipe(group, output, outputSize, layoutSlot, extraRequirements, partsOverride, extraMaterials), advancementId);
     }
   }
 }

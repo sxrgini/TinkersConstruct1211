@@ -10,7 +10,8 @@
     "LivingEntityEffectEventsMixin",
     "DefaultAttributesMixin",
     "MobSpawnEventsMixin",
-    "BlockBehaviourEventsMixin"
+    "BlockBehaviourEventsMixin",
+    "RecipeManagerMixin"
   ],
   "client": [
     "GuiMixin",

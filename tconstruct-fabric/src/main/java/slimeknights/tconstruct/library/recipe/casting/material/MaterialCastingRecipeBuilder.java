@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
+import net.minecraft.advancements.AdvancementHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -168,20 +169,20 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer) {
+  public void save(RecipeOutput consumer) {
     this.save(consumer, Loadables.ITEM.getKey(Objects.requireNonNull(this.result).asItem()));
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(RecipeOutput consumer, ResourceLocation id) {
     if (this.itemCost <= 0) {
       throw new IllegalStateException("Material casting recipes require a positive amount of fluid");
     }
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
+    AdvancementHolder advancementId = this.buildOptionalAdvancement(consumer, id, "casting");
     if (result != null) {
-      consumer.accept(new LoadableFinishedRecipe<>(new MaterialCastingRecipe(recipeSerializer, id, group, cast, itemCost, result, allowedMaterials, castPurpose != CastPurpose.CATALYST, switchSlots), MaterialCastingRecipe.LOADER, advancementId));
+      consumer.accept(id, new MaterialCastingRecipe(recipeSerializer, group, cast, itemCost, result, allowedMaterials, castPurpose != CastPurpose.CATALYST, switchSlots), advancementId);
     } else if (resultTool != null) {
-      consumer.accept(new LoadableFinishedRecipe<>(new ToolCastingRecipe(recipeSerializer, id, group, cast, itemCost, castPurpose, resultTool, allowedMaterials, extraMaterials, fluidSwapping), ToolCastingRecipe.LOADER, advancementId));
+      consumer.accept(id, new ToolCastingRecipe(recipeSerializer, group, cast, itemCost, castPurpose, resultTool, allowedMaterials, extraMaterials, fluidSwapping), advancementId);
     } else {
       throw new IllegalArgumentException("Must have either result or result tool");
     }

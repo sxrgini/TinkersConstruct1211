@@ -1,8 +1,9 @@
 package slimeknights.tconstruct.library.recipe.molding;
 
+import net.minecraft.advancements.AdvancementHolder;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -84,17 +85,17 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
   /* Building */
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer) {
+  public void save(RecipeOutput consumer) {
     save(consumer, Loadables.ITEM.getKey(output.get().getItem()));
   }
 
   @Override
-  public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+  public void save(RecipeOutput consumer, ResourceLocation id) {
     if (material == Ingredient.EMPTY) {
       throw new IllegalStateException("Missing material for molding recipe");
     }
-    ResourceLocation advancementId = buildOptionalAdvancement(id, "molding");
-    consumer.accept(new LoadableFinishedRecipe<>(new MoldingRecipe(serializer, id, material, pattern, patternConsumed, output), MoldingRecipe.LOADER, advancementId));
+    AdvancementHolder advancementId = buildOptionalAdvancement(consumer, id, "molding");
+    consumer.accept(id, new MoldingRecipe(serializer, material, pattern, patternConsumed, output), advancementId);
   }
 
   private class Finished extends AbstractFinishedRecipe {

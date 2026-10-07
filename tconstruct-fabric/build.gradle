@@ -57,14 +57,6 @@ def keepData = [
 sourceSets.main.java {
     exclude 'slimeknights/tconstruct/plugin/**'
     exclude 'slimeknights/tconstruct/shared/command/subcommand/GenerateMeltingRecipesCommand.java'
-    // recipe builders are datagen helpers, ported with datagen
-    exclude '**/recipe/**/*Builder.java'
-    exclude 'slimeknights/tconstruct/common/recipe/LoadableFinishedRecipe.java'
-    exclude { el ->
-        if (el.directory) return false
-        def p = el.relativePath.pathString
-        (p ==~ /slimeknights\/tconstruct\/[^\/]+\/data\/.*/ || p.startsWith('slimeknights/tconstruct/library/data/')) && !keepData.contains(p)
-    }
 }
 
 java { withSourcesJar() }
