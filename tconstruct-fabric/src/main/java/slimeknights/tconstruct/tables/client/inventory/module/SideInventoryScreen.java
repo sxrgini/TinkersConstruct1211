@@ -106,7 +106,7 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Abstr
   }
 
   @Override
-  protected boolean isHovering(Slot slotIn, double mouseX, double mouseY) {
+  public boolean isHovering(Slot slotIn, double mouseX, double mouseY) {
     return super.isHovering(slotIn, mouseX, mouseY) && this.shouldDrawSlot(slotIn);
   }
 

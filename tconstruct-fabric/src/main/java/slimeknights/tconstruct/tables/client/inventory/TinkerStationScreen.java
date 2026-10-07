@@ -471,11 +471,11 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
 
   @Override
   public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double delta) {
-    if (this.tinkerInfo.handleMouseScrolled(mouseX, mouseY, delta)) {
+    if (this.tinkerInfo.handleMouseScrolled(mouseX, mouseY, scrollX, delta)) {
       return false;
     }
 
-    if (this.modifierInfo.handleMouseScrolled(mouseX, mouseY, delta)) {
+    if (this.modifierInfo.handleMouseScrolled(mouseX, mouseY, scrollX, delta)) {
       return false;
     }
 
@@ -544,7 +544,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
   }
 
   @Override
-  protected boolean isHovering(Slot slotIn, double mouseX, double mouseY) {
+  public boolean isHovering(Slot slotIn, double mouseX, double mouseY) {
     if (slotIn instanceof TinkerStationSlot && ((TinkerStationSlot) slotIn).isDormant() && !slotIn.hasItem()) {
       return false;
     }

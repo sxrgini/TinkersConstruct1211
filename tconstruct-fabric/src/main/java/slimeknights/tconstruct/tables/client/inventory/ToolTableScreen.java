@@ -97,7 +97,7 @@ public abstract class ToolTableScreen<T extends BlockEntity, C extends TabbedCon
     if (this.armorStandPreview != null) {
       Quaternionf pose = new Quaternionf();
       SmithingScreen.ARMOR_STAND_ANGLE.rotateY(this.armorStandAngle, pose);
-      InventoryScreen.renderEntityInInventory(graphics, this.armorStandX, this.armorStandY, this.armorStandScale, pose, null, this.armorStandPreview);
+      InventoryScreen.renderEntityInInventory(graphics, this.armorStandX, this.armorStandY, this.armorStandScale, new org.joml.Vector3f(), pose, null, this.armorStandPreview);
 
       graphics.blit(ICON_TEXTURE, armorStandX - 16, armorStandY - 16, 0, 184, 32, 32);
     }
@@ -146,7 +146,7 @@ public abstract class ToolTableScreen<T extends BlockEntity, C extends TabbedCon
       ItemStack result = lazyToolStack.getStack();
       tinkerInfo.setCaption(result.getHoverName());
       List<Component> list = new ArrayList<>();
-      result.getItem().appendHoverText(result, Minecraft.getInstance().level, list, Default.NORMAL);
+      result.getItem().appendHoverText(result, net.minecraft.world.item.Item.TooltipContext.of(Minecraft.getInstance().level), list, Default.NORMAL);
       tinkerInfo.setText(list);
     }
   }

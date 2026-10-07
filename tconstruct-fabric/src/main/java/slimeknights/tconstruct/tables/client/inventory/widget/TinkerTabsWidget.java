@@ -50,7 +50,7 @@ public class TinkerTabsWidget implements Renderable, GuiEventListener, Narratabl
   public TinkerTabsWidget(BaseTabbedScreen<?, ?> parent) {
     this.parent = parent;
 
-    var tabs = collectTabs(this.Minecraft.getInstance(), this.parent.getMenu());
+    var tabs = collectTabs(Minecraft.getInstance(), this.parent.getMenu());
 
     this.tabs = new TabsWidget(parent, TAB_ELEMENT, TAB_ELEMENT, TAB_ELEMENT, ACTIVE_TAB_L_ELEMENT, ACTIVE_TAB_C_ELEMENT, ACTIVE_TAB_R_ELEMENT);
 
@@ -80,7 +80,7 @@ public class TinkerTabsWidget implements Renderable, GuiEventListener, Narratabl
       for (Pair<BlockPos, BlockState> pair : menu.stationBlocks) {
         BlockState state = pair.getRight();
         BlockPos blockPos = pair.getLeft();
-        ItemStack stack = state.getBlock().getCloneItemStack(state, null, level, blockPos, minecraft.player);
+        ItemStack stack = state.getBlock().getCloneItemStack(level, blockPos, state);
         tabs.add(Pair.of(stack, blockPos));
       }
     }
@@ -97,7 +97,7 @@ public class TinkerTabsWidget implements Renderable, GuiEventListener, Narratabl
   }
 
   private void onNewTabSelection(BlockPos pos) {
-    Level level = this.Minecraft.getInstance().level;
+    Level level = Minecraft.getInstance().level;
 
     if (level != null) {
       BlockState state = level.getBlockState(pos);
@@ -105,7 +105,7 @@ public class TinkerTabsWidget implements Renderable, GuiEventListener, Narratabl
         TinkerNetwork.getInstance().sendToServer(new StationTabPacket(pos));
 
         // sound!
-        this.Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
       }
     }
   }

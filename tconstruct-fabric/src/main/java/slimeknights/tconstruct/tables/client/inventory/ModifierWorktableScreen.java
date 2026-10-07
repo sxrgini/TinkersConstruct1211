@@ -322,8 +322,8 @@ public class ModifierWorktableScreen extends ToolTableScreen<ModifierWorktableBl
 
   @Override
   public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double delta) {
-    if (this.tinkerInfo.handleMouseScrolled(mouseX, mouseY, delta)
-        || this.modifierInfo.handleMouseScrolled(mouseX, mouseY, delta)) {
+    if (this.tinkerInfo.handleMouseScrolled(mouseX, mouseY, scrollX, delta)
+        || this.modifierInfo.handleMouseScrolled(mouseX, mouseY, scrollX, delta)) {
       return false;
     }
     if (super.mouseScrolled(mouseX, mouseY, scrollX, delta)) {
