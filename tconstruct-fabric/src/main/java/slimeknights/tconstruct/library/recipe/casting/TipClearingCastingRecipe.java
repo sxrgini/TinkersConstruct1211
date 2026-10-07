@@ -50,7 +50,7 @@ public class TipClearingCastingRecipe extends ModifierPotionCastingRecipe {
 
   /* JEI */
   @Override
-  public List<IDisplayableCastingRecipe> getRecipes(RegistryAccess access) {
+  public List<IDisplayableCastingRecipe> getRecipes(HolderLookup.Provider access) {
     if (displayRecipes == null) {
       List<FluidStack> fluids = fluid.getFluids();
       List<String> potions = getPotionIds();

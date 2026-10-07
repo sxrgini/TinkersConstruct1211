@@ -23,7 +23,7 @@ import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.recipe.IMultiRecipe;
+import slimeknights.tconstruct.library.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -112,7 +112,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<IDis
   private List<IDisplayableCastingRecipe> displayRecipes = null;
 
   @Override
-  public List<IDisplayableCastingRecipe> getRecipes(RegistryAccess access) {
+  public List<IDisplayableCastingRecipe> getRecipes(HolderLookup.Provider access) {
     if (displayRecipes == null) {
       // filter fluid registry to just fluids we care about
       List<FluidStack> fluids = BuiltInRegistries.FLUID.getValues().stream()

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables;
 
+import slimeknights.mantle.platform.registry.DeferredItem;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.ItemTags;
@@ -119,7 +120,7 @@ public final class TinkerTables extends TinkerModule {
   /*
    * Items
    */
-  public static final ItemObject<Item, Item> pattern = ITEMS.register("pattern", ITEM_PROPS);
+  public static final DeferredItem<Item> pattern = ITEMS.register("pattern", ITEM_PROPS);
 
   /*
    * Tile entites

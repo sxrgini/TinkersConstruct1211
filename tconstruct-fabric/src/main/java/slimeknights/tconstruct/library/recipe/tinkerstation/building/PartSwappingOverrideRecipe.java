@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -7,7 +8,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.recipe.IMultiRecipe;
+import slimeknights.tconstruct.library.recipe.IMultiRecipe;
 import slimeknights.mantle.platform.ingredient.SizedIngredient;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
@@ -69,7 +70,7 @@ public class PartSwappingOverrideRecipe extends MaterialIndexSwappingRecipe impl
   private List<IDisplayToolTinkering> multiRecipes;
 
   @Override
-  public List<IDisplayToolTinkering> getRecipes(RegistryAccess access) {
+  public List<IDisplayToolTinkering> getRecipes(HolderLookup.Provider access) {
     if (multiRecipes == null) {
       IMaterialRegistry registry = MaterialRegistry.getInstance();
       MaterialStatsId statType = part.getStatType();

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
+import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
@@ -13,7 +14,7 @@ import slimeknights.mantle.data.loadable.array.IntArrayLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.recipe.IMultiRecipe;
+import slimeknights.tconstruct.library.recipe.IMultiRecipe;
 import slimeknights.mantle.platform.ingredient.SizedIngredient;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -148,7 +149,7 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implemen
   private List<IDisplayToolTinkering> multiRecipes;
 
   @Override
-  public List<IDisplayToolTinkering> getRecipes(RegistryAccess access) {
+  public List<IDisplayToolTinkering> getRecipes(HolderLookup.Provider access) {
     if (multiRecipes == null) {
       ItemStack[] tools = this.tools.getItems();
       MaterialVariant material = MaterialVariant.of(this.material);

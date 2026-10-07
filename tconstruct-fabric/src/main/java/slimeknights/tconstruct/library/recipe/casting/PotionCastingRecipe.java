@@ -23,7 +23,7 @@ import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.recipe.IMultiRecipe;
+import slimeknights.tconstruct.library.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.mantle.platform.fluid.crafting.FluidIngredient;
@@ -114,7 +114,7 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<IDispla
   protected List<IDisplayableCastingRecipe> displayRecipes = null;
 
   @Override
-  public List<IDisplayableCastingRecipe> getRecipes(RegistryAccess access) {
+  public List<IDisplayableCastingRecipe> getRecipes(HolderLookup.Provider access) {
     if (displayRecipes == null) {
       Collection<Potion> potions = BuiltInRegistries.POTION.getValues();
       List<ItemStack> results = new ArrayList<>(potions.size());

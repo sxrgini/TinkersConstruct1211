@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
+import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.ChatFormatting;
@@ -16,7 +17,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.recipe.IMultiRecipe;
+import slimeknights.tconstruct.library.recipe.IMultiRecipe;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -135,7 +136,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
   private List<IDisplayToolTinkering> displayRecipes;
 
   @Override
-  public List<IDisplayToolTinkering> getRecipes(RegistryAccess access) {
+  public List<IDisplayToolTinkering> getRecipes(HolderLookup.Provider access) {
     if (displayRecipes == null) {
       displayRecipes = List.of(new DisplayRecipe(id, this, false));
     }

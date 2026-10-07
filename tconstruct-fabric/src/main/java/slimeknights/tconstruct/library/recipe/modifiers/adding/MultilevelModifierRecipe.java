@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
+import net.minecraft.core.HolderLookup;
 import com.google.common.collect.Streams;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
@@ -8,7 +9,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.recipe.IMultiRecipe;
+import slimeknights.tconstruct.library.recipe.IMultiRecipe;
 import slimeknights.mantle.platform.ingredient.SizedIngredient;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -105,7 +106,7 @@ public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRe
   private List<IDisplayModifierRecipe> displayRecipes = null;
 
   @Override
-  public List<IDisplayModifierRecipe> getRecipes(RegistryAccess access) {
+  public List<IDisplayModifierRecipe> getRecipes(HolderLookup.Provider access) {
     // no inputs means this recipe is to handle internal crystal stuff
     if (inputs.isEmpty()) {
       return Collections.emptyList();

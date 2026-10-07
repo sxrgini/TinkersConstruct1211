@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.gadgets;
 
+import slimeknights.mantle.platform.registry.DeferredBlock;
+import slimeknights.mantle.platform.registry.DeferredItem;
 import net.minecraft.world.effect.MobEffect;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.minecraft.data.DataGenerator;
@@ -60,12 +62,12 @@ public final class TinkerGadgets extends TinkerModule {
   /*
    * Blocks
    */
-  public static final ItemObject<Block, PunjiBlock> punji = BLOCKS.register("punji", () -> new PunjiBlock(builder(MapColor.PLANT, SoundType.GRASS).strength(3.0F).speedFactor(0.4F).noOcclusion().pushReaction(PushReaction.DESTROY)), TOOLTIP_BLOCK_ITEM);
+  public static final DeferredBlock<PunjiBlock> punji = BLOCKS.register("punji", () -> new PunjiBlock(builder(MapColor.PLANT, SoundType.GRASS).strength(3.0F).speedFactor(0.4F).noOcclusion().pushReaction(PushReaction.DESTROY)), TOOLTIP_BLOCK_ITEM);
 
   /*
    * Items
    */
-  public static final ItemObject<Item, PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", () -> new PiggyBackPackItem(new Properties().stacksTo(16)));
+  public static final DeferredItem<PiggyBackPackItem> piggyBackpack = ITEMS.register("piggy_backpack", () -> new PiggyBackPackItem(new Properties().stacksTo(16)));
   public static final EnumObject<FrameType,FancyItemFrameItem> itemFrame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(ITEM_PROPS, (world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type)));
   public static final EnumObject<StandType,FancyArmorStandItem> armorStand = ITEMS.registerEnum(StandType.values(), "armor_stand", type -> new FancyArmorStandItem(new Item.Properties().stacksTo(16), type));
 

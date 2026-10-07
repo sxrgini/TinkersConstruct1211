@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.recipe;
 
+import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.ApiStatus.Internal;
-import slimeknights.mantle.recipe.IMultiRecipe;
+import slimeknights.tconstruct.library.recipe.IMultiRecipe;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -257,7 +258,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe, IMultiRe
   private List<IDisplayCraftingTinkering> displayRecipes;
 
   @Override
-  public List<IDisplayCraftingTinkering> getRecipes(RegistryAccess access) {
+  public List<IDisplayCraftingTinkering> getRecipes(HolderLookup.Provider access) {
     if (displayRecipes == null) {
       CompoundTag stats = StatsNBT.builder().set(ToolStats.DURABILITY, 1000).build().serializeToNBT();
       MaterialNBT displayMaterials = new MaterialNBT(IntStream.range(0, 5).mapToObj(i -> MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i))).toList());

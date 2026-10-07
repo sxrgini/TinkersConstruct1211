@@ -67,7 +67,7 @@ public class TippingCastingRecipe extends ModifierPotionCastingRecipe {
   /* JEI */
 
   @Override
-  public List<IDisplayableCastingRecipe> getRecipes(RegistryAccess access) {
+  public List<IDisplayableCastingRecipe> getRecipes(HolderLookup.Provider access) {
     if (displayRecipes == null) {
       // first, get a list of potion IDs
       List<String> potions = getPotionIds();

@@ -56,6 +56,9 @@ def keepData = [
 ]
 sourceSets.main.java {
     exclude 'slimeknights/tconstruct/plugin/**'
+    // recipe builders are datagen helpers, ported with datagen
+    exclude '**/recipe/**/*Builder.java'
+    exclude 'slimeknights/tconstruct/common/recipe/LoadableFinishedRecipe.java'
     exclude { el ->
         if (el.directory) return false
         def p = el.relativePath.pathString
@@ -64,3 +67,21 @@ sourceSets.main.java {
 }
 
 java { withSourcesJar() }
+
+loom {
+    accessWidenerPath = file('src/main/resources/tconstruct.accesswidener')
+}
+
+tasks.register('generateModMetadata', ProcessResources) {
+    def props = [
+        'version': mod_version,
+        'minecraft_range': minecraft_range,
+        'loader_version': loader_version,
+        'jei_range': '>=19.0'
+    ]
+    inputs.properties props
+    expand props
+    from 'src/main/templates'
+    into 'build/generated/sources/modMetadata'
+}
+sourceSets.main.resources.srcDir tasks.named('generateModMetadata')

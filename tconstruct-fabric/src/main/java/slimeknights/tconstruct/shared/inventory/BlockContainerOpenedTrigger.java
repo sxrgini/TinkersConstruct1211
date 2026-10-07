@@ -32,7 +32,7 @@ public class BlockContainerOpenedTrigger extends SimpleCriterionTrigger<BlockCon
   @SuppressWarnings("removal")
   @Override
   protected Instance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext pDeserializationContext) {
-    ResourceLocation id = new ResourceLocation(GsonHelper.getAsString(json, "type"));
+    ResourceLocation id = ResourceLocation.parse(GsonHelper.getAsString(json, "type"));
     BlockEntityType<?> type = BuiltInRegistries.BLOCK_ENTITY_TYPE.getValue(id);
     if (type == null) {
       throw new JsonSyntaxException("Unknown tile entity '" + id + "'");

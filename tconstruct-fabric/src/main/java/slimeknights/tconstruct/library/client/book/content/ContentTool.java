@@ -132,7 +132,7 @@ public class ContentTool extends PageContent {
       if (this.toolName == null) {
         this.toolName = this.parent.name;
       }
-      Item item = BuiltInRegistries.ITEM.getValue(new ResourceLocation(this.toolName));
+      Item item = BuiltInRegistries.ITEM.getValue(ResourceLocation.parse(this.toolName));
       if (item instanceof IModifiableDisplay tool) {
         this.tool = tool;
       } else {

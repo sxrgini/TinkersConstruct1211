@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
+import net.minecraft.core.HolderLookup;
 import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -73,7 +74,7 @@ public class ModifierMaterialRepairRecipe extends TinkerStationRepairRecipe impl
   }
 
   @Override
-  public List<IDisplayCraftingTinkering> getRecipes(RegistryAccess access) {
+  public List<IDisplayCraftingTinkering> getRecipes(HolderLookup.Provider access) {
     return List.of();
   }
 

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools;
 
+import slimeknights.mantle.platform.registry.DeferredItem;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.registries.Registries;
@@ -368,20 +369,20 @@ public final class TinkerModifiers extends TinkerModule {
   /*
    * Items
    */
-  public static final ItemObject<Item, Item> silkyCloth = ITEMS.register("silky_cloth", ITEM_PROPS);
-  public static final ItemObject<Item, Item> dragonScale = ITEMS.register("dragon_scale", () -> new DragonScaleItem(new Item.Properties().rarity(Rarity.RARE)));
+  public static final DeferredItem<Item> silkyCloth = ITEMS.register("silky_cloth", ITEM_PROPS);
+  public static final DeferredItem<Item> dragonScale = ITEMS.register("dragon_scale", () -> new DragonScaleItem(new Item.Properties().rarity(Rarity.RARE)));
   // durability reinforcements
-  public static final ItemObject<Item, Item> emeraldReinforcement = ITEMS.register("emerald_reinforcement", ITEM_PROPS);
-  public static final ItemObject<Item, Item> slimesteelReinforcement = ITEMS.register("slimesteel_reinforcement", ITEM_PROPS);
+  public static final DeferredItem<Item> emeraldReinforcement = ITEMS.register("emerald_reinforcement", ITEM_PROPS);
+  public static final DeferredItem<Item> slimesteelReinforcement = ITEMS.register("slimesteel_reinforcement", ITEM_PROPS);
   // armor reinforcements
-  public static final ItemObject<Item, Item> ironReinforcement = ITEMS.register("iron_reinforcement", ITEM_PROPS);
-  public static final ItemObject<Item, Item> searedReinforcement = ITEMS.register("seared_reinforcement", ITEM_PROPS);
-  public static final ItemObject<Item, Item> goldReinforcement = ITEMS.register("gold_reinforcement", ITEM_PROPS);
-  public static final ItemObject<Item, Item> cobaltReinforcement = ITEMS.register("cobalt_reinforcement", ITEM_PROPS);
-  public static final ItemObject<Item, Item> obsidianReinforcement = ITEMS.register("obsidian_reinforcement", ITEM_PROPS);
+  public static final DeferredItem<Item> ironReinforcement = ITEMS.register("iron_reinforcement", ITEM_PROPS);
+  public static final DeferredItem<Item> searedReinforcement = ITEMS.register("seared_reinforcement", ITEM_PROPS);
+  public static final DeferredItem<Item> goldReinforcement = ITEMS.register("gold_reinforcement", ITEM_PROPS);
+  public static final DeferredItem<Item> cobaltReinforcement = ITEMS.register("cobalt_reinforcement", ITEM_PROPS);
+  public static final DeferredItem<Item> obsidianReinforcement = ITEMS.register("obsidian_reinforcement", ITEM_PROPS);
   // special
-  public static final ItemObject<Item, Item> modifierCrystal = ITEMS.register("modifier_crystal", () -> new ModifierCrystalItem(new Item.Properties().stacksTo(16)));
-  public static final ItemObject<Item, CreativeSlotItem> creativeSlotItem = ITEMS.register("creative_slot", () -> new CreativeSlotItem(ITEM_PROPS));
+  public static final DeferredItem<Item> modifierCrystal = ITEMS.register("modifier_crystal", () -> new ModifierCrystalItem(new Item.Properties().stacksTo(16)));
+  public static final DeferredItem<CreativeSlotItem> creativeSlotItem = ITEMS.register("creative_slot", () -> new CreativeSlotItem(ITEM_PROPS));
 
   // entity
   public static final DeferredHolder<EntityType<?>, EntityType<FluidEffectProjectile>> fluidSpitEntity = ENTITIES.register("fluid_spit", () ->

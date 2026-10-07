@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
+import net.minecraft.core.HolderLookup;
 import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
@@ -14,7 +15,7 @@ import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.recipe.IMultiRecipe;
+import slimeknights.tconstruct.library.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
@@ -104,7 +105,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<IDisp
   private List<IDisplayableMeltingRecipe> multiRecipes = null;
 
   @Override
-  public List<IDisplayableMeltingRecipe> getRecipes(RegistryAccess access) {
+  public List<IDisplayableMeltingRecipe> getRecipes(HolderLookup.Provider access) {
     if (multiRecipes == null) {
       if (input.get().isHidden()) {
         multiRecipes = List.of();

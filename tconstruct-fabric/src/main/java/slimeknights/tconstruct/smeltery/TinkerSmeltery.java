@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery;
 
+import slimeknights.mantle.platform.registry.DeferredBlock;
+import slimeknights.mantle.platform.registry.DeferredItem;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
@@ -156,8 +158,8 @@ public final class TinkerSmeltery extends TinkerModule {
 
   /* Bricks */
   /* Crafting related items */
-  public static final ItemObject<Block, Block> grout = BLOCKS.register("grout", builder(MapColor.COLOR_LIGHT_GRAY, SoundType.SAND).instrument(NoteBlockInstrument.SNARE).strength(3.0f).friction(0.8F), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block, Block> netherGrout = BLOCKS.register("nether_grout", builder(MapColor.COLOR_BROWN, SoundType.SOUL_SOIL).instrument(NoteBlockInstrument.SNARE).strength(3.0f).friction(0.8F), TOOLTIP_BLOCK_ITEM);
+  public static final DeferredBlock<Block> grout = BLOCKS.register("grout", builder(MapColor.COLOR_LIGHT_GRAY, SoundType.SAND).instrument(NoteBlockInstrument.SNARE).strength(3.0f).friction(0.8F), TOOLTIP_BLOCK_ITEM);
+  public static final DeferredBlock<Block> netherGrout = BLOCKS.register("nether_grout", builder(MapColor.COLOR_BROWN, SoundType.SOUL_SOIL).instrument(NoteBlockInstrument.SNARE).strength(3.0f).friction(0.8F), TOOLTIP_BLOCK_ITEM);
 
   // seared blocks
   public static final BuildingBlockObject searedStone, searedPaver;
@@ -174,7 +176,7 @@ public final class TinkerSmeltery extends TinkerModule {
     searedFancyBricks = BLOCKS.register("seared_fancy_bricks", searedBlock, TOOLTIP_BLOCK_ITEM);
     searedTriangleBricks = BLOCKS.register("seared_triangle_bricks", searedBlock, TOOLTIP_BLOCK_ITEM);
   }
-  public static final ItemObject<Block, Block> searedLamp = BLOCKS.register("seared_lamp", () -> new SearedBlock(searedSolidProps(1).lightLevel(state -> 15), false), TOOLTIP_BLOCK_ITEM);
+  public static final DeferredBlock<Block> searedLamp = BLOCKS.register("seared_lamp", () -> new SearedBlock(searedSolidProps(1).lightLevel(state -> 15), false), TOOLTIP_BLOCK_ITEM);
 
   // scorched blocks
   public static final ItemObject<Block, Block> scorchedStone, polishedScorchedStone, chiseledScorchedBricks;
@@ -190,7 +192,7 @@ public final class TinkerSmeltery extends TinkerModule {
     scorchedRoad = BLOCKS.registerBuilding("scorched_road", block, TOOLTIP_BLOCK_ITEM);
     chiseledScorchedBricks = BLOCKS.register("chiseled_scorched_bricks", block, TOOLTIP_BLOCK_ITEM);
   }
-  public static final ItemObject<Block, Block> scorchedLamp = BLOCKS.register("scorched_lamp", () -> new SearedBlock(scorchedSolidProps(1).lightLevel(state -> 15), false), TOOLTIP_BLOCK_ITEM);
+  public static final DeferredBlock<Block> scorchedLamp = BLOCKS.register("scorched_lamp", () -> new SearedBlock(scorchedSolidProps(1).lightLevel(state -> 15), false), TOOLTIP_BLOCK_ITEM);
 
   // glass
   public static final ItemObject<Block, SearedGlassBlock> searedGlass, scorchedGlass;
@@ -353,14 +355,14 @@ public final class TinkerSmeltery extends TinkerModule {
   /*
    * Items
    */
-  public static final ItemObject<Item, Item> searedBrick = ITEMS.register("seared_brick", ITEM_PROPS);
-  public static final ItemObject<Item, Item> scorchedBrick = ITEMS.register("scorched_brick", ITEM_PROPS);
-  public static final ItemObject<Item, Item> copperCan = ITEMS.register("copper_can", () -> new CopperCanItem(new Item.Properties().stacksTo(16)));
+  public static final DeferredItem<Item> searedBrick = ITEMS.register("seared_brick", ITEM_PROPS);
+  public static final DeferredItem<Item> scorchedBrick = ITEMS.register("scorched_brick", ITEM_PROPS);
+  public static final DeferredItem<Item> copperCan = ITEMS.register("copper_can", () -> new CopperCanItem(new Item.Properties().stacksTo(16)));
 
   // casts
   // basic
-  public static final ItemObject<Item, Item> blankSandCast  = ITEMS.register("blank_sand_cast", ITEM_PROPS);
-  public static final ItemObject<Item, Item> blankRedSandCast  = ITEMS.register("blank_red_sand_cast", ITEM_PROPS);
+  public static final DeferredItem<Item> blankSandCast  = ITEMS.register("blank_sand_cast", ITEM_PROPS);
+  public static final DeferredItem<Item> blankRedSandCast  = ITEMS.register("blank_red_sand_cast", ITEM_PROPS);
   public static final CastItemObject ingotCast  = ITEMS.registerCast("ingot", ITEM_PROPS);
   public static final CastItemObject nuggetCast = ITEMS.registerCast("nugget", ITEM_PROPS);
   public static final CastItemObject gemCast    = ITEMS.registerCast("gem", ITEM_PROPS);
@@ -390,7 +392,7 @@ public final class TinkerSmeltery extends TinkerModule {
   // bow
   public static final CastItemObject bowLimbCast = ITEMS.registerCast(TinkerToolParts.bowLimb, ITEM_PROPS);
   public static final CastItemObject bowGripCast = ITEMS.registerCast(TinkerToolParts.bowGrip, ITEM_PROPS);
-  public static final ItemObject<Item, Item> arrowCast = ITEMS.register("arrow_cast", TOOLTIP_ITEM);
+  public static final DeferredItem<Item> arrowCast = ITEMS.register("arrow_cast", TOOLTIP_ITEM);
   // armor
   public static final CastItemObject helmetPlatingCast = ITEMS.registerCast("helmet_plating", () -> new PartCastItem(ITEM_PROPS, () -> TinkerToolParts.plating.get(ArmorItem.Type.HELMET)));
   public static final CastItemObject chestplatePlatingCast = ITEMS.registerCast("chestplate_plating", () -> new PartCastItem(ITEM_PROPS, () -> TinkerToolParts.plating.get(ArmorItem.Type.CHESTPLATE)));

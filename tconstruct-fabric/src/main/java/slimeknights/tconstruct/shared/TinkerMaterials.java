@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared;
 
+import slimeknights.mantle.platform.registry.DeferredItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab.ItemDisplayParameters;
 import net.minecraft.world.item.CreativeModeTab.Output;
@@ -58,15 +59,15 @@ public final class TinkerMaterials extends TinkerModule {
   public static final MetalItemObject soulsteel   = BLOCKS.registerMetal("soulsteel", metalBuilder(MapColor.COLOR_BROWN).noOcclusion(), BLOCK_ITEM, ITEM_PROPS);
 
   // nuggets
-  public static final ItemObject<Item, Item> copperNugget = ITEMS.register("copper_nugget", ITEM_PROPS);
-  public static final ItemObject<Item, Item> netheriteNugget = ITEMS.register("netherite_nugget", ITEM_PROPS);
-  public static final ItemObject<Item, Item> debrisNugget = ITEMS.register("debris_nugget", TOOLTIP_ITEM);
+  public static final DeferredItem<Item> copperNugget = ITEMS.register("copper_nugget", ITEM_PROPS);
+  public static final DeferredItem<Item> netheriteNugget = ITEMS.register("netherite_nugget", ITEM_PROPS);
+  public static final DeferredItem<Item> debrisNugget = ITEMS.register("debris_nugget", TOOLTIP_ITEM);
 
   // non-metal
-  public static final ItemObject<Item, Item> necroticBone = ITEMS.register("necrotic_bone", TOOLTIP_ITEM);
-  public static final ItemObject<Item, Item> venombone = ITEMS.register("venombone", TOOLTIP_ITEM);
-  public static final ItemObject<Item, Item> blazingBone = ITEMS.register("blazing_bone", TOOLTIP_ITEM);
-  public static final ItemObject<Item, Item> necroniumBone = ITEMS.register("necronium_bone", TOOLTIP_ITEM);
+  public static final DeferredItem<Item> necroticBone = ITEMS.register("necrotic_bone", TOOLTIP_ITEM);
+  public static final DeferredItem<Item> venombone = ITEMS.register("venombone", TOOLTIP_ITEM);
+  public static final DeferredItem<Item> blazingBone = ITEMS.register("blazing_bone", TOOLTIP_ITEM);
+  public static final DeferredItem<Item> necroniumBone = ITEMS.register("necronium_bone", TOOLTIP_ITEM);
   public static final FenceBuildingBlockObject nahuatl = BLOCKS.registerFenceBuilding("nahuatl", builder(MapColor.COLOR_PURPLE, SoundType.WOOD).instrument(NoteBlockInstrument.BASS).requiresCorrectToolForDrops().strength(25f, 300f), BLOCK_ITEM);
   public static final FenceBuildingBlockObject blazewood = BLOCKS.registerFenceBuilding("blazewood", woodBuilder(MapColor.TERRACOTTA_RED).requiresCorrectToolForDrops().strength(25f, 300f).lightLevel(s -> 7), BLOCK_ITEM);
 

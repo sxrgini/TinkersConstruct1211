@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -10,7 +11,7 @@ import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
-import slimeknights.mantle.recipe.IMultiRecipe;
+import slimeknights.tconstruct.library.recipe.IMultiRecipe;
 import slimeknights.mantle.platform.ingredient.SizedIngredient;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
@@ -93,7 +94,7 @@ public class MaterialValueSwappingRecipe extends MaterialIndexSwappingRecipe imp
   private List<IDisplayToolTinkering> multiRecipes;
 
   @Override
-  public List<IDisplayToolTinkering> getRecipes(RegistryAccess access) {
+  public List<IDisplayToolTinkering> getRecipes(HolderLookup.Provider access) {
     if (multiRecipes == null) {
       // since each tool may have its own valid materials, we may need to filter this list again
       // however, we can avoid duplicating the stacks more than once since the cost is constant, along with apply the common filter
