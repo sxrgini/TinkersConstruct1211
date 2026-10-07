@@ -161,7 +161,7 @@ public final class TinkerTools extends TinkerModule {
       .build());
 
   /** Loot function type for tool add data */
-  public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType> lootAddToolData = LOOT_FUNCTIONS.register("add_tool_data", () -> new LootItemFunctionType(AddToolDataFunction.SERIALIZER));
+  public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<AddToolDataFunction>> lootAddToolData = LOOT_FUNCTIONS.register("add_tool_data", () -> new LootItemFunctionType<>(AddToolDataFunction.CODEC));
 
   /*
    * Items

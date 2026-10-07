@@ -117,3 +117,7 @@ accessible class net/minecraft/client/particle/ParticleEngine$SpriteParticleRegi
 accessible field net/minecraft/client/gui/font/FontManager fontSets Ljava/util/Map;
 accessible field net/minecraft/client/Minecraft fontManager Lnet/minecraft/client/gui/font/FontManager;
 accessible field net/minecraft/server/network/ServerCommonPacketListenerImpl connection Lnet/minecraft/network/Connection;
+accessible field net/minecraft/world/level/storage/loot/functions/ApplyBonusCount FORMULA_CODEC Lcom/mojang/serialization/MapCodec;
+accessible method net/minecraft/world/level/storage/loot/functions/ApplyBonusCount$OreDrops <init> ()V
+accessible method net/minecraft/world/level/storage/loot/functions/ApplyBonusCount$UniformBonusCount <init> (I)V
+accessible method net/minecraft/world/level/storage/loot/functions/ApplyBonusCount$BinomialWithBonusCount <init> (IF)V

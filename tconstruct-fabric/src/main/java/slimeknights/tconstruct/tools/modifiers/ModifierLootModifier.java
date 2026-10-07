@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers;
 
+import com.mojang.serialization.MapCodec;
 import slimeknights.mantle.platform.capability.Caps;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -31,7 +32,7 @@ import javax.annotation.Nonnull;
 
 /** Global loot modifier for modifiers */
 public class ModifierLootModifier extends LootModifier {
-  public static final Codec<ModifierLootModifier> CODEC = RecordCodecBuilder.create(inst -> codecStart(inst).apply(inst, ModifierLootModifier::new));
+  public static final MapCodec<ModifierLootModifier> CODEC = RecordCodecBuilder.mapCodec(inst -> codecStart(inst).apply(inst, ModifierLootModifier::new));
 
   protected ModifierLootModifier(LootItemCondition[] conditionsIn) {
     super(conditionsIn);
@@ -87,7 +88,7 @@ public class ModifierLootModifier extends LootModifier {
   }
 
   @Override
-  public Codec<? extends IGlobalLootModifier> codec() {
+  public MapCodec<? extends IGlobalLootModifier> codec() {
     return CODEC;
   }
 }

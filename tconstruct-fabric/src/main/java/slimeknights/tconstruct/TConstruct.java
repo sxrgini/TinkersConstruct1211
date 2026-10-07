@@ -93,6 +93,7 @@ public class TConstruct implements ModInitializer {
     // init deferred registers
     TinkerModule.initRegisters();
     slimeknights.mantle.platform.event.lifecycle.RegisterEvent.fireAll();
+    slimeknights.mantle.platform.loot.GlobalLootModifierManager.register(getResource("modifier_hook"), slimeknights.tconstruct.tools.modifiers.ModifierLootModifier.CODEC);
     TinkerNetwork.setup();
     if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
       slimeknights.mantle.network.NetworkWrapper.registerClientReceivers();

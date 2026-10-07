@@ -38,7 +38,7 @@ def members(cls):
         m = re.search(r"([\w$<>]+)\(", l)
         name = m.group(1)
         # constructors print the class name
-        if name == cls.split("/")[-1].replace("$", ".").split(".")[-1] or name == cls.replace("/", ".").replace("$", ".").split(".")[-1]:
+        if name.split("$")[-1] == cls.split("/")[-1].split("$")[-1]:
           name = "<init>"
         res.append(("method", name, desc, l))
       else:

@@ -1,32 +1,100 @@
 package slimeknights.tconstruct.library.utils;
 
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
-import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 /**
- * Helper for use with our extensions of resource location for some type safety in IDs.
- * Note we left {@link ResourceLocation#withPath(String)} and alike as returning {@link ResourceLocation} as there is not much use extending an ID.
+ * Helper for use with our wrappers of resource location for some type safety in IDs.
+ * {@link ResourceLocation} is final in 1.21, so these wrap a location instead of extending it. Use {@link #location()} where a plain location is needed.
+ * Note equality is deliberately lenient: an ID is equal to a plain location with the same namespace and path, and has the same hash code,
+ * so IDs can still be used to look up entries in maps keyed by plain locations. The reverse is not true.
  * @see IdParser
  */
-public abstract class ResourceId extends ResourceLocation {
-  protected ResourceId(String namespace, String path, @Nullable Dummy pDummy) {
-    super(namespace, path, pDummy);
-  }
+public abstract class ResourceId implements Comparable<ResourceId> {
+  private final ResourceLocation location;
 
   public ResourceId(ResourceLocation location) {
-    this(location.getNamespace(), location.getPath(), null);
+    this.location = location;
   }
 
-  @SuppressWarnings("removal")
   public ResourceId(String namespace, String path) {
-    super(namespace, path);
+    this(ResourceLocation.fromNamespaceAndPath(namespace, path));
   }
 
-  @SuppressWarnings("removal")
   public ResourceId(String location) {
-    super(location);
+    this(ResourceLocation.parse(location));
+  }
+
+  /** {@return the wrapped resource location} */
+  public ResourceLocation location() {
+    return location;
+  }
+
+  public String getNamespace() {
+    return location.getNamespace();
+  }
+
+  public String getPath() {
+    return location.getPath();
+  }
+
+  /** Same as {@link ResourceLocation#withPath(String)}, returns a plain location */
+  public ResourceLocation withPath(String path) {
+    return location.withPath(path);
+  }
+
+  /** Same as {@link ResourceLocation#withPath(UnaryOperator)}, returns a plain location */
+  public ResourceLocation withPath(UnaryOperator<String> path) {
+    return location.withPath(path);
+  }
+
+  /** Same as {@link ResourceLocation#withPrefix(String)}, returns a plain location */
+  public ResourceLocation withPrefix(String prefix) {
+    return location.withPrefix(prefix);
+  }
+
+  /** Same as {@link ResourceLocation#withSuffix(String)}, returns a plain location */
+  public ResourceLocation withSuffix(String suffix) {
+    return location.withSuffix(suffix);
+  }
+
+  /** {@return Namespace and path joined with an underscore} */
+  public String toDebugFileName() {
+    return location.toDebugFileName();
+  }
+
+  /** {@return Namespace and path joined with a dot} */
+  public String toLanguageKey() {
+    return location.toLanguageKey();
+  }
+
+  @Override
+  public int compareTo(ResourceId other) {
+    return location.compareTo(other.location);
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (this == other) {
+      return true;
+    }
+    if (other instanceof ResourceId id) {
+      return location.equals(id.location);
+    }
+    return other instanceof ResourceLocation loc && location.equals(loc);
+  }
+
+  @Override
+  public int hashCode() {
+    return location.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return location.toString();
   }
 
 
@@ -38,9 +106,9 @@ public abstract class ResourceId extends ResourceLocation {
    * @return  ID, or null if invalid
    */
   @Nullable
-  protected static <T extends ResourceLocation> T tryParse(String string, BiFunction<String,String,T> constructor) {
-    String[] parts = decompose(string, ':');
-    return tryBuild(parts[0], parts[1], constructor);
+  protected static <T extends ResourceId> T tryParse(String string, Function<ResourceLocation,T> constructor) {
+    ResourceLocation location = ResourceLocation.tryParse(string);
+    return location == null ? null : constructor.apply(location);
   }
 
   /**
@@ -50,10 +118,8 @@ public abstract class ResourceId extends ResourceLocation {
    * @return  ID, or null if invalid
    */
   @Nullable
-  protected static <T extends ResourceLocation> T tryBuild(String namespace, String path, BiFunction<String,String,T> constructor) {
-    if (isValidNamespace(namespace) && isValidPath(path)) {
-      return constructor.apply(namespace, path);
-    }
-    return null;
+  protected static <T extends ResourceId> T tryBuild(String namespace, String path, Function<ResourceLocation,T> constructor) {
+    ResourceLocation location = ResourceLocation.tryBuild(namespace, path);
+    return location == null ? null : constructor.apply(location);
   }
 }

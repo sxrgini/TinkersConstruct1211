@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.loot;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
+import com.mojang.serialization.MapCodec;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -19,6 +17,8 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 /** Condition to check if a held tool has the given modifier */
 @RequiredArgsConstructor
 public class HasModifierLootCondition implements LootItemCondition {
+  public static final MapCodec<HasModifierLootCondition> CODEC = ModifierId.PARSER.asCodec().fieldOf("modifier").xmap(HasModifierLootCondition::new, c -> c.modifier);
+
   private final ModifierId modifier;
 
   @Override
@@ -30,17 +30,5 @@ public class HasModifierLootCondition implements LootItemCondition {
   public boolean test(LootContext context) {
     ItemStack tool = context.getParamOrNull(LootContextParams.TOOL);
     return tool != null && tool.is(TinkerTags.Items.MODIFIABLE) && ModifierUtil.getModifierLevel(tool, modifier) > 0;
-  }
-
-  public static class ConditionSerializer implements Serializer<HasModifierLootCondition> {
-    @Override
-    public void serialize(JsonObject json, HasModifierLootCondition condition, JsonSerializationContext context) {
-      json.addProperty("modifier", condition.modifier.toString());
-    }
-
-    @Override
-    public HasModifierLootCondition deserialize(JsonObject json, JsonDeserializationContext context) {
-      return new HasModifierLootCondition(new ModifierId(JsonHelper.getResourceLocation(json, "modifier")));
-    }
   }
 }

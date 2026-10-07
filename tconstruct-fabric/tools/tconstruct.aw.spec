@@ -109,3 +109,7 @@ accessible ParticleEngine$SpriteParticleRegistration class
 accessible FontManager fontSets
 accessible Minecraft fontManager
 accessible ServerCommonPacketListenerImpl connection
+accessible ApplyBonusCount FORMULA_CODEC
+accessible ApplyBonusCount$OreDrops <init>
+accessible ApplyBonusCount$UniformBonusCount <init>
+accessible ApplyBonusCount$BinomialWithBonusCount <init>
