@@ -13,7 +13,7 @@ import net.fabricmc.api.EnvType;
 import slimeknights.mantle.platform.event.EventBus;
 import slimeknights.mantle.platform.capability.Capability;
 import slimeknights.mantle.platform.capability.ICapabilityProvider;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import slimeknights.mantle.platform.capability.RegisterCapabilitiesEvent;
 import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
 import slimeknights.mantle.platform.event.TickEvent.Phase;

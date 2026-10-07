@@ -20,6 +20,11 @@ public final class FabricEventBridge {
   public static void init() {
     EventBus bus = EventBus.BUS;
 
+    net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((dispatcher, context, selection) ->
+      bus.post(new slimeknights.mantle.platform.event.server.RegisterCommandsEvent(dispatcher, selection, context)));
+    net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPING.register(server ->
+      bus.post(new slimeknights.mantle.platform.event.server.ServerStoppingEvent(server)));
+
     net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.START_SERVER_TICK.register(server -> {
       if (bus.hasListeners(TickEvent.PlayerTickEvent.class)) {
         for (net.minecraft.server.level.ServerPlayer player : server.getPlayerList().getPlayers()) {

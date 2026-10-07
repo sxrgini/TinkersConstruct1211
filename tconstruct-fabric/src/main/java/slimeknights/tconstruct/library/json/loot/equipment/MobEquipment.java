@@ -16,7 +16,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.event.entity.living.MobSpawnEvent.FinalizeSpawn;
+import slimeknights.mantle.platform.event.living.MobSpawnEvent.FinalizeSpawn;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadable;

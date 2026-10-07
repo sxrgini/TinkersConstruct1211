@@ -26,7 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.platform.PlatformHooks;
-import net.minecraftforge.entity.PartEntity;
+import net.minecraft.world.entity.PartEntity;
 import slimeknights.mantle.platform.event.player.CriticalHitEvent;
 import slimeknights.mantle.util.CombatHelper;
 import slimeknights.mantle.util.OffhandCooldownTracker;

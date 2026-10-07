@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
+import slimeknights.mantle.platform.event.living.MobEffectEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.library.events.teleport.ReturningTeleportEvent;

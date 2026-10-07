@@ -30,7 +30,7 @@ import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
 import slimeknights.mantle.platform.item.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import slimeknights.mantle.platform.item.SidedInvWrapper;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.BlockEntityHelper;

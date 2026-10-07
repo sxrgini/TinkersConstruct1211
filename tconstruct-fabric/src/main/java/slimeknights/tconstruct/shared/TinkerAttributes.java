@@ -5,7 +5,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
+import slimeknights.mantle.platform.event.entity.EntityAttributeModificationEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
 import slimeknights.mantle.registration.deferred.AttributeDeferredRegister;

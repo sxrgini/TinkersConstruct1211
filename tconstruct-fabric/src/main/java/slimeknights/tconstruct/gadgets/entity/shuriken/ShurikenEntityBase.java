@@ -1,8 +1,7 @@
 package slimeknights.tconstruct.gadgets.entity.shuriken;
 
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,8 +12,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.IEntityAdditionalSpawnData;
-import net.minecraftforge.network.NetworkHooks;
+import slimeknights.mantle.platform.network.IEntityAdditionalSpawnData;
+import slimeknights.mantle.platform.PlatformHooks;
 import slimeknights.tconstruct.tools.entity.ThrownShuriken;
 import slimeknights.tconstruct.tools.entity.ToolProjectile;
 
@@ -86,18 +85,13 @@ public abstract class ShurikenEntityBase extends ThrowableItemProjectile impleme
   }
 
   @Override
-  public void writeSpawnData(FriendlyByteBuf buffer) {
+  public void writeSpawnData(RegistryFriendlyByteBuf buffer) {
     buffer.writeItem(this.getItemRaw());
   }
 
   @Override
-  public void readSpawnData(FriendlyByteBuf additionalData) {
+  public void readSpawnData(RegistryFriendlyByteBuf additionalData) {
     this.setItem(additionalData.readItem());
   }
 
-  @Nonnull
-  @Override
-  public Packet<ClientGamePacketListener> getAddEntityPacket() {
-    return NetworkHooks.getEntitySpawningPacket(this);
-  }
 }

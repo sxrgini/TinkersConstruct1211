@@ -5,7 +5,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.platform.event.EventBus;
 import slimeknights.mantle.platform.capability.Capability;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import slimeknights.mantle.platform.capability.RegisterCapabilitiesEvent;
 import slimeknights.mantle.platform.event.AttachCapabilitiesEvent;
 import slimeknights.mantle.platform.event.EventPriority;
 import slimeknights.tconstruct.TConstruct;

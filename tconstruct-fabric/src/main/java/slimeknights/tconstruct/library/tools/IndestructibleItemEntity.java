@@ -10,7 +10,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkHooks;
+import slimeknights.mantle.platform.PlatformHooks;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -35,11 +35,6 @@ public class IndestructibleItemEntity extends ItemEntity {
     this.setYRot(this.random.nextFloat() * 360.0F);
     this.setDeltaMovement(this.random.nextDouble() * 0.2D - 0.1D, 0.2D, this.random.nextDouble() * 0.2D - 0.1D);
     this.setItem(stack);
-  }
-
-  @Override
-  public Packet<ClientGamePacketListener> getAddEntityPacket() {
-    return NetworkHooks.getEntitySpawningPacket(this);
   }
 
   /** Copies the pickup delay from another entity */

@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.platform.event.EventBus;
 import slimeknights.mantle.platform.event.player.PlayerInteractEvent.LeftClickBlock;
 import slimeknights.mantle.platform.event.player.PlayerInteractEvent.LeftClickBlock.Action;
-import net.minecraftforge.event.level.BlockEvent;
+import slimeknights.mantle.platform.event.level.BlockEvent;
 import slimeknights.mantle.platform.event.EventPriority;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.tconstruct.TConstruct;

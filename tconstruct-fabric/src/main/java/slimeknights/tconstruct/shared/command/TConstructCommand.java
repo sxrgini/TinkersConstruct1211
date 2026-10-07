@@ -7,7 +7,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.event.RegisterCommandsEvent;
+import slimeknights.mantle.platform.event.server.RegisterCommandsEvent;
 import slimeknights.mantle.command.argument.TagSourceArgument;
 import slimeknights.mantle.registration.deferred.ArgumentTypeDeferredRegister;
 import slimeknights.tconstruct.TConstruct;

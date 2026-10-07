@@ -28,7 +28,7 @@ import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.FluidType;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.mantle.platform.item.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import slimeknights.mantle.platform.item.SidedInvWrapper;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer;

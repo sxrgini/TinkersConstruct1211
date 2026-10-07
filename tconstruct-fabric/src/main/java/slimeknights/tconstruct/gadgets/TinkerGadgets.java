@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import slimeknights.mantle.platform.event.entity.EntityAttributeCreationEvent;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
 import slimeknights.mantle.registration.object.EnumObject;

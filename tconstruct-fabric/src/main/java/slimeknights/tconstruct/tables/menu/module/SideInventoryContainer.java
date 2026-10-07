@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import slimeknights.mantle.platform.capability.Capabilities;
 import slimeknights.mantle.platform.capability.LazyOptional;
 import slimeknights.mantle.platform.item.IItemHandler;
-import net.minecraftforge.items.wrapper.EmptyHandler;
+import slimeknights.mantle.platform.item.EmptyHandler;
 import slimeknights.mantle.inventory.BaseContainerMenu;
 import slimeknights.mantle.inventory.SmartItemHandlerSlot;
 

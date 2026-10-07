@@ -16,7 +16,7 @@ import slimeknights.mantle.platform.event.EventBus;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.platform.condition.ICondition.IContext;
 import slimeknights.mantle.platform.event.server.AddReloadListenerEvent;
-import net.minecraftforge.event.entity.living.MobSpawnEvent.FinalizeSpawn;
+import slimeknights.mantle.platform.event.living.MobSpawnEvent.FinalizeSpawn;
 import slimeknights.mantle.platform.event.EventPriority;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadable;

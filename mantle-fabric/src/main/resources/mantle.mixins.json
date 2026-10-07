@@ -7,6 +7,9 @@
     "InventoryMixin",
     "LootTableMixin",
     "LivingEntityEventsMixin",
+    "LivingEntityEffectEventsMixin",
+    "DefaultAttributesMixin",
+    "MobSpawnEventsMixin",
     "BlockBehaviourEventsMixin"
   ],
   "client": [

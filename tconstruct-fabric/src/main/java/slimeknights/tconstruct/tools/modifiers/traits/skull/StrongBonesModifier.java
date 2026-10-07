@@ -7,7 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import slimeknights.mantle.platform.event.EventBus;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import slimeknights.mantle.platform.event.living.LivingEntityUseItemEvent;
 import slimeknights.mantle.platform.event.EventPriority;
 import slimeknights.mantle.platform.fluid.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.TConstruct;

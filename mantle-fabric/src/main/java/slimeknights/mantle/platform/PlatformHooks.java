@@ -69,7 +69,12 @@ public final class PlatformHooks {
       PlayerBlockBreakEvents.CANCELED.invoker().onBlockBreakCanceled(level, player, pos, level.getBlockState(pos), level.getBlockEntity(pos));
       return -1;
     }
-    return 0;
+    // vanilla has no way to ask a block for its experience, so listeners start from zero and may only add to it
+    slimeknights.mantle.platform.event.level.BlockEvent.BreakEvent event = new slimeknights.mantle.platform.event.level.BlockEvent.BreakEvent(level, pos, level.getBlockState(pos), player, 0);
+    if (EventBus.BUS.post(event)) {
+      return -1;
+    }
+    return event.getExpToDrop();
   }
 
   /** Fires the right click block event */
@@ -135,5 +140,20 @@ public final class PlatformHooks {
   /** Fabric has no arrow loose event, returns the charge unchanged */
   public static int onArrowLoose(ItemStack bow, Level level, Player player, int charge, boolean hasAmmo) {
     return charge;
+  }
+
+  /** Opens a menu on the server with the position written for the client factory */
+  public static void openScreen(net.minecraft.server.level.ServerPlayer player, net.minecraft.world.MenuProvider provider, BlockPos pos) {
+    slimeknights.mantle.platform.menu.MenuTypes.openMenu(player, provider, buf -> buf.writeBlockPos(pos));
+  }
+
+  /** Opens a menu on the server with arbitrary extra data written for the client factory */
+  public static void openScreen(net.minecraft.server.level.ServerPlayer player, net.minecraft.world.MenuProvider provider, java.util.function.Consumer<net.minecraft.network.RegistryFriendlyByteBuf> extraData) {
+    slimeknights.mantle.platform.menu.MenuTypes.openMenu(player, provider, extraData);
+  }
+
+  /** Opens a menu on the server with no extra data */
+  public static void openScreen(net.minecraft.server.level.ServerPlayer player, net.minecraft.world.MenuProvider provider) {
+    slimeknights.mantle.platform.menu.MenuTypes.openMenu(player, provider, buf -> {});
   }
 }

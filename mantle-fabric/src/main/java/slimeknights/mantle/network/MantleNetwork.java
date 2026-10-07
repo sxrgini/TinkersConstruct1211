@@ -32,6 +32,8 @@ public class MantleNetwork {
     PayloadTypeRegistry.playS2C().register(OpenLecternBookPacket.TYPE, OpenLecternBookPacket.CODEC);
     PayloadTypeRegistry.playS2C().register(SwingArmPacket.TYPE, SwingArmPacket.CODEC);
     PayloadTypeRegistry.playS2C().register(FluidContainerTransferPacket.TYPE, FluidContainerTransferPacket.CODEC);
+    PayloadTypeRegistry.playS2C().register(slimeknights.mantle.network.packet.AdditionalSpawnDataPacket.TYPE, slimeknights.mantle.network.packet.AdditionalSpawnDataPacket.CODEC);
+    slimeknights.mantle.network.packet.AdditionalSpawnDataPacket.init();
   }
 
   /** Registers client packet handlers, call from the client initializer */
@@ -41,6 +43,7 @@ public class MantleNetwork {
     toClient(OpenLecternBookPacket.TYPE);
     toClient(SwingArmPacket.TYPE);
     toClient(FluidContainerTransferPacket.TYPE);
+    toClient(slimeknights.mantle.network.packet.AdditionalSpawnDataPacket.TYPE);
   }
 
   private static <T extends ISimplePacket> void toServer(CustomPacketPayload.Type<T> type, StreamCodec<? super RegistryFriendlyByteBuf,T> codec) {

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.world;
 
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import slimeknights.mantle.platform.registry.DeferredBlock;
 import slimeknights.mantle.platform.registry.DeferredItem;
 import net.minecraft.core.particles.ParticleType;
@@ -49,9 +50,9 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent.Operation;
+import slimeknights.mantle.platform.event.entity.EntityAttributeCreationEvent;
+import slimeknights.mantle.platform.event.entity.SpawnPlacementRegisterEvent;
+import slimeknights.mantle.platform.event.entity.SpawnPlacementRegisterEvent.Operation;
 import slimeknights.mantle.platform.event.SubscribeEvent;
 import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -349,9 +350,9 @@ public final class TinkerWorld extends TinkerModule {
   @SubscribeEvent
   void registerSpawnPlacement(SpawnPlacementRegisterEvent event) {
     event.register(EntityType.SLIME, null, null, new SlimePlacementPredicate<>(TinkerTags.Blocks.EARTH_SLIME_SPAWN), Operation.OR);
-    event.register(skySlimeEntity.get(),   SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.SKY_SLIME_SPAWN), Operation.OR);
-    event.register(enderSlimeEntity.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.ENDER_SLIME_SPAWN), Operation.OR);
-    event.register(terracubeEntity.get(),  SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TerracubeEntity::canSpawnHere, Operation.OR);
+    event.register(skySlimeEntity.get(),   SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.SKY_SLIME_SPAWN), Operation.OR);
+    event.register(enderSlimeEntity.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.ENDER_SLIME_SPAWN), Operation.OR);
+    event.register(terracubeEntity.get(),  SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TerracubeEntity::canSpawnHere, Operation.OR);
 
   }
 

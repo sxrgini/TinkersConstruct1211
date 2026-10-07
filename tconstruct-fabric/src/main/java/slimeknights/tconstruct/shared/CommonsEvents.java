@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.platform.event.living.LivingEvent;
 import slimeknights.mantle.platform.event.player.PlayerInteractEvent.RightClickBlock;
 import slimeknights.mantle.platform.event.SubscribeEvent;
-import net.minecraftforge.network.NetworkHooks;
+import slimeknights.mantle.platform.PlatformHooks;
 import slimeknights.mantle.inventory.BaseContainerMenu;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
@@ -63,7 +63,7 @@ public class CommonsEvents {
         event.setCanceled(true);
         if (provider != null) {
           if (player instanceof ServerPlayer serverPlayer) {
-            NetworkHooks.openScreen(serverPlayer, provider, pos);
+            PlatformHooks.openScreen(serverPlayer, provider, pos);
             if (player.containerMenu instanceof BaseContainerMenu<?> menu) {
               menu.syncOnOpen(serverPlayer);
             }
