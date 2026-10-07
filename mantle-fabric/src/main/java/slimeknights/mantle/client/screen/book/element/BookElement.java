@@ -86,7 +86,7 @@ public abstract class BookElement {
 
   /**
    * Renders a tooltip in a book.
-   * Based on {@link net.neoforged.neoforge.client.ClientHooks#gatherTooltipComponents(ItemStack, List, int, int, int, Font)}, but with three notable changes:
+   * Based on {@link slimeknights.mantle.platform.client.model.ClientHooks#gatherTooltipComponents(ItemStack, List, int, int, int, Font)}, but with three notable changes:
    * Uses the book page size (since mouseX and mouseY tend to be page relative), actually uses the updated tooltipX position, and drops the unused non-text component code.
    */
   public void drawTooltip(GuiGraphics graphics, List<Component> textLines, int mouseX, int mouseY, Font font) {

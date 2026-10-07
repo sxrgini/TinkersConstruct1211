@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.client.model.data.ModelData;
+import slimeknights.mantle.platform.client.model.ModelData;
 import slimeknights.mantle.block.RetexturedBlock;
 import slimeknights.mantle.registration.MantleData;
 import slimeknights.mantle.util.RetexturedHelper;

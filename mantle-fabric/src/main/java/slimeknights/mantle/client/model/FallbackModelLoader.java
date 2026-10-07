@@ -16,9 +16,9 @@ import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.fabricmc.loader.api.FabricLoader;
-import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
-import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
-import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
+import slimeknights.mantle.platform.client.model.IGeometryBakingContext;
+import slimeknights.mantle.platform.client.model.IGeometryLoader;
+import slimeknights.mantle.platform.client.model.IUnbakedGeometry;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.util.JsonHelper;
 

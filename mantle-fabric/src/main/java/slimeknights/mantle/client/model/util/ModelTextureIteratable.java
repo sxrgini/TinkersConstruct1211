@@ -4,15 +4,15 @@ import com.mojang.datafixers.util.Either;
 import lombok.AllArgsConstructor;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.Material;
-import net.neoforged.neoforge.client.model.geometry.BlockGeometryBakingContext;
-import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
+import slimeknights.mantle.platform.client.model.BlockGeometryBakingContext;
+import slimeknights.mantle.platform.client.model.IGeometryBakingContext;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-/** Iterator for processing textures on parents of {@link net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry} */
+/** Iterator for processing textures on parents of {@link slimeknights.mantle.platform.client.model.IUnbakedGeometry} */
 @AllArgsConstructor
 public class ModelTextureIteratable implements Iterable<Map<String,Either<Material, String>>> {
   /** Initial map for iteration */

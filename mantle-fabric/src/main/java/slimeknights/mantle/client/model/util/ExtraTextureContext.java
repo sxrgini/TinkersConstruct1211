@@ -3,7 +3,7 @@ package slimeknights.mantle.client.model.util;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
+import slimeknights.mantle.platform.client.model.IGeometryBakingContext;
 
 import java.util.Map;
 
