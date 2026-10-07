@@ -62,4 +62,16 @@ public class EntityTeleportEvent extends EntityEvent {
       super(entity, targetX, targetY, targetZ);
     }
   }
+
+  /** Teleporting a living entity like an enderman or chorus fruit */
+  public static class EnderEntity extends EntityTeleportEvent {
+    public EnderEntity(net.minecraft.world.entity.LivingEntity entity, double targetX, double targetY, double targetZ) {
+      super(entity, targetX, targetY, targetZ);
+    }
+
+    @Override
+    public net.minecraft.world.entity.LivingEntity getEntity() {
+      return (net.minecraft.world.entity.LivingEntity) super.getEntity();
+    }
+  }
 }

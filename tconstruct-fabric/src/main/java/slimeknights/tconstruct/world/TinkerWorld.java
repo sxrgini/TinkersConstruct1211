@@ -6,7 +6,7 @@ import slimeknights.mantle.platform.registry.DeferredItem;
 import net.minecraft.core.particles.ParticleType;
 import slimeknights.mantle.platform.registry.DeferredHolder;
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;

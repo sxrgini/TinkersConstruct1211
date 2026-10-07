@@ -2,7 +2,7 @@ package slimeknights.tconstruct.gadgets.entity;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
@@ -22,9 +22,9 @@ public class DispenseFancyArmorStand extends DefaultDispenseItemBehavior {
 
   @Override
   protected ItemStack execute(BlockSource source, ItemStack stack) {
-    Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
-    BlockPos blockpos = source.getPos().relative(direction);
-    ServerLevel server = source.getLevel();
+    Direction direction = source.state().getValue(DispenserBlock.FACING);
+    BlockPos blockpos = source.pos().relative(direction);
+    ServerLevel server = source.level();
     Consumer<FancyArmorStandEntity> consumer = EntityType.appendDefaultStackConfig(stand -> stand.setYRot(direction.toYRot()), server, stack, null);
     FancyArmorStandEntity stand = TinkerGadgets.armorStandEntity.get().spawn(server, stack.getTag(), consumer, blockpos, MobSpawnType.DISPENSER, false, false);
     if (stand != null) {

@@ -57,4 +57,86 @@ public class PlayerEvent extends LivingEvent {
       return Optional.ofNullable(pos);
     }
   }
+
+  /** Fired when a player entity is copied on death or return from the end, see Fabric's COPY_FROM */
+  public static class Clone extends PlayerEvent {
+    private final Player original;
+    private final boolean wasDeath;
+
+    public Clone(Player player, Player original, boolean wasDeath) {
+      super(player);
+      this.original = original;
+      this.wasDeath = wasDeath;
+    }
+
+    public Player getOriginal() {
+      return original;
+    }
+
+    public boolean isWasDeath() {
+      return wasDeath;
+    }
+  }
+
+  /** Fired after a player respawns */
+  public static class PlayerRespawnEvent extends PlayerEvent {
+    private final boolean endConquered;
+
+    public PlayerRespawnEvent(Player player, boolean endConquered) {
+      super(player);
+      this.endConquered = endConquered;
+    }
+
+    public boolean isEndConquered() {
+      return endConquered;
+    }
+  }
+
+  /** Fired after a player changes dimension */
+  public static class PlayerChangedDimensionEvent extends PlayerEvent {
+    private final net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> from;
+    private final net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> to;
+
+    public PlayerChangedDimensionEvent(Player player, net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> from, net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> to) {
+      super(player);
+      this.from = from;
+      this.to = to;
+    }
+
+    public net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> getFrom() {
+      return from;
+    }
+
+    public net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> getTo() {
+      return to;
+    }
+  }
+
+  /** Fired when a player joins the server */
+  public static class PlayerLoggedInEvent extends PlayerEvent {
+    public PlayerLoggedInEvent(Player player) {
+      super(player);
+    }
+  }
+
+  /** Fired when a player leaves the server */
+  public static class PlayerLoggedOutEvent extends PlayerEvent {
+    public PlayerLoggedOutEvent(Player player) {
+      super(player);
+    }
+  }
+
+  /** Fired when a player starts tracking another entity */
+  public static class StartTracking extends PlayerEvent {
+    private final net.minecraft.world.entity.Entity target;
+
+    public StartTracking(Player player, net.minecraft.world.entity.Entity target) {
+      super(player);
+      this.target = target;
+    }
+
+    public net.minecraft.world.entity.Entity getTarget() {
+      return target;
+    }
+  }
 }

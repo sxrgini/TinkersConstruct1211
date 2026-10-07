@@ -27,6 +27,19 @@ public final class FabricEventBridge {
     net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPING.register(server ->
       bus.post(new slimeknights.mantle.platform.event.server.ServerStoppingEvent(server)));
 
+    net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents.COPY_FROM.register((old, player, alive) ->
+      bus.post(new slimeknights.mantle.platform.event.player.PlayerEvent.Clone(player, old, !alive)));
+    net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents.AFTER_RESPAWN.register((old, player, alive) ->
+      bus.post(new slimeknights.mantle.platform.event.player.PlayerEvent.PlayerRespawnEvent(player, alive)));
+    net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((player, origin, destination) ->
+      bus.post(new slimeknights.mantle.platform.event.player.PlayerEvent.PlayerChangedDimensionEvent(player, origin.dimension(), destination.dimension())));
+    net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN.register((handler, sender, server) ->
+      bus.post(new slimeknights.mantle.platform.event.player.PlayerEvent.PlayerLoggedInEvent(handler.getPlayer())));
+    net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register((handler, server) ->
+      bus.post(new slimeknights.mantle.platform.event.player.PlayerEvent.PlayerLoggedOutEvent(handler.getPlayer())));
+    net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents.START_TRACKING.register((entity, player) ->
+      bus.post(new slimeknights.mantle.platform.event.player.PlayerEvent.StartTracking(player, entity)));
+
     net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.START_SERVER_TICK.register(server -> {
       if (bus.hasListeners(TickEvent.PlayerTickEvent.class)) {
         for (net.minecraft.server.level.ServerPlayer player : server.getPlayerList().getPlayers()) {

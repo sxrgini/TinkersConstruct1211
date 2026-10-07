@@ -91,6 +91,13 @@ public class PlayerInteractEvent extends PlayerEvent {
     }
   }
 
+  /** Right click while not targeting anything, client only */
+  public static class RightClickEmpty extends PlayerInteractEvent {
+    public RightClickEmpty(Player player, InteractionHand hand) {
+      super(player, hand, player.blockPosition(), null);
+    }
+  }
+
   /** Left click while not targeting anything, client only */
   public static class LeftClickEmpty extends PlayerInteractEvent {
     public LeftClickEmpty(Player player) {
