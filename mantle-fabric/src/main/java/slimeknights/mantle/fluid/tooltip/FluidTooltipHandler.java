@@ -14,9 +14,10 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.level.material.Fluid;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.TagsUpdatedEvent;
+import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
+import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.server.packs.PackType;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.client.SafeClientAccess;
@@ -37,7 +38,7 @@ import java.util.function.BiConsumer;
 /** Handles fluid units displaying in tooltips */
 @SuppressWarnings("unused")
 @Log4j2
-public class FluidTooltipHandler extends SimpleJsonResourceReloadListener {
+public class FluidTooltipHandler extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener {
   /** Tooltip when not holding shift mentioning that is possible */
   public static final Component HOLD_SHIFT = Mantle.makeComponent("gui", "fluid.hold_shift").withStyle(ChatFormatting.GRAY);
   /** Folder for saving the logic */
@@ -69,10 +70,15 @@ public class FluidTooltipHandler extends SimpleJsonResourceReloadListener {
    * Initializes this manager, registering it with the resource manager
    * @param manager  Manager
    */
-  public static void init(RegisterClientReloadListenersEvent manager) {
-    manager.registerReloadListener(INSTANCE);
+  public static void init() {
+    ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(INSTANCE);
     // clear the cache on tag reload, if the tags changed it might be wrong
-    NeoForge.EVENT_BUS.addListener(TagsUpdatedEvent.class, event -> INSTANCE.listCache.clear());
+    CommonLifecycleEvents.TAGS_LOADED.register((registries, client) -> INSTANCE.listCache.clear());
+  }
+
+  @Override
+  public ResourceLocation getFabricId() {
+    return slimeknights.mantle.Mantle.getResource("fluid_tooltips");
   }
 
   private FluidTooltipHandler() {

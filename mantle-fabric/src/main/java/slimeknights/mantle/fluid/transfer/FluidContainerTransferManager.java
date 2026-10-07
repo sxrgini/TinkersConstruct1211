@@ -12,9 +12,13 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.common.NeoForge;
+import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.packs.PackType;
+import slimeknights.mantle.util.DataLoadedConditionContext;
 import slimeknights.mantle.platform.condition.ICondition;
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.Mantle;
@@ -34,7 +38,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 /** Logic for filling and emptying fluid containers that are not fluid handlers */
-public class FluidContainerTransferManager extends SimpleJsonResourceReloadListener {
+public class FluidContainerTransferManager extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener {
   /** Folder for saving the logic */
   public static final String FOLDER = "mantle/fluid_transfer";
   /** Singleton instance of the manager */
@@ -66,15 +70,36 @@ public class FluidContainerTransferManager extends SimpleJsonResourceReloadListe
 
   /** For internal use only */
   public void init() {
-    NeoForge.EVENT_BUS.addListener(AddReloadListenerEvent.class, e -> e.addListener(this));
+    ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(this);
+    // registries are not available during the reload, so parsing is deferred until all data has loaded
+    ServerLifecycleEvents.SERVER_STARTED.register(server -> parse(server.registryAccess()));
+    ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, manager, success) -> {
+      if (success) {
+        parse(server.registryAccess());
+      }
+    });
     ServerLifecycleEvents.SYNC_DATA_PACK_CONTENTS.register((player, joined) -> PacketHelper.sendStaticRegistry(player, new FluidContainerTransferPacket(this.getContainerItems())));
   }
 
   @Override
+  public ResourceLocation getFabricId() {
+    return Mantle.getResource("fluid_container_transfer");
+  }
+
+  /** JSON loaded during the reload, parsed once registries are available */
+  private Map<ResourceLocation,JsonElement> pending = Collections.emptyMap();
+
+  @Override
   protected void apply(Map<ResourceLocation,JsonElement> splashList, ResourceManager manager, ProfilerFiller profiler) {
+    this.pending = splashList;
+  }
+
+  /** Parses the loaded JSON into transfers */
+  private void parse(RegistryAccess registries) {
+    Map<ResourceLocation,JsonElement> splashList = this.pending;
     long time = System.nanoTime();
-    ICondition.IContext conditionContext = getContext();
-    TypedMap context = TypedMapBuilder.builder().put(ContextKey.REGISTRY_LOOKUP, getRegistryLookup()).put(ContextKey.CONDITION_CONTEXT, conditionContext).build();
+    ICondition.IContext conditionContext = DataLoadedConditionContext.INSTANCE;
+    TypedMap context = TypedMapBuilder.builder().put(ContextKey.REGISTRY_LOOKUP, registries).put(ContextKey.CONDITION_CONTEXT, conditionContext).build();
     List<IFluidContainerTransfer> transfers = new ArrayList<>(splashList.size());
     for (Entry<ResourceLocation, JsonElement> entry : splashList.entrySet()) {
       ResourceLocation key = entry.getKey();

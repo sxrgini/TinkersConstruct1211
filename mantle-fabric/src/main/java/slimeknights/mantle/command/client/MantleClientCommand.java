@@ -10,8 +10,7 @@ import net.minecraft.commands.synchronization.SuggestionProviders;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
-import net.neoforged.neoforge.common.NeoForge;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.client.book.BookLoader;
 
@@ -45,7 +44,7 @@ public class MantleClientCommand {
       -> SharedSuggestionProvider.suggestResource(BuiltInRegistries.ITEM.keySet(), builder));
 
     // add command listener
-    NeoForge.EVENT_BUS.addListener(MantleClientCommand::registerCommand);
+    ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> registerCommand(dispatcher));
   }
 
   /** Registers a sub command for the root Mantle client command */
@@ -56,7 +55,7 @@ public class MantleClientCommand {
   }
 
   /** Event listener to register the Mantle client command */
-  private static void registerCommand(RegisterClientCommandsEvent event) {
+  private static void registerCommand(com.mojang.brigadier.CommandDispatcher<net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource> dispatcher) {
     LiteralArgumentBuilder<CommandSourceStack> builder = Commands.literal("mantle");
 
     // sub commands
@@ -68,6 +67,6 @@ public class MantleClientCommand {
     });
 
     // register final command
-    event.getDispatcher().register(builder);
+    dispatcher.register(builder);
   }
 }

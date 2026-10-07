@@ -70,8 +70,8 @@ public class ClientEvents {
     event.registerReloadListener(ModelHelper.LISTENER);
     event.registerReloadListener(new BookLoader());
     ResourceColorManager.init(event);
-    FluidTooltipHandler.init(event);
-    FluidTextureManager.init(event);
+    FluidTooltipHandler.init();
+    FluidTextureManager.init();
     event.registerReloadListener(FluidCuboid.REGISTRY);
     event.registerReloadListener(RenderItem.REGISTRY);
     event.registerReloadListener(TextureColorHelper.RELOAD_LISTENER);

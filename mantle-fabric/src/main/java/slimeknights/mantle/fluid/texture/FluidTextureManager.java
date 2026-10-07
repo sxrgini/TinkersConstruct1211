@@ -5,9 +5,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.server.packs.PackType;
 import slimeknights.mantle.platform.fluid.FluidType;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import slimeknights.mantle.platform.fluid.FluidTypes;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.listener.IEarlySafeManagerReloadListener;
 import slimeknights.mantle.util.JsonHelper;
@@ -18,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** Manager for handling fluid textures */
-public class FluidTextureManager implements IEarlySafeManagerReloadListener {
+public class FluidTextureManager implements IEarlySafeManagerReloadListener, IdentifiableResourceReloadListener {
   /** Folder containing the logic */
   public static final String FOLDER = "mantle/fluid_texture";
 
@@ -35,8 +37,13 @@ public class FluidTextureManager implements IEarlySafeManagerReloadListener {
   /**
    * Initializes this manager, registering it with the resource manager
    */
-  public static void init(RegisterClientReloadListenersEvent event) {
-    event.registerReloadListener(INSTANCE);
+  public static void init() {
+    ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(INSTANCE);
+  }
+
+  @Override
+  public ResourceLocation getFabricId() {
+    return Mantle.getResource("fluid_textures");
   }
 
   @Override
@@ -52,12 +59,12 @@ public class FluidTextureManager implements IEarlySafeManagerReloadListener {
     for (Map.Entry<ResourceLocation,JsonElement> entry : jsons.entrySet()) {
       ResourceLocation id = entry.getKey();
       // first step is to find the matching fluid type, if there is none ignore the file
-      if (!NeoForgeRegistries.FLUID_TYPES.containsKey(id)) {
+      if (!FluidTypes.REGISTRY.containsKey(id)) {
         Mantle.logger.debug("Ignoring fluid texture {} as no fluid type exists with that name", id);
       } else {
         try {
           // parse it if valid
-          map.put(NeoForgeRegistries.FLUID_TYPES.get(id), FluidTexture.deserialize(GsonHelper.convertToJsonObject(entry.getValue(), "fluid_texture")));
+          map.put(FluidTypes.REGISTRY.get(id), FluidTexture.deserialize(GsonHelper.convertToJsonObject(entry.getValue(), "fluid_texture")));
         } catch (RuntimeException e) {
           Mantle.logger.error("Failed to deserialize fluid texture {}", id, e);
         }
