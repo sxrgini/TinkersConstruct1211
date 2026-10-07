@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "mantle",
+  "version": "${version}",
+  "name": "Mantle",
+  "description": "Shared code for Slime Knights mods and others.",
+  "authors": ["Slime Knights"],
+  "contact": {
+    "homepage": "https://minecraft.curseforge.com/projects/mantle",
+    "issues": "https://github.com/SlimeKnights/Mantle/issues"
+  },
+  "license": "MIT",
+  "icon": "Mantle.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["slimeknights.mantle.Mantle"],
+    "client": []
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_range}",
+    "java": ">=21"
+  },
+  "suggests": {
+    "jei": "${jei_range}"
+  }
+}

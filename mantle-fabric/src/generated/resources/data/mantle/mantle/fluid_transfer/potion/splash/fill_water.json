@@ -1,0 +1,24 @@
+{
+  "type": "mantle:fill_item",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:bottles/splash"
+    }
+  ],
+  "fluid": {
+    "amount": 500,
+    "tag": "mantle:water"
+  },
+  "input": {
+    "tag": "c:bottles/splash"
+  },
+  "result": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "minecraft:water"
+      }
+    },
+    "item": "minecraft:splash_potion"
+  }
+}
