@@ -2,7 +2,10 @@ package slimeknights.mantle.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.ChatFormatting;
+import slimeknights.mantle.platform.client.ClientReloadListeners;
+import slimeknights.mantle.platform.client.model.GeometryLoaders;
 import net.minecraft.client.AttackIndicatorStatus;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -22,17 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import slimeknights.mantle.platform.capability.FluidHandlers;
-import net.neoforged.neoforge.client.event.ModelEvent.RegisterGeometryLoaders;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
-import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
-import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
-import net.neoforged.neoforge.common.NeoForge;
 import slimeknights.mantle.platform.fluid.FluidStack;
 import slimeknights.mantle.platform.fluid.IFluidHandler;
 import slimeknights.mantle.Mantle;
@@ -44,6 +37,9 @@ import slimeknights.mantle.client.model.ItemKeyModel;
 import slimeknights.mantle.client.model.RetexturedModel;
 import slimeknights.mantle.client.model.TextureColorHelper;
 import slimeknights.mantle.client.model.connected.ConnectedModel;
+import slimeknights.mantle.client.render.ChannelFluids;
+import slimeknights.mantle.client.render.FaucetFluid;
+import slimeknights.mantle.client.render.MantleShaders;
 import slimeknights.mantle.client.model.util.ColoredBlockModel;
 import slimeknights.mantle.client.model.util.MantleItemLayerModel;
 import slimeknights.mantle.client.model.util.ModelHelper;
@@ -60,65 +56,59 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@EventBusSubscriber(modid = Mantle.modId, value = Dist.CLIENT)
 public class ClientEvents {
-  /** Called on construct to initiatlize things that need early entry */
-  public static void onConstruct() {}
+  /** Heart renderer, used by {@link slimeknights.mantle.mixin.GuiMixin} */
+  public static final ExtraHeartRenderHandler HEARTS = new ExtraHeartRenderHandler();
 
-  @SubscribeEvent
-  static void registerListeners(RegisterClientReloadListenersEvent event) {
-    event.registerReloadListener(ModelHelper.LISTENER);
-    event.registerReloadListener(new BookLoader());
-    ResourceColorManager.init(event);
+  /** Registers all client logic, called from {@link MantleClient} */
+  static void init() {
+    // reload listeners
+    ClientReloadListeners.register(Mantle.getResource("model_helper"), ModelHelper.LISTENER);
+    ClientReloadListeners.register(Mantle.getResource("books"), new BookLoader());
+    ResourceColorManager.init();
     FluidTooltipHandler.init();
     FluidTextureManager.init();
-    event.registerReloadListener(FluidCuboid.REGISTRY);
-    event.registerReloadListener(RenderItem.REGISTRY);
-    event.registerReloadListener(TextureColorHelper.RELOAD_LISTENER);
-  }
+    ClientReloadListeners.register(Mantle.getResource("fluid_cuboids"), FluidCuboid.REGISTRY);
+    ClientReloadListeners.register(Mantle.getResource("render_items"), RenderItem.REGISTRY);
+    ClientReloadListeners.register(Mantle.getResource("texture_colors"), TextureColorHelper.RELOAD_LISTENER);
+    ChannelFluids.initialize();
+    FaucetFluid.initialize();
+    MantleShaders.init();
 
-  @SubscribeEvent
-  static void clientSetup(FMLClientSetupEvent event) {
-    event.enqueueWork(() -> RegistrationHelper.forEachWoodType(Sheets::addWoodType));
+    // wood types, must be added to the sheet maps before signs render
+    RegistrationHelper.forEachWoodType(type -> {
+      Sheets.SIGN_MATERIALS.put(type, Sheets.createSignMaterial(type));
+      Sheets.HANGING_SIGN_MATERIALS.put(type, Sheets.createHangingSignMaterial(type));
+    });
 
     BookLoader.registerBook(Mantle.getResource("test"), new FileRepository(Mantle.getResource("books/test")));
     MantleClientCommand.init();
-  }
 
-  @SubscribeEvent
-  static void registerModelLoaders(RegisterGeometryLoaders event) {
+    // model loaders
     // standard models - useful in resource packs for any model
-    event.register(ConnectedModel.ID, ConnectedModel.LOADER);
-    event.register(MantleItemLayerModel.ID, MantleItemLayerModel.LOADER);
-    event.register(ColoredBlockModel.ID, ColoredBlockModel.LOADER);
-    event.register(FallbackModelLoader.ID, FallbackModelLoader.INSTANCE);
-
+    GeometryLoaders.register(ConnectedModel.ID, ConnectedModel.LOADER);
+    GeometryLoaders.register(MantleItemLayerModel.ID, MantleItemLayerModel.LOADER);
+    GeometryLoaders.register(ColoredBlockModel.ID, ColoredBlockModel.LOADER);
+    GeometryLoaders.register(FallbackModelLoader.ID, FallbackModelLoader.INSTANCE);
     // NBT dynamic models - require specific data defined in the block/item to use
-    event.register(ItemKeyModel.ID, ItemKeyModel.LOADER);
-    event.register(RetexturedModel.ID, RetexturedModel.LOADER);
-  }
+    GeometryLoaders.register(ItemKeyModel.ID, ItemKeyModel.LOADER);
+    GeometryLoaders.register(RetexturedModel.ID, RetexturedModel.LOADER);
 
-  @SubscribeEvent
-  static void commonSetup(FMLCommonSetupEvent event) {
-    NeoForge.EVENT_BUS.register(new ExtraHeartRenderHandler());
+    // HUD
+    HudRenderCallback.EVENT.register((graphics, tickDelta) -> {
+      renderOffhandAttackIndicator(graphics, false);
+      renderOffhandAttackIndicator(graphics, true);
+      renderGaugeTooltip(graphics);
+    });
   }
 
   /** Renders the offhand attack indicator. Based on {@link Gui#renderCrosshair(GuiGraphics, DeltaTracker)} and {@link Gui#renderItemHotbar(GuiGraphics, DeltaTracker)} */
-  @SubscribeEvent
-  static void renderOffhandAttackIndicator(RenderGuiLayerEvent.Post event) {
+  private static void renderOffhandAttackIndicator(GuiGraphics graphics, boolean isHotbar) {
     // must have a player, not be in spectator, and have the indicator enabled
     Minecraft minecraft = Minecraft.getInstance();
     Options settings = minecraft.options;
     AttackIndicatorStatus indicator = settings.attackIndicator().get();
     if (minecraft.player == null || minecraft.gameMode == null || minecraft.gameMode.getPlayerMode() == GameType.SPECTATOR || indicator == AttackIndicatorStatus.OFF) {
-      return;
-    }
-
-    // only care about hotbar and crosshair
-    ResourceLocation name = event.getName();
-    // will be true for hotbar, false for crosshair
-    boolean isHotbar = VanillaGuiLayers.HOTBAR == name;
-    if (!isHotbar && VanillaGuiLayers.CROSSHAIR != name) {
       return;
     }
 
@@ -130,7 +120,6 @@ public class ClientEvents {
     }
 
     // show attack indicator
-    GuiGraphics graphics = event.getGuiGraphics();
     switch (indicator) {
       case CROSSHAIR:
         if (!isHotbar && minecraft.options.getCameraType().isFirstPerson()) {
@@ -171,12 +160,7 @@ public class ClientEvents {
 
 
   /** Renders the tooltip when targeting the gauge block */
-  @SubscribeEvent
-  static void renderGaugeTooltip(RenderGuiLayerEvent.Post event) {
-    // those RLs are passed into the event constructor, so instance comparison should be fine
-    if (event.getName() != VanillaGuiLayers.CROSSHAIR) {
-      return;
-    }
+  private static void renderGaugeTooltip(GuiGraphics graphics) {
     // must not be in a screen, though chat is fine
     Minecraft minecraft = Minecraft.getInstance();
     if (minecraft.screen != null && minecraft.screen.getClass() != ChatScreen.class) {
@@ -235,6 +219,6 @@ public class ClientEvents {
 
     int x = minecraft.getWindow().getGuiScaledWidth() / 2;
     int y = minecraft.getWindow().getGuiScaledHeight() / 2;
-    event.getGuiGraphics().renderTooltip(minecraft.font, tooltip, Optional.empty(), x, y);
+    graphics.renderTooltip(minecraft.font, tooltip, Optional.empty(), x, y);
   }
 }

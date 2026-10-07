@@ -4,10 +4,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import lombok.Getter;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RegisterShadersEvent;
+import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.config.Config;
 
@@ -15,7 +12,6 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 
 /** Handles any custom shaders registered by Mantle. */
-@EventBusSubscriber(modid = Mantle.modId, value = Dist.CLIENT)
 public class MantleShaders {
   /** Shader used for blocks in structures to force them fullbright. Based on ... */
   @Nullable
@@ -35,15 +31,11 @@ public class MantleShaders {
     return Config.FLUID_USE_TEXT_SHADER.get() ? GameRenderer.getRendertypeTextShader() : GameRenderer.getPositionColorTexLightmapShader();
   }
 
-  @SubscribeEvent
-  static void registerShaders(RegisterShadersEvent event) throws IOException {
-    event.registerShader(
-      new ShaderInstance(event.getResourceProvider(), Mantle.getResource("block_fullbright"), DefaultVertexFormat.BLOCK),
-      shader -> blockFullBrightShader = shader
-    );
-    event.registerShader(
-      new ShaderInstance(event.getResourceProvider(), Mantle.getResource("fluid"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP),
-      shader -> fluidShader = shader
-    );
+  /** Registers the shaders with Fabric, call from the client initializer */
+  public static void init() {
+    CoreShaderRegistrationCallback.EVENT.register(context -> {
+      context.register(Mantle.getResource("block_fullbright"), DefaultVertexFormat.BLOCK, shader -> blockFullBrightShader = shader);
+      context.register(Mantle.getResource("fluid"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, shader -> fluidShader = shader);
+    });
   }
 }

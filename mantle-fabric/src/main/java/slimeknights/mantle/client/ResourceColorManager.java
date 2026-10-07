@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.DataResult;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import slimeknights.mantle.platform.client.ClientReloadListeners;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.listener.ISafeManagerReloadListener;
 import slimeknights.mantle.util.JsonHelper;
@@ -38,8 +38,8 @@ public class ResourceColorManager implements ISafeManagerReloadListener {
    * Initializes this manager, registering it with the resource manager
    * @param manager  Manager
    */
-  public static void init(RegisterClientReloadListenersEvent manager) {
-    manager.registerReloadListener(INSTANCE);
+  public static void init() {
+    ClientReloadListeners.register(Mantle.getResource("resource_colors"), INSTANCE);
   }
 
   /** Recursively parses the given objects */

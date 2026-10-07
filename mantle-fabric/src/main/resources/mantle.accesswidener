@@ -102,3 +102,7 @@ accessible field net/minecraft/client/gui/Gui CROSSHAIR_ATTACK_INDICATOR_BACKGRO
 accessible field net/minecraft/client/gui/Gui CROSSHAIR_ATTACK_INDICATOR_PROGRESS_SPRITE Lnet/minecraft/resources/ResourceLocation;
 accessible field net/minecraft/client/gui/Gui HOTBAR_ATTACK_INDICATOR_BACKGROUND_SPRITE Lnet/minecraft/resources/ResourceLocation;
 accessible field net/minecraft/client/gui/Gui HOTBAR_ATTACK_INDICATOR_PROGRESS_SPRITE Lnet/minecraft/resources/ResourceLocation;
+
+# Wood type sheets
+accessible field net/minecraft/client/renderer/Sheets SIGN_MATERIALS Ljava/util/Map;
+accessible field net/minecraft/client/renderer/Sheets HANGING_SIGN_MATERIALS Ljava/util/Map;

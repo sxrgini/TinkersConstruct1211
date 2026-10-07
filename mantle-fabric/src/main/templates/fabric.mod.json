@@ -16,7 +16,7 @@
   "mixins": ["mantle.mixins.json"],
   "entrypoints": {
     "main": ["slimeknights.mantle.Mantle"],
-    "client": []
+    "client": ["slimeknights.mantle.client.MantleClient"]
   },
   "depends": {
     "fabricloader": ">=${loader_version}",

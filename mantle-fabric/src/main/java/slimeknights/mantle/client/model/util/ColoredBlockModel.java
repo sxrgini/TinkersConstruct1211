@@ -23,7 +23,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import slimeknights.mantle.platform.client.model.ClientHooks;
-import net.neoforged.neoforge.client.model.ExtraFaceData;
 import slimeknights.mantle.platform.client.model.IQuadTransformer;
 import slimeknights.mantle.platform.client.model.QuadTransformers;
 import slimeknights.mantle.platform.client.model.IGeometryBakingContext;
@@ -264,11 +263,6 @@ public class ColoredBlockModel extends SimpleBlockModel {
     if (emissivity != -1) {
       QuadTransformers.settingEmissivity(emissivity).processInPlace(quad);
     } else {
-      ExtraFaceData data = face.faceData();
-      if (!ExtraFaceData.DEFAULT.equals(data)) {
-        QuadTransformers.applyingLightmap(data.blockLight(), data.skyLight()).processInPlace(quad);
-      }
-      // TODO: apply Neo colors - want to ensure it doesn't overwrite our colors
     }
     return quad;
   }

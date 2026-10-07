@@ -19,10 +19,8 @@ import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.client.NeoForgeRenderTypes;
 import slimeknights.mantle.platform.client.model.RenderTypeGroup;
 import slimeknights.mantle.platform.client.model.CompositeModel;
-import net.neoforged.neoforge.client.model.ItemLayerModel;
 import slimeknights.mantle.platform.client.model.IGeometryBakingContext;
 import slimeknights.mantle.platform.client.model.IGeometryLoader;
 import slimeknights.mantle.platform.client.model.IUnbakedGeometry;
@@ -52,7 +50,7 @@ import java.util.PrimitiveIterator;
 import java.util.function.Function;
 
 /**
- * Clone of {@link ItemLayerModel} to propagate a hardcoded color in, allows reducing rendering time by bypassing item colors for a static color.
+ * Clone of NeoForge's ItemLayerModel to propagate a hardcoded color in, allows reducing rendering time by bypassing item colors for a static color.
  * Also supports luminosity, and when used as a model loader supports telling a layer to not use a tint index
  */
 @RequiredArgsConstructor
@@ -90,7 +88,7 @@ public class MantleItemLayerModel implements IUnbakedGeometry<MantleItemLayerMod
     if (renderTypeHint != null) {
       return context.getRenderType(renderTypeHint);
     } else {
-      return new RenderTypeGroup(RenderType.translucent(), NeoForgeRenderTypes.ITEM_UNSORTED_TRANSLUCENT.get());
+      return new RenderTypeGroup(RenderType.translucent(), null);
     }
   }
 
@@ -423,7 +421,7 @@ public class MantleItemLayerModel implements IUnbakedGeometry<MantleItemLayerMod
   }
 
   /**
-   * Builds a single quad in the model, based on the method in {@link ItemLayerModel} but with color added
+   * Builds a single quad in the model, based on the method in NeoForge's ItemLayerModel but with color added
    * @param builder      Quad builder instance, just used to set direction so we can avoid redundancy
    * @param consumer     Quad consumer, where we place the actual quad
    * @param side         Quad side
@@ -444,7 +442,7 @@ public class MantleItemLayerModel implements IUnbakedGeometry<MantleItemLayerMod
   }
 
   /**
-   * Clone of the method in {@link ItemLayerModel} with the color parameter added
+   * Clone of the method in NeoForge's ItemLayerModel with the color parameter added
    * @param consumer   Vertex consumer
    * @param side       Side for the quad
    * @param x          Quad X position
@@ -466,7 +464,7 @@ public class MantleItemLayerModel implements IUnbakedGeometry<MantleItemLayerMod
     consumer.setUv2(light, light);
   }
 
-  /** Cloned from {@link ItemLayerModel}'s FaceData subclass */
+  /** Cloned from NeoForge's ItemLayerModel's FaceData subclass */
   private static class FaceData {
     private final EnumMap<Direction,BitSet> data = new EnumMap<>(Direction.class);
     private final int vMax;
