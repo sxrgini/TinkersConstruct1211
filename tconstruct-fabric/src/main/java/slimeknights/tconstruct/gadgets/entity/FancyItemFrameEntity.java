@@ -60,7 +60,7 @@ public class FancyItemFrameEntity extends ItemFrame implements IEntityAdditional
       Level level = level();
       BlockState state = level.getBlockState(behind);
       if (!state.isAir()) {
-        InteractionResult result = state.use(level, player, hand, Util.createTraceResult(behind, direction, false));
+        InteractionResult result = PlatformHooks.useBlock(state, level, player, hand, Util.createTraceResult(behind, direction, false));
         if (result.consumesAction()) {
           return result;
         }

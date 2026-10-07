@@ -108,7 +108,7 @@ public class FancyItemFrameRenderer<T extends FancyItemFrameEntity> extends Item
           matrices.scale(0.0078125F, 0.0078125F, 0.0078125F);
           matrices.translate(-64.0D, -64.0D, -1.0D);
           int light = frameType == FrameType.MANYULLYN ? 0x00F000F0 : packedLight;
-          Integer mapId = MapItem.getMapId(stack);
+          net.minecraft.world.level.saveddata.maps.MapId mapId = stack.get(net.minecraft.core.component.DataComponents.MAP_ID);
           assert mapId != null;
           Minecraft.getInstance().gameRenderer.getMapRenderer().render(matrices, bufferIn, mapId, mapdata, true, light);
         } else {

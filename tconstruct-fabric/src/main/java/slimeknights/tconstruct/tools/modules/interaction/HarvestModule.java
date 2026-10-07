@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.tools.modules.interaction;
 
+import net.minecraft.world.entity.LivingEntity;
+import slimeknights.mantle.platform.PlatformHooks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
@@ -70,7 +72,7 @@ public enum HarvestModule implements ModifierModule, BlockInteractionModifierHoo
    */
   private static boolean harvestInteract(UseOnContext context, ServerLevel world, BlockState state, BlockPos pos, Player player) {
     BlockHitResult trace = new BlockHitResult(context.getClickLocation(), context.getClickedFace(), pos, false);
-    InteractionResult result = state.use(world, player, context.getHand(), trace);
+    InteractionResult result = PlatformHooks.useBlock(state, world, player, context.getHand(), trace);
     return result.consumesAction();
   }
 
@@ -262,7 +264,7 @@ public enum HarvestModule implements ModifierModule, BlockInteractionModifierHoo
             player.sweepAttack();
           }
           if (broken) {
-            player.broadcastBreakEvent(context.getHand());
+            player.onEquippedItemBroken(player.getItemInHand(context.getHand()).getItem(), LivingEntity.getSlotForHand(context.getHand()));
           }
         }
       }

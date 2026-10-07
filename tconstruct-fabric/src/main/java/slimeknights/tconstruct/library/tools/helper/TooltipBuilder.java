@@ -166,7 +166,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addWithAttribute(INumericToolStat<?> stat, Holder<Attribute> attribute) {
-    float damage = (float) attribute.getDefaultValue();
+    float damage = (float) attribute.value().getDefaultValue();
     Player player = Minecraft.getInstance().player;
     if (player != null) {
       AttributeInstance instance = player.getAttribute(attribute);

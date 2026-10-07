@@ -138,7 +138,7 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
       // click the block
       ItemStack original = heldItem.copy();
       if (player != null && (useBlock == Result.ALLOW || (useItem == Result.DEFAULT && !skipBlock))) {
-        InteractionResult result = state.use(world, player, hand, hitResult);
+        InteractionResult result = PlatformHooks.useBlock(state, world, player, hand, hitResult);
         if (result.consumesAction()) {
           if (player instanceof ServerPlayer serverPlayer) {
             CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, original);

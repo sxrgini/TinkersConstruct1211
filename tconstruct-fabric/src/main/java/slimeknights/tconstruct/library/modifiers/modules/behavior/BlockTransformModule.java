@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -74,7 +75,7 @@ public interface BlockTransformModule extends ModifierModule, BlockInteractionMo
       // if the tool breaks or it was a campfire, we are done
       if (ToolDamageUtil.damage(tool, 1, player, stack, modifier.getId())) {
         if (player != null) {
-          player.broadcastBreakEvent(slotType);
+          player.onEquippedItemBroken(player.getItemBySlot(slotType).getItem(), slotType);
         }
         return InteractionResult.CONSUME;
       }
@@ -110,7 +111,7 @@ public interface BlockTransformModule extends ModifierModule, BlockInteractionMo
             // stop if the tool broke
             if (ToolDamageUtil.damage(tool, 1, player, stack, modifier.getId())) {
               if (player != null) {
-                player.broadcastBreakEvent(context.getHand());
+                player.onEquippedItemBroken(player.getItemInHand(context.getHand()).getItem(), LivingEntity.getSlotForHand(context.getHand()));
               }
               break;
             }

@@ -471,7 +471,7 @@ public final class TinkerFluids extends TinkerModule {
     acceptCompat(output, fieryLiquid, "fiery", MaterialIds.fiery);
     // potion buckets
     BuiltInRegistries.POTION.holders().filter(holder -> {
-      Potion potion = holder.get();
+      Potion potion = holder.value();
       return potion != Potions.EMPTY && potion != Potions.WATER;
     }).forEachOrdered(holder ->
       output.accept(PotionFluidType.potionBucket(holder.key())));

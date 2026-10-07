@@ -50,7 +50,7 @@ public class ContainerFoodItem extends Item {
         if (effect.getDuration() > 20) {
           mutable = Component.translatable("potion.withDuration", mutable, MobEffectUtil.formatDuration(effect, 1.0f));
         }
-        tooltip.add(mutable.withStyle(effect.getEffect().getCategory().getTooltipFormatting()));
+        tooltip.add(mutable.withStyle(effect.getEffect().value().getCategory().getTooltipFormatting()));
       }
     }
   }

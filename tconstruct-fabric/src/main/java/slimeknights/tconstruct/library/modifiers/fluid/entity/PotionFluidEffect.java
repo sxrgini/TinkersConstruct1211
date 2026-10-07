@@ -45,12 +45,12 @@ public record PotionFluidEffect(float scale, TagPredicate predicate) implements 
         float used = 0;
         for (MobEffectInstance instance : effects) {
           Holder<MobEffect> effect = instance.getEffect();
-          if (effect.isInstantenous()) {
+          if (effect.value().isInstantenous()) {
             // instant effects just apply full value always
             used = level.value();
             if (action.execute()) {
               target.invulnerableTime = 0;
-              effect.applyInstantenousEffect(directSource, attacker, target, instance.getAmplifier(), used * scale);
+              effect.value().applyInstantenousEffect(directSource, attacker, target, instance.getAmplifier(), used * scale);
             }
           } else {
             // if the potion already exists, we scale up the existing time

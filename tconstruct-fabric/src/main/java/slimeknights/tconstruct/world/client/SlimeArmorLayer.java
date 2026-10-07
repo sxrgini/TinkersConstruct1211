@@ -129,7 +129,7 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
    */
   @SuppressWarnings("removal")
   public static ResourceLocation getArmorResource(Entity entity, ItemStack stack, ArmorItem armor, String type) {
-    String texture = armor.getMaterial().getName();
+    String texture = armor.getMaterial().value().getName();
     String domain = "minecraft";
     int idx = texture.indexOf(':');
     if (idx != -1) {

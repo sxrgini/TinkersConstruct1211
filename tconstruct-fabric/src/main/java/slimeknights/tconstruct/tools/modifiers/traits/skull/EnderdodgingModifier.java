@@ -32,7 +32,7 @@ public class EnderdodgingModifier extends NoLevelsModifier implements OnAttacked
     LivingEntity self = context.getEntity();
     if (!self.hasEffect(TinkerEffects.enderference) && source.getEntity() instanceof LivingEntity && RANDOM.nextInt(10) == 0) {
       if (TeleportHelper.randomNearbyTeleport(context.getEntity(), (e, x, y, z) -> new EnderdodgingTeleportEvent(e, x, y, z, modifier))) {
-        TinkerEffects.enderference.apply(self, 15 * 20, 1, true);
+        TinkerEffects.enderference.value().apply(self, 15 * 20, 1, true);
       }
     }
   }

@@ -226,7 +226,7 @@ public class ModifierClientEvents {
     boolean hasBeneficial = false;
     for (MobEffectInstance instance : player.getActiveEffects()) {
       if (instance.showIcon() && IClientMobEffectExtensions.of(instance).isVisibleInGui(instance)) {
-        if (instance.getEffect().isBeneficial()) {
+        if (instance.getEffect().value().isBeneficial()) {
           hasBeneficial = true;
         } else {
           // negative effects means offset two rows
@@ -299,7 +299,7 @@ public class ModifierClientEvents {
       int mapOffset = 0;
       if (!map.isEmpty() && mc.level != null) {
         MapItemSavedData data = MapItem.getSavedData(map, mc.level);
-        Integer index = MapItem.getMapId(map);
+        net.minecraft.world.level.saveddata.maps.MapId index = map.get(net.minecraft.core.component.DataComponents.MAP_ID);
 
         // determine placement of the map
         mapLocation = Config.CLIENT.mapLocation.get();
@@ -328,10 +328,10 @@ public class ModifierClientEvents {
         MultiBufferSource buffer = graphics.bufferSource();
         VertexConsumer consumer = buffer.getBuffer(data == null ? ItemInHandRenderer.MAP_BACKGROUND : ItemInHandRenderer.MAP_BACKGROUND_CHECKERBOARD);
         Matrix4f matrix = poseStack.last().pose();
-        consumer.vertex(matrix,  -7, 135, 0).color(255, 255, 255, 255).uv(0, 1).uv2(light).endVertex();
-        consumer.vertex(matrix, 135, 135, 0).color(255, 255, 255, 255).uv(1, 1).uv2(light).endVertex();
-        consumer.vertex(matrix, 135,  -7, 0).color(255, 255, 255, 255).uv(1, 0).uv2(light).endVertex();
-        consumer.vertex(matrix,  -7,  -7, 0).color(255, 255, 255, 255).uv(0, 0).uv2(light).endVertex();
+        consumer.addVertex(matrix,  -7, 135, 0).setColor(255, 255, 255, 255).setUv(0, 1).setLight(light);
+        consumer.addVertex(matrix, 135, 135, 0).setColor(255, 255, 255, 255).setUv(1, 1).setLight(light);
+        consumer.addVertex(matrix, 135,  -7, 0).setColor(255, 255, 255, 255).setUv(1, 0).setLight(light);
+        consumer.addVertex(matrix,  -7,  -7, 0).setColor(255, 255, 255, 255).setUv(0, 0).setLight(light);
 
         // draw map if present
         if (data != null && index != null) {

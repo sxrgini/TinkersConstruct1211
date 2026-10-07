@@ -477,7 +477,7 @@ public class TooltipUtil {
       displayValue *= 100;
     }
     // final tooltip addition
-    Component name = Component.translatable(attribute.getDescriptionId());
+    Component name = Component.translatable(attribute.value().getDescriptionId());
     if (showEquals) {
       tooltip.add(Component.literal(" ")
                            .append(Component.translatable("attribute.modifier.equals." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))

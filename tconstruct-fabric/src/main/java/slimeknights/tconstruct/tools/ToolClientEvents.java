@@ -304,7 +304,7 @@ public class ToolClientEvents extends ClientEventBase {
       // ensure we pressed the key since the last tick, holding should not use all your jumps at once
       boolean isJumping = minecraft.options.keyJump.isDown();
       if (!wasJumping && isJumping) {
-        if (TinkerEffects.antigravity.antigravityJump(event.player)) {
+        if (TinkerEffects.antigravity.value().antigravityJump(event.player)) {
           TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.ANTIGRAVITY_JUMP);
         }
         else if (DoubleJumpHandler.extraJump(event.player)) {

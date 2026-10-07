@@ -161,8 +161,8 @@ public record AttributeModule(String unique, Holder<Attribute> attribute, Operat
   public static void addTooltip(Modifier modifier, Holder<Attribute> attribute, Operation operation, TooltipStyle tooltipStyle, float amount, @Nullable UUID uuid, @Nullable Player player, List<Component> tooltip) {
     switch (tooltipStyle) {
       case ATTRIBUTE -> TooltipUtil.addAttribute(attribute, operation, amount, uuid, player, tooltip);
-      case BOOST -> TooltipModifierHook.addFlatBoost(modifier, Component.translatable(attribute.getDescriptionId()), amount, tooltip);
-      case PERCENT -> TooltipModifierHook.addPercentBoost(modifier, Component.translatable(attribute.getDescriptionId()), amount, tooltip);
+      case BOOST -> TooltipModifierHook.addFlatBoost(modifier, Component.translatable(attribute.value().getDescriptionId()), amount, tooltip);
+      case PERCENT -> TooltipModifierHook.addPercentBoost(modifier, Component.translatable(attribute.value().getDescriptionId()), amount, tooltip);
     }
   }
 

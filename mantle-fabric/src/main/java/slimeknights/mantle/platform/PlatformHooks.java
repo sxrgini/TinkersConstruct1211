@@ -156,4 +156,19 @@ public final class PlatformHooks {
   public static void openScreen(net.minecraft.server.level.ServerPlayer player, net.minecraft.world.MenuProvider provider) {
     slimeknights.mantle.platform.menu.MenuTypes.openMenu(player, provider, buf -> {});
   }
+
+  /**
+   * Uses a block as a player would, trying the held item first and then the empty hand interaction, replacing {@code BlockState#use}.
+   * Unlike a real interaction this does not run item use.
+   */
+  public static net.minecraft.world.InteractionResult useBlock(net.minecraft.world.level.block.state.BlockState state, Level level, Player player, InteractionHand hand, net.minecraft.world.phys.BlockHitResult hit) {
+    net.minecraft.world.ItemInteractionResult itemResult = state.useItemOn(player.getItemInHand(hand), level, player, hand, hit);
+    if (itemResult.consumesAction()) {
+      return itemResult.result();
+    }
+    if (itemResult == net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION && hand == InteractionHand.MAIN_HAND) {
+      return state.useWithoutItem(level, player, hit);
+    }
+    return itemResult.result();
+  }
 }

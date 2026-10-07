@@ -72,7 +72,7 @@ public enum TinkerControlPacket implements IThreadsafePacket {
     if (player != null) {
       switch (this) {
         case DOUBLE_JUMP -> DoubleJumpHandler.extraJump(player);
-        case ANTIGRAVITY_JUMP -> TinkerEffects.antigravity.antigravityJump(player);
+        case ANTIGRAVITY_JUMP -> TinkerEffects.antigravity.value().antigravityJump(player);
         case START_HELMET_INTERACT, START_HELMET_INTERACT_SHIFT, START_HELMET_INTERACT_CONTROL, START_HELMET_INTERACT_ALT
           -> InteractionHandler.startArmorInteract(player, EquipmentSlot.HEAD, this.modifier);
         case STOP_HELMET_INTERACT -> InteractionHandler.stopArmorInteract(player, EquipmentSlot.HEAD);

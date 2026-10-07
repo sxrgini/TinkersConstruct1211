@@ -151,10 +151,10 @@ public class TinkerClient {
         Matrix4f matrix4f = event.getPoseStack().last().pose();
         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         // change: dropped color, see above
-        bufferbuilder.vertex(matrix4f, -1, -1, -0.5f).uv(u1, v1).endVertex();
-        bufferbuilder.vertex(matrix4f, 1, -1, -0.5f).uv(u0, v1).endVertex();
-        bufferbuilder.vertex(matrix4f, 1, 1, -0.5f).uv(u0, v0).endVertex();
-        bufferbuilder.vertex(matrix4f, -1, 1, -0.5f).uv(u1, v0).endVertex();
+        bufferbuilder.addVertex(matrix4f, -1, -1, -0.5f).setUv(u1, v1);
+        bufferbuilder.addVertex(matrix4f, 1, -1, -0.5f).setUv(u0, v1);
+        bufferbuilder.addVertex(matrix4f, 1, 1, -0.5f).setUv(u0, v0);
+        bufferbuilder.addVertex(matrix4f, -1, 1, -0.5f).setUv(u1, v0);
         BufferUploader.drawWithShader(bufferbuilder.end());
         // changed: disable blend
         RenderSystem.disableBlend();
