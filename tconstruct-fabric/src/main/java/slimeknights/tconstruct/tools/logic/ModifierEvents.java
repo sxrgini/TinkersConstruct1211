@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.logic;
 
+import net.minecraft.core.Holder;
 import slimeknights.tconstruct.library.utils.StackNbt;
 import slimeknights.mantle.platform.capability.Caps;
 import com.google.common.collect.Lists;
@@ -182,7 +183,7 @@ public class ModifierEvents {
           RandomSource random = target.getRandom();
           // if the stack is gold, and it drops, we get it
           // don't have to worry about checking if it already dropped, the stacks are removed on drop
-          if (!stack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(stack) && stack.makesPiglinsNeutral(target) && random.nextFloat() < extraChance) {
+          if (!stack.isEmpty() && !EnchantmentHelper.has(stack, net.minecraft.world.item.enchantment.EnchantmentEffectComponents.PREVENT_EQUIPMENT_DROP) && stack.getItem() instanceof net.minecraft.world.item.ArmorItem armorItem && armorItem.getMaterial().is(net.minecraft.world.item.ArmorMaterials.GOLD) && random.nextFloat() < extraChance) {
             // mobs damage items on drop, its kinda weird
             if (stack.isDamageableItem()) {
               stack.setDamageValue(stack.getMaxDamage() - random.nextInt(1 + random.nextInt(Math.max(stack.getMaxDamage() - 3, 1))));
@@ -221,7 +222,7 @@ public class ModifierEvents {
       for (int i = 0; i < hotbarSize; i++) {
         ItemStack stack = inventory.getItem(i);
         if (!stack.isEmpty() && (soulBelt || ModifierUtil.checkVolatileFlag(stack, SOULBOUND))) {
-          StackNbt.getOrCreateTag(stack).putInt(MantleEvents.SOULBOUND_SLOT, i);
+          stack.set(slimeknights.mantle.registration.MantleData.SOULBOUND_SLOT.get(), i);
         }
       }
       // rest of the inventory, only check soulbound (no modifier that moves non-soulbound currently)
@@ -230,7 +231,7 @@ public class ModifierEvents {
       for (int i = hotbarSize; i < totalSize; i++) {
         ItemStack stack = inventory.getItem(i);
         if (!stack.isEmpty() && ModifierUtil.checkVolatileFlag(stack, SOULBOUND)) {
-          StackNbt.getOrCreateTag(stack).putInt(MantleEvents.SOULBOUND_SLOT, i);
+          stack.set(slimeknights.mantle.registration.MantleData.SOULBOUND_SLOT.get(), i);
         }
       }
     }
@@ -289,8 +290,8 @@ public class ModifierEvents {
 
       // critical boost is defined where the base value is 150%, setting smaller amounts can reduce the critical damage
       // this event however is defined in terms of adding or subtracting critical, so just treat it as additive
-      Attribute attribute = TinkerAttributes.CRITICAL_DAMAGE;
-      double criticalBoost = living.getAttributeValue(attribute) - attribute.getDefaultValue() + ArmorStatModule.getStat(living, TinkerDataKeys.CRITICAL_DAMAGE);
+      Holder<Attribute> attribute = TinkerAttributes.CRITICAL_DAMAGE;
+      double criticalBoost = living.getAttributeValue(attribute) - attribute.value().getDefaultValue() + ArmorStatModule.getStat(living, TinkerDataKeys.CRITICAL_DAMAGE);
       if (criticalBoost > 0) {
         // make it critical if we meet our simpler conditions, note this does not boost attack damage
         boolean isCritical = event.isVanillaCritical() || event.getResult() == Result.ALLOW;
@@ -312,7 +313,7 @@ public class ModifierEvents {
   @SubscribeEvent
   static void onPotionStart(MobEffectEvent.Added event) {
     MobEffectInstance newEffect = event.getEffectInstance();
-    if (!newEffect.isInfiniteDuration() && !newEffect.getCurativeItems().isEmpty()) {
+    if (!newEffect.isInfiniteDuration()) {
       // use two different stats based on whether the effect is beneficial
       boolean beneficial = newEffect.getEffect().value().isBeneficial();
       LivingEntity entity = event.getEntity();
@@ -451,9 +452,7 @@ public class ModifierEvents {
                 float velocity = ConditionalStatModifierHook.getModifiedStat(tool, target, ToolStats.VELOCITY) * 1.1f;
                 projectile.shoot(reboundAngle.x, reboundAngle.y, reboundAngle.z, velocity, ModifierUtil.getInaccuracy(tool, target));
                 if (projectile instanceof AbstractHurtingProjectile hurting) {
-                  hurting.xPower = reboundAngle.x * 0.1;
-                  hurting.yPower = reboundAngle.y * 0.1;
-                  hurting.zPower = reboundAngle.z * 0.1;
+                  hurting.setDeltaMovement(reboundAngle.normalize().scale(0.1));
                 }
                 if (target.getType() == EntityType.PLAYER) {
                   TinkerNetwork.getInstance().sendVanillaPacket(new ClientboundSetEntityMotionPacket(projectile), target);
@@ -521,7 +520,7 @@ public class ModifierEvents {
           }
 
           // knockback from punch
-          int knockback = arrow.getKnockback();
+          int knockback = 0; // 1.21: punch is enchantment-effect based
           if (knockback > 0) {
             Vec3 knockbackVec = arrow.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale(knockback * 0.6D);
             if (knockbackVec.lengthSqr() > 0.0D) {
@@ -530,8 +529,6 @@ public class ModifierEvents {
           }
 
           if (!level.isClientSide && livingOwner != null) {
-            EnchantmentHelper.doPostHurtEffects(target, livingOwner);
-            EnchantmentHelper.doPostDamageEffects(livingOwner, target);
           }
 
           arrow.doPostHurtEffects(target);
