@@ -3,6 +3,7 @@ package slimeknights.mantle.platform.fluid;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import slimeknights.mantle.Mantle;
@@ -21,6 +22,12 @@ public final class FluidTypes {
   /** Type used for fluids that do not declare one */
   public static final FluidType DEFAULT = new FluidType(FluidType.Properties.create());
   public static final FluidType EMPTY = new FluidType(FluidType.Properties.create().density(0).viscosity(0).temperature(0));
+
+  static {
+    Registry.register(REGISTRY, ResourceLocation.withDefaultNamespace("water"), WATER);
+    Registry.register(REGISTRY, ResourceLocation.withDefaultNamespace("lava"), LAVA);
+    Registry.register(REGISTRY, ResourceLocation.withDefaultNamespace("empty"), EMPTY);
+  }
 
   private FluidTypes() {}
 

@@ -15,25 +15,36 @@ Source: SlimeKnights/Mantle branch `1.21` (NeoForge 21.1.238, MC 1.21.1), copied
 - Access widener not yet written (reference AT in accesstransformer.neoforge.reference.cfg).
 - Maven Central via the sandbox proxy intermittently returns 429; just retry.
 
-## Status: javac errors 5194 -> 474 (80 files). All remaining errors are client rendering or datagen.
+## Status
+- `./gradlew build` succeeds: 0 compile errors, remapped jar produced.
+- **Dedicated server boots** (`./gradlew runServer`, MC 1.21.1, Loader 0.19.5, Fabric API 0.116.5, JEI 19.51 in dev): entrypoint, mixins, access widener, mantle registries, loot modifiers, fluid container transfers all load with no errors from Mantle.
+- **Client is untested** (no display here): model loaders, fluid rendering, HUD, shaders, commands are compiled only.
+- Build pins: Loom 1.15.5, Fabric API 0.116.5+1.21.1, JEI 19.51.0.418 (newer versions need Loom 1.18 / Java 25). Maven Central via the sandbox proxy sometimes returns 429, just retry.
 
-## Ported so far (platform shims in `slimeknights.mantle.platform.*`)
-- `registry`: DeferredRegister/DeferredHolder/DeferredItem/DeferredBlock over Fabric `Registry.register` (call `register()` in the mod initializer).
-- `fluid`: FluidStack (mB), IFluidHandler(+Item), FluidType/FluidTypes (own registry `mantle:fluid_type`), FluidTypeProvider, BaseFlowingFluid, SoundAction(s), fluid ingredients (`fluid.crafting`).
-- `capability`: FluidHandlers + FluidStorageAdapter bridge Fabric Transfer API (droplets = mB * 81) to IFluidHandler(+Item).
-- `item`: IItemHandler(+Modifiable), InvWrapper, SlotItemHandler, ItemHandlers (Transfer API bridge), ItemAbility(+Provider/Abilities).
+## Ported (platform shims in `slimeknights.mantle.platform.*`)
+- `registry`: DeferredRegister/DeferredHolder (a `Holder<R>` like NeoForge)/DeferredItem/DeferredBlock over `Registry.register`; call `register()` in the mod initializer.
+- `fluid`: FluidStack (mB), IFluidHandler(+Item), FluidType/FluidTypes (own registry `mantle:fluid_type`, vanilla water/lava/empty registered), FluidTypeProvider, BaseFlowingFluid, SoundAction(s), fluid ingredients (`fluid.crafting`).
+- `capability` + `item`: FluidHandlers/FluidStorageAdapter and ItemHandlers bridge the Fabric Transfer API (droplets = mB * 81); IItemHandler, InvWrapper, SlotItemHandler, ItemAbility(+Provider/Abilities), ItemHelpers.
 - `ingredient`: ICustomIngredient on Fabric CustomIngredient, IngredientType, SizedIngredient.
-- `condition`: ICondition/IContext/True/False/Not + ConditionRegistry (Mantle's own load conditions; Fabric `fabric:load_conditions` bridge for recipes TODO).
-- `network`: IPayloadContext/IPayloadHandler/PacketDistributor; `MantleNetwork` on Fabric networking (client handlers via `registerClientHandlers`, TODO: call from client initializer, and set `PacketDistributor.setClientSender`).
-- `loot`: LootModifier/IGlobalLootModifier + GlobalLootModifierManager (loads `data/*/loot_modifiers/*.json`, applied by `LootTableMixin`).
-- `menu`: IContainerFactory + MenuTypes (ExtendedScreenHandlerType based).
-- `Mantle` is a `ModInitializer`; config is JSON at `config/mantle.json`; soulbound uses Fabric death/copy events + `InventoryMixin`; access widener generated from the old AT; loot injection and fluid transfer parsing run after data load via Fabric lifecycle events; stripping and sign blocks registered via Fabric APIs.
-- Behavior differences to know: biome modifier removal command dropped (no Fabric equivalent); critical hit/sweep NeoForge events are not fired in CombatHelper; `ConditionalOps` removed (conditions are processed explicitly).
+- `condition`: ICondition/IContext/True/False/Not + ConditionRegistry (ids `mantle:*`, `neoforge:*` accepted as aliases).
+- `network`: IPayloadContext/IPayloadHandler/PacketDistributor; `MantleNetwork` on Fabric networking.
+- `loot`: LootModifier/IGlobalLootModifier + GlobalLootModifierManager (`data/*/loot_modifiers/*.json`, applied by `LootTableMixin`).
+- `menu`: IContainerFactory + MenuTypes (ExtendedScreenHandlerType).
+- `client`: IClientFluidTypeExtensions (registers Fabric fluid render handlers), SpriteHelper, ClientReloadListeners.
+- `client.model`: geometry loaders via `GeometryLoaders` (Fabric ModelLoadingPlugin reading the NeoForge style `"loader"` key from model JSON), IGeometryBakingContext, ModelData bridged to `RenderDataBlockEntity`, BakedModelWrapper (Fabric renderer API bridge), QuadTransformers, CompositeModel, QuadBakingVertexConsumer, TransformingVertexPipeline.
+- `data`: ExistingFileHelper (reads loaded mods), BlockTagsProvider; `client.model.generators`: minimal ModelBuilder/CustomLoaderBuilder.
+- `Mantle` is a `ModInitializer`, `MantleClient` the client entrypoint; config is JSON at `config/mantle.json`; soulbound uses Fabric events + `InventoryMixin`; hearts use `GuiMixin`; HUD via `HudRenderCallback`; shaders via `CoreShaderRegistrationCallback`.
 
-## Still NeoForge-only
-- Client: model loaders/geometry (`client/model/*`, SimpleBlockModel, ConnectedModel, RetexturedModel, ColoredBlockModel, MantleItemLayerModel, ItemKeyModel, FallbackModelLoader), ModelData (`RetexturedHelper`, `DefaultRetexturedBlockEntity`), `ClientEvents`, shaders, extra hearts, `ClientTextureFluidType` (fluid rendering), book/screens bits.
-- Datagen: tag providers, `GenericTextureGenerator`, fluid texture/transfer providers, model builders. Needs Fabric datagen entrypoint (`fabric-datagen-api-v1`) and rewrites to `FabricTagProvider`.
-- Not wired yet: client initializer, `fabric.mod.json` client entrypoint, `PacketDistributor.setClientSender`, Fabric `fabric:load_conditions` for recipe JSON.
+## Behavior differences / known gaps
+- Biome modifier removal command dropped (no Fabric equivalent). Tag command no longer supports tag `remove` lists (vanilla/Fabric tags have none).
+- CombatHelper does not fire NeoForge critical-hit / sweep-attack events.
+- Loot injection pool names: vanilla pools have no names, `main` / `pool<N>` map to pool index.
+- Registry aliases (DeferredRegister.addAlias) are recorded only.
+- Render types: retextured/colored models ignore NeoForge render type hints; Fabric uses the block's registered layer.
+- Fluid fog colour/shape modifiers and the camera overlay from `IClientFluidTypeExtensions` are not hooked into rendering yet; textures and tint are.
+- `BookCommand` image export no longer enables the stencil buffer (needs a Fabric mixin); `PoseStack`/`Transformation` helpers are approximations of NeoForge's.
+- Datagen is compiled but not wired to a Fabric `DataGeneratorEntrypoint`; model builders only emit the custom loader JSON.
+- Recipe JSON conditions use Fabric `fabric:load_conditions`; Mantle data uses its own `conditions` key.
 
 ## Port order
 1. Access widener (needs field descriptors; generate with Loom once online)

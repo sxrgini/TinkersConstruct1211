@@ -21,7 +21,7 @@ group = 'slimeknights.mantle'
 base { archivesName = 'Mantle-Fabric' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-ext.artifact_version = System.getenv().ARTIFACT_VERSION ?: "${mod_version}.DEV"
+ext.artifact_version = System.getenv().ARTIFACT_VERSION ?: "${mod_version}-dev"
 version = "${minecraft_version}-${artifact_version}"
 
 sourceSets.main.resources {

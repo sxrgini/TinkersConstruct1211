@@ -208,7 +208,13 @@ public class RemoveRecipesCommand {
 
     // create the object for removing recipes
     JsonObject json = new JsonObject();
-    json.add("neoforge:conditions", JsonHelper.serializeArray(ICondition.CODEC, FalseCondition.INSTANCE));
+    // an "any of no mods loaded" Fabric load condition is always false, which makes the recipe fail to load
+    JsonObject condition = new JsonObject();
+    condition.addProperty("condition", "fabric:any_mods_loaded");
+    condition.add("values", new com.google.gson.JsonArray());
+    com.google.gson.JsonArray conditions = new com.google.gson.JsonArray();
+    conditions.add(condition);
+    json.add("fabric:load_conditions", conditions);
     String jsonString = DEFAULT_GSON.toJson(json);
 
     int successes = 0;

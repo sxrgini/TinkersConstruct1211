@@ -3,7 +3,7 @@
   "amount": 250,
   "conditions": [
     {
-      "type": "neoforge:not",
+      "type": "mantle:not",
       "value": {
         "type": "mantle:tag_filled",
         "tag": "c:bottles/lingering"

@@ -52,6 +52,7 @@ import slimeknights.mantle.recipe.helper.TagPreference;
 import slimeknights.mantle.registration.MantleData;
 import slimeknights.mantle.registration.RegistrationHelper;
 import slimeknights.mantle.platform.condition.ConditionRegistry;
+import slimeknights.mantle.platform.fluid.FluidTypes;
 
 
 /**
@@ -74,6 +75,8 @@ public class Mantle implements ModInitializer {
   public void onInitialize() {
     Config.load();
     instance = this;
+    // create the fluid type registry before registries freeze
+    FluidTypes.REGISTRY.getClass();
 
     FluidContainerTransferManager.INSTANCE.init();
     MantleTags.init();

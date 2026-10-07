@@ -37,8 +37,12 @@ public final class ConditionRegistry {
   }
 
   static {
-    register(ResourceLocation.withDefaultNamespace("true"), TrueCondition.CODEC);
-    register(ResourceLocation.withDefaultNamespace("false"), FalseCondition.CODEC);
-    register(ResourceLocation.withDefaultNamespace("not"), NotCondition.CODEC);
+    register(ResourceLocation.fromNamespaceAndPath("mantle", "true"), TrueCondition.CODEC);
+    register(ResourceLocation.fromNamespaceAndPath("mantle", "false"), FalseCondition.CODEC);
+    register(ResourceLocation.fromNamespaceAndPath("mantle", "not"), NotCondition.CODEC);
+    // NeoForge ids are accepted so existing data keeps working
+    BY_ID.put(ResourceLocation.fromNamespaceAndPath("neoforge", "true"), TrueCondition.CODEC);
+    BY_ID.put(ResourceLocation.fromNamespaceAndPath("neoforge", "false"), FalseCondition.CODEC);
+    BY_ID.put(ResourceLocation.fromNamespaceAndPath("neoforge", "not"), NotCondition.CODEC);
   }
 }
