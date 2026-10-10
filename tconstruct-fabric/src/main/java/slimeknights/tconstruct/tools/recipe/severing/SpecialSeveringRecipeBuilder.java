@@ -45,7 +45,12 @@ public class SpecialSeveringRecipeBuilder extends AbstractRecipeBuilder<SpecialS
 
   @Override
   public void save(RecipeOutput consumer, ResourceLocation id) {
-    consumer.accept(new Finished(id, null));
+    // special severing recipes have no extra data, so go through the serializer using JSON
+    JsonObject json = new JsonObject();
+    json.addProperty("type", Objects.requireNonNull(BuiltInRegistries.RECIPE_SERIALIZER.getKey(serializer)).toString());
+    json.addProperty("base_chance", baseChance);
+    json.addProperty("looting_bonus", lootingBonus);
+    consumer.accept(id, net.minecraft.world.item.crafting.Recipe.CODEC.parse(com.mojang.serialization.JsonOps.INSTANCE, json).getOrThrow(IllegalStateException::new), null);
   }
 
   /** Finished recipe instance */

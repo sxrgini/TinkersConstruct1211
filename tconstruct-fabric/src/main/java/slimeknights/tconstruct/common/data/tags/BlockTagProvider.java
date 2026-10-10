@@ -353,7 +353,7 @@ public class BlockTagProvider extends BlockTagsProvider {
   }
 
   private void addSmeltery() {
-    this.tag(slimeknights.mantle.datagen.MantleTags.Blocks.HIDES_GAUGE_AMOUNT).add(TinkerSmeltery.faucet.get(), TinkerSmeltery.channel.get());
+    this.tag(slimeknights.mantle.datagen.MantleTags.Blocks.HIDES_GAUGE_AMOUNT).add(TinkerSmeltery.searedFaucet.get(), TinkerSmeltery.scorchedFaucet.get(), TinkerSmeltery.searedChannel.get(), TinkerSmeltery.scorchedChannel.get());
     // seared
     this.tag(TinkerTags.Blocks.SEARED_BRICKS).add(
       TinkerSmeltery.searedBricks.get(),

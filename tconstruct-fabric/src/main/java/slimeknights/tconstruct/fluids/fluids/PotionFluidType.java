@@ -110,4 +110,19 @@ public class PotionFluidType extends FluidType {
     }
     return stack;
   }
+
+  /** Creates a fluid stack for the given potion holder */
+  public static FluidStack potionFluid(net.minecraft.core.Holder<Potion> potion, int size) {
+    return potionFluid(potion.value(), size);
+  }
+
+  /** Creates a fluid output for the given potion holder */
+  public static FluidOutput potionResult(net.minecraft.core.Holder<Potion> potion, int size) {
+    return potionResult(potion.value(), size);
+  }
+
+  /** Creates a potion bucket for the given potion holder */
+  public static ItemStack potionBucket(net.minecraft.core.Holder<Potion> potion) {
+    return potionBucket(potion.value());
+  }
 }

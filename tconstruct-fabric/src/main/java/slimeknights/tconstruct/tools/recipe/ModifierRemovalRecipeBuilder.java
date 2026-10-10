@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.recipe;
 
 import net.minecraft.advancements.AdvancementHolder;
-import com.mojang.datafixers.util.Function6;
+import com.mojang.datafixers.util.Function5;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 /** Builder for {@link ModifierRemovalRecipe} and {@link ExtractModifierRecipe} */
 @RequiredArgsConstructor(staticName = "removal")
 public class ModifierRemovalRecipeBuilder extends AbstractSizedIngredientRecipeBuilder<ModifierRemovalRecipeBuilder> {
-  private final Function6<ResourceLocation,String,SizedIngredient,List<SizedIngredient>,List<ItemStack>,IJsonPredicate<ModifierId>,ModifierRemovalRecipe> constructor;
+  private final Function5<String,SizedIngredient,List<SizedIngredient>,List<ItemStack>,IJsonPredicate<ModifierId>,ModifierRemovalRecipe> constructor;
   private final List<ItemStack> leftovers = new ArrayList<>();
   @Accessors(chain = true)
   @Setter
@@ -89,6 +89,6 @@ public class ModifierRemovalRecipeBuilder extends AbstractSizedIngredientRecipeB
       throw new IllegalStateException("Must have at least one input");
     }
     AdvancementHolder advancementId = buildOptionalAdvancement(consumer, id, "modifiers");
-    consumer.accept(id, constructor.apply(id, name, tools, inputs, leftovers, modifierPredicate), advancementId);
+    consumer.accept(id, constructor.apply(name, tools, inputs, leftovers, modifierPredicate), advancementId);
   }
 }
