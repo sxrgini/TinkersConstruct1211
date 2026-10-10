@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:48:53.735361133	Tinkers' Construct/Tinkers' Construct Gadget Recipes
+// 1.21.1	2026-10-10T17:58:30.016235178	Tinkers' Construct/Tinkers' Construct Gadget Recipes
 87907dd71b3c71e9688745fde983c08cfc121a11 data/tconstruct/recipe/gadgets/cake/sky.json
 b5e0de135f6c1df192b16891353c8f33a30b9826 data/tconstruct/advancement/recipes/decorations/gadgets/frame/gold.json
 6a8f61c7ab8d9ef99d433059cf8681fbfc7c13e1 data/tconstruct/recipe/gadgets/cake/magma.json
@@ -22,8 +22,8 @@ f5d414e60e3dc087c57317a281e842a6ac7dd3d2 data/tconstruct/recipe/gadgets/armor_st
 9f31bb90c4895539c56cbb191cdadfbc175afa14 data/tconstruct/recipe/gadgets/cake/ender.json
 14c15ddfbeff1108cbf917d8755dbac6c74c6aac data/tconstruct/recipe/gadgets/piggy_backpack.json
 8469d16ceb7eba945201503838f2269970a414dc data/tconstruct/advancement/recipes/decorations/gadgets/frame/netherite.json
-395e8567716b29069ae9dd8679206906568223cc data/tconstruct/advancement/recipes/food/gadgets/cake/earth.json
 879f36c25b66f1f98858108f3a09e2dfa3bae573 data/tconstruct/recipe/gadgets/cake/earth.json
+395e8567716b29069ae9dd8679206906568223cc data/tconstruct/advancement/recipes/food/gadgets/cake/earth.json
 f0dead8136a895466dfc632da719d24251f30315 data/tconstruct/recipe/gadgets/cake/ichor.json
 cb3cef70591b79f270d52e9d864fa16d4cf19a93 data/tconstruct/recipe/gadgets/fancy_frame/reversed_gold.json
 9f3418931a5e4319f6ae151d0fd51f78dc36f6ec data/tconstruct/recipe/gadgets/fancy_frame/clear.json

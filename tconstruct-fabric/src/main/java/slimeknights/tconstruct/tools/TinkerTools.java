@@ -26,6 +26,7 @@ import slimeknights.mantle.platform.event.SubscribeEvent;
 import net.fabricmc.loader.api.FabricLoader;
 import slimeknights.mantle.platform.event.lifecycle.FMLCommonSetupEvent;
 import slimeknights.mantle.platform.event.lifecycle.RegisterEvent;
+import slimeknights.tconstruct.library.json.predicate.tool.ToolStackItemPredicate;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
@@ -287,6 +288,11 @@ public final class TinkerTools extends TinkerModule {
     });
     ModifierHooks.init();
     ToolHooks.init();
+  }
+
+  @SubscribeEvent
+  void registerItemSubPredicates(RegisterEvent event) {
+    event.register(Registries.ITEM_SUB_PREDICATE_TYPE, ToolStackItemPredicate.ID, () -> ToolStackItemPredicate.TYPE);
   }
 
   @SubscribeEvent

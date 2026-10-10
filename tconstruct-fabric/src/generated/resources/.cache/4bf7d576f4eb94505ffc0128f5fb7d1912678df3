@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:48:53.759855798	Tinkers' Construct/Tags for minecraft:damage_type
+// 1.21.1	2026-10-10T17:58:30.036421527	Tinkers' Construct/Tags for minecraft:damage_type
 ef7bb17cbcb57dea2b6ee248e0a894bf19bc75da data/minecraft/tags/damage_type/bypasses_cooldown.json
 aeda9d4eb4299c45e34fc3b0a625f21e60e95463 data/tconstruct/tags/damage_type/is_melee.json
 97912931bbca34b895a77f80f958f018bda9d9b8 data/tconstruct/tags/damage_type/protection/magic.json

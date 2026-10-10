@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:48:53.775254388	Tinkers' Construct/Tinkers' Construct Tool Recipes
+// 1.21.1	2026-10-10T17:58:30.065992748	Tinkers' Construct/Tinkers' Construct Tool Recipes
 dec4e07640cdbc5e4d7eb9189bdda0e15f9cb82d data/tconstruct/recipe/tools/parts/casting/bow_limb_sand_cast.json
 8e67beda3d706f2a5943fd5be5b4f4ea32401675 data/tconstruct/recipe/smeltery/casts/sand/molding/broad_axe_head.json
 e17fae2cd91b8fa936fc07a088e463e255a668c0 data/tconstruct/recipe/smeltery/casts/red_sand/molding/tool_binding.json
@@ -324,8 +324,8 @@ e1de076f87c43c3d41df1a1df2b8ec4a3d87f831 data/tconstruct/recipe/smeltery/casts/r
 ea8b0d8c54bb88b915a8329091a290b2860cc67a data/tconstruct/recipe/smeltery/casts/sand/builder_block/tough_binding.json
 10e165e9cb97e30dba7ecd1e9ca05dd7e322c613 data/tconstruct/recipe/tools/armor/slime_skull/rose_gold.json
 40c55b6cac4ca5827e901879c1d9a07e6c2e3015 data/tconstruct/recipe/smeltery/casts/sand/builder_cast/bow_limb.json
-b9afd933714f22cec47d5f4ed9cb04ccd47f071a data/tconstruct/recipe/tools/parts/casting/small_blade_sand_cast.json
 11412358f1f34024ac40ace216c57c9858f397ca data/tconstruct/recipe/smeltery/casts/sand/molding/broad_blade.json
+b9afd933714f22cec47d5f4ed9cb04ccd47f071a data/tconstruct/recipe/tools/parts/casting/small_blade_sand_cast.json
 c46870690141bcfe3da5a4039eee6b3ff070cc6a data/tconstruct/recipe/tools/parts/builder/chestplate_plating.json
 5826ae316a1c587cbcf0e94c82edd8a080dc5d61 data/tconstruct/recipe/tools/parts/casting/small_blade_gold_cast.json
 ded898b21cffd854faefa6565dc50eab1e715c45 data/tconstruct/recipe/tools/recycling/travelers_gear.json

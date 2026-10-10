@@ -12,6 +12,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.PackOutput;
 import slimeknights.mantle.platform.data.ExistingFileHelper;
+import slimeknights.tconstruct.common.data.AdvancementsProvider;
+import slimeknights.tconstruct.common.data.ConfigurationDataProvider;
 import slimeknights.tconstruct.common.data.DamageTypeProvider;
 import slimeknights.tconstruct.common.data.advancement.FunctionProvider;
 import slimeknights.tconstruct.common.data.loot.LootTableInjectionProvider;
@@ -86,6 +88,8 @@ public class TConstructDataGenerator implements DataGeneratorEntrypoint {
     pack.addProvider(TConstructLootTableProvider::new);
     pack.addProvider((output, registries) -> new LootTableInjectionProvider(output, registries));
     pack.addProvider((output, registries) -> new FunctionProvider(output));
+    pack.addProvider((output, registries) -> new AdvancementsProvider(output, registries));
+    pack.addProvider((output, registries) -> new ConfigurationDataProvider(output));
 
     // recipes
     pack.addProvider(CommonRecipeProvider::new);

@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:48:53.769455133	Tinkers' Construct/Tinkers' Construct Loot Table Injections
+// 1.21.1	2026-10-10T17:58:30.06167161	Tinkers' Construct/Tinkers' Construct Loot Table Injections
 fbfde144bb039c01209dcd83f8e6019f5543ac1f data/tconstruct/mantle/loot_injectors/piglin_bartering.json
 624c6be78e90fd8be1ebf977b9d5c3990b5d08d9 data/tconstruct/mantle/loot_injectors/buried_treasure.json
 bd6981e70a84bd99b3f1dc9ba9797b9ae8eed2a1 data/tconstruct/mantle/loot_injectors/abandoned_mineshaft.json

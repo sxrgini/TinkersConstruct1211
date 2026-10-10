@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:48:53.754097408	Tinkers' Construct/Tinkers' Construct Spilling Fluid Provider
+// 1.21.1	2026-10-10T17:58:30.028871895	Tinkers' Construct/Tinkers' Construct Spilling Fluid Provider
 9cddcabf64e4e9a6aca9ffe935f347d27f90eebc data/tconstruct/tinkering/fluid_effects/blazing_blood.json
 c65fef0c05058b6e0003dc3954ca15c8537962a3 data/tconstruct/tinkering/fluid_effects/molten_knightmetal.json
 abbfc2bba2ff4025d966f56804a8d447edcc7ec7 data/tconstruct/tinkering/fluid_effects/molten_nickel.json
@@ -73,8 +73,8 @@ e1998814e2c368fe86349d7899ff9b1927e4dec3 data/tconstruct/tinkering/fluid_effects
 9065b97627f5d1ebdca9b2171f04d520d21538ab data/tconstruct/tinkering/fluid_effects/earth_slime.json
 528057ab4869b9b367487042c6b6e2b175f93bdc data/tconstruct/tinkering/fluid_effects/acetaldehyde.json
 a67adb80a398e12e8eec9d4d5d570af73839d704 data/tconstruct/tinkering/fluid_effects/molten_chromium.json
-9739f8a63e228d76e0e178369b73ad560704ef19 data/tconstruct/tinkering/fluid_effects/molten_amethyst.json
 80500801925c2c3e1e55b0df31dc73bbd44e06b9 data/tconstruct/tinkering/fluid_effects/molten_copper.json
+9739f8a63e228d76e0e178369b73ad560704ef19 data/tconstruct/tinkering/fluid_effects/molten_amethyst.json
 c885eb29e5b11f7a90ebab0d4eb7392ea8d9c8b5 data/tconstruct/tinkering/fluid_effects/molten_tungsten.json
 ec10087d27c2f9885507b4ac0527e590cbe1ebf7 data/tconstruct/tinkering/fluid_effects/molten_bendalloy.json
 d5e42ee9917d58232910021851a3d8e12a62ec2f data/tconstruct/tinkering/fluid_effects/mushroom_stew.json

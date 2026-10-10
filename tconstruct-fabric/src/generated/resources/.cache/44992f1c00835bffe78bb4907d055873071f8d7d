@@ -1,9 +1,9 @@
-// 1.21.1	2026-10-10T17:48:53.774443177	Tinkers' Construct/Tinkers' Construct Block Enchantment Tags
+// 1.21.1	2026-10-10T17:58:30.064707864	Tinkers' Construct/Tinkers' Construct Block Enchantment Tags
 0ab2d9f37bbdcdef961d27ac28ed7fcce1b2f7cd data/tconstruct/tags/enchantment/modifier_like/expanded.json
 48c6b9d9ea81064f2c7e7018da371579a43d77e2 data/tconstruct/tags/enchantment/modifier_like/reach.json
+1b55c0eb9ba4474c77e6f567177ee68f6be5d1e6 data/tconstruct/tags/enchantment/modifier_like/killager.json
 406b0bda0883956dd92ce0e0e91c64cee779e272 data/tconstruct/tags/enchantment/modifier_like/fiery.json
 3519062e321e869b7d9361697e1a941194be7d85 data/tconstruct/tags/enchantment/modifier_like/tilling.json
-1b55c0eb9ba4474c77e6f567177ee68f6be5d1e6 data/tconstruct/tags/enchantment/modifier_like/killager.json
 4ff612ab84b104d4bf81e4febb18f0dda433f954 data/tconstruct/tags/enchantment/modifier_like/severing.json
 87f004394e8d0aa6cef98f26204f614fc6e1c6f4 data/tconstruct/tags/enchantment/modifier_like/revitalizing.json
 803e98188530d710f52eb9ef9bc2d806c0bee477 data/tconstruct/tags/enchantment/modifier_like/experienced.json

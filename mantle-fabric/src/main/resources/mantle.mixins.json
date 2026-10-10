@@ -11,7 +11,8 @@
     "DefaultAttributesMixin",
     "MobSpawnEventsMixin",
     "BlockBehaviourEventsMixin",
-    "RecipeManagerMixin"
+    "RecipeManagerMixin",
+    "ServerAdvancementManagerMixin"
   ],
   "client": [
     "GuiMixin",
