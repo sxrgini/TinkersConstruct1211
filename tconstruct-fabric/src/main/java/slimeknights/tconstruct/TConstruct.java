@@ -114,7 +114,14 @@ public class TConstruct implements ModInitializer {
       slimeknights.mantle.platform.event.client.ClientRegistrationEvents.fireAll(MOD_ID);
     }
     registerAliases();
+    // events that Forge fired after registration, attribute modification is fired lazily by Mantle once all mods have registered their entities
+    bus.post(new slimeknights.mantle.platform.event.entity.EntityAttributeCreationEvent());
+    bus.post(new slimeknights.mantle.platform.event.entity.SpawnPlacementRegisterEvent());
+    bus.post(new slimeknights.mantle.platform.capability.RegisterCapabilitiesEvent());
     bus.post(new FMLCommonSetupEvent());
+    if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+      bus.post(new slimeknights.mantle.platform.event.lifecycle.FMLClientSetupEvent());
+    }
     slimeknights.mantle.platform.event.server.AddReloadListenerEvent.fire();
   }
 
