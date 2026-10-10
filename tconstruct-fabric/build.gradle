@@ -1,6 +1,6 @@
 /*
  * Tinkers' Construct (Fabric port, Minecraft 1.21.1)
- * Depends on the Fabric Mantle port in ../mantle-fabric, build it first with `./gradlew remapJar` there.
+ * Includes the Fabric Mantle port from ../mantle-fabric as a subproject and embeds it in the jar.
  */
 plugins {
     id 'java-library'
@@ -32,7 +32,8 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
 
     // Mantle, built from ../mantle-fabric
-    modImplementation files(fileTree(dir: '../mantle-fabric/build/libs', include: 'Mantle-Fabric-*.jar', exclude: '*-sources.jar'))
+    api project(path: ':mantle', configuration: 'namedElements')
+    include project(':mantle')
 
     compileOnly 'com.google.errorprone:error_prone_annotations:2.36.0'
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'

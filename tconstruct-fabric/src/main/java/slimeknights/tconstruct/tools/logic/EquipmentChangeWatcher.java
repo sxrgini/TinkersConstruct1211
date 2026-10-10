@@ -69,6 +69,10 @@ public class EquipmentChangeWatcher {
 
   /** Event listener to attach the capability */
   private static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+    // events are not filtered by generic type like on Forge
+    if (!(event.getObject() instanceof Entity)) {
+      return;
+    }
     Entity entity = event.getObject();
     if (entity.getCommandSenderWorld().isClientSide && entity instanceof Player) {
       PlayerLastEquipment provider = new PlayerLastEquipment((Player) entity);

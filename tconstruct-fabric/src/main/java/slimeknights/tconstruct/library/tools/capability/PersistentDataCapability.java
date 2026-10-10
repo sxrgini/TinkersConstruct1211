@@ -64,6 +64,10 @@ public class PersistentDataCapability {
 
   /** Event listener to attach the capability */
   private static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+    // events are not filtered by generic type like on Forge
+    if (!(event.getObject() instanceof Entity)) {
+      return;
+    }
     Entity entity = event.getObject();
     // must be on living entities as we use this for potions, but also support anything else with modifiers, this is their data
     if (entity instanceof LivingEntity || EntityModifierCapability.supportCapability(entity)) {

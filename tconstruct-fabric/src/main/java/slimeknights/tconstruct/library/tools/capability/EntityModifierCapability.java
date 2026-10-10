@@ -84,6 +84,10 @@ public class EntityModifierCapability {
 
   /** Event listener to attach the capability */
   private static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+    // events are not filtered by generic type like on Forge
+    if (!(event.getObject() instanceof Entity)) {
+      return;
+    }
     if (supportCapability(event.getObject())) {
       Provider provider = new Provider();
       event.addCapability(ID, provider);

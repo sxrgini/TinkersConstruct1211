@@ -17,6 +17,10 @@ import slimeknights.tconstruct.fluids.util.ConstantFluidContainerWrapper;
 public class FluidEvents {
   @SubscribeEvent
   static void attachCapabilities(AttachCapabilitiesEvent<ItemStack> event) {
+    // events are not filtered by generic type like on Forge
+    if (!(event.getObject() instanceof ItemStack)) {
+      return;
+    }
     ItemStack stack = event.getObject();
     if (event.getObject().is(Items.POWDER_SNOW_BUCKET)) {
       event.addCapability(

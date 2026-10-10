@@ -47,6 +47,10 @@ public interface BlockItemProviderCapability {
 
   /** Event listener to attach default implementation(s) of the capability */
   private static void attachCapability(AttachCapabilitiesEvent<ItemStack> event) {
+    // events are not filtered by generic type like on Forge
+    if (!(event.getObject() instanceof ItemStack)) {
+      return;
+    }
     if (event.getObject().getItem() instanceof BlockItem) {
       event.addCapability(SimpleBlockItem.ID, SimpleBlockItem.INSTANCE);
     }

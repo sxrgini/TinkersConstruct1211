@@ -7,3 +7,7 @@ pluginManagement {
 }
 plugins { id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0' }
 rootProject.name = 'TConstruct-Fabric'
+
+// Mantle is built together with TConstruct and embedded in its jar (jar-in-jar)
+include ':mantle'
+project(':mantle').projectDir = file('../mantle-fabric')

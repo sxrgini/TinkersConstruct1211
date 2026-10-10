@@ -30,6 +30,10 @@ public class PiggybackCapability {
 
   /** Event listener to attach the capability */
   private static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+    // events are not filtered by generic type like on Forge
+    if (!(event.getObject() instanceof Entity)) {
+      return;
+    }
     if (event.getObject() instanceof Player) {
       event.addCapability(ID, new PiggybackHandler((Player) event.getObject()));
     }
