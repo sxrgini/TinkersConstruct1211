@@ -95,7 +95,7 @@ public final class GeometryLoaders {
       IUnbakedGeometry<?> geometry = loader.read(json, CONTEXT);
       Transformation root = json.has("transform") ? readTransform(json.get("transform")) : Transformation.identity();
       ResourceLocation hint = json.has("render_type") ? ResourceLocation.parse(GsonHelper.getAsString(json, "render_type")) : null;
-      return new GeometryModel(base, geometry, new BlockGeometryBakingContext(base, id.toString(), root, hint));
+      return new GeometryModel(base, geometry, id.toString(), root, hint);
     } catch (RuntimeException e) {
       Mantle.logger.error("Failed to load geometry model {}", id, e);
       return null;
@@ -113,33 +113,30 @@ public final class GeometryLoaders {
       null);
   }
 
-  /** Unbaked model combining a vanilla block model (parents, textures, display) with custom geometry */
-  public static final class GeometryModel implements UnbakedModel {
-    private final BlockModel base;
+  /**
+   * Unbaked model combining a vanilla block model (parents, textures, display) with custom geometry.
+   * Extends block model so it can also be used as the parent of regular models, as vanilla requires parents to be block models.
+   */
+  public static final class GeometryModel extends BlockModel {
     private final IUnbakedGeometry<?> geometry;
     private final BlockGeometryBakingContext context;
 
-    private GeometryModel(BlockModel base, IUnbakedGeometry<?> geometry, BlockGeometryBakingContext context) {
-      this.base = base;
+    private GeometryModel(BlockModel base, IUnbakedGeometry<?> geometry, String name, Transformation root, @Nullable ResourceLocation hint) {
+      super(base.parentLocation, base.getElements(), base.textureMap, base.hasAmbientOcclusion(), base.getGuiLight(), base.getTransforms(), base.getOverrides());
+      this.name = name;
       this.geometry = geometry;
-      this.context = context;
-    }
-
-    @Override
-    public Collection<ResourceLocation> getDependencies() {
-      return base.getDependencies();
+      this.context = new BlockGeometryBakingContext(this, name, root, hint);
     }
 
     @Override
     public void resolveParents(Function<ResourceLocation,UnbakedModel> getter) {
-      base.resolveParents(getter);
+      super.resolveParents(getter);
       geometry.resolveParents(getter, context);
     }
 
-    @Nullable
     @Override
     public BakedModel bake(ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState state) {
-      return geometry.bake(context, baker, spriteGetter, state, new ItemOverrides(baker, base, base.getOverrides()));
+      return geometry.bake(context, baker, spriteGetter, state, new ItemOverrides(baker, this, getOverrides()));
     }
   }
 }
