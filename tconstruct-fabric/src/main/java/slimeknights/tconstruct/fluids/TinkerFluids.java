@@ -262,112 +262,14 @@ public final class TinkerFluids extends TinkerModule {
       CauldronInteraction.WATER.map().put(Items.LINGERING_POTION, new EmptyBottleIntoWater(lingeringBottle, CauldronInteraction.WATER.map().get(Items.LINGERING_POTION)));
       CauldronInteraction.EMPTY.map().put(Items.SPLASH_POTION,    new EmptyBottleIntoEmpty(splashBottle,    CauldronInteraction.EMPTY.map().get(Items.SPLASH_POTION)));
       CauldronInteraction.EMPTY.map().put(Items.LINGERING_POTION, new EmptyBottleIntoEmpty(lingeringBottle, CauldronInteraction.EMPTY.map().get(Items.LINGERING_POTION)));
-      // brew bottles into each other, bit weird but feels better than shapeless
-    });
-
-    // dispense buckets
-    DispenseItemBehavior dispenseBucket = new DefaultDispenseItemBehavior() {
-      private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
-
-      @Override
-      public ItemStack execute(BlockSource source, ItemStack stack) {
-        DispensibleContainerItem container = (DispensibleContainerItem)stack.getItem();
-        BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
-        Level level = source.level();
-        if (container.emptyContents(null, level, blockpos, null)) {
-          container.checkExtraContent(null, level, stack, blockpos);
-          return new ItemStack(Items.BUCKET);
-        } else {
-          return this.defaultDispenseItemBehavior.dispense(source, stack);
-        }
-      }
-    };
-    event.enqueueWork(() -> {
-      // slime
-      DispenserBlock.registerBehavior(venom, dispenseBucket);
-      DispenserBlock.registerBehavior(earthSlime, dispenseBucket);
-      DispenserBlock.registerBehavior(skySlime, dispenseBucket);
-      DispenserBlock.registerBehavior(enderSlime, dispenseBucket);
-      DispenserBlock.registerBehavior(magma, dispenseBucket);
-      // foods
-      DispenserBlock.registerBehavior(honey, dispenseBucket);
-      DispenserBlock.registerBehavior(beetrootSoup, dispenseBucket);
-      DispenserBlock.registerBehavior(mushroomStew, dispenseBucket);
-      DispenserBlock.registerBehavior(rabbitStew, dispenseBucket);
-      DispenserBlock.registerBehavior(meatSoup, dispenseBucket);
-      // base molten fluids
-      DispenserBlock.registerBehavior(searedStone, dispenseBucket);
-      DispenserBlock.registerBehavior(scorchedStone, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenClay, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenGlass, dispenseBucket);
-      DispenserBlock.registerBehavior(liquidSoul, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenPorcelain, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenObsidian, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenEnder, dispenseBucket);
-      DispenserBlock.registerBehavior(blazingBlood, dispenseBucket);
-      // ores
-      DispenserBlock.registerBehavior(moltenEmerald, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenQuartz, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenAmethyst, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenDiamond, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenDebris, dispenseBucket);
-      // metal ores
-      DispenserBlock.registerBehavior(moltenIron, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenGold, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenCopper, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenCobalt, dispenseBucket);
-      // alloys
-      DispenserBlock.registerBehavior(moltenSlimesteel, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenAmethystBronze, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenRoseGold, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenPigIron, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenManyullyn, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenHepatizon, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenQueensSlime, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenSoulsteel, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenNetherite, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenKnightslime, dispenseBucket);
-      // compat ores
-      DispenserBlock.registerBehavior(moltenTin, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenAluminum, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenLead, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenSilver, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenNickel, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenZinc, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenPlatinum, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenTungsten, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenOsmium, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenUranium, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenChromium, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenCadmium, dispenseBucket);
-      // compat alloys
-      DispenserBlock.registerBehavior(moltenBronze, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenBrass, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenElectrum, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenInvar, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenConstantan, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenPewter, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenSteel, dispenseBucket);
-      // mod-specific compat alloys
-      DispenserBlock.registerBehavior(moltenEnderium, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenLumium, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenSignalum, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenRefinedGlowstone, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenRefinedObsidian, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenNicrosil, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenDuralumin, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenBendalloy, dispenseBucket);
-      DispenserBlock.registerBehavior(moltenSteeleaf, dispenseBucket);
-      DispenserBlock.registerBehavior(fieryLiquid, dispenseBucket);
-
       // brew bottles into each other, bit weird but feels better than shapeless; congealed slime and magma brew into bottles for easy melting
+      // TODO: 1.21 only allows potion containers in the brewing registry, so the glass bottle conversions need a PotionBrewing mixin, see docs/porting-gaps.md
       FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> {
-        builder.addContainerRecipe(Items.GLASS_BOTTLE, Items.GUNPOWDER, splashBottle.get());
-        builder.addContainerRecipe(splashBottle.get(), Items.DRAGON_BREATH, lingeringBottle.get());
-        for (SlimeType slime : SlimeType.values()) {
-          builder.addContainerRecipe(Items.GLASS_BOTTLE, TinkerWorld.congealedSlime.get(slime).asItem(), TinkerFluids.slimeBottle.get(slime));
+        try {
+          builder.addContainerRecipe(splashBottle.get(), Items.DRAGON_BREATH, lingeringBottle.get());
+        } catch (IllegalArgumentException e) {
+          TConstruct.LOG.warn("Unable to register lingering bottle brewing: {}", e.getMessage());
         }
-        builder.addContainerRecipe(Items.GLASS_BOTTLE, Items.MAGMA_BLOCK, TinkerFluids.magmaBottle.get());
       });
     });
   }

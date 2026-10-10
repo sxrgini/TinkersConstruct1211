@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:46:15.256552418	Tinkers' Construct/Tinkers' Construct Modifier Recipes
+// 1.21.1	2026-10-10T17:48:53.767273059	Tinkers' Construct/Tinkers' Construct Modifier Recipes
 08d5a2ce789f4c7fa9d07c3357d0386303927f04 data/tconstruct/recipe/tools/modifiers/slotless/overslime/earth_block.json
 ce38c876aa3675a371b4f1d5a53e56e4d1c14e0a data/tconstruct/recipe/tools/modifiers/salvage/upgrade/impaling.json
 838d21d07c295b7216392540a246338125fa7b8c data/tconstruct/recipe/tools/modifiers/salvage/ability/bursting.json
@@ -81,8 +81,8 @@ f91c6043e2a7b9284232e98eec38e93c95fd606b data/tconstruct/recipe/tools/modifiers/
 e2435b6a07e91fd2c82d60d58543531bb0ade820 data/tconstruct/recipe/tools/modifiers/upgrade/emerald.json
 5b22addcf61e23aeb0e3a73ac354fd06a1591447 data/tconstruct/recipe/tools/modifiers/salvage/upgrade/scope.json
 90e40553ce61cf9b2f7e8d28990e8b21539097e2 data/tconstruct/recipe/tools/modifiers/ability/spitting.json
-0aaf41d7f6b694c37a1502ca2c7fc3cd23954fb3 data/tconstruct/recipe/tools/modifiers/upgrade/lightspeed_harvest_from_dust.json
 fa40dc4df6efb2bef73b042ca02174b7bfb7a327 data/tconstruct/recipe/tools/modifiers/upgrade/hydraulic_from_block.json
+0aaf41d7f6b694c37a1502ca2c7fc3cd23954fb3 data/tconstruct/recipe/tools/modifiers/upgrade/lightspeed_harvest_from_dust.json
 b099fe8b562f6333504f434573602369e333fe28 data/tconstruct/recipe/tools/modifiers/worktable/extract/slotless_dagger.json
 996c15921c25236d623756095e834bbcebb73bb6 data/tconstruct/recipe/tools/modifiers/salvage/ability/spitting.json
 28628bf07d7f79a8387227783e0d05ab454fc01c data/tconstruct/recipe/tools/modifiers/salvage/upgrade/haste.json

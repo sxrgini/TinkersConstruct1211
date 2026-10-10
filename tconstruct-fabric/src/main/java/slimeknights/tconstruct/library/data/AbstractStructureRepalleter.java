@@ -40,7 +40,7 @@ public abstract class AbstractStructureRepalleter extends GenericNBTProvider {
   private final ExistingFileHelper existingFileHelper;
   private final String modId;
   public AbstractStructureRepalleter(PackOutput packOutput, ExistingFileHelper existingFileHelper, String modId) {
-    super(packOutput, Target.DATA_PACK, "structures");
+    super(packOutput, Target.DATA_PACK, "structure");
     this.existingFileHelper = existingFileHelper;
     this.modId = modId;
   }

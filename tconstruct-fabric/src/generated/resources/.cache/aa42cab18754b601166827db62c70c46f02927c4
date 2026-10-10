@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:46:15.271878995	Tinkers' Construct/Tinkers' Construct Smeltery Recipes
+// 1.21.1	2026-10-10T17:48:53.777064184	Tinkers' Construct/Tinkers' Construct Smeltery Recipes
 095b4a8fc78d7d6cd04ecab04ab58cb5dd9a23ab data/tconstruct/recipe/smeltery/melting/metal/zinc/geore/shard.json
 beeefb3f57deca0489a1a78848e3c0c3175bc3c0 data/tconstruct/recipe/smeltery/melting/metal/knightmetal/twilightforest_ring.json
 256e6c81ed48f759a8b48d7f6997adfe305c0886 data/tconstruct/recipe/smeltery/melting/metal/zinc/geore/bud_small.json
@@ -1266,8 +1266,8 @@ a7ed1203b784c520739ed7275f211a04f520f309 data/tconstruct/recipe/smeltery/melting
 2810bf0c9c7ac5b605e3beded6009607ec54d6e7 data/tconstruct/recipe/smeltery/melting/metal/zinc/ore_singular_alt1.json
 155e9e3fd2444ddf554028362279f06905a5e1c9 data/tconstruct/recipe/smeltery/casting/seared/brick_sand_cast.json
 d23a13c746a29eb426b9d622038113f23ce0f0ac data/tconstruct/recipe/compat/ceramics/casting/golden_bricks_slab.json
-c584d5d68567bd9401bb05cea163a0a0acba08eb data/tconstruct/advancement/recipes/redstone/smeltery/seared/fuel_tank.json
 6b35cc924e769ee72ce42480cdb70825c71e11f6 data/tconstruct/recipe/smeltery/seared/seared_bricks_wall.json
+c584d5d68567bd9401bb05cea163a0a0acba08eb data/tconstruct/advancement/recipes/redstone/smeltery/seared/fuel_tank.json
 51e47822598c55ea835bcaf46676483c47e9937a data/tconstruct/recipe/smeltery/casting/metal/zinc/plate_gold_cast.json
 9654dab4805aa6404f83765e943c9898dc4385c9 data/tconstruct/recipe/smeltery/entity_melting/heads/blaze.json
 953553ea752654e5e173ec64d5c54fa34c220e1c data/tconstruct/recipe/smeltery/melting/metal/lead/sword.json

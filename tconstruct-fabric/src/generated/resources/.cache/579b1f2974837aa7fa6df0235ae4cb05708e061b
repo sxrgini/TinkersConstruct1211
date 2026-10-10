@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:46:15.266152555	Tinkers' Construct/Tinkers' Construct Tool Recipes
+// 1.21.1	2026-10-10T17:48:53.775254388	Tinkers' Construct/Tinkers' Construct Tool Recipes
 dec4e07640cdbc5e4d7eb9189bdda0e15f9cb82d data/tconstruct/recipe/tools/parts/casting/bow_limb_sand_cast.json
 8e67beda3d706f2a5943fd5be5b4f4ea32401675 data/tconstruct/recipe/smeltery/casts/sand/molding/broad_axe_head.json
 e17fae2cd91b8fa936fc07a088e463e255a668c0 data/tconstruct/recipe/smeltery/casts/red_sand/molding/tool_binding.json
@@ -262,8 +262,8 @@ ad07566fee6267245b75f6acf7f40463094c5b26 data/tconstruct/recipe/tools/building/s
 f10eaade51e7fd5950dfbec406022cda533b393c data/tconstruct/advancement/recipes/tools/tools/building/ichor_staff.json
 e93e1a0da703e26a4810eae4445da58dce81bb5f data/tconstruct/recipe/smeltery/casts/red_sand/builder_cast/repair_kit.json
 0367e1afbd75dc28025a64b0c223e0d8c944ef6e data/tconstruct/recipe/smeltery/casts/gold/adze_head.json
-2c4aaff3faeb6f0802040597c97c0b65b42baf6c data/tconstruct/recipe/tools/armor/travelers/shield_wood.json
 82e9d7656a91ecc093028b838eaf6ff50aacb8bb data/tconstruct/recipe/tools/armor/plate/plate_chestplate.json
+2c4aaff3faeb6f0802040597c97c0b65b42baf6c data/tconstruct/recipe/tools/armor/travelers/shield_wood.json
 e0ba85d593b87eb1b6430bf282383cd666e6f9f3 data/tconstruct/recipe/tools/parts/casting/maille_gold_cast.json
 a1e6607054963887145f0a5153308e20aa21f180 data/tconstruct/recipe/smeltery/casts/red_sand/molding/bow_grip.json
 8bc82f7d856c2bd6c942191152e9ffe5c703b369 data/tconstruct/recipe/smeltery/casts/sand/molding/repair_kit.json

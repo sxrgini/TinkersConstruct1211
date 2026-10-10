@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:46:15.248109116	Tinkers' Construct/Tinkers Construct Entity Type TinkerTags
+// 1.21.1	2026-10-10T17:48:53.761814733	Tinkers' Construct/Tinkers Construct Entity Type TinkerTags
 89089318e2d9ccb8c65be6604fa1f7b1eb0254ba data/c/tags/entity_type/turtles.json
 9bf217206cb14569648b53d8745324aeed988a70 data/tconstruct/tags/entity_type/necrotic_blacklist.json
 35bf5d78b05354455a7d34825c4bd2321bb68170 data/tconstruct/tags/entity_type/meltable/skeleton.json
@@ -38,8 +38,8 @@ bfa5943a99eb5bf10495ae60b03df16794502725 data/c/tags/entity_type/ghasts.json
 fdac171762e141ec3439997a6bdcf104f4299a50 data/tconstruct/tags/entity_type/meltable/ender.json
 80dce2d69dd35560e2163dc3ae8409f49890044d data/c/tags/entity_type/tridents.json
 b00bb14b18cad08531c36fa0fe4a1245f1508277 data/c/tags/entity_type/shulkers.json
-748659e93780e0f05b94bdf14c4dfeb84251ba5a data/tconstruct/tags/entity_type/meltable/farm_animals.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/tconstruct/tags/entity_type/melting/blacklist.json
+748659e93780e0f05b94bdf14c4dfeb84251ba5a data/tconstruct/tags/entity_type/meltable/farm_animals.json
 5bd4a93460d1b11374db58ba8722ea5c95017c90 data/c/tags/entity_type/phantoms.json
 579aa6999a0d9fc1e72e6a623c355bd157ca71f8 data/tconstruct/tags/entity_type/bacon_producer.json
 09d3c94406be13f80b1f4de5bd2a4cc54f6dedfc data/tconstruct/tags/entity_type/spawns_with/war_pick.json

@@ -2,7 +2,9 @@ package slimeknights.mantle.mixin;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.mantle.data.loadable.field.ContextKey;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -19,6 +21,12 @@ import java.util.Map;
 /** Evaluates Mantle load conditions on recipe JSON before the recipe manager parses it */
 @Mixin(RecipeManager.class)
 public class RecipeManagerMixin {
+  /** Vanilla codecs only receive the dynamic ops while parsing recipes, so keep the registries around for our loadables */
+  @Inject(method = "<init>", at = @At("RETURN"))
+  private void mantle$captureRegistries(HolderLookup.Provider registries, CallbackInfo ci) {
+    ContextKey.fallbackRegistries = registries;
+  }
+
   @Inject(method = "apply(Ljava/util/Map;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V", at = @At("HEAD"))
   private void mantle$filterConditions(Map<ResourceLocation,JsonElement> map, ResourceManager manager, ProfilerFiller profiler, CallbackInfo ci) {
     ICondition.IContext context = DataLoadedConditionContext.INSTANCE;
