@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T18:02:51.530721757	Tinkers' Construct/Global Loot Modifiers : tconstruct
+// 1.21.1	2026-10-10T21:35:34.564488617	Tinkers' Construct/Global Loot Modifiers : tconstruct
 382baf0574b283d5a788b962efb95d746e62a6fa data/tconstruct/loot_modifiers/lustrous/aluminum.json
 2ce9b3e0b10e4dc927d31190d93644312d0f8370 data/tconstruct/loot_modifiers/wither_bone.json
 4e26b02310f6a25296071d8fc550d1931aab46f0 data/tconstruct/loot_modifiers/lustrous/platinum.json
@@ -14,8 +14,8 @@ acec16a492e1a455bd3718467ac1f40890e3987a data/tconstruct/loot_modifiers/lustrous
 e49f092cb19263c20bed3dcc68339299fd304db9 data/tconstruct/loot_modifiers/lustrous/gold.json
 724bfc3de82ef8e4ab9a8d5a5fd2753e293911c9 data/tconstruct/loot_modifiers/lustrous/copper.json
 5c2e5a63a5bdd18da30f830599155ff0c9c6942b data/tconstruct/loot_modifiers/lustrous/iron.json
-19bcd4733b0fafa5133b98ad0048227dc2ee8114 data/tconstruct/loot_modifiers/lustrous/tungsten.json
 ffeb21d8ee6a6fb1057f5cc97326f797f0aa5a5e data/tconstruct/loot_modifiers/lustrous/tin.json
+19bcd4733b0fafa5133b98ad0048227dc2ee8114 data/tconstruct/loot_modifiers/lustrous/tungsten.json
 99a4795deb8fa97d66ae4629b3e0464f66e0120c data/tconstruct/loot_modifiers/chrysophilite_modifier.json
 548d5a9e0f295fbd20c5e88d1528c1025618c4d8 data/tconstruct/loot_modifiers/tasty_bacon.json
 64e272a29821f5be4f6b3da5c470deabdc07d5d6 data/tconstruct/loot_modifiers/lustrous/lead.json

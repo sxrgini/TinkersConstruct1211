@@ -1,9 +1,9 @@
-// 1.21.1	2026-10-10T18:02:51.536387832	Tinkers' Construct/Tinkers' Construct Structure Repaletter
+// 1.21.1	2026-10-10T21:35:34.566532273	Tinkers' Construct/Tinkers' Construct Structure Repaletter
 3bdd1751fb6989b0a73505e1e6a670e7767e66db data/tconstruct/structure/islands/sky/0x1x0.nbt
 34b1c0fbc19c097350f5267c3c361f02a55f5d02 data/tconstruct/structure/islands/earth/11x1x11.nbt
 5d4aeca765bd1ea439b08155ee6954585067f5d3 data/tconstruct/structure/islands/earth/8x1x11.nbt
-112260c1a070be4d57beba1a1640f57873e01053 data/tconstruct/structure/islands/ender/8x1x11.nbt
 988c884f935b5c01c4d6a18fa7d955dce7e7c2f9 data/tconstruct/structure/islands/blood/0x1x0.nbt
+112260c1a070be4d57beba1a1640f57873e01053 data/tconstruct/structure/islands/ender/8x1x11.nbt
 982f2aae6540b0fdcf715a90489a6b2b5674ca36 data/tconstruct/structure/islands/sky/4x1x6.nbt
 ff7f070d8abd8b35a078767ea7bd2515984f2bce data/tconstruct/structure/islands/blood/11x1x11.nbt
 2fadc7594e64100748107c9c64076569cdce1a39 data/tconstruct/structure/islands/blood/2x2x4.nbt

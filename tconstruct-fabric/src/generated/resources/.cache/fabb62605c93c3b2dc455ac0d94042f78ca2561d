@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T18:02:51.440179256	Tinkers' Construct/Tinker's Construct Material Stats
+// 1.21.1	2026-10-10T21:35:34.536602865	Tinkers' Construct/Tinker's Construct Material Stats
 75bc39f9fac01b4664f5b305f620a2da7ee4a847 data/tconstruct/tinkering/materials/stats/rose_gold.json
 9c30f39fd4f20edab385394f1b96c4ade1893510 data/tconstruct/tinkering/materials/stats/cactus.json
 1500a43f727d34977c223389983f266ac4b44b68 data/tconstruct/tinkering/materials/stats/end_rod.json
@@ -46,8 +46,8 @@ cbe6c04c5c27165ce2caeb9188a4e17d59ac1037 data/tconstruct/tinkering/materials/sta
 d69ebb36ea105d3c557ab5c0ae3bc9e03dee2086 data/tconstruct/tinkering/materials/stats/jadeite.json
 28868ed9752168c07f3e2d947d0b60a491f0151d data/tconstruct/tinkering/materials/stats/aluminum.json
 5807cea0beed8d05b5c0252a2b4ba240daa5a5b8 data/tconstruct/tinkering/materials/stats/enderslime_vine.json
-c6aab9d5cc05f57a744afa4632246b0c22991ad7 data/tconstruct/tinkering/materials/stats/constantan.json
 ce3beea385a3f2a3b75c181a65b88008daba663c data/tconstruct/tinkering/materials/stats/weeping_vine.json
+c6aab9d5cc05f57a744afa4632246b0c22991ad7 data/tconstruct/tinkering/materials/stats/constantan.json
 d773a0f0be4ab947ea6a270d6df196ceea4ff277 data/tconstruct/tinkering/materials/stats/silver.json
 3c6c6c05aed2383595855ac2ffec23be0fca838c data/tconstruct/tinkering/materials/stats/ichor.json
 2a9e101cf21cfbf556b713e8b39731b520ce6526 data/tconstruct/tinkering/materials/stats/twisting_vine.json

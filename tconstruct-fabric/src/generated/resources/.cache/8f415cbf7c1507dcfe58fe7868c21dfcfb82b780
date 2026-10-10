@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T18:02:51.519204886	Tinkers' Construct/Tinkers' Construct advancement mcfunction provider.
+// 1.21.1	2026-10-10T21:35:34.560857077	Tinkers' Construct/Tinkers' Construct advancement mcfunction provider.
 1c8557380fa5304d2389f6025e8bf1ef9607b662 data/tconstruct/function/grant_advancement/story_obtain_armor.mcfunction
 f6821055920755e6c8fcf108581bfc80ff70b3c1 data/tconstruct/function/grant_advancement/story_iron_tools.mcfunction
 ee50990fc873cc799fe8bb78e3e63daef8a4a686 data/tconstruct/function/grant_advancement/nether_netherite_armor.mcfunction

@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T18:02:51.46992672	Tinkers' Construct/Tinkers' Construct Block Enchantment Tags
+// 1.21.1	2026-10-10T21:35:34.548034419	Tinkers' Construct/Tinkers' Construct Block Enchantment Tags
 0ab2d9f37bbdcdef961d27ac28ed7fcce1b2f7cd data/tconstruct/tags/enchantment/modifier_like/expanded.json
 48c6b9d9ea81064f2c7e7018da371579a43d77e2 data/tconstruct/tags/enchantment/modifier_like/reach.json
 1b55c0eb9ba4474c77e6f567177ee68f6be5d1e6 data/tconstruct/tags/enchantment/modifier_like/killager.json
@@ -12,9 +12,9 @@
 eb445b24b1ebf979ceb2af42b21009b2bc48dadd data/tconstruct/tags/enchantment/modifier_like/multishot.json
 90eb4ef0bec88680174ff05229d33c0af6e67d85 data/tconstruct/tags/enchantment/modifier_like/reflecting.json
 81f0e2aaf854c645c06b68f57972c9d400767281 data/tconstruct/tags/enchantment/modifier_like/luck.json
-52f2561ae3d9e9602bd66c538d20e864995da44c data/tconstruct/tags/enchantment/modifier_like/step_up.json
-40eca2734143a0045c798c80e074ce2d411ecc10 data/tconstruct/tags/enchantment/modifier_like/soulbound.json
 4d84fea81348b3dfafe4ab9f902097526aa3d027 data/tconstruct/tags/enchantment/modifier_like/magic_protection.json
+40eca2734143a0045c798c80e074ce2d411ecc10 data/tconstruct/tags/enchantment/modifier_like/soulbound.json
+52f2561ae3d9e9602bd66c538d20e864995da44c data/tconstruct/tags/enchantment/modifier_like/step_up.json
 2607d34698919c4fcbb6df7f95b4ccd853076a1f data/tconstruct/tags/enchantment/modifier_like/freezing.json
 69d0364bcabebcdb45006a449d68f23df2a0e5a5 data/tconstruct/tags/enchantment/modifier_like/necrotic.json
 1589a7a60edc060929e066dcbe214d54e4f2d63f data/tconstruct/tags/enchantment/modifier_like/magnetic.json

@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T18:02:51.41680023	Tinkers' Construct/Tinkers Construct Item Tags
+// 1.21.1	2026-10-10T21:35:34.528579653	Tinkers' Construct/Tinkers Construct Item Tags
 0ff628d1bf12a238ba3e57fd8f549a9ff4c74ea8 data/tconstruct/tags/item/modifiable/melee/primary.json
 4c20b0b853465ad80788d0325871b4d4fac9e989 data/tconstruct/tags/item/melting/steel/tools_costing_4.json
 e11ed0b6a7871924f38af8fc5dd6c9cb70d4e018 data/tconstruct/tags/item/fireballs.json
@@ -18,6 +18,7 @@ ea99834134a4c7647c20f0f4070fc84581b67bff data/c/tags/item/glass/purple.json
 db7754d211d96005c630b27f7ef888e62a787e9b data/tconstruct/tags/item/melting/copper/tools_costing_1.json
 9a61b109cb8a8560ac4472975c7a94fbbcc91026 data/tconstruct/tags/item/modifiable/staffs.json
 ce3f0de4b82ddae117eaad3dc9dee8e6188daf6f data/tconstruct/tags/item/scorched_tanks.json
+dcfcde0b3716705215c339c3ed7bb1fe6da2cdb2 data/c/tags/item/storage_blocks/amethyst.json
 55a64d9a5702c416301dfd0d50d9037af8245ea1 data/c/tags/item/nuggets/amethyst_bronze.json
 972853c5f0448eff729f76adb344db589c744b52 data/c/tags/item/glass_panes/green.json
 07e455922db27041b7ef9c02c7f84212e31c9b7a data/c/tags/item/deepslate.json
@@ -32,7 +33,7 @@ c459040b4c7a9e0c82738b34d092b403a8511f5d data/minecraft/tags/item/logs.json
 c5ca11078936d4003ac26b3c1d4a67876707eb51 data/c/tags/item/storage_blocks/knightmetal.json
 f0783cc36a9523a51a5e89b85690635ba2efa7f5 data/tconstruct/tags/item/melting/silver/tools_costing_2.json
 2a00c54e6904e3b0a70a2552a26fefa04588a4b2 data/minecraft/tags/item/beacon_payment_items.json
-d2de5dab3b56148bea1527b531ab285fdc8ee8de data/c/tags/item/storage_blocks.json
+26917654d4211022546da4aa1bc91c2bc0128c19 data/c/tags/item/storage_blocks.json
 2d4bc96167c6cb6b667d754750c8624cf03ed729 data/tconstruct/tags/item/melting/tin/tools_costing_3.json
 71202a7578e9cf98338cdc016c6fd6e17be4aed4 data/tconstruct/tags/item/melting/steeleaf/tools_costing_2.json
 6b39612092f83b04ab42006e542cfef429b37038 data/tconstruct/tags/item/modifiable/shields.json
@@ -50,8 +51,8 @@ e7bab24790a92f9f690fcb54c3b6ec5278083adb data/tconstruct/tags/item/melting/ironw
 70632b608060cbc8226a90df3a61d4338064134e data/tconstruct/tags/item/modifiable/melee.json
 f1c316cbd9ce4e83b186cef4b7b72a2c2bd2af4a data/tconstruct/tags/item/modifiable/special.json
 6237810fe4dbe605cbbbb94011c9004892a1bcc0 data/c/tags/item/glass_panes/lime.json
-6ff52070278cf2e6f3da2aa2864dc167aa6aed5f data/tconstruct/tags/item/casts/multi_use/small_blade.json
 398e772c9768e9281e1ea2d72600bdb44e9e8847 data/c/tags/item/ingots/steel.json
+6ff52070278cf2e6f3da2aa2864dc167aa6aed5f data/tconstruct/tags/item/casts/multi_use/small_blade.json
 b92951b2a0e8264e11fd4a9a3f9cc79c064dddf7 data/tconstruct/tags/item/slimy_planks.json
 2ef1eec99043ee1dc48a3dc672b71c64de00d201 data/tconstruct/tags/item/modifiable/book_armor/puny_smelting.json
 8746da256c3ec54fdeec02e32b51d4c949f23d14 data/tconstruct/tags/item/melting/invar/tools_costing_3.json
@@ -134,8 +135,8 @@ e40c60156895fa874c4bcc7c81d24576036b491f data/tconstruct/tags/item/modifiable/ra
 b6c9dc1ee2338e5d92147d18faa1e6d2c836e936 data/tconstruct/tags/item/melting/silver/tools_costing_3.json
 d9907ee466789a632b6da07e14e53d8e305375ce data/tconstruct/tags/item/modifiable/ranged/bounce.json
 1de792159d321741cebf83a0f9ae974913f6920b data/tconstruct/tags/item/modifiable/ranged/power.json
-82be72cae2eeea15d6930d4d12021928aa69f42a data/c/tags/item/glass/orange.json
 6dfd552f66f82c276ee306fd24da3a25e2ecaee6 data/c/tags/item/glass_blocks/cheap.json
+82be72cae2eeea15d6930d4d12021928aa69f42a data/c/tags/item/glass/orange.json
 8f705e25d323342c70f906082fea302764684f66 data/tconstruct/tags/item/melting/nickel/tools_costing_1.json
 6770fd02164243a34f3f632942aaf2decb9b1115 data/tconstruct/tags/item/casts/multi_use.json
 f10f3d3a6b813a67f5b216a2eeda4937fe009a33 data/c/tags/item/nuggets/queens_slime.json
@@ -195,6 +196,7 @@ c09cc75763d7e5ed88109432249bc884a3371ce3 data/tconstruct/tags/item/melting/iron/
 f8f9f2ccfcd7a9103bdbb97053cbc74ed8964ae6 data/minecraft/tags/item/axes.json
 f8047540719c4a9a45756bbcf1c94105e75f1397 data/tconstruct/tags/item/melting/refined_glowstone/tools_costing_2.json
 71d895481bc20a91373ad2b727f3052339cf2060 data/minecraft/tags/item/hoes.json
+fbb0fe25e25b7fd86df64c2f168425efedf11710 data/c/tags/item/storage_blocks/quartz.json
 d78b1f37d2137a09927d43aace620e03a2d1bee4 data/c/tags/item/armors/boots.json
 6cf17c42d5d6af1eb12dba65b2e7ecb1de5df278 data/c/tags/item/glass_panes/white.json
 088e20703bde88cc3f1bb0f5f59830ce870329c4 data/tconstruct/tags/item/melting/copper/tools_costing_3.json
@@ -230,8 +232,8 @@ a228a7d89d2d3d8236929295eea9bae234c8a4f1 data/tconstruct/tags/item/modifiable/in
 3ad0bfafea661951144fa9aebc62d3f295599bb2 data/tconstruct/tags/item/melting/gold/tools_costing_4.json
 b672e8675dc849538cfa73fc99df055529a08671 data/c/tags/item/glass_panes/pink.json
 2416d6611043c7dd55a67f068a01b013fef7a051 data/c/tags/item/slimeball/ichor.json
-cc1f74c1c631fe73809f3ad8bdd5dd3ab49769b0 data/c/tags/item/glass_blocks/colorless.json
 bb23c35771e96cc866b5387d5569746e64c23a4c data/c/tags/item/diorite.json
+cc1f74c1c631fe73809f3ad8bdd5dd3ab49769b0 data/c/tags/item/glass_blocks/colorless.json
 697df5ef7cd17f0f05abb862d27ccb09087c00d9 data/parry/tags/item/excluded_shields.json
 873a1cdb211623d64381d4dc9e3bacc92ee03d9a data/tconstruct/tags/item/melting/osmium/tools_costing_3.json
 51806d974ca50b3c9371085d2937b883f24e8220 data/tconstruct/tags/item/melting/iron/tools_costing_1.json
@@ -368,8 +370,8 @@ c871ad2fb6942191f0ce65e4bacf6bf4d2ce6b87 data/tconstruct/tags/item/casts/single_
 0c7d4a2fdfdf84ee22f925fb44ebba9c8869cd24 data/tconstruct/tags/item/anvil_metal.json
 5bb73ec0825faf2701817d780e042fe65f2ab0d8 data/c/tags/item/nuggets/rose_gold.json
 eadd2aa0ca0c7c93501715b8d57747c27b383366 data/c/tags/item/tools/tridents.json
-f39f0d47135dc9ac530e2fcc3053339ce3ce6750 data/c/tags/item/glass_panes.json
 d11da05236e5d52a70b89bb4d63351c6d461a556 data/c/tags/item/glass/blue.json
+f39f0d47135dc9ac530e2fcc3053339ce3ce6750 data/c/tags/item/glass_panes.json
 1ee198ab5048c1eccd3b17331d2113bee15a197f data/tconstruct/tags/item/parts.json
 dabae81ea71be7323a95ef4c647f497651c713a4 data/c/tags/item/ingots/cobalt.json
 d993e41eb0ecfc3252874518c659bc2b80fb2682 data/tconstruct/tags/item/casts/multi_use/repair_kit.json
@@ -422,6 +424,6 @@ a775c185e6298e91782d9e22ab66eca0b3eac769 data/tconstruct/tags/item/modifiable/am
 3871ef4d4b97159a85fb02c03bf34f6149ecbe38 data/tconstruct/tags/item/modifiable/dyeable.json
 6b39612092f83b04ab42006e542cfef429b37038 data/c/tags/item/tools/shields.json
 992079939fd258a38b920e294a5bf5bc093a6a16 data/minecraft/tags/item/wooden_fences.json
-ac57bde28a7f965893aa1c21c045ca45ce8c13ec data/c/tags/item/raw_nuggets/cobalt.json
 d9b7373c3bf40c22f2b451854810bf06f13f11b1 data/minecraft/tags/item/trim_materials.json
+ac57bde28a7f965893aa1c21c045ca45ce8c13ec data/c/tags/item/raw_nuggets/cobalt.json
 3d14afc89c931c06dda6ff7c76bebfcc9e5280d4 data/tconstruct/tags/item/wood_variants/logs.json

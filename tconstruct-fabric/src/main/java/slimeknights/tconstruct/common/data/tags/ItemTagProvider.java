@@ -195,6 +195,11 @@ public class ItemTagProvider extends ItemTagsProvider {
     addMetalTags(TinkerMaterials.knightmetal);
     addMetalTags(TinkerMaterials.knightslime);
     this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
+    // Forge provided these storage block tags, Fabric does not
+    this.tag(Tags.Items.STORAGE_BLOCKS_QUARTZ).add(net.minecraft.world.item.Items.QUARTZ_BLOCK);
+    TagKey<Item> amethystBlocks = TagKey.create(Registries.ITEM, slimeknights.mantle.Mantle.commonResource("storage_blocks/amethyst"));
+    this.tag(amethystBlocks).add(net.minecraft.world.item.Items.AMETHYST_BLOCK);
+    this.tag(Tags.Items.STORAGE_BLOCKS).addTag(Tags.Items.STORAGE_BLOCKS_QUARTZ).addTag(amethystBlocks);
 
     // glass
     copy(Tags.Blocks.GLASS, Tags.Items.GLASS);

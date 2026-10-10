@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T18:02:51.444684436	Tinkers' Construct/Tinkers' Construct Material Tag Provider
+// 1.21.1	2026-10-10T21:35:34.539032974	Tinkers' Construct/Tinkers' Construct Material Tag Provider
 06378eb22a92b70eeb50376052db53161d926e90 data/tconstruct/tinkering/tags/materials/book/distant.json
 8b50c5bce0960091bb4fd6448fcca00e2aa8766a data/tconstruct/tinkering/tags/materials/bartered.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/tconstruct/tinkering/tags/materials/shiny.json
@@ -8,8 +8,8 @@ bcc45f646af5014498fba980b56fba401cf7e70f data/tconstruct/tinkering/tags/material
 dc5bf2d5fe81e09540b9ddc4a992927e464c21bb data/tconstruct/tinkering/tags/materials/book/basic_ammo.json
 d731bcd8d77c26865a25a07fc7947f9b25c61ca7 data/tconstruct/tinkering/tags/materials/nether/gated.json
 eeb6581628a824cdd2f27553e6c97914fb100133 data/tconstruct/tinkering/tags/materials/book/blazing_blood.json
-4eb993df2cff99a476a12f6560385c1a123bde59 data/tconstruct/tinkering/tags/materials/melee_harvest/harvest.json
 f2a89949b947ade3332414a3d64faf5558c91d7a data/tconstruct/tinkering/tags/materials/melee_harvest/general.json
+4eb993df2cff99a476a12f6560385c1a123bde59 data/tconstruct/tinkering/tags/materials/melee_harvest/harvest.json
 480f622a59bcd706ebf48fa00e4899097e1f98d1 data/tconstruct/tinkering/tags/materials/melee_harvest/melee.json
 f1bd52bb94a6ee47e32a43927eafcb7cf8a6e8d0 data/tconstruct/tinkering/tags/materials/compatibility_metals/blocks.json
 fd38fe2ceaa9836026c5b3e553ce74f02496d66f data/tconstruct/tinkering/tags/materials/ranged/balanced.json

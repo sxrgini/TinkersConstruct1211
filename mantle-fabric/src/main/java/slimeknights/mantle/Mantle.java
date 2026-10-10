@@ -92,6 +92,7 @@ public class Mantle implements ModInitializer {
     MantleEvents.init();
     slimeknights.mantle.platform.event.server.OnDatapackSyncEvent.init();
     FabricEventBridge.init();
+    slimeknights.mantle.recipe.RecipeSyncSanitizer.init();
 
     // setup
     MantleCommand.init();

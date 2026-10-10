@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T18:02:51.445574033	Tinkers' Construct/Tinkers Construct Entity Type TinkerTags
+// 1.21.1	2026-10-10T21:35:34.53956335	Tinkers' Construct/Tinkers Construct Entity Type TinkerTags
 89089318e2d9ccb8c65be6604fa1f7b1eb0254ba data/c/tags/entity_type/turtles.json
 9bf217206cb14569648b53d8745324aeed988a70 data/tconstruct/tags/entity_type/necrotic_blacklist.json
 35bf5d78b05354455a7d34825c4bd2321bb68170 data/tconstruct/tags/entity_type/meltable/skeleton.json
@@ -29,9 +29,9 @@ f2e3fd139c263703841c245359d5e0340562b3e9 data/c/tags/entity_type/frogs.json
 d29f12e81e667199a93a5c4fe60db7c20005c2a3 data/tconstruct/tags/entity_type/melting/hide_in_default.json
 a15d44b6e4cb2744c21fd173d65bb9858de283b1 data/tconstruct/tags/entity_type/meltable/drowned.json
 ec37878cff30b80bbb786b0bb951975b572e0a56 data/c/tags/entity_type/squids.json
-142498baf2e2a17179287049255b1f3300bd14a0 data/c/tags/entity_type/reusable_ammo.json
 c8b122726c278bcd82a94dcb9a3b9d7a896d2984 data/tconstruct/tags/entity_type/reflecting/blacklist.json
 7717362b6a7624cf49e4e96f85ba0b1531b25092 data/tconstruct/tags/entity_type/reflecting/preserve_owner.json
+142498baf2e2a17179287049255b1f3300bd14a0 data/c/tags/entity_type/reusable_ammo.json
 c848a53faf40b88a98858ccfafdd4199a13e1a00 data/tconstruct/tags/entity_type/collectables/discardable.json
 bfa5943a99eb5bf10495ae60b03df16794502725 data/c/tags/entity_type/ghasts.json
 191bfcfff8cba8050e2a128cc1f12c23e91dbf0d data/tconstruct/tags/entity_type/spawns_with/swasher/wither_skeleton.json

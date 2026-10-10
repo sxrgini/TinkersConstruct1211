@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T18:02:51.537527424	Tinkers' Construct/Tinker's Construct Material Traits
+// 1.21.1	2026-10-10T21:35:34.567032157	Tinkers' Construct/Tinker's Construct Material Traits
 19d7d1ddd9b27370227a570dc4379adcb189477a data/tconstruct/tinkering/materials/traits/jeweled_hide.json
 06367196119a28cd008584acb7715bb798e96ff6 data/tconstruct/tinkering/materials/traits/enderslimeskin.json
 7d72555a390632f0df6457a871cd3cc1b526e5d7 data/tconstruct/tinkering/materials/traits/constantan.json
@@ -9,8 +9,8 @@
 5126a69e8c943f23d28039b29bbd1f730935186b data/tconstruct/tinkering/materials/traits/leaves.json
 67438ed555979d09b7f41297b080b9ce27718648 data/tconstruct/tinkering/materials/traits/nautilus.json
 524b14de6170518e60ec5a967955fe1806d06b56 data/tconstruct/tinkering/materials/traits/wool.json
-1813a31b30e2f3b537fce3f0de03d302c80878dd data/tconstruct/tinkering/materials/traits/kobold.json
 0d050995eb04a9c94d984f3410eacb7d0d01af5a data/tconstruct/tinkering/materials/traits/queens_slime.json
+1813a31b30e2f3b537fce3f0de03d302c80878dd data/tconstruct/tinkering/materials/traits/kobold.json
 190e32dc1e17e7f8768eb246805865c49056c416 data/tconstruct/tinkering/materials/traits/slimeball.json
 f6243ee0ad589edbf494baa0e00ff1e7089f06b4 data/tconstruct/tinkering/materials/traits/cheese.json
 8cc24e7747e6856355c4f5d78c09ea4dcb243e4a data/tconstruct/tinkering/materials/traits/cactus.json
@@ -88,8 +88,8 @@ e56aeff27ff5df0b95989ceecbd0f9d8830b0956 data/tconstruct/tinkering/materials/tra
 f9934c10a932a8ce9bc265482b221c70836e1dd9 data/tconstruct/tinkering/materials/traits/gold.json
 406fde7d1975314f83b6ee9a1f736d5737114f8c data/tconstruct/tinkering/materials/traits/rose_gold.json
 5c9f7c22f2c960020e9fd5eff9e0630255a2633f data/tconstruct/tinkering/materials/traits/ironwood.json
-ff33419734d8fd2f4ed4fefb3a7f7aa787acf724 data/tconstruct/tinkering/materials/traits/pig_iron.json
 0e2536e35b89b4764c598c85eb3a7000925b8801 data/tconstruct/tinkering/materials/traits/scorched_stone.json
+ff33419734d8fd2f4ed4fefb3a7f7aa787acf724 data/tconstruct/tinkering/materials/traits/pig_iron.json
 0ed74449617a152364dc24d5b1c169eb590c9454 data/tconstruct/tinkering/materials/traits/cobalt.json
 b1a4d15a9911a58e343f8145deb4d4af44353990 data/tconstruct/tinkering/materials/traits/fiery.json
 1d021cef17cd3ac677699da278889040aaa3ffa0 data/tconstruct/tinkering/materials/traits/whitestone.json

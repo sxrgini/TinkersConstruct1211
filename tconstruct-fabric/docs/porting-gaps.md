@@ -36,3 +36,8 @@ Forge-only hooks that no longer have an `@Override` target are listed in `portin
 
 - Custom model loaders (`mantle:connected`, `tconstruct:tool`, `tconstruct:fluid_container`, ...) keep their IDs, but the JSON still references `forge:item/default`, `forge:item/bucket_drip` and `forge:composite` parents/loaders. The client side has not been run yet.
 - Plugins (JEI and mod integrations under `plugin/**`) are excluded from the build.
+
+## Recipe sync
+
+- `RecipeSyncSanitizer` (Mantle) drops recipes that cannot be encoded for the client (for example outputs from empty tags), with a warning. Currently the skeleton entity melting recipes are removed because Fabric has no milk fluid (`c:milk` is empty). `forge:storage_blocks/quartz` and `/amethyst` are added by TConstruct's tag datagen.
+- Forge's generic-typed `AttachCapabilitiesEvent<T>` filtering does not exist, listeners must check the object type themselves.
