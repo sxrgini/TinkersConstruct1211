@@ -1,0 +1,41 @@
+{
+  "type": "tconstruct:remove_modifier",
+  "inputs": [
+    {
+      "fabric:type": "fabric:any",
+      "ingredients": [
+        {
+          "fabric:type": "mantle:fluid_container",
+          "amount": 1000,
+          "display": {
+            "id": "tconstruct:venom_bucket"
+          },
+          "fluid": {
+            "type": "mantle:tag",
+            "tag": "tconstruct:venom"
+          }
+        },
+        {
+          "fabric:type": "mantle:fluid_container",
+          "amount": 250,
+          "container": {
+            "id": "tconstruct:venom_bottle"
+          },
+          "fluid": {
+            "type": "mantle:tag",
+            "tag": "tconstruct:venom"
+          }
+        }
+      ]
+    }
+  ],
+  "modifier_predicate": {
+    "type": "mantle:inverted",
+    "inverted_type": "tconstruct:tag",
+    "tag": "tconstruct:remove_blacklist"
+  },
+  "name": "modifiers",
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  }
+}

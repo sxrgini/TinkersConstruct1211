@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": {
+    "fabric:type": "mantle:item_name",
+    "name": "tools_complement:silver_hammer"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:item_exists",
+      "item": "tools_complement:silver_hammer"
+    }
+  ],
+  "result": {
+    "amount": 1170,
+    "tag": "c:molten_silver",
+    "unit_size": 10
+  },
+  "temperature": 790,
+  "time": 216
+}

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:part_builder",
+  "cost": 3,
+  "pattern": "tconstruct:tough_handle",
+  "pattern_item": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "tag": "tconstruct:patterns/default"
+      },
+      {
+        "item": "tconstruct:tough_handle_cast"
+      }
+    ]
+  },
+  "result": {
+    "item": "tconstruct:tough_handle"
+  }
+}

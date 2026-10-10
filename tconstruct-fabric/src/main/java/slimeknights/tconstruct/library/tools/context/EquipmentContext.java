@@ -30,9 +30,9 @@ public class EquipmentContext {
   @Getter
   private final LivingEntity entity;
   /** Determines if the tool in the given slot was fetched */
-  protected final boolean[] fetchedTool = new boolean[6];
+  protected final boolean[] fetchedTool = new boolean[net.minecraft.world.entity.EquipmentSlot.values().length];
   /** Array of tools currently on the entity */
-  protected final IToolStackView[] toolsInSlots = new IToolStackView[6];
+  protected final IToolStackView[] toolsInSlots = new IToolStackView[net.minecraft.world.entity.EquipmentSlot.values().length];
   /** Cached tinker data capability, saves capability lookup times slightly */
   private LazyOptional<TinkerDataCapability.Holder> tinkerData = null;
 

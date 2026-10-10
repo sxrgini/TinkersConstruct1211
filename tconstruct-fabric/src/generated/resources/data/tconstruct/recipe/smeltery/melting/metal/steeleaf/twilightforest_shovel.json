@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": {
+    "fabric:type": "mantle:item_name",
+    "name": "twilightforest:steeleaf_shovel"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:item_exists",
+      "item": "twilightforest:steeleaf_shovel"
+    }
+  ],
+  "result": {
+    "amount": 90,
+    "fluid": "tconstruct:molten_steeleaf",
+    "unit_size": 10
+  },
+  "temperature": 934,
+  "time": 64
+}

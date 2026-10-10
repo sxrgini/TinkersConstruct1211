@@ -1,0 +1,29 @@
+{
+  "type": "tconstruct:ore_melting",
+  "ingredient": {
+    "tag": "c:raw_materials/nicrosil"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:raw_materials/nicrosil"
+    },
+    {
+      "type": "mantle:true"
+    },
+    {
+      "type": "mantle:not",
+      "value": {
+        "type": "mantle:tag_filled",
+        "tag": "c:ingots/chromium"
+      }
+    }
+  ],
+  "rate": "metal",
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_nicrosil"
+  },
+  "temperature": 1100,
+  "time": 104
+}

@@ -34,6 +34,13 @@ public class ContextKey<T> implements Key<T> {
   /** Context field for fetching registries */
   public static final ContextKey<HolderLookup.Provider> REGISTRY_LOOKUP = new ContextKey<>("registry lookup");
 
+  /**
+   * Registries to use when a codec has no context of its own, set by data providers while they run.
+   * Needed as vanilla codecs only hand us the dynamic ops, which do not expose the lookup provider.
+   */
+  @javax.annotation.Nullable
+  public static volatile HolderLookup.Provider fallbackRegistries;
+
   /** Name of the field, used primarily for debug */
   @Getter
   private final String name;

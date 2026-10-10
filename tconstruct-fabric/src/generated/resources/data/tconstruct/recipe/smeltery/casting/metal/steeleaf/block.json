@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cooling_time": 193,
+  "fluid": {
+    "amount": 810,
+    "name": "tconstruct:molten_steeleaf"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:storage_blocks/steeleaf"
+    }
+  ],
+  "result": {
+    "tag": "c:storage_blocks/steeleaf"
+  }
+}

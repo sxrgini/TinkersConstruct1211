@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:part_builder",
+  "cost": 4,
+  "pattern": "tconstruct:large_plate",
+  "pattern_item": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "tag": "tconstruct:patterns/default"
+      },
+      {
+        "item": "tconstruct:large_plate_cast"
+      }
+    ]
+  },
+  "result": {
+    "item": "tconstruct:large_plate"
+  }
+}

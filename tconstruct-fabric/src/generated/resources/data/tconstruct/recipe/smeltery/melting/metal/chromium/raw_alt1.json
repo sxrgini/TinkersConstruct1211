@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 90,
+      "rate": "metal",
+      "tag": "c:molten_iron"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:raw_materials/chromium"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:raw_materials/chromium"
+    },
+    {
+      "type": "mantle:true"
+    },
+    {
+      "type": "mantle:not",
+      "value": {
+        "type": "mantle:tag_filled",
+        "tag": "c:ingots/aluminum"
+      }
+    }
+  ],
+  "rate": "metal",
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_chromium"
+  },
+  "temperature": 900,
+  "time": 95
+}

@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:part_builder_recycling",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "results": {
+    "tconstruct:ingot": {
+      "count": 3,
+      "tag": "c:ingots/ironwood"
+    }
+  },
+  "tool": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "fabric:type": "mantle:item_name",
+        "name": "twilightforest:ironwood_pickaxe"
+      },
+      {
+        "fabric:type": "mantle:item_name",
+        "name": "twilightforest:ironwood_axe"
+      }
+    ]
+  }
+}

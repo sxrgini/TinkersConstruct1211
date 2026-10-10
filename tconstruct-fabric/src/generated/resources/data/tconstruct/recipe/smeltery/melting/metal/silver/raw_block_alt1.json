@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 810,
+      "rate": "metal",
+      "tag": "c:molten_gold"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:storage_blocks/raw_silver"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:storage_blocks/raw_silver"
+    },
+    {
+      "type": "mantle:true"
+    },
+    {
+      "type": "mantle:not",
+      "value": {
+        "type": "mantle:tag_filled",
+        "tag": "c:ingots/lead"
+      }
+    }
+  ],
+  "rate": "metal",
+  "result": {
+    "amount": 810,
+    "tag": "c:molten_silver"
+  },
+  "temperature": 790,
+  "time": 359
+}

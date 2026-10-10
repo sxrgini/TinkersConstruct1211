@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast_consumed": true,
+  "cooling_time": 70,
+  "fluid": {
+    "amount": 250,
+    "name": "minecraft:water"
+  },
+  "result": "minecraft:mud"
+}

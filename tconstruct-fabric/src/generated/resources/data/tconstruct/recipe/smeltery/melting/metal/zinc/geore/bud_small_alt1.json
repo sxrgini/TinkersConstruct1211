@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 90,
+      "rate": "metal",
+      "tag": "c:molten_copper"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:geore_small_buds/zinc"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:geore_small_buds/zinc"
+    },
+    {
+      "type": "mantle:true"
+    },
+    {
+      "type": "mantle:not",
+      "value": {
+        "type": "mantle:tag_filled",
+        "tag": "c:ingots/tin"
+      }
+    }
+  ],
+  "rate": "metal",
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_zinc"
+  },
+  "temperature": 420,
+  "time": 47
+}

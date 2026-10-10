@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "tconstruct:grout"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:true"
+    },
+    {
+      "type": "mantle:not",
+      "value": {
+        "type": "mantle:mod_loaded",
+        "modid": "ceramics"
+      }
+    }
+  ],
+  "result": {
+    "id": "tconstruct:seared_brick"
+  }
+}

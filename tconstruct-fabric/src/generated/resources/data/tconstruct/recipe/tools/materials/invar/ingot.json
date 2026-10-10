@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "c:ingots/invar"
+  },
+  "material": "tconstruct:invar",
+  "needed": 1,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/invar"
+    }
+  ],
+  "value": 1
+}

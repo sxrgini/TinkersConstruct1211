@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:entity_melting",
+  "damage": 4,
+  "entity": {
+    "tag": "c:striders"
+  },
+  "result": {
+    "amount": 50,
+    "components": {
+      "minecraft:custom_data": {
+        "Potion": "minecraft:fire_resistance"
+      }
+    },
+    "tag": "c:potion"
+  }
+}

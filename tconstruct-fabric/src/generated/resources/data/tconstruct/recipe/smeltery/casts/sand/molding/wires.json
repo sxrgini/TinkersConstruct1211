@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:molding_table",
+  "material": {
+    "tag": "tconstruct:casts/sand"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:wires"
+    }
+  ],
+  "pattern": {
+    "tag": "c:wires"
+  },
+  "result": "tconstruct:wire_sand_cast"
+}

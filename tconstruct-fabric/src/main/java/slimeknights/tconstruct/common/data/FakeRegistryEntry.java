@@ -30,6 +30,10 @@ public class FakeRegistryEntry {
       mapped.unregisteredIntrusiveHolders = new java.util.IdentityHashMap<>();
       try {
         T value = constructor.get();
+        // values of registries without intrusive holders never create one in their constructor
+        if (mapped.unregisteredIntrusiveHolders.isEmpty()) {
+          mapped.unregisteredIntrusiveHolders = null;
+        }
         Registry.register(registry, id, value);
         return value;
       } finally {

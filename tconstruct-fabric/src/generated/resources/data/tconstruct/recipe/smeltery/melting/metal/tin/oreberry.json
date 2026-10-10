@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "fabric:type": "mantle:item_name",
+    "name": "oreberriesreplanted:tin_oreberry"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:item_exists",
+      "item": "oreberriesreplanted:tin_oreberry"
+    }
+  ],
+  "result": {
+    "amount": 10,
+    "tag": "c:molten_tin"
+  },
+  "temperature": 225,
+  "time": 13
+}

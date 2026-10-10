@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:part_builder",
+  "cost": 2,
+  "pattern": "tconstruct:small_axe_head",
+  "pattern_item": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "tag": "tconstruct:patterns/default"
+      },
+      {
+        "item": "tconstruct:small_axe_head_cast"
+      }
+    ]
+  },
+  "result": {
+    "item": "tconstruct:small_axe_head"
+  }
+}

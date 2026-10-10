@@ -1,0 +1,39 @@
+{
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 180,
+      "rate": "metal",
+      "tag": "c:molten_lead"
+    }
+  ],
+  "ingredient": {
+    "fabric:type": "fabric:difference",
+    "base": {
+      "tag": "c:ores/uranium"
+    },
+    "subtracted": {
+      "tag": "tconstruct:non_singular_ore_rates"
+    }
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_combination_filled",
+      "ignore": "tconstruct:non_singular_ore_rates",
+      "match": [
+        "c:ores/uranium"
+      ]
+    },
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/lead"
+    }
+  ],
+  "rate": "metal",
+  "result": {
+    "amount": 180,
+    "tag": "c:molten_uranium"
+  },
+  "temperature": 830,
+  "time": 153
+}

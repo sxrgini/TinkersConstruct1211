@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "fabric:type": "fabric:difference",
+    "base": {
+      "tag": "minecraft:planks"
+    },
+    "subtracted": {
+      "tag": "tconstruct:wood_variants/planks"
+    }
+  },
+  "material": "tconstruct:wood",
+  "needed": 1,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_combination_filled",
+      "ignore": "tconstruct:wood_variants/planks",
+      "match": [
+        "minecraft:planks"
+      ]
+    }
+  ],
+  "value": 1
+}

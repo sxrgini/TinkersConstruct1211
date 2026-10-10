@@ -17,10 +17,33 @@ import java.util.Arrays;
 /** An ingredient with a count, replacing NeoForge's {@code SizedIngredient}. */
 public record SizedIngredient(Ingredient ingredient, int count) {
   /** Codec flattening the ingredient fields and the count into one object */
-  public static final Codec<SizedIngredient> FLAT_CODEC = Codec.mapPair(
+  public static final Codec<SizedIngredient> FLAT_CODEC_STRICT = Codec.mapPair(
     MapCodec.assumeMapUnsafe(Ingredient.CODEC_NONEMPTY),
     Codec.intRange(1, Integer.MAX_VALUE).optionalFieldOf("count", 1)
   ).codec().xmap(pair -> new SizedIngredient(pair.getFirst(), pair.getSecond()), sized -> Pair.of(sized.ingredient, sized.count));
+
+  /** Codec nesting the ingredient under a key, used for ingredients that cannot be flattened such as lists */
+  public static final Codec<SizedIngredient> NESTED_CODEC = com.mojang.serialization.codecs.RecordCodecBuilder.create(instance -> instance.group(
+    Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(SizedIngredient::ingredient),
+    Codec.intRange(1, Integer.MAX_VALUE).optionalFieldOf("count", 1).forGetter(SizedIngredient::count)
+  ).apply(instance, SizedIngredient::new));
+
+  /** Codec preferring the flat form, falling back to the nested form where the ingredient is not an object, and reading either */
+  public static final Codec<SizedIngredient> FLAT_CODEC = Codec.withAlternative(new Codec<SizedIngredient>() {
+    @Override
+    public <T> com.mojang.serialization.DataResult<T> encode(SizedIngredient input, com.mojang.serialization.DynamicOps<T> ops, T prefix) {
+      com.mojang.serialization.DataResult<T> result = FLAT_CODEC_STRICT.encode(input, ops, prefix);
+      if (result.isError()) {
+        return NESTED_CODEC.encode(input, ops, prefix);
+      }
+      return result;
+    }
+
+    @Override
+    public <T> com.mojang.serialization.DataResult<Pair<SizedIngredient,T>> decode(com.mojang.serialization.DynamicOps<T> ops, T input) {
+      return FLAT_CODEC_STRICT.decode(ops, input);
+    }
+  }, NESTED_CODEC);
 
   public static final StreamCodec<RegistryFriendlyByteBuf,SizedIngredient> STREAM_CODEC = StreamCodec.composite(
     Ingredient.CONTENTS_STREAM_CODEC, SizedIngredient::ingredient,

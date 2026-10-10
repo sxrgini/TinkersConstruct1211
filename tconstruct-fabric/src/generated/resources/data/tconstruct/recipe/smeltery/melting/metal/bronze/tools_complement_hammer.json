@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": {
+    "fabric:type": "mantle:item_name",
+    "name": "tools_complement:bronze_hammer"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:item_exists",
+      "item": "tools_complement:bronze_hammer"
+    }
+  ],
+  "result": {
+    "amount": 1170,
+    "tag": "c:molten_bronze",
+    "unit_size": 10
+  },
+  "temperature": 700,
+  "time": 205
+}

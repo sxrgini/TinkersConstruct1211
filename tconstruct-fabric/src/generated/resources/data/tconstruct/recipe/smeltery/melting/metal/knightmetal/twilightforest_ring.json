@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "fabric:type": "mantle:item_name",
+    "name": "twilightforest:knightmetal_ring"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:item_exists",
+      "item": "twilightforest:knightmetal_ring"
+    }
+  ],
+  "result": {
+    "amount": 360,
+    "fluid": "tconstruct:molten_knightmetal"
+  },
+  "temperature": 1300,
+  "time": 150
+}

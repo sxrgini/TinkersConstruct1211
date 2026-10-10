@@ -80,6 +80,18 @@ loom {
     accessWidenerPath = file('src/main/resources/tconstruct.accesswidener')
 }
 
+fabricApi {
+    configureDataGeneration {
+        outputDirectory = file("src/generated/resources")
+        modId = 'tconstruct'
+    }
+}
+
+// structure templates and other existing files from the 1.20 resources are visible to the data providers
+tasks.matching { it.name == 'runDatagen' }.configureEach {
+    systemProperty 'mantle.datagen.existing', file('../src/main/resources').absolutePath
+}
+
 tasks.register('generateModMetadata', ProcessResources) {
     def props = [
         'version': mod_version,

@@ -40,7 +40,7 @@ public record FluidContainerIngredient(FluidIngredient fluid, int amount, List<I
   public static final MapCodec<FluidContainerIngredient> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
     FluidIngredient.CODEC_NON_EMPTY.fieldOf("fluid").forGetter(FluidContainerIngredient::fluid),
     ExtraCodecs.POSITIVE_INT.fieldOf("amount").forGetter(FluidContainerIngredient::amount),
-    MantleCodecs.compactList(ItemStack.SINGLE_ITEM_CODEC).fieldOf("display").forGetter(FluidContainerIngredient::display),
+    MantleCodecs.compactList(ItemStack.SINGLE_ITEM_CODEC).optionalFieldOf("display", List.of()).forGetter(FluidContainerIngredient::display),
     ItemStack.SINGLE_ITEM_CODEC.optionalFieldOf("container", ItemStack.EMPTY).forGetter(FluidContainerIngredient::container)
   ).apply(instance, FluidContainerIngredient::new));
   public static final StreamCodec<RegistryFriendlyByteBuf, FluidContainerIngredient> STREAM_CODEC = StreamCodec.composite(

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "fabric:type": "mantle:item_name",
+    "name": "allomancy:duralumin_flakes"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:item_exists",
+      "item": "allomancy:duralumin_flakes"
+    }
+  ],
+  "result": {
+    "amount": 30,
+    "tag": "c:molten_duralumin"
+  },
+  "temperature": 625,
+  "time": 31
+}

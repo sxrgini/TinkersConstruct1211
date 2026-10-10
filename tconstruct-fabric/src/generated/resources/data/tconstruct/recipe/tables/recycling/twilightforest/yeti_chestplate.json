@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:part_builder_recycling",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "results": {
+    "tconstruct:maille": {
+      "count": 8,
+      "item": "twilightforest:alpha_yeti_fur"
+    }
+  },
+  "tool": {
+    "fabric:type": "mantle:item_name",
+    "name": "twilightforest:yeti_chestplate"
+  }
+}

@@ -2,6 +2,7 @@ package slimeknights.mantle.data.loadable;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.DynamicOps;
+import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.JsonCodec;
 import slimeknights.mantle.util.typed.TypedMap;
 
@@ -15,11 +16,20 @@ public record LoadableCodec<T>(Loadable<T> loadable, Supplier<TypedMap> context)
 
   @Override
   public T deserialize(JsonElement element, DynamicOps<?> ops) {
-    return loadable.convert(element, "codec", context.get());
+    return loadable.convert(element, "codec", context(ops));
   }
 
   @Override
   public JsonElement serialize(T object, DynamicOps<?> ops) {
-    return loadable.serialize(object, context.get());
+    return loadable.serialize(object, context(ops));
+  }
+
+  /** Gets the context, using the registries from the ops if the context has none */
+  private TypedMap context(DynamicOps<?> ops) {
+    TypedMap map = context.get();
+    if (map.get(ContextKey.REGISTRY_LOOKUP) == null && ContextKey.fallbackRegistries != null) {
+      return slimeknights.mantle.util.typed.TypedMapBuilder.builder().putAll(map).put(ContextKey.REGISTRY_LOOKUP, ContextKey.fallbackRegistries).build();
+    }
+    return map;
   }
 }

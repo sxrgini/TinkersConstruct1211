@@ -44,6 +44,7 @@ public abstract class MantleRecipeProvider extends RecipeProvider {
   public CompletableFuture<?> run(CachedOutput output, HolderLookup.Provider registries) {
     Set<ResourceLocation> seen = Sets.newHashSet();
     List<CompletableFuture<?>> futures = new ArrayList<>();
+    slimeknights.mantle.data.loadable.field.ContextKey.fallbackRegistries = registries;
     RegistryOps<JsonElement> ops = registries.createSerializationContext(JsonOps.INSTANCE);
     buildRecipes(new ConditionalRecipeOutput() {
       @Override

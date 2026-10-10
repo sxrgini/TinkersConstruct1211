@@ -15,7 +15,8 @@
   "accessWidener": "tconstruct.accesswidener",
   "mixins": ["tconstruct.mixins.json"],
   "entrypoints": {
-    "main": ["slimeknights.tconstruct.TConstruct"]
+    "main": ["slimeknights.tconstruct.TConstruct"],
+    "fabric-datagen": ["slimeknights.tconstruct.data.TConstructDataGenerator"]
   },
   "depends": {
     "fabricloader": ">=${loader_version}",

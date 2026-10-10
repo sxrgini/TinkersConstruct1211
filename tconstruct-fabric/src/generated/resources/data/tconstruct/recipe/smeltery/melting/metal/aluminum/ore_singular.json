@@ -1,0 +1,35 @@
+{
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 180,
+      "rate": "metal",
+      "tag": "c:molten_iron"
+    }
+  ],
+  "ingredient": {
+    "fabric:type": "fabric:difference",
+    "base": {
+      "tag": "c:ores/aluminum"
+    },
+    "subtracted": {
+      "tag": "tconstruct:non_singular_ore_rates"
+    }
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_combination_filled",
+      "ignore": "tconstruct:non_singular_ore_rates",
+      "match": [
+        "c:ores/aluminum"
+      ]
+    }
+  ],
+  "rate": "metal",
+  "result": {
+    "amount": 180,
+    "tag": "c:molten_aluminum"
+  },
+  "temperature": 425,
+  "time": 118
+}

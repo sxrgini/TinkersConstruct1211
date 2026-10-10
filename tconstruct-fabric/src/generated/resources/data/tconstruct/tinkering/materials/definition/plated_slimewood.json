@@ -1,0 +1,32 @@
+{
+  "condition": {
+    "type": "mantle:or",
+    "values": [
+      {
+        "type": "tconstruct:config",
+        "prop": "force_integration_materials"
+      },
+      {
+        "type": "mantle:tag_filled",
+        "tag": "c:ingots/plated_slimewood"
+      },
+      {
+        "type": "mantle:and",
+        "values": [
+          {
+            "type": "tconstruct:config",
+            "prop": "allow_ingotless_alloys"
+          },
+          {
+            "type": "mantle:tag_filled",
+            "tag": "c:ingots/zinc"
+          }
+        ]
+      }
+    ]
+  },
+  "craftable": false,
+  "hidden": false,
+  "sortOrder": 8,
+  "tier": 3
+}

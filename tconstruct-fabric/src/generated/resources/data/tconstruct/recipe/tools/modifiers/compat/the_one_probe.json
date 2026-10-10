@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "fabric:type": "mantle:item_name",
+      "name": "theoneprobe:probe"
+    }
+  ],
+  "level": 1,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:mod_loaded",
+      "modid": "theoneprobe"
+    }
+  ],
+  "result": "tconstruct:the_one_probe",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "tag": "tconstruct:modifiable/armor/helmets"
+      },
+      {
+        "tag": "tconstruct:modifiable/held"
+      }
+    ]
+  }
+}

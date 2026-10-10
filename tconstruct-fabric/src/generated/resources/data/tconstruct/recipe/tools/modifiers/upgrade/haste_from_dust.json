@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
+  "input": {
+    "tag": "c:dusts/redstone"
+  },
+  "level": {
+    "max": 5
+  },
+  "needed_per_level": 45,
+  "result": "tconstruct:haste",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "tag": "tconstruct:modifiable/harvest"
+      },
+      {
+        "tag": "tconstruct:modifiable/armor/chestplate"
+      }
+    ]
+  }
+}

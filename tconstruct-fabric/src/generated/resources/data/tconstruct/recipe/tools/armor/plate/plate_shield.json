@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:table_tool_casting",
+  "cast_purpose": "first_material",
+  "item_cost": 3,
+  "result": "tconstruct:plate_shield"
+}

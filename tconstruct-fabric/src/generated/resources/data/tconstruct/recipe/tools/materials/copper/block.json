@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "tag": "c:storage_blocks/copper"
+      },
+      {
+        "item": "minecraft:waxed_copper_block"
+      }
+    ]
+  },
+  "leftover": {
+    "count": 1,
+    "tag": "c:ingots/copper"
+  },
+  "material": "tconstruct:copper",
+  "needed": 1,
+  "value": 9
+}

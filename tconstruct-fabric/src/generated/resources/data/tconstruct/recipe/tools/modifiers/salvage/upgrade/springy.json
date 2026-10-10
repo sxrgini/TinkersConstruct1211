@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "modifier": "tconstruct:springy",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "tag": "tconstruct:modifiable/armor/worn"
+      },
+      {
+        "tag": "tconstruct:modifiable/shields"
+      }
+    ]
+  }
+}

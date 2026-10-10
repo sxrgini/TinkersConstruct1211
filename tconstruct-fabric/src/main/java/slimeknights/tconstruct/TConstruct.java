@@ -90,6 +90,9 @@ public class TConstruct implements ModInitializer {
     bus.register(new TinkerSmeltery());
     bus.register(new TinkerFluids());
 
+    // event subscribers must be registered before registry events fire
+    TinkerEventSubscribers.registerCommon();
+
     // init deferred registers
     TinkerModule.initRegisters();
     slimeknights.mantle.platform.event.lifecycle.RegisterEvent.fireAll();
@@ -106,7 +109,6 @@ public class TConstruct implements ModInitializer {
 
     // compat plugins are ported separately, see tconstruct-fabric build.gradle excludes
 
-    TinkerEventSubscribers.registerCommon();
     if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
       TinkerEventSubscribers.registerClient();
       slimeknights.mantle.platform.event.client.ClientRegistrationEvents.fireAll(MOD_ID);

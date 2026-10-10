@@ -1,0 +1,46 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "fabric:type": "tconstruct:material",
+      "match": {
+        "item": "tconstruct:adze_head"
+      }
+    },
+    {
+      "tag": "c:ingots/steel"
+    },
+    {
+      "fabric:type": "tconstruct:material",
+      "match": {
+        "item": "tconstruct:tool_binding"
+      }
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:pathing",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "fabric:type": "fabric:all",
+    "ingredients": [
+      {
+        "tag": "tconstruct:modifiable/durability"
+      },
+      {
+        "fabric:type": "fabric:any",
+        "ingredients": [
+          {
+            "tag": "tconstruct:modifiable/interactable"
+          },
+          {
+            "tag": "tconstruct:modifiable/armor/boots"
+          }
+        ]
+      }
+    ]
+  }
+}

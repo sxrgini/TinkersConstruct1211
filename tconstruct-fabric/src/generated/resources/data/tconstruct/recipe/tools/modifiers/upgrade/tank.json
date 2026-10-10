@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "fabric:type": "tconstruct:no_container",
+      "match": {
+        "tag": "tconstruct:tanks"
+      }
+    }
+  ],
+  "result": "tconstruct:tank",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "tag": "tconstruct:modifiable/held"
+      },
+      {
+        "tag": "tconstruct:modifiable/armor"
+      }
+    ]
+  }
+}

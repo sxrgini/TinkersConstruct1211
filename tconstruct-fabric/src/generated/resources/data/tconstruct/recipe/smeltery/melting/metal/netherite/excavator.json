@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "byproducts": [
+    {
+      "amount": 1100,
+      "fluid": "tconstruct:molten_diamond",
+      "unit_size": 25
+    }
+  ],
+  "ingredient": {
+    "fabric:type": "mantle:item_name",
+    "name": "tools_complement:netherite_excavator"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:item_exists",
+      "item": "tools_complement:netherite_excavator"
+    }
+  ],
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_netherite",
+    "unit_size": 10
+  },
+  "temperature": 1250,
+  "time": 74
+}

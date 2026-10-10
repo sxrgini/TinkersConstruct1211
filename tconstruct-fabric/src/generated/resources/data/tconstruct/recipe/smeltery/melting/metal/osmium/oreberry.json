@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "fabric:type": "mantle:item_name",
+    "name": "oreberriesreplanted:osmium_oreberry"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:item_exists",
+      "item": "oreberriesreplanted:osmium_oreberry"
+    }
+  ],
+  "result": {
+    "amount": 10,
+    "tag": "c:molten_osmium"
+  },
+  "temperature": 975,
+  "time": 22
+}

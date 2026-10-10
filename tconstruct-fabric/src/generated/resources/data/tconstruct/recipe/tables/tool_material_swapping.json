@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:tool_material_swapping",
+  "tools": {
+    "fabric:type": "fabric:difference",
+    "base": {
+      "tag": "tconstruct:modifiable/multipart"
+    },
+    "subtracted": {
+      "tag": "tconstruct:modifiable/unswappable/tools"
+    }
+  }
+}

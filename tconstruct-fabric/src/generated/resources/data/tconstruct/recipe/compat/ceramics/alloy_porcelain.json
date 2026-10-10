@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:alloy",
+  "inputs": [
+    {
+      "amount": 750,
+      "tag": "tconstruct:molten_clay"
+    },
+    {
+      "amount": 100,
+      "tag": "tconstruct:molten_quartz"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "mantle:mod_loaded",
+      "modid": "ceramics"
+    }
+  ],
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:molten_porcelain"
+  },
+  "temperature": 700
+}

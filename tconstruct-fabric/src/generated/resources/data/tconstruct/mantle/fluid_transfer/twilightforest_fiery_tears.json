@@ -1,0 +1,17 @@
+{
+  "type": "mantle:empty_item",
+  "conditions": [
+    {
+      "type": "mantle:item_exists",
+      "item": "twilightforest:fiery_tears"
+    }
+  ],
+  "fluid": {
+    "amount": 250,
+    "fluid": "tconstruct:fiery_liquid"
+  },
+  "input": {
+    "fabric:type": "mantle:item_name",
+    "name": "twilightforest:fiery_tears"
+  }
+}

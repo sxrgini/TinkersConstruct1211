@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast_consumed": true,
+  "cooling_time": 19,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_gold"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:mod_loaded",
+      "modid": "ceramics"
+    }
+  ],
+  "result": "ceramics:golden_bricks_stairs"
+}

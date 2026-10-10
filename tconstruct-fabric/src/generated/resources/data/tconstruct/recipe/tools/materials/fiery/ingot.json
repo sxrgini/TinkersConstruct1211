@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "c:ingots/fiery"
+  },
+  "material": "tconstruct:fiery",
+  "needed": 1,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/fiery"
+    }
+  ],
+  "value": 1
+}

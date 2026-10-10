@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:crafting_shaped_materials",
+  "category": "equipment",
+  "key": {
+    "c": {
+      "fabric:type": "tconstruct:material_value",
+      "material": {
+        "type": "tconstruct:stat_type",
+        "stat_type": "tconstruct:shield_core"
+      },
+      "max": 1.0,
+      "min": 1.0
+    },
+    "l": {
+      "fabric:type": "tconstruct:material_value",
+      "material": {
+        "type": "tconstruct:stat_type",
+        "stat_type": "tconstruct:cuirass"
+      },
+      "max": 1.0,
+      "min": 1.0
+    },
+    "s": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "parts": "cl",
+  "pattern": [
+    "scs",
+    "lcl"
+  ],
+  "result": {
+    "count": 1,
+    "id": "tconstruct:travelers_shield"
+  }
+}

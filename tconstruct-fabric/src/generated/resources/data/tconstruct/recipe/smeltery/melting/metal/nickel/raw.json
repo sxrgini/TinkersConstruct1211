@@ -1,0 +1,30 @@
+{
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 90,
+      "rate": "metal",
+      "tag": "c:molten_platinum"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:raw_materials/nickel"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:raw_materials/nickel"
+    },
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/platinum"
+    }
+  ],
+  "rate": "metal",
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_nickel"
+  },
+  "temperature": 950,
+  "time": 97
+}

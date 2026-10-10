@@ -1,0 +1,29 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "allow_crystal": false,
+  "inputs": [
+    {
+      "item": "minecraft:clay"
+    },
+    {
+      "item": "minecraft:clay_ball"
+    },
+    {
+      "item": "minecraft:clay"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:modifiable/embellishment/slime"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:clay"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/slime"
+  },
+  "variant_formatter": "tconstruct:material"
+}

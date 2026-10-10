@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:table_duplication",
+  "cast": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "item": "minecraft:netherite_upgrade_smithing_template"
+      },
+      {
+        "tag": "minecraft:trim_templates"
+      }
+    ]
+  },
+  "cooling_time": 186,
+  "fluid": {
+    "amount": 500,
+    "name": "tconstruct:molten_diamond"
+  }
+}

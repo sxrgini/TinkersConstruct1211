@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:part_builder",
+  "cost": 1,
+  "pattern": "tconstruct:tool_binding",
+  "pattern_item": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "tag": "tconstruct:patterns/default"
+      },
+      {
+        "item": "tconstruct:tool_binding_cast"
+      }
+    ]
+  },
+  "result": {
+    "item": "tconstruct:tool_binding"
+  }
+}

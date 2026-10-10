@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "minecraft:brick_slab"
+  },
+  "cast_consumed": true,
+  "cooling_time": 56,
+  "fluid": {
+    "amount": 50,
+    "name": "minecraft:lava"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:mod_loaded",
+      "modid": "ceramics"
+    }
+  ],
+  "result": "ceramics:lava_bricks_slab"
+}

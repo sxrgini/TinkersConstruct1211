@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_chromium"
+  },
+  "input": "tconstruct:rock",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/chromium"
+    }
+  ],
+  "output": "tconstruct:whitestone#composite",
+  "temperature": 900
+}

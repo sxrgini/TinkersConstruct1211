@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": {
+    "fabric:type": "mantle:item_name",
+    "name": "mekanism:refined_glowstone_shield"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:item_exists",
+      "item": "mekanism:refined_glowstone_shield"
+    }
+  ],
+  "result": {
+    "amount": 540,
+    "tag": "c:molten_refined_glowstone",
+    "unit_size": 10
+  },
+  "temperature": 825,
+  "time": 149
+}

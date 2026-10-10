@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "c:ingots/aluminum"
+  },
+  "material": "tconstruct:aluminum",
+  "needed": 1,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/aluminum"
+    }
+  ],
+  "value": 1
+}

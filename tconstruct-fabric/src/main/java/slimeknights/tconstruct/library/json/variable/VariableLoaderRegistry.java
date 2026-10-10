@@ -45,7 +45,7 @@ public class VariableLoaderRegistry<T extends IHaveLoader> extends GenericLoader
     if (src instanceof ConstantFloat constant) {
       return new JsonPrimitive(constant.value());
     }
-    return super.serialize(src);
+    return super.serialize(src, context);
   }
 
   /** Interface for a float constructor */

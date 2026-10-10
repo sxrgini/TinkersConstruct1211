@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 810,
+      "rate": "metal",
+      "tag": "c:molten_copper"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:storage_blocks/raw_cadmium"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:storage_blocks/raw_cadmium"
+    },
+    {
+      "type": "mantle:true"
+    },
+    {
+      "type": "mantle:not",
+      "value": {
+        "type": "mantle:tag_filled",
+        "tag": "c:ingots/lead"
+      }
+    }
+  ],
+  "rate": "metal",
+  "result": {
+    "amount": 810,
+    "tag": "c:molten_cadmium"
+  },
+  "temperature": 294,
+  "time": 252
+}

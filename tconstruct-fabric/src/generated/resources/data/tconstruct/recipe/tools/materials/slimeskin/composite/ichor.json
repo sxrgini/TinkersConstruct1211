@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "amount": 250,
+    "name": "tconstruct:ichor"
+  },
+  "input": "tconstruct:leather",
+  "output": "tconstruct:ichorskin",
+  "temperature": 700
+}

@@ -1,0 +1,37 @@
+{
+  "type": "tconstruct:alloy",
+  "inputs": [
+    {
+      "amount": 90,
+      "tag": "c:molten_copper"
+    },
+    {
+      "amount": 90,
+      "tag": "c:molten_nickel"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/nickel"
+    },
+    {
+      "type": "mantle:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "allow_ingotless_alloys"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "c:ingots/constantan"
+        }
+      ]
+    }
+  ],
+  "result": {
+    "amount": 180,
+    "tag": "c:molten_constantan"
+  },
+  "temperature": 920
+}

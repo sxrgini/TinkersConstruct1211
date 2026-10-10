@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:material_melting",
+  "input": "tconstruct:invar",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:or",
+      "values": [
+        {
+          "type": "mantle:tag_filled",
+          "tag": "c:ingots/invar"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "c:ingots/nickel"
+        }
+      ]
+    }
+  ],
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_invar"
+  },
+  "temperature": 900
+}

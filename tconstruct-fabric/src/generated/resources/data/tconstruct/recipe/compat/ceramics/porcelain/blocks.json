@@ -1,0 +1,79 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "fabric:type": "fabric:any",
+    "ingredients": [
+      {
+        "tag": "ceramics:porcelain_block"
+      },
+      {
+        "tag": "ceramics:rainbow_porcelain"
+      },
+      {
+        "fabric:type": "fabric:any",
+        "ingredients": [
+          {
+            "fabric:type": "mantle:item_name",
+            "name": "ceramics:porcelain_bricks"
+          },
+          {
+            "fabric:type": "mantle:item_name",
+            "name": "ceramics:porcelain_bricks_stairs"
+          },
+          {
+            "fabric:type": "mantle:item_name",
+            "name": "ceramics:porcelain_bricks_wall"
+          },
+          {
+            "fabric:type": "mantle:item_name",
+            "name": "ceramics:monochrome_bricks"
+          },
+          {
+            "fabric:type": "mantle:item_name",
+            "name": "ceramics:monochrome_bricks_stairs"
+          },
+          {
+            "fabric:type": "mantle:item_name",
+            "name": "ceramics:monochrome_bricks_wall"
+          },
+          {
+            "fabric:type": "mantle:item_name",
+            "name": "ceramics:marine_bricks"
+          },
+          {
+            "fabric:type": "mantle:item_name",
+            "name": "ceramics:marine_bricks_stairs"
+          },
+          {
+            "fabric:type": "mantle:item_name",
+            "name": "ceramics:marine_bricks_wall"
+          },
+          {
+            "fabric:type": "mantle:item_name",
+            "name": "ceramics:rainbow_bricks"
+          },
+          {
+            "fabric:type": "mantle:item_name",
+            "name": "ceramics:rainbow_bricks_stairs"
+          },
+          {
+            "fabric:type": "mantle:item_name",
+            "name": "ceramics:rainbow_bricks_wall"
+          }
+        ]
+      }
+    ]
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:mod_loaded",
+      "modid": "ceramics"
+    }
+  ],
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:molten_porcelain"
+  },
+  "temperature": 700,
+  "time": 114
+}
