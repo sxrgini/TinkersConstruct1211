@@ -10,10 +10,10 @@ import java.util.Locale;
 
 /** Event to register client resource reload listeners, fired by the client initializer */
 public class RegisterClientReloadListenersEvent extends Event {
-  private int index = 0;
+  private static int index = 0;
 
   /** Registers the given listener, ids are generated in registration order so ordering is preserved */
   public void registerReloadListener(PreparableReloadListener listener) {
-    ClientReloadListeners.register(ResourceLocation.fromNamespaceAndPath(Mantle.modId, "client_wrapped/" + (index++) + "_" + listener.getClass().getSimpleName().toLowerCase(Locale.ROOT)), listener);
+    ClientReloadListeners.register(ResourceLocation.fromNamespaceAndPath(Mantle.modId, "client_wrapped/" + (index++) + "_" + listener.getClass().getSimpleName().toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9/._-]", "_")), listener);
   }
 }

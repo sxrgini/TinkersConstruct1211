@@ -57,7 +57,8 @@ public record ShieldBannerModifierSpriteSource(int cropX, int cropY, int cropWid
   @Internal
   public static SpriteSourceType register() {
     if (TYPE == null) {
-      TYPE = SpriteSources.register(TConstruct.getResource("shield_banner_to_modifier").toString(), CODEC);
+      TYPE = new SpriteSourceType(CODEC);
+      SpriteSources.TYPES.put(TConstruct.getResource("shield_banner_to_modifier"), TYPE);
     }
     return TYPE;
   }

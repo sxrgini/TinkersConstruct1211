@@ -13,7 +13,12 @@ public final class ClientRegistrationEvents {
   public static void fireAll(String namespace) {
     EventBus bus = EventBus.MOD_BUS;
     bus.post(new ModelEvent.RegisterGeometryLoaders(namespace));
-    bus.post(new ModelEvent.RegisterAdditional());
+    // fired every time models are loaded, so listeners can also reload data that models depend on
+    net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin.register(context -> {
+      ModelEvent.RegisterAdditional event = new ModelEvent.RegisterAdditional();
+      bus.post(event);
+      context.addModels(event.getModels());
+    });
     bus.post(new RegisterColorHandlersEvent.Block());
     bus.post(new RegisterColorHandlersEvent.Item());
     bus.post(new EntityRenderersEvent.RegisterRenderers());

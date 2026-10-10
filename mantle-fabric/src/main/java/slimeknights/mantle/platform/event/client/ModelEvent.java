@@ -24,8 +24,15 @@ public abstract class ModelEvent extends Event implements IModBusEvent {
 
   /** Registers additional models to bake that are not referenced by a block or item */
   public static class RegisterAdditional extends ModelEvent {
+    private final java.util.List<ResourceLocation> models = new java.util.ArrayList<>();
+
     public void register(ResourceLocation model) {
-      ModelLoadingPlugin.register(context -> context.addModels(model));
+      models.add(model);
+    }
+
+    /** Gets the models registered by listeners */
+    public java.util.List<ResourceLocation> getModels() {
+      return models;
     }
   }
 }

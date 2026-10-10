@@ -163,3 +163,4 @@ accessible field net/minecraft/core/MappedRegistry frozen Z
 mutable field net/minecraft/core/MappedRegistry frozen Z
 accessible field net/minecraft/core/MappedRegistry unregisteredIntrusiveHolders Ljava/util/Map;
 mutable field net/minecraft/core/MappedRegistry unregisteredIntrusiveHolders Ljava/util/Map;
+accessible field net/minecraft/client/renderer/texture/atlas/SpriteSources TYPES Lcom/google/common/collect/BiMap;
