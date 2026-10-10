@@ -51,8 +51,8 @@ public class FakeRegistryEntry {
   }
 
   /** Gets or creates a fake mob effect with the given ID */
-  public static MobEffect effect(ResourceLocation id) {
-    return getOrCreate(BuiltInRegistries.MOB_EFFECT, id, () -> new TinkerEffect(MobEffectCategory.NEUTRAL, false));
+  public static net.minecraft.core.Holder<MobEffect> effect(ResourceLocation id) {
+    return BuiltInRegistries.MOB_EFFECT.wrapAsHolder(getOrCreate(BuiltInRegistries.MOB_EFFECT, id, () -> new TinkerEffect(MobEffectCategory.NEUTRAL, false)));
   }
 
   /** Gets or creates a fake entity with the given ID */

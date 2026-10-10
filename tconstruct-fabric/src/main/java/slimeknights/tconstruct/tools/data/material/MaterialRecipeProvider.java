@@ -141,7 +141,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.necroticBone, Ingredient.of(TinkerTags.Items.WITHER_BONES), 1, 1, folder + "necrotic_bone");
     materialRecipe(consumer, MaterialIds.endstone, Ingredient.of(Tags.Items.END_STONES), 1, 1, folder + "endstone");
     // ammo
-    materialRecipe(consumer, MaterialIds.turtle,     Ingredient.of(Items.SCUTE),                 1, 1, folder + "turtle_scute");
+    materialRecipe(consumer, MaterialIds.turtle,     Ingredient.of(Items.TURTLE_SCUTE),                 1, 1, folder + "turtle_scute");
     materialRecipe(consumer, MaterialIds.nautilus,   Ingredient.of(Items.NAUTILUS_SHELL),        4, 1, folder + "nautilus_shell");
     materialRecipe(consumer, MaterialIds.earthslime, Ingredient.of(TinkerWorld.earthGeode),      1, 1, folder + "earthslime");
     materialRecipe(consumer, MaterialIds.skyslime,   Ingredient.of(TinkerWorld.skyGeode),        1, 1, folder + "skyslime");
@@ -402,7 +402,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
   private void venomCleaning(RecipeOutput consumer, MaterialVariantId input, String folder, String name) {
     MaterialFluidRecipeBuilder.material(MaterialIds.leather)
       .setInputId(input)
-      .setFluid(TinkerFluids.venom.ingredient(FluidValues.SIP))
+      .setFluid(TinkerFluids.venom.legacyIngredient(FluidValues.SIP))
       .setTemperature(getTemperature(TinkerFluids.venom))
       .setHideInBook(true)
       .save(consumer, location(folder + "composite/" + name));

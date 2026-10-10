@@ -52,6 +52,14 @@ public record EffectImmunityModule(MobEffect effect, LevelingInt maxLevel, Modif
     this(effect, ANY_LEVEL);
   }
 
+  public EffectImmunityModule(net.minecraft.core.Holder<MobEffect> effect, LevelingInt maxLevel) {
+    this(effect.value(), maxLevel);
+  }
+
+  public EffectImmunityModule(net.minecraft.core.Holder<MobEffect> effect) {
+    this(effect.value());
+  }
+
   public EffectImmunityModule(Supplier<? extends MobEffect> effect, LevelingInt maxLevel) {
     this(effect.get(), maxLevel);
   }

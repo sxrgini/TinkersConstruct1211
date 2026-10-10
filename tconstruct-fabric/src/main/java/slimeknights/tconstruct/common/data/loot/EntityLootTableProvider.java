@@ -33,7 +33,11 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.entity.ArmoredSlimeEntity;
 
 import javax.annotation.Nullable;
-import java.util.Map.Entry;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import net.minecraft.advancements.critereon.EntityFlagsPredicate;
+import net.minecraft.resources.ResourceKey;
 import java.util.stream.Stream;
 
 public class EntityLootTableProvider extends EntityLootSubProvider {
@@ -41,18 +45,27 @@ public class EntityLootTableProvider extends EntityLootSubProvider {
     super(FeatureFlags.REGISTRY.allFlags(), registries);
   }
 
+  /** Tables we generate, vanilla would otherwise demand tables for every registered entity */
+  private final Map<ResourceKey<LootTable>,LootTable.Builder> tables = new LinkedHashMap<>();
+
   @Override
-  protected Stream<EntityType<?>> getKnownEntityTypes() {
-    return BuiltInRegistries.ENTITY_TYPE.getEntries().stream()
-                                   // remove earth slime entity, we redirect to the vanilla loot table
-                                   .filter(entry -> TConstruct.MOD_ID.equals(entry.getKey().location().getNamespace()))
-                                   .map(Entry::getValue);
+  protected void add(EntityType<?> type, LootTable.Builder builder) {
+    add(type, type.getDefaultLootTable(), builder);
   }
 
   @Override
-  protected boolean canHaveLootTable(EntityType<?> type) {
-    return super.canHaveLootTable(type) || type == TinkerGadgets.armorStandEntity.get();
+  protected void add(EntityType<?> type, ResourceKey<LootTable> table, LootTable.Builder builder) {
+    tables.put(table, builder);
   }
+
+  @Override
+  public void generate(BiConsumer<ResourceKey<LootTable>,LootTable.Builder> consumer) {
+    generate();
+    tables.forEach(consumer);
+  }
+
+  private static final LootItemCondition.Builder ENTITY_ON_FIRE = LootItemEntityPropertyCondition.hasProperties(
+    LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(true)));
 
   @Override
   public void generate() {
@@ -64,7 +77,7 @@ public class EntityLootTableProvider extends EntityLootSubProvider {
                                                                    .add(LootItem.lootTableItem(Items.CLAY_BALL)
                                                                                           .apply(SetItemCountFunction.setCount(UniformGenerator.between(-2.0F, 1.0F)))
                                                                                           .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))
-                                                                                          .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE))))));
+                                                                                          .apply(SmeltItemFunction.smelted().when(ENTITY_ON_FIRE)))));
 
     LootItemCondition.Builder killedByFrog = killedByFrog();
     this.add(TinkerWorld.terracubeEntity.get(),
@@ -79,13 +92,13 @@ public class EntityLootTableProvider extends EntityLootSubProvider {
                                         .add(LootItem.lootTableItem(TinkerSmeltery.searedLamp)
                                                      .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
                                                      .when(killedByFrog))
-                                        .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE)))));
+                                        .apply(SmeltItemFunction.smelted().when(ENTITY_ON_FIRE))));
     // not really sure why armor stands have a loot table, but vanilla does it
     this.add(TinkerGadgets.armorStandEntity.get(), LootTable.lootTable());
   }
 
   /** Drops an item using the same chances as slimeballs */
-  private static LootPoolEntryContainer.Builder<?> slimeball(Item item) {
+  private LootPoolEntryContainer.Builder<?> slimeball(Item item) {
     return LootItem.lootTableItem(item)
       .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
       .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)));

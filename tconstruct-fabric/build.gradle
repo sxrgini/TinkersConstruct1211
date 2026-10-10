@@ -69,6 +69,9 @@ sourceSets.main.java {
     exclude 'slimeknights/tconstruct/common/data/AdvancementsProvider.java'
     exclude 'slimeknights/tconstruct/common/data/CountRequirementsStrategy.java'
     exclude 'slimeknights/tconstruct/common/data/ConfigurationDataProvider.java'
+    exclude 'slimeknights/tconstruct/fluids/data/FluidBucketModelProvider.java'
+    exclude 'slimeknights/tconstruct/fluids/data/FluidTextureProvider.java'
+    exclude 'slimeknights/tconstruct/tools/data/ArmorModelProvider.java'
 }
 
 java { withSourcesJar() }

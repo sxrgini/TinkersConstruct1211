@@ -511,11 +511,11 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(new VolatileFloatModule(ModifierEvents.EXPERIENCE, LevelingValue.eachLevel(0.5f)), ModifierHooks.VOLATILE_DATA, ModifierHooks.PROJECTILE_LAUNCH)
       .addModule(AttributeModule.builder(TinkerAttributes.EXPERIENCE_MULTIPLIER, Operation.ADD_MULTIPLIED_BASE).toolItem(ItemPredicate.tag(ARMOR)).eachLevel(0.25f));
     // lucky
-    EnchantmentModule CONSTANT_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(harvest).constant();
+    EnchantmentModule CONSTANT_FORTUNE = EnchantmentModule.builder(Enchantments.FORTUNE).toolItem(harvest).constant();
     StatBoostModule SEA_LUCK = StatBoostModule.add(ToolStats.SEA_LUCK).eachLevel(1);
     // applies to worn armor to keep off melting pans
     AttributeModule ARMOR_LUCK = AttributeModule.builder(Attributes.LUCK, Operation.ADD_VALUE).toolTag(WORN_ARMOR).eachLevel(1);
-    EnchantmentModule ARMOR_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(armor).armorHarvest(ARMOR_SLOTS);
+    EnchantmentModule ARMOR_FORTUNE = EnchantmentModule.builder(Enchantments.FORTUNE).toolItem(armor).armorHarvest(ARMOR_SLOTS);
     // note chestplates will have both modules, but will get ignored due to setting the looting slot
     // the air check on weapon looting is for projectiles which use an item of air in their tool context
     LootingModule WEAPON_LOOTING = LootingModule.builder().toolItem(ItemPredicate.or(ItemPredicate.set(Items.AIR), ItemPredicate.tag(MELEE))).weapon();
@@ -581,7 +581,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(RandomLevelingValue.flat(4)).time(RandomLevelingValue.random(20, 10)).target(baneSssssPredicate).buildWeapon(), ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT);
     buildModifier(ModifierIds.killager).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.or(
       LivingEntityPredicate.tag(EntityTypeTags.ILLAGER),
-      LivingEntityPredicate.LOADER.tag(TinkerTags.EntityTypes.KILLAGERS))).eachLevel(2.0f));
+      LivingEntityPredicate.tag(TinkerTags.EntityTypes.KILLAGERS))).eachLevel(2.0f));
     MobEffectModule.Builder pierceBuilder = MobEffectModule.builder(TinkerEffects.pierce).applyBeforeMelee(true)
       // apply effect for 4 seconds, canceling 1 armor per level
       .level(RandomLevelingValue.perLevel(0, 1)).time(RandomLevelingValue.flat(4 * 20))
@@ -637,7 +637,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.crystalshot).priority(50) // after bulk quiver
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(ModifierVariantColorModule.INSTANCE)
-      .addModule(new InfinityModule(new ItemStack(TinkerTools.crystalshotItem), CrystalshotItem.TAG_VARIANT,  4, true));
+      .addModule(new InfinityModule(new ItemStack(TinkerTools.crystalshotItem.get()), CrystalshotItem.TAG_VARIANT,  4, true));
     buildModifier(ModifierIds.barebow)
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new VolatileFlagModule(BowAmmoModifierHook.SKIP_INVENTORY_AMMO));
@@ -812,7 +812,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.featherFalling)
       .showInTooltips(ShowInTooltips.PARTS_ONLY).levelDisplay(new ModifierLevelDisplay.MapLevel(LevelingInt.eachLevel(2)))
       .addModule(new ModifierTraitModule(ModifierIds.featherFall, 2, false));
-    buildModifier(ModifierIds.featherFall).translationKey(ModifierIds.featherFalling)
+    buildModifier(ModifierIds.featherFall).translationKey(ModifierIds.featherFalling.location())
       .addModule(ProtectionModule.builder().source(DamageSourcePredicate.tag(TinkerTags.DamageTypes.FALL_PROTECTION))
         .toolContext(HasModifierPredicate.hasModifier(ModifierIds.longFall, 1).inverted()).eachLevel(3));
     buildModifier(ModifierIds.longFall)
@@ -1620,7 +1620,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       // make immune to fire by forcing fire time to 0 (that is, -105% fire tick time)
       .addModule(EnchantmentModule.builder(Enchantments.FIRE_PROTECTION).level(LevelingInt.flat(7)).protection())
       // also immune to conductive, this one is purely defensive
-      .addModule(new EffectImmunityModule(TinkerEffects.conductive, LevelingInt.LEVEL));
+      .addModule(new EffectImmunityModule(TinkerEffects.conductive.get(), LevelingInt.LEVEL));
     // bundles - adds 2 levels of ###, plus 1 when trimmed
     traitTwoPlusOne(ModifierIds.consecratedSkull, ModifierIds.consecrated);
     traitTwoPlusOne(ModifierIds.respirationSkull, ModifierIds.respiration);
@@ -1677,7 +1677,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(LootingModule.builder().level(LevelingInt.ONE).armor(ARMOR_SLOTS))
       .addModule(AttributeModule.builder(TinkerAttributes.EXPERIENCE_MULTIPLIER, Operation.ADD_MULTIPLIED_BASE).minLevel(2).flat(0.25f));
     buildModifier(ModifierIds.fortunate).levelDisplay(twoLevels)
-      .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).level(LevelingInt.ONE).toolItem(harvest).constant())
+      .addModule(EnchantmentModule.builder(Enchantments.FORTUNE).level(LevelingInt.ONE).toolItem(harvest).constant())
       .addModule(AttributeModule.builder(Attributes.LUCK, Operation.ADD_VALUE).toolTag(TinkerTags.Items.ARMOR).flat(1))
       .addModule(LootingModule.builder().minLevel(2).level(LevelingInt.ONE).armor(ARMOR_SLOTS));
     buildModifier(ModifierIds.entwined)
@@ -1751,7 +1751,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
   private void traitTwoPlusOne(ModifierId modifier, ModifierId trait) {
     buildModifier(modifier).showInTooltips(ShowInTooltips.PARTS_ONLY)
       // use the trait for name and description
-      .levelDisplay(new ModifierLevelDisplay.MapLevel(1, 1)).translationKey(trait)
+      .levelDisplay(new ModifierLevelDisplay.MapLevel(1, 1)).translationKey(trait.location())
       // add the trait once fixed and once leveling
       .addModule(new ModifierTraitModule(trait, 1, false))
       .addModule(new ModifierTraitModule(trait, 1, true));

@@ -15,7 +15,7 @@ public class AdvancementLootTableProvider implements LootTableSubProvider {
   public AdvancementLootTableProvider(net.minecraft.core.HolderLookup.Provider registries) {}
 
   @Override
-  public void generate(net.minecraft.core.HolderLookup.Provider registries, BiConsumer<net.minecraft.resources.ResourceKey<LootTable>, LootTable.Builder> consumer) {
+  public void generate(BiConsumer<net.minecraft.resources.ResourceKey<LootTable>, LootTable.Builder> consumer) {
     consumer.accept(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE, TConstruct.getResource("gameplay/starting_book")), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TinkerCommons.materialsAndYou))));
   }
 }

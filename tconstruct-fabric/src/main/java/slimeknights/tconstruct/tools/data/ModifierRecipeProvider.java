@@ -1623,7 +1623,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(ModifierIds.writable, slotlessFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.harmonious)
                          .setTools(TinkerTags.Items.BONUS_SLOTS)
-                         .addInput(ItemTags.MUSIC_DISCS)
+                         .addInput(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, ResourceLocation.withDefaultNamespace("music_discs")))
                          .setMaxLevel(1)
                          .save(consumer, prefix(ModifierIds.harmonious, slotlessFolder));
     Ingredient bonusNoSkull = DefaultCustomIngredients.difference(Ingredient.of(TinkerTags.Items.BONUS_SLOTS), Ingredient.of(TinkerTags.Items.SKULLS));
@@ -1715,7 +1715,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     PotionCastingRecipeBuilder.tableTipping(ModifierIds.tipped)
       .setBottle(TinkerTags.Items.AMMO)
       .setCoolingTime(20)
-      .setFluid(TinkerFluids.potion.ingredient(FluidValues.BOTTLE / 5))
+      .setFluid(TinkerFluids.potion.legacyIngredient(FluidValues.BOTTLE / 5))
       .save(consumer, location(slotlessFolder + "ammo_tipping"));
     PotionCastingRecipeBuilder.tableClearing(ModifierIds.tipped)
       .setBottle(TinkerTags.Items.AMMO)
@@ -1725,7 +1725,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     PotionCastingRecipeBuilder.tableTipping(ModifierIds.tipped)
       .setBottle(TinkerTags.Items.FISHING_RODS)
       .setCoolingTime(20)
-      .setFluid(TinkerFluids.potion.ingredient(FluidValues.BOTTLE))
+      .setFluid(TinkerFluids.potion.legacyIngredient(FluidValues.BOTTLE))
       .save(consumer, location(slotlessFolder + "fishing_rod_tipping"));
     PotionCastingRecipeBuilder.tableClearing(ModifierIds.tipped)
       .setBottle(TinkerTags.Items.FISHING_RODS)
@@ -1742,9 +1742,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .save(consumer, location(worktableFolder + "remove_modifier_sponge"));
     ModifierRemovalRecipeBuilder.removal()
       .addInput(DefaultCustomIngredients.any(
-        FluidContainerIngredient.fromFluid(TinkerFluids.venom),
-        FluidContainerIngredient.fromIngredient(TinkerFluids.venom.ingredient(FluidValues.BOTTLE), Ingredient.of(TinkerFluids.venomBottle)))
-      )
+        FluidContainerIngredient.fromFluid(TinkerFluids.venom).toVanilla(),
+        FluidContainerIngredient.forContainer(TinkerFluids.venom.ingredient(), FluidValues.BOTTLE, TinkerFluids.venomBottle.get()).toVanilla()
+      ))
       .modifierPredicate(removable)
       .save(consumer, location(worktableFolder + "remove_modifier_venom"));
     // modifier extracting: sponge + crystal
@@ -1802,11 +1802,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     IJsonPredicate<ModifierId> blacklist = ModifierPredicate.tag(TinkerTags.Modifiers.INVISIBLE_INK_BLACKLIST).inverted();
     ModifierSetWorktableRecipeBuilder.setAdding(hiddenModifiers)
                                      .modifierPredicate(blacklist)
-                                     .addInput(FluidContainerIngredient.fromIngredient(TinkerFluids.skySlime.ingredient(FluidValues.BOTTLE), Ingredient.of(TinkerFluids.slimeBottle.get(SlimeType.SKY))))
+                                     .addInput(FluidContainerIngredient.forContainer(TinkerFluids.skySlime.ingredient(), FluidValues.BOTTLE, TinkerFluids.slimeBottle.get(SlimeType.SKY)).toVanilla())
                                      .save(consumer, location(worktableFolder + "invisible_ink_adding"));
     ModifierSetWorktableRecipeBuilder.setRemoving(hiddenModifiers)
                                      .modifierPredicate(blacklist)
-                                     .addInput(FluidContainerIngredient.fromIngredient(FluidIngredient.of(Fluids.MILK, FluidType.BUCKET_VOLUME), Ingredient.of(Items.MILK_BUCKET)))
+                                     .addInput(FluidContainerIngredient.forContainer(slimeknights.mantle.platform.fluid.crafting.FluidIngredient.tag(Fluids.MILK), FluidType.BUCKET_VOLUME, Items.MILK_BUCKET).toVanilla())
                                      .save(consumer, location(worktableFolder + "invisible_ink_removing"));
 
     // swapping hands

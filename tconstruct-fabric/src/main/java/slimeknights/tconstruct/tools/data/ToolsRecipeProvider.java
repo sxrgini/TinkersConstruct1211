@@ -385,6 +385,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
           case CHESTPLATE -> TinkerToolParts.ribcage.get();
           case LEGGINGS -> TinkerToolParts.shell.get();
           case BOOTS -> TinkerToolParts.laces.get();
+          case BODY -> throw new IllegalStateException("Unsupported armor type");
         })
         // slime lacks a part so do repair kit
         .part(TinkerToolParts.repairKit)

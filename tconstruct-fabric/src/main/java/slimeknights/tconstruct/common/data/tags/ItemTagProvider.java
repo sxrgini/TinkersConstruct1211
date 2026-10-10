@@ -776,6 +776,7 @@ public class ItemTagProvider extends ItemTagsProvider {
       case LEGGINGS -> LEGGINGS;
       case CHESTPLATE -> CHESTPLATES;
       case HELMET -> HELMETS;
+      case BODY -> throw new IllegalArgumentException("Unsupported armor type");
     };
   }
 
@@ -785,6 +786,7 @@ public class ItemTagProvider extends ItemTagsProvider {
       case LEGGINGS -> Tags.Items.ARMORS_LEGGINGS;
       case CHESTPLATE -> Tags.Items.ARMORS_CHESTPLATES;
       case HELMET -> Tags.Items.ARMORS_HELMETS;
+      case BODY -> throw new IllegalArgumentException("Unsupported armor type");
     };
   }
 

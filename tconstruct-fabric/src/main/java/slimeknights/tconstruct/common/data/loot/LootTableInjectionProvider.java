@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.common.data.loot;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import java.util.concurrent.CompletableFuture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.level.material.Fluids;
@@ -36,13 +38,13 @@ import slimeknights.tconstruct.world.block.FoliageType;
 
 /** Add all relevant loot to loot tables */
 public class LootTableInjectionProvider extends AbstractLootTableInjectionProvider {
-  public LootTableInjectionProvider(PackOutput packOutput) {
-    super(packOutput, TConstruct.MOD_ID);
+  public LootTableInjectionProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries) {
+    super(packOutput, TConstruct.MOD_ID, registries);
   }
 
   @SuppressWarnings("removal")
   @Override
-  protected void addTables() {
+  protected void addTables(HolderLookup.Provider lookup) {
     // slimy foliage injections
     // earth/sky
     inject("slimy_foliage_dungeon", "chests/simple_dungeon", ConfigEnabledCondition.SLIMY_LOOT_CHESTS)

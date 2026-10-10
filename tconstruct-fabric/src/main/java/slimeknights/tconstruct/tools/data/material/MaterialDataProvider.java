@@ -160,16 +160,16 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
 
     // redirects
     // rose gold is most comparable to chain as you can use the extra slot for reinforced
-    material("chain").redirect(MaterialIds.roseGold);
+    material("chain").redirect(MaterialIds.roseGold.location());
     // bloodbone reworked into venombone
-    material("bloodbone").redirect(MaterialIds.venombone);
+    material("bloodbone").redirect(MaterialIds.venombone.location());
     // zombies now use leather instead of flesh for their skull
-    material("rotten_flesh").redirect(MaterialIds.leather);
-    material("platinum").redirect(MaterialIds.searedStone);
+    material("rotten_flesh").redirect(MaterialIds.leather.location());
+    material("platinum").redirect(MaterialIds.searedStone.location());
     material("tungsten")
       .redirect(MaterialIds.lead.location(), tagExistsCondition("ingots/lead"))
       .redirect(MaterialIds.invar.location(), new OrCondition(tagExistsCondition("ingots/invar"), tagExistsCondition("ingots/nickel")))
-      .redirect(MaterialIds.iron);
+      .redirect(MaterialIds.iron.location());
   }
 
   /** Makes a material under our mod ID */

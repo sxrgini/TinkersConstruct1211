@@ -43,6 +43,13 @@ public interface LivingEntityPredicate extends IJsonPredicate<LivingEntity> {
   IJsonPredicate<LivingEntity> FIRE_IMMUNE = LOADER.fallback(EntityPredicate.FIRE_IMMUNE);
   IJsonPredicate<LivingEntity> CAN_FREEZE = LOADER.fallback(EntityPredicate.CAN_FREEZE);
   IJsonPredicate<LivingEntity> ON_GROUND = LOADER.fallback(EntityPredicate.ON_GROUND);
+  IJsonPredicate<LivingEntity> ON_FIRE = LOADER.fallback(EntityPredicate.ON_FIRE);
+  IJsonPredicate<LivingEntity> CROUCHING = LOADER.fallback(EntityPredicate.CROUCHING);
+  IJsonPredicate<LivingEntity> SPRINTING = LOADER.fallback(EntityPredicate.SPRINTING);
+  IJsonPredicate<LivingEntity> EYES_IN_WATER = LOADER.fallback(EntityPredicate.EYES_IN_WATER);
+  IJsonPredicate<LivingEntity> FEET_IN_WATER = LOADER.fallback(EntityPredicate.FEET_IN_WATER);
+  IJsonPredicate<LivingEntity> UNDERWATER = LOADER.fallback(EntityPredicate.UNDERWATER);
+  IJsonPredicate<LivingEntity> RAINING = LOADER.fallback(EntityPredicate.RAINING);
 
 
   /** Creates a new predicate singleton */

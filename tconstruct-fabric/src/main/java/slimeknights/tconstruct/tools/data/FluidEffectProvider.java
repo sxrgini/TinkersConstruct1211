@@ -201,7 +201,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     addGem(TinkerFluids.moltenAmethyst).addBlockEffect(new HarvestTierPredicate(Tiers.STONE),     new BreakBlockFluidEffect(3));
     addGem(TinkerFluids.moltenQuartz  ).addBlockEffect(new HarvestTierPredicate(Tiers.IRON),      new BreakBlockFluidEffect(5));
     addGem(TinkerFluids.moltenEmerald ).addBlockEffect(new HarvestTierPredicate(Tiers.IRON),      new BreakBlockFluidEffect(10, Enchantments.SILK_TOUCH, 1));
-    addGem(TinkerFluids.moltenDiamond ).addBlockEffect(new HarvestTierPredicate(Tiers.DIAMOND),   new BreakBlockFluidEffect(10, Enchantments.BLOCK_FORTUNE, 3));
+    addGem(TinkerFluids.moltenDiamond ).addBlockEffect(new HarvestTierPredicate(Tiers.DIAMOND),   new BreakBlockFluidEffect(10, Enchantments.FORTUNE, 3));
     addMetal(TinkerFluids.moltenDebris).addBlockEffect(new HarvestTierPredicate(Tiers.NETHERITE), new BreakBlockFluidEffect(50));
 
     // foods - setup to give equivalent saturation on a full bowl/bottle to their food counterparts, though hunger may be slightly different
@@ -297,7 +297,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
       .addEntityEffects(FluidMobEffect.builder().effect(MobEffects.CONFUSION, 5 * 20, 1).buildEntity(TimeAction.ADD));
     {
       String ie = "immersiveengineering";
-      MobEffect flammable = FakeRegistryEntry.effect(ResourceLocation.fromNamespaceAndPath(ie, "flammable"));
+      net.minecraft.core.Holder<MobEffect> flammable = FakeRegistryEntry.effect(ResourceLocation.fromNamespaceAndPath(ie, "flammable"));
       compatFluid(ie, "creosote",  50)
         .addEffect(FluidMobEffect.builder().effect(flammable, 8 * 20, 1), TimeAction.ADD)
         .addEntityEffect(new FireFluidEffect(TimeAction.ADD, 8));
@@ -313,7 +313,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
       Block concreteSprayed = FakeRegistryEntry.block(ResourceLocation.fromNamespaceAndPath(ie, "concrete_sprayed"));
       AreaMobEffectFluidEffect concreteFeet = new AreaMobEffectFluidEffect(new FluidMobEffect(FakeRegistryEntry.effect(ResourceLocation.fromNamespaceAndPath(ie, "concrete_feet")), MobEffectInstance.INFINITE_DURATION, 1), TimeAction.SET, GroupCost.MAX);
       compatFluid(ie, "concrete", 100)
-        .addEntityEffect(new BlockAtEntityPredicate(BlockPredicate.CAN_BE_REPLACED, 0), new SetBlockFluidEffect(concreteSprayed))
+        .addEntityEffect(LivingEntityPredicate.fallback(new BlockAtEntityPredicate(BlockPredicate.CAN_BE_REPLACED, 0)), new SetBlockFluidEffect(concreteSprayed))
         .offsetBlockEffect(BlockPredicate.CAN_BE_REPLACED, new SetBlockFluidEffect(concreteSprayed))
         .addEntityEffect(concreteFeet).offsetBlockEffect(concreteFeet);
     }
