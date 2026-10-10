@@ -179,6 +179,7 @@ public final class TinkerCommons extends TinkerModule {
       BlockTagIngredient.TYPE.register(BlockTagIngredient.ID);
       InstrumentIngredient.TYPE.register(InstrumentIngredient.ID);
       ConditionRegistry.register(ConfigEnabledCondition.ID, ConfigEnabledCondition.CODEC);
+      ConditionRegistry.register(slimeknights.tconstruct.library.json.condition.TagNotEmptyCondition.ID, slimeknights.tconstruct.library.json.condition.TagNotEmptyCondition.CODEC);
       CriteriaTriggers.register(TConstruct.getResource("block_container_opened").toString(), CONTAINER_OPENED_TRIGGER);
 
       // mantle
