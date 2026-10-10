@@ -91,7 +91,7 @@ public final class TinkerCommons extends TinkerModule {
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabGeneral = CREATIVE_TABS.register(
     "general", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "general"))
                                     .icon(() -> new ItemStack(TinkerCommons.materialsAndYou.asItem()))
-                                    .displayItems(TinkerCommons::addTabItems)
+                                    .displayItems((params, output) -> TinkerCommons.addTabItems(params, slimeknights.tconstruct.common.registration.DedupingTabOutput.wrap(output)))
                                     .build());
 
   /*

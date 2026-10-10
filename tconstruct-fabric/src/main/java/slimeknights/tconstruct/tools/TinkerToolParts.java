@@ -55,7 +55,7 @@ public final class TinkerToolParts extends TinkerModule {
                                          }
                                          return TinkerToolParts.pickHead.get().withMaterialForDisplay(material);
                                        })
-                                       .displayItems(TinkerToolParts::addTabItems)
+                                       .displayItems((params, output) -> TinkerToolParts.addTabItems(params, slimeknights.tconstruct.common.registration.DedupingTabOutput.wrap(output)))
                                        .build());
 
   // repair kits

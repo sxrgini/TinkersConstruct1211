@@ -122,7 +122,7 @@ public final class TinkerWorld extends TinkerModule {
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabWorld = CREATIVE_TABS.register(
     "world", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "world"))
       .icon(() -> new ItemStack(TinkerWorld.cobaltOre))
-      .displayItems(TinkerWorld::addTabItems)
+      .displayItems((params, output) -> TinkerWorld.addTabItems(params, slimeknights.tconstruct.common.registration.DedupingTabOutput.wrap(output)))
       .build());
 
   /*

@@ -157,7 +157,7 @@ public final class TinkerTools extends TinkerModule {
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabTools = CREATIVE_TABS.register(
     "tools", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "tools"))
       .icon(() -> TinkerTools.pickaxe.get().getRenderTool())
-      .displayItems(TinkerTools::addTabItems)
+      .displayItems((params, output) -> TinkerTools.addTabItems(params, slimeknights.tconstruct.common.registration.DedupingTabOutput.wrap(output)))
       .build());
 
   /** Loot function type for tool add data */

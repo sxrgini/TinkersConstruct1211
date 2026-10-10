@@ -92,7 +92,7 @@ public final class TinkerFluids extends TinkerModule {
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabFluids = CREATIVE_TABS.register(
     "fluids", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "fluids"))
                                    .icon(() -> TankItem.fillTank(TinkerSmeltery.searedTank, TankType.FUEL_GAUGE, TinkerFluids.moltenCobalt.get()))
-                                   .displayItems(TinkerFluids::addFilledContainers)
+                                   .displayItems((params, output) -> TinkerFluids.addFilledContainers(params, slimeknights.tconstruct.common.registration.DedupingTabOutput.wrap(output)))
                                    .build());
 
   // basic

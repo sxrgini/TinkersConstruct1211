@@ -84,7 +84,7 @@ public final class TinkerTables extends TinkerModule {
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabTables = CREATIVE_TABS.register(
     "tables", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "tables"))
       .icon(() -> new ItemStack(TinkerTables.tinkersAnvil))
-      .displayItems(TinkerTables::addTableVariants)
+      .displayItems((params, output) -> TinkerTables.addTableVariants(params, slimeknights.tconstruct.common.registration.DedupingTabOutput.wrap(output)))
       .build());
   /*
    * Blocks

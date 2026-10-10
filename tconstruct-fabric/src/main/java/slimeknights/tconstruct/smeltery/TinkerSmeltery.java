@@ -148,7 +148,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tabSmeltery = CREATIVE_TABS.register(
     "smeltery", () -> FabricItemGroup.builder().title(TConstruct.makeTranslation("itemGroup", "smeltery"))
                                      .icon(() -> new ItemStack(TinkerSmeltery.smelteryController))
-                                     .displayItems(TinkerSmeltery::addTabItems)
+                                     .displayItems((params, output) -> TinkerSmeltery.addTabItems(params, slimeknights.tconstruct.common.registration.DedupingTabOutput.wrap(output)))
                                      .build());
 
   /* Bricks */
