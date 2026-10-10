@@ -134,7 +134,7 @@ public class Loadables {
   /** Loadable for vanilla direction values */
   public static final EnumLoadable<Direction> DIRECTION = new EnumLoadable<>(Direction.class);
   /** Loadable for display contexts values */
-  public static final EnumLoadable<ItemDisplayContext> ITEM_DISPLAY_CONTEXT = new EnumLoadable<>(ItemDisplayContext.class);
+  public static final slimeknights.mantle.data.loadable.primitive.StringLoadable<ItemDisplayContext> ITEM_DISPLAY_CONTEXT = slimeknights.mantle.data.loadable.primitive.ItemDisplayContextLoadable.INSTANCE;
 
 
   /* Helpers */

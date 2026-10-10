@@ -27,6 +27,6 @@ public class TinkerItemDisplays {
    * TODO: add an enum extension through a mixin plugin so models can use the custom transform keys
    */
   private static ItemDisplayContext create(String name, ItemDisplayContext fallback) {
-    return fallback;
+    return slimeknights.mantle.data.loadable.primitive.ItemDisplayContextLoadable.registerCustom(slimeknights.tconstruct.TConstruct.getResource(name).toString(), fallback);
   }
 }
