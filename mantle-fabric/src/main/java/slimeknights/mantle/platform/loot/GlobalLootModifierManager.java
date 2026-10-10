@@ -69,13 +69,16 @@ public class GlobalLootModifierManager extends SimpleJsonResourceReloadListener 
 
   @Override
   protected void apply(Map<ResourceLocation,JsonElement> files, ResourceManager manager, ProfilerFiller profiler) {
+    // registries are captured when the recipe manager is created, which happens before the listeners run
+    var registries = slimeknights.mantle.data.loadable.field.ContextKey.fallbackRegistries;
+    com.mojang.serialization.DynamicOps<JsonElement> ops = registries != null ? registries.createSerializationContext(JsonOps.INSTANCE) : JsonOps.INSTANCE;
     List<IGlobalLootModifier> loaded = new ArrayList<>();
     files.forEach((id, json) -> {
       // empty objects allow datapacks to remove modifiers
       if (json.isJsonObject() && json.getAsJsonObject().size() == 0) {
         return;
       }
-      IGlobalLootModifier.DIRECT_CODEC.parse(JsonOps.INSTANCE, json)
+      IGlobalLootModifier.DIRECT_CODEC.parse(ops, json)
         .ifSuccess(loaded::add)
         .ifError(error -> Mantle.logger.error("Failed to load loot modifier {}: {}", id, error.message()));
     });

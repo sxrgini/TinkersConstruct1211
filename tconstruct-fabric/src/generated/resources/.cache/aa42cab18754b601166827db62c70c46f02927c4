@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:58:30.074258038	Tinkers' Construct/Tinkers' Construct Smeltery Recipes
+// 1.21.1	2026-10-10T18:02:51.477881668	Tinkers' Construct/Tinkers' Construct Smeltery Recipes
 095b4a8fc78d7d6cd04ecab04ab58cb5dd9a23ab data/tconstruct/recipe/smeltery/melting/metal/zinc/geore/shard.json
 beeefb3f57deca0489a1a78848e3c0c3175bc3c0 data/tconstruct/recipe/smeltery/melting/metal/knightmetal/twilightforest_ring.json
 256e6c81ed48f759a8b48d7f6997adfe305c0886 data/tconstruct/recipe/smeltery/melting/metal/zinc/geore/bud_small.json
@@ -367,8 +367,8 @@ fb084857b75ec2f45069645c5a239e847c7e5ec6 data/tconstruct/recipe/smeltery/alloys/
 f8565f65cde2b3d600915860680072b7c918d81a data/tconstruct/recipe/smeltery/casting/slime/sky/slimeball.json
 ba6473d69200fcbfb26c8eeafaa44939a1a81144 data/tconstruct/recipe/smeltery/melting/metal/aluminum/ingot.json
 b9ef305833039b229aeb188b7a8307f7aff5d99e data/tconstruct/recipe/smeltery/melting/metal/tin/shovel.json
-ead5dede459bff64677ac89e9bed7ee25843cd50 data/tconstruct/recipe/smeltery/melting/scorched/grout.json
 ae082ca1bb8601df7a2d3bd47a307dc6c448667c data/tconstruct/advancement/recipes/redstone/smeltery/scorched/fluid_cannon.json
+ead5dede459bff64677ac89e9bed7ee25843cd50 data/tconstruct/recipe/smeltery/melting/scorched/grout.json
 067c2371059f4c8a9129a45f2762dd64e1882df4 data/tconstruct/recipe/smeltery/melting/metal/tungsten/raw_block.json
 a2608364a77afab9ae0e11e350243b7a2182632a data/tconstruct/recipe/smeltery/casting/metal/knightmetal/ingot_gold_cast.json
 bf3db9fbc6de2d5021e4daba23c04295f3d4124f data/tconstruct/recipe/smeltery/casting/metal/nickel/plate_sand_cast.json

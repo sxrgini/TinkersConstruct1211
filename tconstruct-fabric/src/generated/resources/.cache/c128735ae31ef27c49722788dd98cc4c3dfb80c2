@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:58:30.023347335	Tinkers' Construct/Tinkers Construct Item Tags
+// 1.21.1	2026-10-10T18:02:51.41680023	Tinkers' Construct/Tinkers Construct Item Tags
 0ff628d1bf12a238ba3e57fd8f549a9ff4c74ea8 data/tconstruct/tags/item/modifiable/melee/primary.json
 4c20b0b853465ad80788d0325871b4d4fac9e989 data/tconstruct/tags/item/melting/steel/tools_costing_4.json
 e11ed0b6a7871924f38af8fc5dd6c9cb70d4e018 data/tconstruct/tags/item/fireballs.json
@@ -50,8 +50,8 @@ e7bab24790a92f9f690fcb54c3b6ec5278083adb data/tconstruct/tags/item/melting/ironw
 70632b608060cbc8226a90df3a61d4338064134e data/tconstruct/tags/item/modifiable/melee.json
 f1c316cbd9ce4e83b186cef4b7b72a2c2bd2af4a data/tconstruct/tags/item/modifiable/special.json
 6237810fe4dbe605cbbbb94011c9004892a1bcc0 data/c/tags/item/glass_panes/lime.json
-398e772c9768e9281e1ea2d72600bdb44e9e8847 data/c/tags/item/ingots/steel.json
 6ff52070278cf2e6f3da2aa2864dc167aa6aed5f data/tconstruct/tags/item/casts/multi_use/small_blade.json
+398e772c9768e9281e1ea2d72600bdb44e9e8847 data/c/tags/item/ingots/steel.json
 b92951b2a0e8264e11fd4a9a3f9cc79c064dddf7 data/tconstruct/tags/item/slimy_planks.json
 2ef1eec99043ee1dc48a3dc672b71c64de00d201 data/tconstruct/tags/item/modifiable/book_armor/puny_smelting.json
 8746da256c3ec54fdeec02e32b51d4c949f23d14 data/tconstruct/tags/item/melting/invar/tools_costing_3.json
@@ -422,6 +422,6 @@ a775c185e6298e91782d9e22ab66eca0b3eac769 data/tconstruct/tags/item/modifiable/am
 3871ef4d4b97159a85fb02c03bf34f6149ecbe38 data/tconstruct/tags/item/modifiable/dyeable.json
 6b39612092f83b04ab42006e542cfef429b37038 data/c/tags/item/tools/shields.json
 992079939fd258a38b920e294a5bf5bc093a6a16 data/minecraft/tags/item/wooden_fences.json
-d9b7373c3bf40c22f2b451854810bf06f13f11b1 data/minecraft/tags/item/trim_materials.json
 ac57bde28a7f965893aa1c21c045ca45ce8c13ec data/c/tags/item/raw_nuggets/cobalt.json
+d9b7373c3bf40c22f2b451854810bf06f13f11b1 data/minecraft/tags/item/trim_materials.json
 3d14afc89c931c06dda6ff7c76bebfcc9e5280d4 data/tconstruct/tags/item/wood_variants/logs.json

@@ -53,6 +53,8 @@ public class MantleLoot {
   public static final DeferredHolder<LootItemConditionType,LootItemConditionType> BLOCK_TAG_CONDITION = LOOT_CONDITIONS.register("block_tag", BlockTagLootCondition.CODEC);
   /** Condition checking the tool can perform an ability */
   public static final DeferredHolder<LootItemConditionType,LootItemConditionType> CAN_TOOL_PERFORM_ACTION = LOOT_CONDITIONS.register("can_tool_perform_action", slimeknights.mantle.loot.condition.CanToolPerformAction.CODEC);
+  /** Condition checking the ID of the loot table */
+  public static final DeferredHolder<LootItemConditionType,LootItemConditionType> LOOT_TABLE_ID = LOOT_CONDITIONS.register("loot_table_id", slimeknights.mantle.loot.condition.LootTableIdCondition.CODEC);
   /** Condition for global loot modifiers that ensures a context set is present. Useful to check if we are in a specific context like entity. */
   public static final DeferredHolder<LootItemConditionType,LootItemConditionType> HAS_CONTEXT_SET = LOOT_CONDITIONS.register("has_context_set", HasLootContextSetCondition.CODEC);
 

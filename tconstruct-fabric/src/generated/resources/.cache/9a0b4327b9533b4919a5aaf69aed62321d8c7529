@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:58:30.043062258	Tinkers' Construct/Tinkers' Construct Modifier Tag Provider
+// 1.21.1	2026-10-10T18:02:51.449643809	Tinkers' Construct/Tinkers' Construct Modifier Tag Provider
 75c40bc364b0706bb6f509df35553340e9a41fd6 data/tconstruct/tinkering/tags/modifiers/extract_blacklist/slotless.json
 e112ecd1950e8a81bf43e6353d14818c913771b6 data/tconstruct/tinkering/tags/modifiers/abilities/armor.json
 5847b7952066d0f0256b0270110e605a34b7e40e data/tconstruct/tinkering/tags/modifiers/defense.json
@@ -17,8 +17,8 @@ bddc0fcf743fa7428c05bd230ae46a22ff9e124a data/tconstruct/tinkering/tags/modifier
 e148dd555823aad4a44151ec83911540bcc9d9ac data/tconstruct/tinkering/tags/modifiers/jei/melting.json
 de19e481259ed4fa9ccb78479b42ad78106162ab data/tconstruct/tinkering/tags/modifiers/upgrades/armor/chestplate.json
 1f347b2972c7bde3ab40e67950b2b8ccbb78e7ef data/tconstruct/tinkering/tags/modifiers/upgrades/armor/helmet.json
-342f71216addeb311148fb34f817c463e5fa53a8 data/tconstruct/tinkering/tags/modifiers/slotless/bonus.json
 76b0c110778346df085c3a81c8073a69740ef027 data/tconstruct/tinkering/tags/modifiers/slotless/cosmetic.json
+342f71216addeb311148fb34f817c463e5fa53a8 data/tconstruct/tinkering/tags/modifiers/slotless/bonus.json
 c61f396c0621753feaee9f55765a50c3bac566c8 data/tconstruct/tinkering/tags/modifiers/jei/smelting.json
 53133c5f75cadba84a631b3ff4a86b8cec560cfe data/tconstruct/tinkering/tags/modifiers/upgrades/ranged.json
 734e6ecbfbf608bacd36ba7e1638c604ac75e76b data/tconstruct/tinkering/tags/modifiers/abilities/ranged.json
@@ -52,9 +52,9 @@ ffec3d209b1bf5cf50b61764cf4812595cf37d3d data/tconstruct/tinkering/tags/modifier
 f9b8395de03c2cef78b7355e7422dbb3212136d0 data/tconstruct/tinkering/tags/modifiers/knockback_slings.json
 a0d27933ba7c157dbbe97619893676e897dd93e4 data/tconstruct/tinkering/tags/modifiers/abilities/general.json
 95f793b50a1b2392f425c3f7fbc978b5292e9f94 data/tconstruct/tinkering/tags/modifiers/aoe_interaction.json
+8bb064a00aac7cd811c3a446e897fc781749c675 data/tconstruct/tinkering/tags/modifiers/upgrades/armor/leggings.json
 8f594b50eeab24120d2564a577f6720661676ee5 data/tconstruct/tinkering/tags/modifiers/upgrades.json
 2a9fcc50e75d8b4c5e10a0d5d9ea50ced7e3da4f data/tconstruct/tinkering/tags/modifiers/dual_interaction.json
-8bb064a00aac7cd811c3a446e897fc781749c675 data/tconstruct/tinkering/tags/modifiers/upgrades/armor/leggings.json
 edad2d09fe56a4618390727fbd58ff898ea1bfd6 data/tconstruct/tinkering/tags/modifiers/abilities/armor/helmet.json
 f6ce3f0cbecb50a7f15c78bd685fc227b24321e3 data/tconstruct/tinkering/tags/modifiers/defense/protection.json
 19867a4c5fdb91cf8f07de3596179479ebc51e59 data/tconstruct/tinkering/tags/modifiers/upgrades/damage.json

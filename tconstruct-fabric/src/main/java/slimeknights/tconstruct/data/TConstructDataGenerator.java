@@ -16,6 +16,7 @@ import slimeknights.tconstruct.common.data.AdvancementsProvider;
 import slimeknights.tconstruct.common.data.ConfigurationDataProvider;
 import slimeknights.tconstruct.common.data.DamageTypeProvider;
 import slimeknights.tconstruct.common.data.advancement.FunctionProvider;
+import slimeknights.tconstruct.common.data.loot.GlobalLootModifiersProvider;
 import slimeknights.tconstruct.common.data.loot.LootTableInjectionProvider;
 import slimeknights.tconstruct.common.data.loot.TConstructLootTableProvider;
 import slimeknights.tconstruct.common.data.tags.BiomeTagProvider;
@@ -87,6 +88,7 @@ public class TConstructDataGenerator implements DataGeneratorEntrypoint {
     // loot and functions
     pack.addProvider(TConstructLootTableProvider::new);
     pack.addProvider((output, registries) -> new LootTableInjectionProvider(output, registries));
+    pack.addProvider((output, registries) -> new GlobalLootModifiersProvider(output, registries));
     pack.addProvider((output, registries) -> new FunctionProvider(output));
     pack.addProvider((output, registries) -> new AdvancementsProvider(output, registries));
     pack.addProvider((output, registries) -> new ConfigurationDataProvider(output));

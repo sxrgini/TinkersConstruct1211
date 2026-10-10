@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:58:30.036421527	Tinkers' Construct/Tags for minecraft:damage_type
+// 1.21.1	2026-10-10T18:02:51.442683935	Tinkers' Construct/Tags for minecraft:damage_type
 ef7bb17cbcb57dea2b6ee248e0a894bf19bc75da data/minecraft/tags/damage_type/bypasses_cooldown.json
 aeda9d4eb4299c45e34fc3b0a625f21e60e95463 data/tconstruct/tags/damage_type/is_melee.json
 97912931bbca34b895a77f80f958f018bda9d9b8 data/tconstruct/tags/damage_type/protection/magic.json
@@ -17,7 +17,7 @@ b653642cd08362d523d20abc3a1fb88f67e33404 data/tconstruct/tags/damage_type/protec
 aeb7c9dd1f11e5d89bbaad918cabaf057a9247c6 data/tconstruct/tags/damage_type/loot_modifier_whitelist.json
 7201b31c64e4f013bb6ad9ae571932eee829ee05 data/minecraft/tags/damage_type/bypasses_armor.json
 c3e4f803181fcea6d8cc1a9500508e626709bbb0 data/tconstruct/tags/damage_type/rugged/attacks.json
-f3e53c855df0e8d36c746e84c22ef06a1127f0fe data/tconstruct/tags/damage_type/modifier_whitelist.json
 5b4bea9cf71bdea9db4f9ed2fc3221bdc2137bfa data/tconstruct/tags/damage_type/protection/blast.json
+f3e53c855df0e8d36c746e84c22ef06a1127f0fe data/tconstruct/tags/damage_type/modifier_whitelist.json
 44f057fbfdeb887b5bc4412af461fddf88edf74d data/minecraft/tags/damage_type/is_fire.json
 08693ef76ff2d399dbf94e4cb1e5a099ff89341d data/minecraft/tags/damage_type/is_projectile.json

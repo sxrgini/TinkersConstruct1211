@@ -9,10 +9,20 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import slimeknights.mantle.platform.loot.GlobalLootModifierManager;
+import slimeknights.mantle.platform.loot.QueriedLootTable;
 
 /** Applies global loot modifiers to generated loot */
 @Mixin(LootTable.class)
 public class LootTableMixin {
+  @Inject(method = "getRandomItems(Lnet/minecraft/world/level/storage/loot/LootContext;)Lit/unimi/dsi/fastutil/objects/ObjectArrayList;", at = @At("HEAD"))
+  private void mantle$trackTableId(LootContext context, CallbackInfoReturnable<ObjectArrayList<ItemStack>> cir) {
+    QueriedLootTable queried = (QueriedLootTable) context;
+    // nested tables should not overwrite the ID of the table originally queried
+    if (queried.mantle$getQueriedLootTableId() == null) {
+      queried.mantle$setQueriedLootTableId(QueriedLootTable.Cache.find((LootTable) (Object) this, context));
+    }
+  }
+
   @Inject(method = "getRandomItems(Lnet/minecraft/world/level/storage/loot/LootContext;)Lit/unimi/dsi/fastutil/objects/ObjectArrayList;", at = @At("RETURN"), cancellable = true)
   private void mantle$applyGlobalModifiers(LootContext context, CallbackInfoReturnable<ObjectArrayList<ItemStack>> cir) {
     cir.setReturnValue(GlobalLootModifierManager.INSTANCE.modifyLoot(cir.getReturnValue(), context));

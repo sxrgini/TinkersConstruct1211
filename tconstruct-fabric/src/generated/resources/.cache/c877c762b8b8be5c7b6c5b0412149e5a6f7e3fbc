@@ -1,4 +1,4 @@
-// 1.21.1	2026-10-10T17:58:30.017451531	Tinkers' Construct/Tinkers' Construct Registry Entries
+// 1.21.1	2026-10-10T18:02:51.408880021	Tinkers' Construct/Tinkers' Construct Registry Entries
 4639a7c410a9a588b5701356bfc454eb0af4af5f data/tconstruct/damage_type/melee_thrown.json
 033249cc53481f2a353fac6cefdde65c1c694b1c data/tconstruct/trim_material/cobalt.json
 02c54dc5e9bad331f78f6e731114ef44f1b8982a data/tconstruct/worldgen/configured_feature/earth_slime_tree.json
@@ -58,8 +58,8 @@ a1867cef9c7bc25d9743b4c9e725031ae725a904 data/tconstruct/damage_type/melee_fishi
 c1e501799a81477b391d9c1bdc0a2a8acc73f56b data/tconstruct/damage_type/fluid_fire_melee.json
 f33277daf9858d6b0fc4547d6decd99441402382 data/tconstruct/worldgen/configured_feature/ichor_slime_fungus.json
 bb2c0bf9ff9b61cc49ffcafe7cdf6950c2702054 data/tconstruct/trim_material/knightslime.json
-2f2475c3c952c47ca56adcff4fa33b9b34c029c6 data/tconstruct/damage_type/entangled.json
 ae3fcfbd97694c26903f1e3f9c3228e22ec1f29c data/tconstruct/damage_type/smeltery_magic.json
+2f2475c3c952c47ca56adcff4fa33b9b34c029c6 data/tconstruct/damage_type/entangled.json
 19fb0fd97adb23c68881bb4c6f996b1839244b52 data/tconstruct/trim_material/earthslime.json
 9b9183d24a435e3f73c3dc10efb718e65db0acb2 data/tconstruct/worldgen/configured_feature/sky_slime_island_tree.json
 c1e501799a81477b391d9c1bdc0a2a8acc73f56b data/tconstruct/damage_type/fluid_fire_ranged.json

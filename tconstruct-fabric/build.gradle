@@ -64,7 +64,6 @@ sourceSets.main.java {
     exclude 'slimeknights/tconstruct/tools/data/client/**'
     exclude 'slimeknights/tconstruct/library/data/AbstractToolItemModelProvider.java'
     // providers still to be ported to Fabric, see docs/porting-gaps.md
-    exclude 'slimeknights/tconstruct/common/data/loot/GlobalLootModifiersProvider.java'
     exclude 'slimeknights/tconstruct/fluids/data/FluidBucketModelProvider.java'
     exclude 'slimeknights/tconstruct/fluids/data/FluidTextureProvider.java'
     exclude 'slimeknights/tconstruct/tools/data/ArmorModelProvider.java'
