@@ -19,6 +19,8 @@ The Fabric port consists of two separate Gradle projects, each with its own Grad
    ./gradlew runDatagen        # regenerates src/generated/resources
    ```
 
+Shortcut from the repository root: `build-fabric.bat` (Windows) or `./build-fabric.sh`, optionally with a TConstruct task such as `runClient`.
+
 Re-run `remapJar` in `mantle-fabric` after every change to Mantle.
 
 If Gradle picks the wrong JDK, set `JAVA_HOME` to a JDK 21 install, or run `./gradlew -Dorg.gradle.java.home=<path> ...`.
