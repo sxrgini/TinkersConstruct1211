@@ -88,6 +88,7 @@ public class ClientEvents {
     // standard models - useful in resource packs for any model
     GeometryLoaders.register(ConnectedModel.ID, ConnectedModel.LOADER);
     GeometryLoaders.register(MantleItemLayerModel.ID, MantleItemLayerModel.LOADER);
+    GeometryLoaders.register(ResourceLocation.fromNamespaceAndPath("forge", "composite"), slimeknights.mantle.platform.client.model.CompositeGeometry.LOADER);
     GeometryLoaders.register(ColoredBlockModel.ID, ColoredBlockModel.LOADER);
     GeometryLoaders.register(FallbackModelLoader.ID, FallbackModelLoader.INSTANCE);
     // NBT dynamic models - require specific data defined in the block/item to use
