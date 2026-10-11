@@ -128,6 +128,12 @@ public final class GeometryLoaders {
       this.context = new BlockGeometryBakingContext(this, name, root, hint);
     }
 
+    /** Custom geometry replaces the vanilla item generator, so never report the generation marker as root */
+    @Override
+    public BlockModel getRootModel() {
+      return this;
+    }
+
     @Override
     public void resolveParents(Function<ResourceLocation,UnbakedModel> getter) {
       super.resolveParents(getter);
