@@ -146,7 +146,7 @@ public class FluidDeferredRegister extends DeferredRegister<Fluid> {
 
     /** Registers a fluid with the given properties, using the texture fluid type */
     public Builder type(FluidType.Properties properties) {
-      return type(() -> new FluidType(properties));
+      return type(() -> new slimeknights.mantle.fluid.texture.TextureFluidType(properties));
     }
 
     /** Registers an inverted fluid type, a fluid type with a negative density such that it flows upwards */
