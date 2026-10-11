@@ -60,6 +60,40 @@ public final class GeometryLoaders {
     }
   }
 
+  /** Reads the JSON of a model, or null if missing or invalid */
+  @Nullable
+  private static JsonObject readModel(ResourceLocation id) {
+    Optional<Resource> resource = Minecraft.getInstance().getResourceManager().getResource(id.withPrefix("models/").withSuffix(".json"));
+    if (resource.isEmpty()) {
+      return null;
+    }
+    try (Reader reader = resource.get().openAsReader()) {
+      JsonElement element = GsonHelper.parse(reader);
+      return element.isJsonObject() ? element.getAsJsonObject() : null;
+    } catch (IOException | RuntimeException e) {
+      return null;
+    }
+  }
+
+  /** Walks up the parent chain looking for a model with a custom loader, stopping at vanilla models */
+  @Nullable
+  private static JsonObject findGeometryParent(JsonObject json) {
+    for (int depth = 0; depth < 16 && json.has("parent"); depth++) {
+      ResourceLocation parent = ResourceLocation.tryParse(GsonHelper.getAsString(json, "parent"));
+      if (parent == null || parent.getNamespace().equals("minecraft")) {
+        return null;
+      }
+      json = readModel(parent);
+      if (json == null) {
+        return null;
+      }
+      if (json.has("loader")) {
+        return json;
+      }
+    }
+    return null;
+  }
+
   @Nullable
   private static UnbakedModel resolve(ModelResolver.Context context) {
     ResourceLocation id = context.id();
@@ -67,24 +101,16 @@ public final class GeometryLoaders {
     if (id.getNamespace().equals("minecraft")) {
       return null;
     }
-    Optional<Resource> resource = Minecraft.getInstance().getResourceManager().getResource(id.withPrefix("models/").withSuffix(".json"));
-    if (resource.isEmpty()) {
+    JsonObject json = readModel(id);
+    if (json == null) {
       return null;
     }
-    JsonObject json;
-    try (Reader reader = resource.get().openAsReader()) {
-      JsonElement element = GsonHelper.parse(reader);
-      if (!element.isJsonObject()) {
-        return null;
-      }
-      json = element.getAsJsonObject();
-    } catch (IOException | RuntimeException e) {
+    // models without their own loader inherit the custom geometry of the closest parent that has one
+    JsonObject geometryJson = json.has("loader") ? json : findGeometryParent(json);
+    if (geometryJson == null) {
       return null;
     }
-    if (!json.has("loader")) {
-      return null;
-    }
-    ResourceLocation loaderId = ResourceLocation.parse(GsonHelper.getAsString(json, "loader"));
+    ResourceLocation loaderId = ResourceLocation.parse(GsonHelper.getAsString(geometryJson, "loader"));
     IGeometryLoader<?> loader = LOADERS.get(loaderId);
     if (loader == null) {
       return null;
@@ -92,9 +118,9 @@ public final class GeometryLoaders {
     try {
       BlockModel base = BlockModel.fromString(json.toString());
       base.name = id.toString();
-      IUnbakedGeometry<?> geometry = loader.read(json, CONTEXT);
-      Transformation root = json.has("transform") ? readTransform(json.get("transform")) : Transformation.identity();
-      ResourceLocation hint = json.has("render_type") ? ResourceLocation.parse(GsonHelper.getAsString(json, "render_type")) : null;
+      IUnbakedGeometry<?> geometry = loader.read(geometryJson, CONTEXT);
+      Transformation root = geometryJson.has("transform") ? readTransform(geometryJson.get("transform")) : Transformation.identity();
+      ResourceLocation hint = geometryJson.has("render_type") ? ResourceLocation.parse(GsonHelper.getAsString(geometryJson, "render_type")) : null;
       return new GeometryModel(base, geometry, id.toString(), root, hint);
     } catch (RuntimeException e) {
       Mantle.logger.error("Failed to load geometry model {}", id, e);
