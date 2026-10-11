@@ -64,7 +64,7 @@ public class CopperCanItem extends Item {
         FluidStack displayFluid = new FluidStack(fluid, FluidValues.INGOT, fluidTag);
         text = displayFluid.getHoverName().plainCopy();
       } else {
-        text = Component.translatable(FluidTypes.of(fluid).getDescriptionId());
+        text = Component.translatable(FluidTypes.getDescriptionId(fluid));
       }
       tooltip.add(Component.translatable(this.getDescriptionId() + ".contents", text).withStyle(ChatFormatting.GRAY));
       if (flag.isAdvanced()) {

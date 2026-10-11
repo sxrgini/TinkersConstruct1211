@@ -21,7 +21,7 @@ public abstract class RegisterColorHandlersEvent extends Event implements IModBu
   private static final net.minecraft.client.color.item.ItemColors ITEM_COLORS = new net.minecraft.client.color.item.ItemColors() {
     @Override
     public void register(ItemColor color, ItemLike... items) {
-      ColorProviderRegistry.ITEM.register(color, items);
+      ColorProviderRegistry.ITEM.register(opaque(color), items);
     }
   };
 
@@ -45,7 +45,15 @@ public abstract class RegisterColorHandlersEvent extends Event implements IModBu
   /** Registers item colors */
   public static class Item extends RegisterColorHandlersEvent {
     public void register(ItemColor color, ItemLike... items) {
-      ColorProviderRegistry.ITEM.register(color, items);
+      ColorProviderRegistry.ITEM.register(opaque(color), items);
     }
+  }
+
+  /** Item colors are ARGB since 1.21 and an alpha of 0 makes the item invisible, but handlers written for Forge return plain RGB */
+  private static ItemColor opaque(ItemColor color) {
+    return (stack, index) -> {
+      int value = color.getColor(stack, index);
+      return value != -1 && (value >>> 24) == 0 ? value | 0xFF000000 : value;
+    };
   }
 }

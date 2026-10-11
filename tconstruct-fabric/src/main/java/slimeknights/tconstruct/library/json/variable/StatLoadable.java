@@ -166,7 +166,7 @@ public enum StatLoadable implements Loadable<Stat<?>> {
       name = ((EntityType<?>) value).getDescription();
     // other useful registries - some mod might be using them
     } else if (registry == BuiltInRegistries.FLUID) {
-      name = Component.translatable(slimeknights.mantle.platform.fluid.FluidTypes.of((Fluid) value).getDescriptionId());
+      name = Component.translatable(slimeknights.mantle.platform.fluid.FluidTypes.getDescriptionId((Fluid) value));
     } else if (registry == BuiltInRegistries.MOB_EFFECT) {
       name = ((MobEffect) value).getDisplayName();
     } else {

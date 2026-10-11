@@ -256,7 +256,7 @@ public final class FluidStack implements net.minecraft.core.component.DataCompon
 
   /** Gets the display name of this fluid */
   public Component getDisplayName() {
-    return Component.translatable(FluidTypes.of(fluid).getDescriptionId());
+    return Component.translatable(FluidTypes.getDescriptionId(fluid));
   }
 
   /* Legacy NBT API, backed by the custom data component, used by code ported from 1.20 */

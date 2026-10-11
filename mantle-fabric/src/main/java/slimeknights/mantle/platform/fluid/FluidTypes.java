@@ -31,6 +31,15 @@ public final class FluidTypes {
 
   private FluidTypes() {}
 
+  /** Gets the translation key for the fluid, never null: uses the type's key if set, otherwise one derived from the fluid's registry name */
+  public static String getDescriptionId(Fluid fluid) {
+    String id = of(fluid).getDescriptionId();
+    if (id != null) {
+      return id;
+    }
+    return net.minecraft.Util.makeDescriptionId("fluid", net.minecraft.core.registries.BuiltInRegistries.FLUID.getKey(fluid));
+  }
+
   /** Gets the fluid type for the given fluid */
   public static FluidType of(Fluid fluid) {
     if (fluid instanceof FluidTypeProvider provider) {
