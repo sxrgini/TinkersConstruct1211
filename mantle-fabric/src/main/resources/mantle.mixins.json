@@ -24,7 +24,8 @@
     "ScreenEffectRendererMixin",
     "LivingEntityRendererMixin",
     "ClientPacketListenerMixin",
-    "SkullBlockRendererMixin"
+    "SkullBlockRendererMixin",
+    "ItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

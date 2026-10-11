@@ -5,6 +5,7 @@ import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockElement;
 import net.minecraft.client.renderer.block.model.BlockElementFace;
+import net.minecraft.client.renderer.block.model.BlockFaceUV;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemModelGenerator;
 import net.minecraft.client.renderer.texture.SpriteContents;
@@ -16,6 +17,8 @@ import net.minecraft.world.inventory.InventoryMenu;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.List;
 import java.util.function.Function;
 
@@ -54,11 +57,32 @@ public final class UnbakedGeometryHelper {
     return new ArrayList<>(ITEM_MODEL_GENERATOR.processFrames(layerIndex, "layer" + layerIndex, sprite));
   }
 
-  /** Creates the elements of an item layer without the front and back faces, so only the sides remain. Used for masking. */
+  /** Creates elements covering exactly the opaque pixels of the sprite, one front and back strip per run of pixels. Used for masking. */
   public static List<BlockElement> createUnbakedItemMaskElements(int layerIndex, SpriteContents sprite) {
-    List<BlockElement> elements = createUnbakedItemElements(layerIndex, sprite);
-    // the first element is the front and back face
-    elements.remove(0);
+    List<BlockElement> elements = new ArrayList<>();
+    int width = sprite.width();
+    int height = sprite.height();
+    float xScale = 16f / width;
+    float yScale = 16f / height;
+    String texture = "layer" + layerIndex;
+    for (int y = 0; y < height; y++) {
+      int x = 0;
+      while (x < width) {
+        if (sprite.isTransparent(0, x, y)) {
+          x++;
+          continue;
+        }
+        int start = x;
+        while (x < width && !sprite.isTransparent(0, x, y)) {
+          x++;
+        }
+        float[] uv = {start * xScale, y * yScale, x * xScale, (y + 1) * yScale};
+        Map<Direction,BlockElementFace> faces = new EnumMap<>(Direction.class);
+        faces.put(Direction.NORTH, new BlockElementFace(null, layerIndex, texture, new BlockFaceUV(uv.clone(), 0)));
+        faces.put(Direction.SOUTH, new BlockElementFace(null, layerIndex, texture, new BlockFaceUV(uv.clone(), 0)));
+        elements.add(new BlockElement(new Vector3f(start * xScale, 16 - (y + 1) * yScale, 7.5f), new Vector3f(x * xScale, 16 - y * yScale, 8.5f), faces, null, true));
+      }
+    }
     return elements;
   }
 
