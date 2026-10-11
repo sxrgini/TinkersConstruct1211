@@ -79,9 +79,15 @@ public class FluidType {
     return properties.canConvertToSource;
   }
 
-  /** Gets the translation key for the fluid, null if not set */
+  /** Gets the translation key for the fluid, defaulting to the key derived from the registry name */
   @Nullable
   public String getDescriptionId() {
+    if (properties.descriptionId == null) {
+      net.minecraft.resources.ResourceLocation id = FluidTypes.REGISTRY.getKey(this);
+      if (id != null) {
+        properties.descriptionId = net.minecraft.Util.makeDescriptionId("fluid_type", id);
+      }
+    }
     return properties.descriptionId;
   }
 
@@ -120,6 +126,14 @@ public class FluidType {
 
     public Properties descriptionId(String id) {
       this.descriptionId = id;
+      return this;
+    }
+
+    /** Sets the description ID only if none was set yet */
+    public Properties descriptionIdIfUnset(String id) {
+      if (this.descriptionId == null) {
+        this.descriptionId = id;
+      }
       return this;
     }
 
