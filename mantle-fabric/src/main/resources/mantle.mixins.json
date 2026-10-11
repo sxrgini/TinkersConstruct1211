@@ -25,7 +25,8 @@
     "LivingEntityRendererMixin",
     "ClientPacketListenerMixin",
     "SkullBlockRendererMixin",
-    "ItemRendererMixin"
+    "ItemRendererMixin",
+    "AbstractContainerMenuMixin"
   ],
   "injectors": {
     "defaultRequire": 1
