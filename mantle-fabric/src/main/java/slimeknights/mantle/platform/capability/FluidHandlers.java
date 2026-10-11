@@ -22,6 +22,14 @@ public final class FluidHandlers {
   /** Gets the fluid handler of a block, or null if there is none */
   @Nullable
   public static IFluidHandler getBlock(Level level, BlockPos pos, @Nullable Direction side) {
+    // block entities of mods written against Forge style capabilities provide their handler themselves
+    net.minecraft.world.level.block.entity.BlockEntity be = level.getBlockEntity(pos);
+    if (be != null) {
+      IFluidHandler handler = Caps.get(be, Capabilities.FLUID_HANDLER, side).orElse(null);
+      if (handler != null) {
+        return handler;
+      }
+    }
     Storage<FluidVariant> storage = FluidStorage.SIDED.find(level, pos, side);
     return storage == null ? null : new FluidStorageAdapter(storage);
   }

@@ -17,6 +17,14 @@ public final class ItemHandlers {
   /** Gets the item handler of a block, or null if there is none */
   @Nullable
   public static IItemHandler getBlock(Level level, BlockPos pos, @Nullable Direction side) {
+    // block entities of mods written against Forge style capabilities provide their handler themselves
+    net.minecraft.world.level.block.entity.BlockEntity be = level.getBlockEntity(pos);
+    if (be != null) {
+      IItemHandler handler = slimeknights.mantle.platform.capability.Caps.get(be, slimeknights.mantle.platform.capability.Capabilities.ITEM_HANDLER, side).orElse(null);
+      if (handler != null) {
+        return handler;
+      }
+    }
     Storage<ItemVariant> storage = ItemStorage.SIDED.find(level, pos, side);
     return storage == null ? null : new ItemStorageAdapter(storage);
   }

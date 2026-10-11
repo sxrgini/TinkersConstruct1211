@@ -164,6 +164,7 @@ public final class Caps {
   }
 
   /** Gets a capability from an item stack */
+  @SuppressWarnings("unchecked")
   public static <T> LazyOptional<T> get(ItemStack stack, Capability<T> cap) {
     if (stack.isEmpty()) {
       return LazyOptional.empty();
@@ -172,6 +173,13 @@ public final class Caps {
       LazyOptional<T> result = provider.getCapability(cap, null);
       if (result.isPresent()) {
         return result;
+      }
+    }
+    // vanilla and other Fabric mods provide fluid containers (buckets, bottles) through the Transfer API
+    if (cap == Capabilities.FLUID_HANDLER_ITEM) {
+      slimeknights.mantle.platform.fluid.IFluidHandlerItem handler = FluidHandlers.getItem(stack);
+      if (handler != null) {
+        return LazyOptional.of(() -> (T) handler);
       }
     }
     return LazyOptional.empty();
