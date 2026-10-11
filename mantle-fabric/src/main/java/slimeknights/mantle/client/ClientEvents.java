@@ -62,6 +62,7 @@ public class ClientEvents {
 
   /** Registers all client logic, called from {@link MantleClient} */
   static void init() {
+    ModelRenderTypes.init();
     // reload listeners
     ClientReloadListeners.register(Mantle.getResource("model_helper"), ModelHelper.LISTENER);
     ClientReloadListeners.register(Mantle.getResource("books"), new BookLoader());
