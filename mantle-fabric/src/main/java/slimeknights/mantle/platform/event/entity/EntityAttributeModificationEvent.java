@@ -25,6 +25,13 @@ public class EntityAttributeModificationEvent extends Event implements IModBusEv
   /** Pending additions by type, filled when the event is fired */
   private static final Map<EntityType<? extends LivingEntity>,Map<Holder<Attribute>,Double>> PENDING = new HashMap<>();
   private static boolean fired = false;
+  /** Set once all mods have finished initializing, other mods may fetch default attributes earlier than that */
+  private static volatile boolean ready = false;
+
+  /** Allows the event to fire, called once every mod has registered its listeners and entities */
+  public static void markReady() {
+    ready = true;
+  }
   /** Cache of modified suppliers so each type is only rebuilt once */
   private static final Map<EntityType<?>,AttributeSupplier> MODIFIED = new HashMap<>();
 
@@ -54,6 +61,9 @@ public class EntityAttributeModificationEvent extends Event implements IModBusEv
   /** Called by the mixin to apply additions to the supplier of the given type */
   public static AttributeSupplier modify(EntityType<?> type, AttributeSupplier base) {
     // fired on first use so every mod has registered its entities and default attributes by then
+    if (!ready) {
+      return base;
+    }
     if (!fired) {
       fired = true;
       slimeknights.mantle.platform.event.EventBus.MOD_BUS.post(new EntityAttributeModificationEvent());

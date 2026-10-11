@@ -93,6 +93,11 @@ public class Mantle implements ModInitializer {
     slimeknights.mantle.platform.event.server.OnDatapackSyncEvent.init();
     FabricEventBridge.init();
     slimeknights.mantle.recipe.RecipeSyncSanitizer.init();
+    // attribute additions need every mod's listeners, so wait until the game and servers are starting
+    net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STARTING.register(server -> slimeknights.mantle.platform.event.entity.EntityAttributeModificationEvent.markReady());
+    if (net.fabricmc.loader.api.FabricLoader.getInstance().getEnvironmentType() == net.fabricmc.api.EnvType.CLIENT) {
+      net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents.CLIENT_STARTED.register(client -> slimeknights.mantle.platform.event.entity.EntityAttributeModificationEvent.markReady());
+    }
 
     // setup
     MantleCommand.init();
