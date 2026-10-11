@@ -224,12 +224,18 @@ public class TextDataRenderer {
         curHeight += fr.lineHeight * scale;
 
         if (curHeight >= height) {
-          return s.substring(0, i).split("\r");
+          return splitLines(s.substring(0, i));
         }
       }
     }
 
-    return s.split("\r");
+    return splitLines(s);
+  }
+
+  /** Splits the text into lines, always returning at least one line as String#split drops trailing empty strings */
+  private static String[] splitLines(String s) {
+    String[] lines = s.split("\r");
+    return lines.length == 0 ? new String[] {""} : lines;
   }
 
   /** Gets the number of lines needed to render the given text */
